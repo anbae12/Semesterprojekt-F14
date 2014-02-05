@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  5 FEB 2014 20:38
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  5 FEB 2014 20:53
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -370,19 +370,6 @@ Now handling font encoding U ...
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
 ))
-(/usr/local/texlive/2012/texmf-dist/tex/generic/babel/babel.sty
-Package: babel 2008/07/08 v3.8m The Babel package
-
-(/usr/local/texlive/2012/texmf-dist/tex/generic/babel/danish.ldf
-Language: danish 2009/09/19 v1.3r Danish support from the babel system
-
-(/usr/local/texlive/2012/texmf-dist/tex/generic/babel/babel.def
-File: babel.def 2008/07/08 v3.8m Babel common definitions
-\babel@savecnt=\count100
-\U@D=\dimen114
-)
-Package babel Info: Making " an active character on input line 82.
-))
 (/usr/local/texlive/2012/texmf-dist/tex/latex/lastpage/lastpage.sty
 Package: lastpage 2011/09/01 v1.2k Refers to last page's name (HMM; JPG)
 )
@@ -400,17 +387,17 @@ Package ifvtex Info: VTeX not detected.
 (/usr/local/texlive/2012/texmf-dist/tex/generic/ifxetex/ifxetex.sty
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
-\Gm@cnth=\count101
-\Gm@cntv=\count102
-\c@Gm@tempcnt=\count103
-\Gm@bindingoffset=\dimen115
-\Gm@wd@mp=\dimen116
-\Gm@odd@mp=\dimen117
-\Gm@even@mp=\dimen118
-\Gm@layoutwidth=\dimen119
-\Gm@layoutheight=\dimen120
-\Gm@layouthoffset=\dimen121
-\Gm@layoutvoffset=\dimen122
+\Gm@cnth=\count100
+\Gm@cntv=\count101
+\c@Gm@tempcnt=\count102
+\Gm@bindingoffset=\dimen114
+\Gm@wd@mp=\dimen115
+\Gm@odd@mp=\dimen116
+\Gm@even@mp=\dimen117
+\Gm@layoutwidth=\dimen118
+\Gm@layoutheight=\dimen119
+\Gm@layouthoffset=\dimen120
+\Gm@layoutvoffset=\dimen121
 \Gm@dimlist=\toks22
 )
 (/usr/local/texlive/2012/texmf-dist/tex/latex/mh/mathtools.sty
@@ -418,30 +405,43 @@ Package: mathtools 2012/04/24 v1.12 mathematical typesetting tools
 
 (/usr/local/texlive/2012/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count104
-\calc@Bcount=\count105
-\calc@Adimen=\dimen123
-\calc@Bdimen=\dimen124
+\calc@Acount=\count103
+\calc@Bcount=\count104
+\calc@Adimen=\dimen122
+\calc@Bdimen=\dimen123
 \calc@Askip=\skip55
 \calc@Bskip=\skip56
 LaTeX Info: Redefining \setlength on input line 76.
 LaTeX Info: Redefining \addtolength on input line 77.
-\calc@Ccount=\count106
+\calc@Ccount=\count105
 \calc@Cskip=\skip57
 )
 (/usr/local/texlive/2012/texmf-dist/tex/latex/mh/mhsetup.sty
 Package: mhsetup 2010/01/21 v1.2a programming setup (MH)
 )
-\g_MT_multlinerow_int=\count107
-\l_MT_multwidth_dim=\dimen125
+\g_MT_multlinerow_int=\count106
+\l_MT_multwidth_dim=\dimen124
 \origjot=\skip58
-\l_MT_shortvdotswithinadjustabove_dim=\dimen126
-\l_MT_shortvdotswithinadjustbelow_dim=\dimen127
-\l_MT_above_intertext_dim=\dimen128
-\l_MT_below_intertext_dim=\dimen129
-\l_MT_above_shortintertext_dim=\dimen130
-\l_MT_below_shortintertext_dim=\dimen131
+\l_MT_shortvdotswithinadjustabove_dim=\dimen125
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen126
+\l_MT_above_intertext_dim=\dimen127
+\l_MT_below_intertext_dim=\dimen128
+\l_MT_above_shortintertext_dim=\dimen129
+\l_MT_below_shortintertext_dim=\dimen130
 )
+(/usr/local/texlive/2012/texmf-dist/tex/generic/babel/babel.sty
+Package: babel 2008/07/08 v3.8m The Babel package
+
+(/usr/local/texlive/2012/texmf-dist/tex/generic/babel/danish.ldf
+Language: danish 2009/09/19 v1.3r Danish support from the babel system
+
+(/usr/local/texlive/2012/texmf-dist/tex/generic/babel/babel.def
+File: babel.def 2008/07/08 v3.8m Babel common definitions
+\babel@savecnt=\count107
+\U@D=\dimen131
+)
+Package babel Info: Making " an active character on input line 82.
+))
 (/usr/local/texlive/2012/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
 
@@ -1967,15 +1967,15 @@ ics/forside.png>]) [2
 
 
 ]
+Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
+ine 6.
+ [1]
 (./content/ansvarsomraader.tex)
-Underfull \hbox (badness 10000) in paragraph at lines 19--6
+Underfull \hbox (badness 10000) in paragraph at lines 24--10
 
  []
 
-[3
-
-] [4
-
+[2
 
 ] (./content/indholdsfortegnelse.tex
 (/Users/Anders/Dropbox/Semesterprojekt F14 Rapport og kode/Rapport/.texpadtmp/m
@@ -1989,40 +1989,47 @@ aster_doc.lof)
 \tf@lof=\write6
 \openout6 = `master_doc.lof'.
 
-) [5
+
+(/Users/Anders/Dropbox/Semesterprojekt F14 Rapport og kode/Rapport/.texpadtmp/m
+aster_doc.lot)
+\tf@lot=\write7
+\openout7 = `master_doc.lot'.
+
+) [3
+
 
 ] (./content/forord.tex)pdfTeX warning (ext4): destination with the same identi
 fier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.17 
+l.20 
       [1
 
 ] (./content/indledning.tex)pdfTeX warning (ext4): destination with the same id
 entifier (name{page.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.17 
+l.20 
       [2
 
 ] 
 AED: lastpage setting LastPage
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 25.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 25.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 28.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 28.
 
 (/Users/Anders/Dropbox/Semesterprojekt F14 Rapport og kode/Rapport/.texpadtmp/m
 aster_doc.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 25.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 25.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 28.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 28.
 Package rerunfilecheck Info: File `master_doc.out' has not changed.
 (rerunfilecheck)             Checksum: <no file>.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 25.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 28.
  ) 
 Here is how much of TeX's memory you used:
- 41923 strings out of 493488
- 921812 string characters out of 3141326
- 1233925 words of memory out of 3000000
- 44433 multiletter control sequences out of 15000+200000
+ 41960 strings out of 493488
+ 922840 string characters out of 3141326
+ 1233931 words of memory out of 3000000
+ 44466 multiletter control sequences out of 15000+200000
  13582 words of font info for 52 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
  65i,11n,97p,672b,803s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -2034,10 +2041,10 @@ r/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/
 local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/loc
 al/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb>
 Output written on "/Users/Anders/Dropbox/Semesterprojekt F14 Rapport og kode/Ra
-pport/.texpadtmp/master_doc.pdf" (7 pages, 126394 bytes).
+pport/.texpadtmp/master_doc.pdf" (7 pages, 128103 bytes).
 PDF statistics:
- 86 PDF objects out of 1000 (max. 8388607)
- 67 compressed objects within 1 object stream
- 11 named destinations out of 1000 (max. 500000)
+ 88 PDF objects out of 1000 (max. 8388607)
+ 69 compressed objects within 1 object stream
+ 12 named destinations out of 1000 (max. 500000)
  34 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -6,7 +6,6 @@
 \usepackage{fancyhdr}
 \usepackage{graphicx}
 \usepackage[utf8]{inputenc} 
-\usepackage[danish]{babel}
 \usepackage{lastpage}
 \usepackage[margin=2.5cm]{geometry}
 \usepackage{mathtools}
@@ -53,14 +52,13 @@
   americaninductors,
   smartlabels]{circuitikz}
 
-% Antal lag i indholdsfortegenlse.
-%\usepackage[toc,lof,lot]{multitoc} %For multicolumn table of contents
-\setcounter{tocdepth}{3}
+
+\setcounter{tocdepth}{3} % Antal lag i indholdsfortegenlse.
 
 \AtBeginDocument{\addtocontents{toc}{\protect\thispagestyle{empty}}} 
 \AtBeginDocument{\addtocontents{lof}{\protect\thispagestyle{empty}}} 
 \AtBeginDocument{\addtocontents{lot}{\protect\thispagestyle{empty}}} 
-\pagestyle{empty}
+%\pagestyle{empty}
 
 % caption størrelse
 \captionsetup{font=footnotesize}
@@ -90,9 +88,11 @@
 \item[]}{\end{list}}
 
 \setcounter{secnumdepth}{5}
+
+
 %tegne figurer
 
-\usepackage{graphicx} % den skal bruges til MATLAB det skal hedde .eps
+\usepackage{graphicx} % den skal bruges til MATLAB figurer og formatet er: .eps
 \usepackage{mathtools}
 
 \usepackage{tikz-timing}
