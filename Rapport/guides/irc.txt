@@ -1,0 +1,8 @@
+Hent irssi fra irssi.org eller gennem package manager
+sudo apt-get install -y irssi
+kør irssi
+/set nick NICKNAME
+/NETWORK ADD -autosendcmd '/join #robtek' LarsServ
+/SERVER ADD -auto -network LarsServ banner-voigt.net
+
+derefter burde irssi starte op på banner-voigt.net i channel #robtek

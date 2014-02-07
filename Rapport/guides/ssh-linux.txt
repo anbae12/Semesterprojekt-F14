@@ -1,0 +1,20 @@
+cd ~/.ssh
+(hvis den ikke eksisterer lav den med)
+mkdir ~/.ssh && cd ~/.ssh
+ssh-keygen -t rsa -C "github-user@student.sdu.dk" 
+skriv navn på fil eg USER
+vælg kode
+ls
+der burde være en USER og en USER.pub
+ssh-add USER
+Hvis dette ikke virker (Could not open a connection to your authentication agent.)
+exec ssh-agent bash
+ssh-add USER
+
+
+cat USER.pub -> marker og ctrl+shift+C for at kopier i terminal
+gå til github og login på din bruger
+click på navn -> Edit your profile -> SSH keys -> add SSH key -> paste
+gå til den mappe hvor du vil gemme din git repo
+gå til github og find en box der hedder clone url og få ssh linket
+git clone git@github.com:anbae12/Semesterprojekt-F14.git
