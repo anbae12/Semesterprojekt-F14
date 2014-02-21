@@ -7,8 +7,8 @@
 \pagenumbering{Roman}
 \setcounter{page}{1}
 
-\include{./content/figurertabellerligninger} % Bruges til de forskellige formalia......
 
+\include{./content/templates} % Kan bruges til copy paste ind i rapport for forskellige outputs.....
 \include{./content/ansvarsomraader}
 \include{./content/indholdsfortegnelse}
 \pagestyle{fancy}
@@ -17,10 +17,10 @@
 \fancyfoot[LO,CE]{}
 \fancyfoot[CO,RE]{}
 
-%%%%%%%%% RAPPORTENS AFSNIT BEGYNDER!!!
-\include*{./content/forord}
+%%%%%%%%% RAPPORTENS KAPTILER BEGYNDER!!!
+\include{./content/forord}
 \include{./content/indledning}
-\include{./content/problemformulering}
+
 
 
 
