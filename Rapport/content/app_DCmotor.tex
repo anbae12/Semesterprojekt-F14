@@ -1,10 +1,56 @@
 \section{DC motoren}
+Dette appendix beskæftiger sig med bestemmelsen af motorparametrene.
+\subsection{DC Motor karakteristik}
+DC Motoren kan modelleres efter diagrammet på fig. \todo[inline]{kredsløbsdiagram skal indsættes}\todo[inline]{Kildehenvisning til DC motor model}.
+Ligningen for $V_m$ er givet ved ligning \ref{eq:Vm_transient0}.
+\begin{equation}
+	\label{eq:Vm_transient0} 
+	V_m(t)=L_m \cdot \frac{\mathrm d}{\mathrm d t} \big( i_m(t) \big)+R_m \cdot i_m(t) + V_{EMF}(t)
+ \end{equation}
+Den modelektromotoriske kraft, $V_{EMF}$ er givet ved ligning \ref{eq:VEMF}.
+\begin{equation}
+	\label{eq:VEMF}
+	V_{EMF}(t) = K_b \cdot \omega(t)
+\end{equation}
+Med ligning \ref{eq:VEMF} kan ligning \ref{eq:Vm_transient0} omskrives til ligning \ref{eq:Vm_transient1}.
+\begin{equation}
+	\label{eq:Vm_transient1} 
+	V_m(t)=L_m \cdot \frac{\mathrm d}{\mathrm d t} \big( i_m(t) \big)+R_m \cdot i_m(t) +K_b \cdot \omega(t)
+ \end{equation}
 
-\subsection{Motorparameter}
 \subsection{Eksperiment 1}
-\subsubsection{Fremgangsmåde og forsøgsopstilling}
+\subsubsection{Formål}
+Bestemmelse af motorens ækvivalente resistans, $R_m$.
+\subsubsection{Teori}
+Forhindres motoren i at rotere, vil vinkelhastigheden være nul.
+Hvis man påfører motoren en DC-spænding $V_m$,
+og venter til motorens respons har nået steady-state,
+så vil strømmen igennem motoren være konstant.
+Her vil ligning \ref{eq:Vm_transient1} kunne omskrives til ligning \ref{eq:resistans_E1}.
+\begin{equation}
+	\label{eq:resistans_E1} 
+	V_m=R_m \cdot i_m
+ \end{equation}
+Målinger af sammenhørende steady-state værdier for strøm $i_m$ og spænding $V_m$
+kan altså bruges til bestemmelse af den ækvivalente resistans $R_m$.
+\subsubsection{Fremgangsmåde}
+Motoren låses fast vha. en skiftenøgle og påføres en lav spænding.
+Efter nogle sekunder, når transientresponsen er væk,
+måles spændingen over og strømmen igennem motoren med multimetre.
+Værdierne noteres, og forsøget gentages ved andre spændinger.
+
+De anvendte multimetre er af typen TTi 1604.
+\subsubsection{Måleresultater}
+I tabel \ref{tb:resistans} findes målingerne af strøm og spænding.
+\begin{figure}[th!]
+	\label{tb:resistans}
+	\centering
+	\input{content/tb_resistans.tex}
+	\captionsetup{type=table}
+	\caption[Strøm-spændingskarakteristik for rotationslåst DC-motor ved steady-state]{Strøm-spændingskarakteristik for rotationslåst DC-motor ved steady-state.}
+\end{figure}
 \subsubsection{Databehandling}
-Jeg tænker diskussionen kan ligge under databehandlingen. 
+\todo[inline]{Dataplot med tendenslinje.\\Værdi for $R_m$.\\Diskussion.}
 \subsubsection{Konklusion}
 
 \subsection{Eksperiment 2}
