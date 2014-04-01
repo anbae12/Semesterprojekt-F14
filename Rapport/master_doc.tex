@@ -20,6 +20,7 @@
 %%%%%%%%% RAPPORTENS KAPTILER BEGYNDER!!!
 \include{./content/forord}
 \include{./content/indledning}
+\include{./content/problemformulering}
 %%%%%%%%%%%% PART 1 %%%%%%%%%%%%
 
 %%%%%%%%%%%% PART 2 %%%%%%%%%%%%
@@ -30,15 +31,19 @@
 
 
 %%%%%%%%%%%% Litteratur %%%%%%%%%%%%
-\include{./content/litteratur}
+
+
+\bibliography{litteraturliste}
+
 %%%%%%%%%%%% Appendix %%%%%%%%%%%%
+\newpage
 \appendices
-\include{./content/app_DCmotor}
+\input{./content/app_DCmotor}
 \include{./content/app_panandtiltparameter}
 
 
 %%%%%%%%%%%% Bilag %%%%%%%%%%%%
-\include{./content/bilag}
+\input{./content/bilag}
 
 
 
