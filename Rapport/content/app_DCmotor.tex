@@ -4,18 +4,18 @@ Dette appendix beskæftiger sig med bestemmelsen af motorparametrene.
 DC Motoren kan modelleres efter diagrammet på fig. \todo[inline]{kredsløbsdiagram skal indsættes}\todo[inline]{Kildehenvisning til DC motor model}.
 Ligningen for $V_m$ er givet ved ligning \ref{eq:Vm_transient0}.
 \begin{equation}
-	\label{eq:Vm_transient0} 
 	V_m(t)=L_m \cdot \frac{\mathrm d}{\mathrm d t} \big( i_m(t) \big)+R_m \cdot i_m(t) + V_{EMF}(t)
+	\label{eq:Vm_transient0} 
  \end{equation}
 Den modelektromotoriske kraft, $V_{EMF}$ er givet ved ligning \ref{eq:VEMF}.
 \begin{equation}
-	\label{eq:VEMF}
 	V_{EMF}(t) = K_b \cdot \omega(t)
+	\label{eq:VEMF}
 \end{equation}
 Med ligning \ref{eq:VEMF} kan ligning \ref{eq:Vm_transient0} omskrives til ligning \ref{eq:Vm_transient1}.
 \begin{equation}
-	\label{eq:Vm_transient1} 
 	V_m(t)=L_m \cdot \frac{\mathrm d}{\mathrm d t} \big( i_m(t) \big)+R_m \cdot i_m(t) +K_b \cdot \omega(t)
+	\label{eq:Vm_transient1} 
  \end{equation}
 
 \subsection{Eksperiment 1}
@@ -28,8 +28,8 @@ og venter til motorens respons har nået steady-state,
 så vil strømmen igennem motoren være konstant.
 Her vil ligning \ref{eq:Vm_transient1} kunne omskrives til ligning \ref{eq:resistans_E1}.
 \begin{equation}
-	\label{eq:resistans_E1} 
 	V_m=R_m \cdot i_m
+	\label{eq:resistans_E1} 
  \end{equation}
 Målinger af sammenhørende steady-state værdier for strøm $i_m$ og spænding $V_m$
 kan altså bruges til bestemmelse af den ækvivalente resistans $R_m$.
@@ -43,16 +43,34 @@ De anvendte multimetre er af typen TTi 1604.
 \subsubsection{Måleresultater}
 I tabel \ref{tb:resistans} findes målingerne af strøm og spænding.
 \begin{figure}[th!]
-	\label{tb:resistans}
 	\centering
 	\input{content/tb_resistans.tex}
 	\captionsetup{type=table}
-	\caption[Strøm-spændingskarakteristik for rotationslåst DC-motor ved steady-state]{Strøm-spændingskarakteristik for rotationslåst DC-motor ved steady-state.}
+	\caption[Sammenhørende værdier af DC spænding og strøm]
+			{Sammenhørende værdier af DC spænding over og strøm gennem rotationslåst motor.}
+	\label{tb:resistans}
 \end{figure}
 \subsubsection{Databehandling}
-\todo[inline]{Dataplot med tendenslinje.\\Værdi for $R_m$.\\Diskussion.}
-\subsubsection{Konklusion}
+Den målte strøm-spændingskarakteristik for DC-motoren er indtegnet på figur \ref{fig:resistans0}.
+\begin{figure}[th!]
+	\centering
+	\includegraphics[width=1\textwidth]{./graphics/resistans1.eps}
+	\caption[Strøm-spændingskarakteristik for rotationslåst DC-motor]{Strøm-spændingskarakteristik for rotationslåst DC-motor ved steady-state.}
+	\label{fig:resistans0}
+\end{figure}
+Som det ses på figur \ref{fig:resistans0} er sammenhængen mellem strøm og spænding
+tilnærmelsesvis lineær, og en lineær regression på dataene vil altså give en tilnærmet værdi for $R_m$.
+$R_m$ er ved lineær regression beregnet til 5,21 $\Omega$.\todo{Flere decimaler?}
 
+Den i forsøget mindste afsatte effekt i motoren er 48 mW.
+\subsubsection{Diskussion}
+Da sammenhængen mellem strøm og spænding i målingerne er tilnærmelsesvis lineær,
+vurderes den fundne værdi for $R_m$ at være meget nøjagtig,
+om ikke andet, så for effektafsættelser i motoren på mindst 48 mW.
+\subsubsection{Konklusion}
+Motorens ækvivalente resistans, $R_m$ er vha. sammenhørende målinger af strøm og spænding
+for en rotationslåst motor, ved effektafsættelser på 48 mW og højere,
+blevet bestemt til 5,21 $\Omega$.\todo{Flere decimaler?}
 \subsection{Eksperiment 2}
 \subsubsection{Fremgangsmåde og forsøgsopstilling}
 \subsubsection{Databehandling}
