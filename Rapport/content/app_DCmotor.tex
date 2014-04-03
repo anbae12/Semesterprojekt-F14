@@ -39,7 +39,6 @@ Motoren låses fast vha. en skiftenøgle og påføres en lav spænding.
 Efter nogle sekunder, når transientresponsen er væk,
 måles spændingen over og strømmen igennem motoren med multimetre.
 Værdierne noteres, og forsøget gentages ved andre spændinger.
-
 De anvendte multimetre er af typen TTi 1604.
 \subsubsection{Måleresultater}
 I tabel \ref{tb:resistans} findes målingerne af strøm og spænding.
@@ -97,11 +96,50 @@ tidsforskellen mellem to niveauer V0 og V1, hvor V1 er ca. 36,8 \% af V0.
 
 Ved omskrivning af ligning \ref{eq:rltimeconstant} kan induktansen altså bestemmes vha. ligning \ref{eq:induktans0}.
 \begin{equation}
-	L_m=\tau\cdot(R_m+R_s)
+	L_m=\tau\cdot\left(R_m+R_s\right)
 	\label{eq:induktans0} 
  \end{equation}
 \paragraph{Metode 2}
-...
+Forhindres motoren i at rotere, vil vinkelhastigheden som beskrevet i afsnit \ref{ss:eksperiment1} være nul.
+Ved denne metode er vi interesseret i systemets steady-state respons.
+Forbindes en modstand $R_{s1}$ i serie med DC-motoren som vist på fig. %ref{fig:e2_rl2}
+\todo[inline]{Indsæt kredsløbsdiagram med Rs1 og AC-forsyning med DC offset}
+vil impedansen $\mathbf{Z_m}$ af DC-motoren være givet ved ligning \ref{eq:zm_0}.
+\begin{equation}
+	\mathbf{Z_m}=R_{s1}\cdot\frac{\mathbf{V_1}-\mathbf{V_2}}{\mathbf{V_2}}
+			=R_{s1}\cdot\left(\frac{\mathbf{V_1}}{\mathbf{V_2}}-1\right)
+			=R_{s1}\cdot\left(\frac{A_1}{A_2}\cdot{e}^{\phi}-1\right)
+	\label{eq:zm_0} 
+ \end{equation}
+Bemærk at spændingsfaldene noteres med fed skrift for at indikere at her er tale om phasors (komplekse tal),
+at $A_1$ og $A_2$ angiver amplituderne af $\mathbf{V_1}$ og $\mathbf{V_2}$,
+samt at $\phi=\phi_1-\phi_2$ angiver faseforskellen mellem de to signaler.
+Denne faseforskel kan også udtrykkes ved tidsforsinkelsen $\Delta{t}$ ganget med vinkelfrekvensen $\omega$.
+Ligning \ref{eq:zm_1} angiver impedansen på rektangulær form.
+\begin{equation}
+	\mathbf{Z_m}=R_{s1}\cdot\left(\frac{A_1}{A_2}\cdot{\cos (\phi)}-1\right)	%Realdel
+	+\mathbf{j}\cdot{R_{s1}}\cdot\frac{A_1}{A_2}\cdot\sin(\phi)	%Imaginærdel
+	\label{eq:zm_1} 
+ \end{equation}
+Samtidig vides det, at den rotationslåse motors impedans består af resistansen $R_m$ samt
+reaktansen $X_m$, hvor $X_m$ er reaktansen for en spole, altså $\omega\cdot{L_m}$.
+Motorens impedans kan altså også beskrives ved ligning \ref{eq:zm_2}, hvor $\mathbf{j}$ er den imaginære enhed.
+\begin{equation}
+	\mathbf{Z_m}=R_m+\mathbf{j}\cdot\omega\cdot{L_m}
+	\label{eq:zm_2} 
+ \end{equation}
+Sættes ligningerne \ref{eq:zm_1} og \ref{eq:zm_2} lig med hinanden
+kan man altså udtrykke resistansen $R_m$ og induktansen $L_m$ som funktioner
+af faseforskellen på $\mathbf{V_1}$ og $\mathbf{V_2}$,
+hvilket giver ligningerne \ref{eq:Rm_0} og \ref{eq:Lm_0}.
+\begin{equation}
+	\mathbf{R_m}=R_{s1}\cdot\left(\frac{A_1}{A_2}\cdot{\cos (\phi)}-1\right)
+	\label{eq:Rm_0} 
+ \end{equation}
+\begin{equation}
+	\mathbf{L_m}=R_{s1}\cdot\frac{A_1}{A_2}\cdot\sin(\phi)
+	\label{eq:Lm_0} 
+ \end{equation}
 \subsubsection{Fremgangsmåde}
 \paragraph{Metode 1}
 En modstand $R_s$ måles efter med et multimeter og fobindes i serie med DC-motoren
@@ -111,6 +149,7 @@ Kredsløbet bestående af DC-motoren og $R_s$ påføres en kendt spænding.
 Strømmen gennem kredsløbet afbrydes på strømforsyningen og spændingsfaldet
 over $R_s$ måles med et oscilloskop.
 Dataene eksporteres og tidskonstanten bestemmes herudfra.
+Forsøget gentages.
 
 Det anvendte multimeter er af typen TTi 1604,
 og oscilloskopet er af typen \todo{Oscilloskop?}.
@@ -124,12 +163,19 @@ sammen med de to spændingsniveauer, hvorudfra tidskonstanten bestemmes.
 \begin{figure}[th!]
 	\centering
 	\includegraphics[width=1\textwidth]{./graphics/induktans0.eps}
-	\caption[...]{...}
+	\caption[Transientrespons for låst motor]
+		{Transientrespons for låst motor. De to vandrette røde linjer angiver spændingsniveauerne til bestemmelse af tidskonstanten.
+		Den øverste linje er ved 4 V, mens den nederste linje er ved 4 V $\cdot \frac{1}{e}$.}
 	\label{fig:induktans0}
 \end{figure}
-
+Figur \ref{fig:induktans0} viser flere målingers transientrespons.
 \paragraph{Metode 2}
 \subsubsection{Databehandling}
+\paragraph{Metode 1}
+For hver måling af transientresponsen, vist i figur \ref{fig:induktans0} er induktansen blevet
+bestemt ved brug af ligning \ref{eq:induktans0}.
+Gennemsnitsinduktansen er ved denne metode blevet fundet til $L_m=0.395$ H.
+\paragraph{Metode 2}
 \subsubsection{Diskussion}
 \subsubsection{Konklusion}
 
