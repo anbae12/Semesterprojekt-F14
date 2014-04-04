@@ -311,7 +311,54 @@ Den viskøse friktionskonstant $B$ er blevet funder til 0,00319 N m s.
 Alle konstanterne er blevet fundet vha. værdien af $R_m$ fra afsnit \ref{ss:eksperiment1}.
 \subsection{Eksperiment 4}
 \subsubsection{Formål}
+Bestemmelse af rotorens inertimoment $J_m$.
 \subsubsection{Teori}
+Hvis der ikke løber strøm igennem motoren,
+kan ligning \ref{eq:Vm_transient1} omskrives til ligning \ref{eq:Vm_nocurrent}.
+\begin{equation}
+	V_m(t)=K_b\cdot\omega(t)
+	\label{eq:Vm_nocurrent}
+ \end{equation}
+
+I dette forsøg fastgøres en masse til rotoren med en snor.
+Massen lades falde til jorden med tyngdeaccelerationen.
+Rotoren vil accelerere med vinkelaccelerationen $\alpha_{op}$.
+Jf. Newtons 2. lov vil det resulterende kraftmoment være givet ved ligning \ref{eq:Tres}.
+\begin{equation}
+	T_{res}=J_m\cdot\alpha_{op}
+	\label{eq:Tres0}
+ \end{equation}
+Dette kraftmoment kan også udtrykkes som kraftmomentet på rotoren fra snoren, $T_op$,
+fratrukket friktionskraftmomentet $T_f$, som udtrykt i ligning \ref{eq:Tres1}.
+\begin{equation}
+	T_{res}=T_{op}-\|T_f\|
+	\label{eq:Tres1}
+ \end{equation}
+Bemærk at $T_f$ er hele friktionskraftmomentet, inkl. Coulomb-friktion.
+Kraftmomentet $T_op$ kan udtrykkes som rotorens radius $r$ ganget med snorkraften, $F_snor$,
+som udtrykt i liginng \ref{eq:Top0}.
+\begin{equation}
+	T_{op}=r\cdot{F_{snor}}
+	\label{eq:Top0}
+ \end{equation}
+Snorkraften kan udtrykkes ved tyngdekraften på massen samt den lineære acceleration af massen, $a$,
+som udtrykt i ligning \ref{eq:Fsnor0}, hvor a kan udtrykkes ved $\alpha_{op}$ som i ligning \ref{eq:a}.
+\begin{equation}
+	F_{snor}=m\cdot(g-a)
+	\label{eq:Fsnor0}
+ \end{equation}
+\begin{equation}
+	a=r\cdot\alpha_{op}
+	\label{eq:a}
+ \end{equation}
+
+Når rotoren har opnået en given vinkelhastighed, og snorkraften stopper,
+vil rotoren decelerere med en vinkelacceleration $\alpha_{ned}$, som skyldes friktionskraftmomentet,
+jf. ligning \ref{eq:Tf0}.
+\begin{equation}
+	\|T_f\|=J_m\|\alpha{ned}\|
+	\label{eq:Tf0}
+ \end{equation}
 \subsubsection{Fremgangsmåde}
 \subsubsection{Måleresultater}
 \subsubsection{Databehandling}
