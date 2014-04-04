@@ -18,6 +18,22 @@ Med ligning \ref{eq:VEMF} kan ligning \ref{eq:Vm_transient0} omskrives til ligni
 	\label{eq:Vm_transient1} 
  \end{equation}
 
+Kraftmomentet kan udtrykkes som funktion af strømmen, som i ligning \ref{eq:Tm_im}.
+\begin{equation}
+	T_m(t)=K_t\cdot{i_m(t)}
+	\label{eq:Tm_im} 
+ \end{equation}
+Samtidig kan kraftmomentet, som motoren producerer, udtrykkes som multiplikationen af inertimoment og vinkelacceleration.
+Det inertimoment, der leveres til belastningen vil være kraftmomentet fra motoren fratrukket friktionen.
+Friktionen antages til disse beregninger at være viskøs, dvs. proportional med vinkelhastigheden.
+Kraftmomentet kan altså udtrykkes ved ligning \ref{eq:Tm_leveret}
+\begin{equation}
+	T_m(t)=J\cdot\frac{\mathrm d}{\mathrm d t} \big(\omega(t) \big)+B\cdot\omega(t)
+	\label{eq:Tm_leveret} 
+ \end{equation}
+
+Proportionalitetskonstanterne $K_b$ og $K_t$ har i SI-enheder samme numeriske værdi\todo{KILDE!}.
+
 \subsection{Eksperiment 1}
 \label{ss:eksperiment1}
 \subsubsection{Formål}
@@ -220,7 +236,7 @@ Dette indikerer, at motorens ækvivalente resistans er lineær i de brugbare int
 praktisk applikation ville få brug for, altså over 48 mW, men at motoren opfører sig anderledes når effektafsættelsen
 bliver tilpas lille, i strørrelsesordenen under 1 mW.
 Til brug i modelleringen og simuleringen af motoren til den praktiske applikation, hvor motoren skal kunne rotere,
-vurderes det altså at den i afnit \ref{ss:eksperiment1} fundne ækvivalente modstand på $R_m=5,21 \Omega$ giver en meget
+vurderes det derfor at den i afnit \ref{ss:eksperiment1} fundne ækvivalente modstand på $R_m=5,21 \Omega$ giver en meget
 nøjagtig værdi for den faktiske modstand i motoren.
 
 Induktansen er imidlertid sværere at bestemme, da effektafsættelsen i de udførte forsøg er lav.
@@ -232,15 +248,57 @@ står uklart efter disse forsøg.
 
 
 \subsection{Eksperiment 3}
-\subsubsection{Fremgangsmåde og forsøgsopstilling}
+\subsubsection{Formål}
+Bestemmelse af proportionalitetskonstanterne $K_b$ og $K_t$ samt den viskøse friktionskonstant $B$.
+\subsubsection{Teori}
+Hvis man påfører motoren en DC-spænding og lader den rotere frit, uden ekstra belastning,
+så kan ligning \ref{eq:Vm_transient1} omskrives til ligning \ref{eq:Vm_freerun0}.
+\begin{equation}
+	V_m=i_m\cdot{R_m}+K_b\cdot\omega
+	\label{eq:Vm_freerun0}
+ \end{equation}
+Samtidig kan kraftmomentet udtrykkes ved ligning \ref{eq:Tm_leveret}, hvor det eneste inertimoment vil være
+rotorens, navnlig $J_m$.
+Da vinkelhastigheden ikke ændrer sig ved steady-state kan ligningerne \ref{eq:Vm_freerun0} og \ref{eq:Tm_leveret} kombineres
+til ligning \ref{eq:KtimBw}.
+\begin{equation}
+	K_t\cdot{i_m}=B\cdot\omega
+	\label{eq:KtimBw}
+ \end{equation}
+Hvis man kender motorens ækvivalente modstand $R_m$, steady-state strømmen $i_m$ ved en steady-state spænding $V_m$,
+samt steady-state vinkelhastigheden $\omega$, kan man altså vha. ligningerne \ref{eq:Vm_freerun0} og \ref{eq:KtimBw} bestemme
+proportionalitetskonstanterne $K_t$ og $K_b$ (fordi de har samme numeriske værdi i SI-enheder) og friktionskonstanten $B$.
+\subsubsection{Fremgangsmåde}
+Den ubelastede motor påføres en kendt DC-spænding, og motoren opnår steady-state.
+Strømmen igennem motoren måles med et multimeter.
+Vinkelhastigheden måles ved at tælle antallet af encoder-ticks på ét minut
+(vinkelhastigheden kan omregnes til SI-enheder, i det det vides, at der er 360 ticks pr. omgang\todo{Kilde}).
+For hver måling beregnes $K_b$ og $K_t$ samt $B$ vha. ligningerne \ref{eq:Vm_freerun0} og \ref{eq:KtimBw}.
+
+Det anvendte multimeter er af typen TTi 1604,
+og antallet af ticks taltes med en tæller på FPGA'en, der automatisk stopper efter 1 minut.
+\subsubsection{Måleresultater}
+I tabel \ref{tb:steadystatenoload} findes målingerne af strøm, spænding og vinkelhastighed.
+\begin{figure}[th!]
+	\centering
+	\input{content/tb_steadystatenoload.tex}
+	\captionsetup{type=table}
+	\caption[Steady-state spænding, strøm og vinkelhastighed uden belastning]
+			{Sammenhørende værdier af DC spænding over og strøm gennem, samt vinkelhastighed af motor uden belastning.}
+	\label{tb:steadystatenoload}
+\end{figure}
 \subsubsection{Databehandling}
+\subsubsection{Diskussion}
 \subsubsection{Konklusion}
 
 
 \subsection{Eksperiment 4}
-\subsubsection{Fremgangsmåde og forsøgsopstilling}
+\subsubsection{Formål}
+\subsubsection{Teori}
+\subsubsection{Fremgangsmåde}
+\subsubsection{Måleresultater}
 \subsubsection{Databehandling}
-
+\subsubsection{Diskussion}
 \subsubsection{Konklusion}
 
 \subsection{Opsummering af DC motorparameter}
