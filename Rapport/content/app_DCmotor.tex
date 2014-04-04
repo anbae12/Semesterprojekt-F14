@@ -288,10 +288,27 @@ I tabel \ref{tb:steadystatenoload} findes målingerne af strøm, spænding og vi
 	\label{tb:steadystatenoload}
 \end{figure}
 \subsubsection{Databehandling}
+For hver måling er $K_b$ og $K_t$ samt $B$ vha. ligningerne \ref{eq:Vm_freerun0} og \ref{eq:KtimBw} beregnet,
+i SI-enheder. Til beregningen er anvendt den i afsnit \ref{ss:eksperiment1} fundne værdi for $R_m$.
+Gennemsnittet af hver parameter findes i tabel \ref{tb:kbktb}.
+\begin{figure}[th!]
+	\centering
+	\input{content/tb_kbktb.tex}
+	\captionsetup{type=table}
+	\caption[Proportionalitetskonstanterne $K_b$, $K_t$ og $B$]
+			{Proportionalitetskonstanterne $K_b$, $K_t$ og $B$.}
+	\label{tb:kbktb}
+\end{figure}
+
 \subsubsection{Diskussion}
+De fundne værdier for $K_b$, $K_t$ og $B$ vurderes at være nøjagtige approksimationer
+til brug i modelleringen af systemet til en praktisk applikation, da de er fundet ved effektafsættelser
+der afspejler effektafsættelser, der vil forekomme i applikationen.
+Der er dog blevet set bort fra Coulomb-friktionen, og der vil skulle tages højde for dette under modelleringen.
 \subsubsection{Konklusion}
-
-
+Proportionalitetskonstanterne $K_b$ og $K_t$ er blevet fundet til i SI-enheder at have den numeriske værdi 0,517.
+Den viskøse friktionskonstant $B$ er blevet funder til 0,00319 N m s.
+Alle konstanterne er blevet fundet vha. værdien af $R_m$ fra afsnit \ref{ss:eksperiment1}.
 \subsection{Eksperiment 4}
 \subsubsection{Formål}
 \subsubsection{Teori}
