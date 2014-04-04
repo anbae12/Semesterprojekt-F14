@@ -69,9 +69,10 @@ vurderes den fundne værdi for $R_m$ at være meget nøjagtig,
 om ikke andet, så for effektafsættelser i motoren på mindst 48 mW.
 \subsubsection{Konklusion}
 Motorens ækvivalente resistans, $R_m$ er vha. sammenhørende målinger af strøm og spænding
-for en rotationslåst motor, ved effektafsættelser på 48 mW og højere,
+for en rotationslåst motor, ved effektafsættelser i motoren på 48 mW og højere,
 blevet bestemt til 5,21 $\Omega$.\todo{Flere decimaler?}
 \subsection{Eksperiment 2}
+\label{ss:eksperiment2}
 \subsubsection{Formål}
 Bestemmelse af motorens ækvivalente induktans, $L_m$.
 Der er benyttet to forskellige metoder til bestemmelsen af induktansen.
@@ -140,6 +141,13 @@ hvilket giver ligningerne \ref{eq:Rm_0} og \ref{eq:Lm_0}.
 	\mathbf{L_m}=R_{s1}\cdot\frac{A_1}{A_2}\cdot\sin(\phi)
 	\label{eq:Lm_0} 
  \end{equation}
+
+Effektafsættelsen $P_{avg}$ i en modstand R, påført en vekselspænding med amplituden V, givet ved ligning \ref{eq:effekt}.
+\todo[inline]{Kildehenvisning til effektformel}
+\begin{equation}
+	P_{avg}=\frac{\left(\frac{V}{\sqrt{2}}\right)^2}{R}
+	\label{eq:effekt}
+ \end{equation}
 \subsubsection{Fremgangsmåde}
 \paragraph{Metode 1}
 En modstand $R_s$ måles efter med et multimeter og fobindes i serie med DC-motoren
@@ -155,6 +163,15 @@ Det anvendte multimeter er af typen TTi 1604,
 og oscilloskopet er af typen \todo{Oscilloskop?}.
 
 \paragraph{Metode 2}
+En modstand $R_s1$ måles efter med et multimeter og forbindes i serie med DC-motoren
+som på figur %\ref{fig:e2_rl2}
+.
+Kredsløbet påføres en kendt AC-spænding fra en funktionsgenerator med et DC-offset så spændingen
+altid er positiv.
+Da funktionsgeneratoren ikke skal overbelastes, skal $R_s1$ vælges tilpas stor.
+AC-spændingens frekvens er 10 kHz.
+Med et oscilloskop måles spændingsfaldene $\mathbf{V_1}$ og $\mathbf{V_2}$.
+Dataene eksporteres og faseforskellen samt forholdet mellem amplituderne $A_1$ og $A_2$ bestemmes herudfra.
 \subsubsection{Måleresultater}
 \paragraph{Metode 1}
 Seriemodstanden $R_s$ er blevet målt til 61,77 $\Omega$.
@@ -170,13 +187,47 @@ sammen med de to spændingsniveauer, hvorudfra tidskonstanten bestemmes.
 \end{figure}
 Figur \ref{fig:induktans0} viser flere målingers transientrespons.
 \paragraph{Metode 2}
+Seriemodstanden $R_s1$ er blevet målt til 473,3 $\Omega$.
+Spændingen har en amplitude på 2,4 V og et DC-offset på 2,5 V.
+På figur \ref{fig:induktans1} er steady-state responsen for spændingsfaldene over DC-motoren og seriemodstanden indtegnet.
+\begin{figure}[th!]
+	\centering
+	\includegraphics[width=1\textwidth]{./graphics/induktans1.eps}
+	\caption[Steady-state respons for låst motor]
+		{Steady-state respons for låst motor. Med mørkeblåt er markeret $\mathbf{V_1}$ og med mørkegrønt $\mathbf{V_2}$.
+		To tilpassede sinuskurver, fundet vha. MATLAB's fit-funktion, er indtegnet med lyseblåt og rødt.}
+	\label{fig:induktans1}
+\end{figure}
 \subsubsection{Databehandling}
 \paragraph{Metode 1}
 For hver måling af transientresponsen, vist i figur \ref{fig:induktans0} er induktansen blevet
 bestemt ved brug af ligning \ref{eq:induktans0}.
 Gennemsnitsinduktansen er ved denne metode blevet fundet til $L_m=0.395$ H.
 \paragraph{Metode 2}
+Vha. MATLAB's fit-funktion er to sinuskurver blevet tilpasset til de målte spændingsfald.
+Ud fra funktionsforskrifterne på de to sinuskurver er amplitudeforholdet $\frac{A_1}{A_2}$
+og faseforskellen $\phi$ blevet beregnet,
+og vha. ligningerne \ref{eq:Rm_0} og \ref{eq:Lm_0} er resistansen hhv. induktansen blevet beregnet til
+179,94 $\Omega$ hhv. 3,047 mH.
+Effektafsættelsen i motoren er med amplitudeforskellen på $\mathbf{V_1}$ og $\mathbf{V_2}$ samt
+de i forsøget fundne værdier $R_{s1}$ og $R_m$ ved brug af ligning \ref{eq:effekt} beregnet til 0,405 mW.
 \subsubsection{Diskussion}
+Den lineære sammenhæng mellem strøm og spænding fundet i afnit \ref{ss:eksperiment1} kan ikke benægtes,
+og for effektafsættelser i motoren på over 48 mW må resistansen kunne antages at være 5,21 $\Omega$ som beregnet.
+Men, som fundet ved forsøget med metode 2, så er motorens resistans langt højere,
+179,94 $\Omega$ ved en effektafsættelse i motoren på 0,405 mW.
+Dette indikerer, at motorens ækvivalente resistans er lineær i de brugbare intervaller, altså ved de effektafsættelser en
+praktisk applikation ville få brug for, altså over 48 mW, men at motoren opfører sig anderledes når effektafsættelsen
+bliver tilpas lille, i strørrelsesordenen under 1 mW.
+Til brug i modelleringen og simuleringen af motoren til den praktiske applikation, hvor motoren skal kunne rotere,
+vurderes det altså at den i afnit \ref{ss:eksperiment1} fundne ækvivalente modstand på $R_m=5,21 \Omega$ giver en meget
+nøjagtig værdi for den faktiske modstand i motoren.
+
+Induktansen er imidlertid sværere at bestemme, da effektafsættelsen i de udførte forsøg er lav.
+Hvilken induktans, der er den bedste tilnærmelse til motorens ækvivalente induktans,
+står uklart efter disse forsøg.
+\todo[inline]{Skriv noget bedre!}
+
 \subsubsection{Konklusion}
 
 
