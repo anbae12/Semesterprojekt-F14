@@ -248,6 +248,7 @@ står uklart efter disse forsøg.
 
 
 \subsection{Eksperiment 3}
+\label{ss:eksperiment3}
 \subsubsection{Formål}
 Bestemmelse af proportionalitetskonstanterne $K_b$ og $K_t$ samt den viskøse friktionskonstant $B$.
 \subsubsection{Teori}
@@ -328,14 +329,14 @@ Jf. Newtons 2. lov vil det resulterende kraftmoment være givet ved ligning \ref
 	T_{res}=J_m\cdot\alpha_{op}
 	\label{eq:Tres0}
  \end{equation}
-Dette kraftmoment kan også udtrykkes som kraftmomentet på rotoren fra snoren, $T_op$,
+Dette kraftmoment kan også udtrykkes som kraftmomentet på rotoren fra snoren, $T_{op}$,
 fratrukket friktionskraftmomentet $T_f$, som udtrykt i ligning \ref{eq:Tres1}.
 \begin{equation}
 	T_{res}=T_{op}-\|T_f\|
 	\label{eq:Tres1}
  \end{equation}
 Bemærk at $T_f$ er hele friktionskraftmomentet, inkl. Coulomb-friktion.
-Kraftmomentet $T_op$ kan udtrykkes som rotorens radius $r$ ganget med snorkraften, $F_snor$,
+Kraftmomentet $T_{op}$ kan udtrykkes som rotorens radius $r$ ganget med snorkraften, $F_snor$,
 som udtrykt i liginng \ref{eq:Top0}.
 \begin{equation}
 	T_{op}=r\cdot{F_{snor}}
@@ -359,9 +360,70 @@ jf. ligning \ref{eq:Tf0}.
 	\|T_f\|=J_m\|\alpha{ned}\|
 	\label{eq:Tf0}
  \end{equation}
+
+Inertimomentet $J_{disk}$ for en disk (ring) med massen $m_{disk}$, ydre radius $r_{disk}$ og
+indre radius $r_{hul}$ er givet ved ligning \ref{eq:Jdisk}\todo[inline]{Kilde til inertimoment}.
+\begin{equation}
+	J_{disk}=\frac{1}{2}\cdot{m_{disk}}\cdot\left(r_{hul}^2+r_{disk}^2\right)
+	\label{eq:Jdisk}
+ \end{equation}
+
+Da rotorskaftet på DC-motoren ikke er cylinderformet, blev det valgt at montere en disk
+på rotoren, således at de i teorien formler kan bruges til beregning af inertimomentet,
+med diskens radius $r_{disk}$.
+Med ligningerne \ref{eq:Tres0}, \ref{eq:Tres1}, \ref{eq:Top0}, \ref{eq:Fsnor0}, \ref{eq:a}, \ref{eq:Tf0} samt \ref{eq:Jdisk}
+kan rotorens inertimoment udtrykkes vha. de målbare størrelser
+$\alpha_{op}$, $\alpha_{ned}$, $m_{disk}$, $r_{disk}$, $r_{hul}$ og $m_{lod}$ (massen af det fastgjorte lod),
+mens friktionskraftmomentet kan udtrykkes vha. $m_{lod}$, $r_{disk}$, $\alpha_{op}$ og $\alpha_{ned}$,
+som i ligningerne \ref{eq:Jrotor} og \ref{eq:Tf1}.
+\begin{equation}
+	J_{m}=	m_{lod}\cdot{r_{disk}}\cdot\left\|\frac{\alpha_{op}\cdot{r_{disk}}-g}{\alpha_{op}+\|\alpha_{ned}\|}\right\|
+			-\frac{1}{2}\cdot{m_{disk}}\cdot\left(r_{hul}^2+r_{disk}^2\right)
+	\label{eq:Jrotor}
+\end{equation}
+\begin{equation}
+	\|T_f\|= \alpha_{ned}\cdot{m_{lod}}\cdot{r_{disk}}\cdot\left\|\frac{\alpha_{op}\cdot{r_{disk}}-g}{\alpha_{op}+\|\alpha_{ned}\|}\right\|
+	\label{eq:Tf1}
+ \end{equation}
 \subsubsection{Fremgangsmåde}
+En disk måles og vejes og monteres på rotorskaftet.
+Et vejet lod fastgøres til disken med en snor, og snoren vikles rundt om disken.
+Med et oscilloskop måles spændingsfaldet over motoren, mens loddet lades falde til gulvet.
+Når loddet har ramt gulvet, og spændingsfaldet er 0 V, stoppes målingen, og forsøget gentages.
 \subsubsection{Måleresultater}
+Diksen har en masse på 21,2 g, en ydre radius på 1,25 cm og en indre radius på 5 mm.
+Loddets masse er 851,7 g.
+På figur \ref{fig:vemf0} er målingerne af $V_{EMF}$ indtegnet.
+\begin{figure}[th!]
+	\centering
+	\includegraphics[width=1\textwidth]{./graphics/vemf0.eps}
+	\caption[Målt modelektromotorisk kraft ved acceleration af motor]
+		{Målt modelektromotorisk kraft ved acceleration af motor.
+		De indtegnede sorte streger viser hældningerne før og efter loddet ramte jorden.
+		På grafen vises målingerne fra flere forsøg sammen.}
+	\label{fig:vemf0}
+\end{figure}
 \subsubsection{Databehandling}
+Da målingerne er meget støjfyldte, valgtes det at lavpasfiltrere dem, så hældningsbestemmelsen
+ikke bliver påvirket af den højfrekvente støj.
+De lavpasfiltrerede data kan ses på figur \ref{fig:vemf1}.
+\begin{figure}[th!]
+	\centering
+	\includegraphics[width=1\textwidth]{./graphics/vemf1.eps}
+	\caption[Målt modelektromotorisk kraft ved acceleration af motor, lavpasfiltreret]
+		{Målt modelektromotorisk kraft ved acceleration af motor, lavpasfiltreret.
+		De indtegnede sorte streger viser hældningerne før og efter loddet ramte jorden.
+		På grafen vises målingerne fra flere forsøg sammen.}
+	\label{fig:vemf1}
+\end{figure}
+Jf. ligning \ref{eq:Vm_nocurrent} er det målte spændingsfald proportionalt med
+vinkelhastigheden, og hældningen af grafen vil således skulle divideres med $K_b$,
+før den repræsenterede vinkelaccelerationen. $K_b$ blev bestemt i afsnit \ref{ss:eksperiment3}.
+For hver måling bestemtes hældningerne $\alpha_{op}$ og $\alpha_{ned}$ vha. lineær regression på de lineære stykker,
+og ud fra dette er gennemsnitsaccelerationerne blevet fundet til
+$\alpha_{op}=49,3 \frac{\text{rad}}{\text{s}}$ og $\alpha_{ned}=-69,1 \frac{\text{rad}}{\text{s}}$.
+Med disse værdier er inertimomentet beregnet vha. ligning \ref{eq:Jrotor}, og friktionskraftmomentet vha. ligning \ref{eq:Tf1}.
+De beregnede værdier er hhv. $J_m=8.26\cdot10^{-4} \text{kg}\cdot{\text{m}^2}$ og $\|T_f\|=0.0571$ N m.
 \subsubsection{Diskussion}
 \subsubsection{Konklusion}
 
