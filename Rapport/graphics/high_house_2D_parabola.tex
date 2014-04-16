@@ -1,0 +1,13 @@
+\begin{axis}[ 
+    xlabel=Sekunder,
+    ylabel=Altitude,
+    grid=major,
+    ytick={0,1,...,5}, % Grid intervallet
+    xtick={0,5,...,55}, % Grid intervallet
+    ymin=0,
+    ymax=5, % Maks værdi
+    xmin=0,
+    xmax=55] % Maks værdi
+    
+ \addplot[domain=0:50,blue] {x+2};  % {funktionen indsættes i tuborg og t = domain}
+\end{axis}
