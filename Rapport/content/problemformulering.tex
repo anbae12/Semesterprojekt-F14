@@ -1,15 +1,48 @@
 \section{Problemformulering}
-Design en kontroller for et Pan and Tilt system. Systemet skal kunne tracke bold i bevægelse i rummet.
-Luftmodstand negligeres således bolden fylder en parabel.\\
+Tracking af en lerdue i English Skeet \todo{eventuelt starte med en liste over forkortelser}(ES) vha. PTS. 
+Lerduen er i vores opstilling udskiftet med en bold, men ellers følges reglerne for ES
+\todo[color=yellow! 100]{Henvisning til litteraturliste eller fodnote}. 
+Bolden bevæger sig i et 3D rum med negligerbar luftmodstand. \\
 
-
-
-
-\begin{figure}[!th]
+\begin{figure}[th!]
 \centering
-\begin{tikzpicture}[scale=0.5]
-\include*{./graphics/pan_and_tilt_system}
-\end{tikzpicture}
-\caption[Skematisk tegning af Pan and Tilt]{Det blå punkt er det logiske center af systemet og det grønne punkt basen for systemet.}
+\includegraphics[width=0.4\textwidth]{./graphics/skeet-diagram_med_akser}
+\caption[tekst i indholdsfortegnelsen]{figurtekst}
+\label{fig:}
+\end{figure}	
+Systemets input er 60 kartesisiske koordinatsæt (x,y,z) per sekund. Hvor disse 
+koordinater stammer fra, er uden for projektafgrænsningen. \\
+
+Systemet dimensioneres til brug ifb\todo{Den forkortelse kender jeg ikke} en konkurrence i ES. En skitse over 
+banen ses på figur 1\todo{reference}. Det kartesiske koordinatsystem har origo i halvcirklens centrum, 
+som indtegnet\todo{De er så indtegnet forkert.. Flot arbejde, klaphat..} 
+nederst på figuren. I ES skal rammes serier af duer/mål der afskydes fra 
+enten ”High House” eller ”Low House”, og med skud fra hver af de otte stationer langs 
+cirkelperiferien. I dette projekt kigges kun på tilfældet hvor der afskydes mål fra ”High-
+House” med pan-and-tilt systemet placeret på station 4.\\
+
+Jævnfør reglerne for ES, skal duer/mål passere target crossing point (TCS) som er 
+placeret i $4,57 [m]$ over origo. (0; 0; 4.57). Fejlmargin for passagen er $\pm0,45 [m]$. 
+Målene skal desuden flyve $50 – 52 [m]$.  High house er placeret $20,11 [m]$ fra TCS, i en 
+højde af $3,05 [m]$. Da luftmodstanden er negligerbar kan parablen (2. grads 
+polynomium) findes ved at indsætte de kendte punkter. Herunder er parablen vist i et 
+2D plan, figur\todo{reference}:
+\begin{figure}[th!]
+\centering
+\includegraphics[width=0.4\textwidth]{./graphics/high_house_2D_parabola}
+\caption[tekst i indholdsfortegnelsen]{figurtekst}
+\label{fig:}
+\end{figure}
+
+Målet bliver affyret med en hastighed på $34 [m/s]$, i en vinkel på $9^{\circ}$ ift. xy-
+planet. Set ovenfra bevæger målet sig som set på figur 3\todo{reference}. Figur 3\todo{reference} kan laves med 
+GeoGebra…  Målet bevæger sig fra High-House til nedslagspunktet I, i alt $52 [m]$. 
+PTS er placeret i punktet B. 
+
+
+\begin{figure}[th!]
+\centering
+\includegraphics[width=0.4\textwidth]{./graphics/parabola_in_xy_plane}
+\caption[tekst i indholdsfortegnelsen]{figurtekst}
 \label{fig:}
 \end{figure}
