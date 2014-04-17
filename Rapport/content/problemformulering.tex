@@ -108,22 +108,30 @@ Desuden skal målet bevæge sig 50 - 52 [m], i de videre beregninger 52 [m]. Det
 \theta &=& 9.103 \degree \\
 v_0 &=& 34.589 \frac{m}{s}
 \end{eqnarray}
-Disse parametre indsættes i vektorfunktionen fra ligning \ref{eq:pf:vektorparabel} samt udtrykket fra ligning \ref{eq:pf:y(x)2} og giver: 
-\begin{equation}
+Disse parametre indsættes i vektorfunktionen fra ligning \ref{eq:pf:vektorparabel} samt udtrykket fra ligning \ref{eq:pf:y(x)2}. Udtrykkene reduceres: 
+\begin{eqnarray}
 	Pos(t) = \left( \begin{array}{c}
 	x(t) \\
 	y(t)
 	\end{array}
 	\right)
-	= \left( \begin{array}{c}
+	&=& \left( \begin{array}{c}
 	\cos \left(9.103 \degree \right) 34.589 t \\
 	\sin \left(9.103 \degree \right) 34.589 t - \frac{9.82}{2} t^2 + 3.05
 	\end{array}
+	\right) \\
+% ------------------------------
+	&=& \left( \begin{array}{c}
+	34.153 t \\
+	- 4.91 t^2 5.473 t + 3.05
+	\end{array}
 	\right)
 \label{eq:pf:vektorparabel2}
-\end{equation}
+\end{eqnarray}
 
-\begin{equation}
-y(x) = \tan \left(9.103 \degree \right) x - \frac{9.82x^2}{2(\cos \left(9.103 \degree \right) 32.589)^2} + 3.05
+\begin{eqnarray}
+y(x) &=& \tan \left(9.103 \degree \right) x - \frac{9.82x^2}{2(\cos \left(9.103 \degree \right) 34.589)^2} + 3.05 \\
+% -------------------------------
+&=& - 0.00421 x^2 + 0.1602 x  + 3.05
 \label{eq:pf:y(x)3}
-\end{equation}
+\end{eqnarray}

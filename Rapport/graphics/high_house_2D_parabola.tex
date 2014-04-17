@@ -1,6 +1,6 @@
 \begin{axis}[ 
-    xlabel=Sekunder,
-    ylabel=Altitude,
+    xlabel=x,
+    ylabel=y,
     grid=major,
     ytick={0,1,...,5}, % Grid intervallet
     xtick={0,5,...,55}, % Grid intervallet
@@ -9,5 +9,6 @@
     xmin=0,
     xmax=55] % Maks værdi
     
- \addplot[domain=0:50,blue] {x+2};  % {funktionen indsættes i tuborg og t = domain}
+ \addplot[domain=0:53,blue]{-0.00421*x^2 + 0.1602 * x + 3.05};  % {funktionen indsættes i tuborg og t = domain}
 \end{axis}
+%- 0.00421x^2 + 0.1602x  +3.05
