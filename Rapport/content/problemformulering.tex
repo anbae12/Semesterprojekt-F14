@@ -1,5 +1,4 @@
 \section{Problemformulering}
-\label{sec:problem}
 Tracking af en lerdue i English Skeet \todo[inline, author=Anders]{eventuelt starte med en liste over forkortelser}(ES) vha. PTS. 
 Lerduen er i vores opstilling udskiftet med en bold, men ellers følges reglerne for ES.
 \todo[color=yellow! 100, inline, author=Anders]{Henvisning til litteraturliste eller fodnote}
@@ -16,7 +15,7 @@ koordinater stammer fra, er uden for projektafgrænsningen. \\
 
 Systemet dimensioneres til brug ifbm. en konkurrence i ES. En skitse over 
 banen ses på figur \ref{fig:ES}. Det kartesiske koordinatsystem har origo i halvcirklens centrum, 
-som indtegnet \todo[inline, author=Michael]{De er så indtegnet forkert.. Flot arbejde, klaphat..} 
+som indtegnet 
 nederst på figuren. I ES skal rammes serier af duer/mål der afskydes fra 
 enten ”High House” eller ”Low House”, og med skud fra hver af de otte stationer langs 
 cirkelperiferien. I dette projekt kigges kun på tilfældet hvor der afskydes mål fra ”High-
@@ -33,15 +32,11 @@ polynomium) findes ved at indsætte de kendte punkter. Herunder er parablen vist
 \begin{tikzpicture}[scale=1]
 \include*{./graphics/high_house_2D_parabola}
 \end{tikzpicture}
-\caption[Lerdue parabel]{Viser parablen af lerduens bane.}
+\caption[Lerdue parabel]{Viser parablen af lerduens bane i 2D}
 \label{fig:HH2D_para}
 \end{figure}
-\todo[inline, author=Anders]{Den rigtige funktion skal sættes ind, afventer Michael}
-
-
-
-
-Målet bliver affyret med en hastighed på $34 [m/s]$, i en vinkel på $9^{\circ}$ ift. xy-
+~\\[10pt]
+Målet bliver affyret med en hastighed på $34.589 [\frac{m}{s}]$, i en vinkel på $9.103^{\circ}$ ift. xy-
 planet. Set ovenfra bevæger målet sig som set på figur \ref{fig:para_in_xy_plane}. 
 Figuren ses nedslagspunktet fra High-House, der er i alt $52 [m]$ startpositionen samt 
 PTS placering i punktet B. 
@@ -53,15 +48,12 @@ PTS placering i punktet B.
 \begin{tikzpicture}[scale=0.2]
 \include*{./graphics/parabola_in_xy_plane}
 \end{tikzpicture}
-\caption[tekst i indholdsfortegnelsen]{figurtekst}
+\caption[tekst i indholdsfortegnelsen]{Viser målets bane set ovenfra. D er udgangspunktet, G er nedslagspunktet. B er placeringen af PTS.}
 \label{fig:para_in_xy_plane}
 \end{figure}
 
-<<<<<<< HEAD
-\todo[inline, author=Anders]{Jeg er gået igang med at tegne den og den kommer in snart.}
-
 \subsection{Udregning af tallene}
-\todo[inline, author=Michael]{Skal sikkert flyttes til appendix, hvis ikke det skal droppes helt? Bare så i kan se hvad jeg har haft gang i.}
+\todo[inline, author=Michael]{Skal sikkert flyttes til appendix?}
 
 For at simplificere udregningerne, regnes parablen kun i 2D. Det er trivielt at tilføje den tredje, så det gøres til sidst (hvis jeg finder det relevant). 
 
@@ -69,8 +61,8 @@ Kasteparablen er givet ved vektorfunktionen i ligning  \ref{eq:pf:vektorparabel}
 
 \begin{equation}
 	Pos(t) = \left( \begin{array}{c}
-	x(t) \\
-	y(t)
+	x_{2D}(t) \\
+	y_{2D}(t)
 	\end{array}
 	\right)
 	= \left( \begin{array}{c}
@@ -97,7 +89,7 @@ y(t(x)) &=& \sin \theta \frac{x}{\cos \theta v_0} v_0 - \frac{g}{2} \left(\frac{
 y(x) &=& \tan \theta x - \frac{gx^2}{2(\cos \theta v_0)^2} + y_0
 \label{eq:pf:y(x(t))}
 \end{eqnarray}
-
+\todo[inline, author=Michael]{Udtrykker herover kan også ses på s. 67 i Fundamentals of Physics}
 Det ses at der er 3 ubekendte i ligningen. Dog er 3 punkter kendt fra HH parablen. Det er givet i reglerne for ESS at målet affyres fra en højde på 3.05 [m], så det indsættes i formlen. 
 \begin{equation}
 y(x) = \tan \theta x - \frac{gx^2}{2(\cos \theta v_0)^2} + 3.05
@@ -113,8 +105,8 @@ v_0 &=& 34.589 \frac{m}{s}
 Disse parametre indsættes i vektorfunktionen fra ligning \ref{eq:pf:vektorparabel} samt udtrykket fra ligning \ref{eq:pf:y(x)2}. Udtrykkene reduceres: 
 \begin{eqnarray}
 	Pos(t) = \left( \begin{array}{c}
-	x(t) \\
-	y(t)
+	x_{2D}(t) \\
+	y_{2D}(t)
 	\end{array}
 	\right)
 	&=& \left( \begin{array}{c}
@@ -125,7 +117,7 @@ Disse parametre indsættes i vektorfunktionen fra ligning \ref{eq:pf:vektorparab
 % ------------------------------
 	&=& \left( \begin{array}{c}
 	34.153 t \\
-	- 4.91 t^2 5.473 t + 3.05
+	- 4.91 t^2 + 5.473 t + 3.05
 	\end{array}
 	\right)
 \label{eq:pf:vektorparabel2}
@@ -137,6 +129,43 @@ y(x) &=& \tan \left(9.103 \degree \right) x - \frac{9.82x^2}{2(\cos \left(9.103 
 &=& - 0.00421 x^2 + 0.1602 x  + 3.05
 \label{eq:pf:y(x)3}
 \end{eqnarray}
-=======
-\todo[author=Anders,inline,color=blue! 50]{Michael, jeg er usikker på, hvad akserne hedder.}
->>>>>>> 3b3b86238c8c9ebdcbb4238b9b1f1ea17a890079
+
+For at finde ud af hvornår målet rammer jorden, sættes $y(t) = 0$. Det giver:
+
+\begin{equation}
+t_{nedslag} = 1.523 [s]
+\label{eq:pf:nedslagstid}
+\end{equation}
+
+\subsubsection{Parabel i 3 dimensioner}
+Nu omskrives parablen fundet i \ref{eq:pf:vektorparabel2} til x,y,z koordinater. 
+Grundplanet er x,y og højden er givet ved z. Dvs. at $z(t) = y_{2D}(t)$ og at $x(t)$ samt $y(t)$ afhænger af $x_{2D}(t)$ samt vinklen $\alpha$. 
+$\alpha$ er givet ved vinklen mellem parablen projekteret ned på x,y planet (som på figur \ref{fig:para_in_xy_plane}) og x aksen. 
+\todo[inline, author=Michael, color=blue! 50]{Kan også skrives som vinklen mellem parablen og x,z planet?}
+Vektorfunktionen kan skrives (ved $\alpha = 15.872 \degree$): 
+
+\begin{eqnarray}
+Pos(t) = \left( \begin{array}{c}
+	x(t) \\
+	y(t) \\
+	z(t)
+	\end{array}
+	\right)
+%----------------------------------------
+	&=& \left( \begin{array}{c}
+	\cos \alpha \times x_{2D}(t) - 19.3 \\
+	\sin \alpha \times x_{2D}(t) - 5.5 \\
+	y_{2D}(t)
+	\end{array}
+	\right) \\
+%----------------------------------------
+	&=& \left( \begin{array}{c}
+	32.851 t - 19.3 \\
+	9.34 t - 5.5 \\
+	- 4.91 t^2 + 5.473 t + 3.05
+	\end{array}
+	\right)
+\label{eq:pf:vektorparabel3d}
+\end{eqnarray}
+
+Bemærk udgangspunktet for kastet er flyttet fra origo, til HHs position. (Punkt D på figur \ref{fig:para_in_xy_plane})
