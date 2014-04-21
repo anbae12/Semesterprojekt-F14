@@ -1,10 +1,9 @@
 \section{PTS's inertimoment}
 \label{sec:teo_PTS}
 
-For at kunne modellere reguleringssløjerne bedst muligt efter PTS, er det essentielt at have de variable, 
-som påvirker systemet. Dette bevirker at der skal findes en teoritisk værdi for inertimomentet for den 
+For at kunne modellere reguleringssløjerne bedst muligt er det essentielt at have de variable, 
+som påvirkes fra PTS. Dette bevirker at der skal findes en teoritisk værdi for inertimomentet for den 
 kvadratiske aluminiums ramme og et inertimoment for den u-formet aluminiums ramme, hhv. tilt og pan.\\
-
 Figur \ref{fig:inerti_PTS} viser en skitse af systemet med opmålinger foretaget manuelt, hvor ${L_{1}} =0,292 [m]$,
 ${L_{2}} =0,280 [m]$, ${L_{3}}= 0,42 [m]$, ${L_{4}} =0,246 [m]$, ${L_{pro}}=0,04 [m]$.
 \begin{figure}[!th]
@@ -16,26 +15,29 @@ ${L_{2}} =0,280 [m]$, ${L_{3}}= 0,42 [m]$, ${L_{4}} =0,246 [m]$, ${L_{pro}}=0,04
 \label{fig:inerti_PTS}
 \end{figure}
 
-Det har været nødvendigt at foretage nogle simplificeringer pga. bestemmelsen af PTS inertimoment. 
-Idet vores viden kun rækker til SISO\footnote{Single input - single output.}-systemer, vil PTS anses som værende uafhængige.\todo[author=Anders,inline,color=gray! 100]{Mikael, her skal vi lige have snakket omkring, 
+Det har været nødvendigt at foretage simplificeringer til bestemmelsen af PTS inertimoment. 
+Idet vores viden kun har kendskab til SISO\footnote{Single input - single output.}-systemer, vil PTS anses som værende uafhængige strukturer.\todo[author=Anders,inline,color=gray! 100]{Mikael, her skal vi lige have snakket omkring, 
 hvordan vægten for tilt skal påvirke pan. Tilt anses som værende symmetrisk omkring pan's 
 rotation, derfor tænker jeg at tilts vægt bare skal lægges til ${L_{3}}$.} 
 
-\subsection{Simplificering af PTS's struktur}
-Det teoritiske beregning er blevet foretaget ud fra følgende bestemmelser:
-
+\subsection{Simplificering samt bestemmelse af PTS's inertimoment}
+Den teoritiske beregning er foretaget ud fra følgende simplificeringer:
 \begin{itemize}
-\item Aluminimumsprofilen, 40x40L, har en massefylde på $1,5 [kg/m]$, \citep[Kap. 2 side. 4]{alu_profil_desitet}. \todo[author=Anders,color=green! 100]{Jeg vil gerne have hjælpe til at vise hele firmanavnet, således der ikke skal bruges bindestreg i henvisningen.}
-\item 
-\item 
+\item Aluminimumsprofilen, 40x40L, har en massefylde på $\rho=1,5 [kg/m]$, \citep[Kap. 2 side. 4]{alu_profil_desitet}. 
+\item Inertimomenterne for aluminimumsprofilerne ${L_{2}}$ og ${L_{4}}$ er bestemt udfra punktmasser, som er parallelforskudt i forhold til rotationsaksen. \citep[Side. 254, ligning 10-36]{fund_of_physics}.
+\begin{equation}
+I={ I }_{ com }+M\cdot { h }^{ 2 }
+\label{eq:punktmasse_para} 
+\end{equation}
+hvor ${I_{com}} = 0$ og $h$ er afstand til punktmassen fra rotationsaksen.
+\item Inertimomenterne for aluminimumsprofilerne ${L_{1}}$ og ${L_{3}}$ er bestemt som en tynd stang, hvor stagens center er placeret vinkelret på rotationsaksen. \citep[Side. 255, tabel 10-2e]{fund_of_physics}.
+\begin{equation}
+I=\frac { 1 }{ 12 } M\cdot { L }^{ 2 }
+\label{eq:punktmasse_para} 
+\end{equation}
 \end{itemize}
 
-
-
-
-
-\subsection{Teoretisk bestemmelse af PTS's inertimoment}
-
+Med følgende bestemmelser er det muligt at finde pan og tilts teoritiske inertimoment.
 \begin{align}
 \label{eq:inerti_tilt_pan}
 \begin{split}
@@ -49,20 +51,18 @@ Det teoritiske beregning er blevet foretaget ud fra følgende bestemmelser:
 \end{split}
 \end{align}
 
+Inertimomenterne er beregnet i ligning \ref{eq:inerti_tilt_pan}. Dog skal gearingen mellem motorene og hhv. pan og tilt tages i betragtning. Set fra motorene er gearingsfaktoren 30:1, hvilket bevirker at det faktiske intermoment for hhv. pan- og tiltstrukturen er en tredive del mindre, ligning \ref{eq:inerti_tilt_pan_fak}.
+\begin{align}
+\label{eq:inerti_tilt_pan_fak}
+\begin{split}
+{inerti-fak}_{tilt}&=5,24997\cdot{10}^{-4} [kg \cdot {m}^{2}]
+\\
+{inerti-fak}_{pan}&=10,5236\cdot{10}^{-4} [kg \cdot {m}^{2}]
+\end{split}
+\end{align}
 
 \subsection{Konklusion af PTS's inertimoment}
-
-\todo[author=Anders,inline,color=yellow! 100]{Jeg mangler at snakke omkring gearing}
-
+Ud fra simplificeringerne er inertimomentet for hhv. pan og tilt fundet. Selvom værdierne er små, tages de er betragtning til designet af de to kontrollere.
 
 
 
-\newpage
-Brain storm til mig selv: 
-\begin{itemize}
-\item Kort intro + hvad inertimomentet skal bruges til.
-\item beskrivelse af systemet
-\item opdeling i to
-\item Billede med længe bestemmelse
-\item teori til bestemmelse af intermoment
-\end{itemize}
