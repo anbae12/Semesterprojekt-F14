@@ -98,35 +98,39 @@ Desuden skal målet bevæge sig 50 - 52 [m], i de videre beregninger 52 [m]. Det
 \todo[inline, author=Michael]{Måske giver det ikke mening med alle de decimaler, da det er udregnet med g = 9.82 - men jeg ved heller ikke hvor jeg skal finde en mere præcis måling af g?}
 \begin{eqnarray}
 \theta &=& 9.103 \degree \\
-v_0 &=& 34.589 \frac{m}{s}
+v_0 &=& 34.589 [\frac{m}{s}]
 \end{eqnarray}
 Disse parametre indsættes i vektorfunktionen fra ligning \ref{eq:pf:vektorparabel} samt udtrykket fra ligning \ref{eq:pf:y(x)2}. Udtrykkene reduceres: 
-\begin{eqnarray}
+\begin{align}
+\begin{split}
 	Pos(t) = \left( \begin{array}{c}
 	x_{2D}(t) \\
 	y_{2D}(t)
 	\end{array}
 	\right)
-	&=& \left( \begin{array}{c}
+	&= \left( \begin{array}{c}
 	\cos \left(9.103 \degree \right) 34.589 t \\
 	\sin \left(9.103 \degree \right) 34.589 t - \frac{9.82}{2} t^2 + 3.05
 	\end{array}
 	\right) \\
 % ------------------------------
-	&=& \left( \begin{array}{c}
+	&= \left( \begin{array}{c}
 	34.153 t \\
 	- 4.91 t^2 + 5.473 t + 3.05
 	\end{array}
 	\right)
 \label{eq:pf:vektorparabel2}
-\end{eqnarray}
+\end{split}
+\end{align}
 
-\begin{eqnarray}
-y(x) &=& \tan \left(9.103 \degree \right) x - \frac{9.82x^2}{2(\cos \left(9.103 \degree \right) 34.589)^2} + 3.05 \\
+\begin{align}
+\begin{split}
+y(x) &= \tan \left(9.103 \degree \right) x - \frac{9.82x^2}{2(\cos \left(9.103 \degree \right) 34.589)^2} + 3.05 \\
 % -------------------------------
-&=& - 0.00421 x^2 + 0.1602 x  + 3.05
+&= - 0.00421 x^2 + 0.1602 x  + 3.05
 \label{eq:pf:y(x)3}
-\end{eqnarray}
+\end{split}
+\end{align}
 
 For at finde ud af hvornår målet rammer jorden, sættes $y(t) = 0$. Det giver:
 
@@ -142,7 +146,8 @@ $\alpha$ er givet ved vinklen mellem parablen projekteret ned på x,y planet (so
 \todo[inline, author=Michael, color=blue! 50]{Kan også skrives som vinklen mellem parablen og x,z planet?}
 Vektorfunktionen kan skrives (ved $\alpha = 15.872 \degree$): 
 
-\begin{eqnarray}
+\begin{align}
+\begin{split}
 Pos(t) = \left( \begin{array}{c}
 	x(t) \\
 	y(t) \\
@@ -150,22 +155,23 @@ Pos(t) = \left( \begin{array}{c}
 	\end{array}
 	\right)
 %----------------------------------------
-	&=& \left( \begin{array}{c}
+	&= \left( \begin{array}{c}
 	\cos \alpha \times x_{2D}(t) - 19.3 \\
 	\sin \alpha \times x_{2D}(t) - 5.5 \\
 	y_{2D}(t)
 	\end{array}
 	\right) \\
 %----------------------------------------
-	&=& \left( \begin{array}{c}
+	&= \left( \begin{array}{c}
 	32.851 t - 19.3 \\
 	9.34 t - 5.5 \\
 	- 4.91 t^2 + 5.473 t + 3.05
 	\end{array}
 	\right)
 \label{eq:pf:vektorparabel3d}
-\end{eqnarray}
+\end{split}
+\end{align}
 
-\todo[author=Anders,inline,color=blue! 50]{Michael, hvis du bruger align og spilt (tjek hvordan jeg har gjort i kap 4) kan du lave udregningen ud hver ny linje få et nyt ligningsnummer. :)}
+
 
 Bemærk udgangspunktet for kastet er flyttet fra origo, til HHs position. (Punkt D på figur \ref{fig:para_in_xy_plane})
