@@ -1,8 +1,7 @@
 \section{Problemformulering}
-Tracking af en lerdue i English Skeet \todo[inline, author=Anders]{eventuelt starte med en liste over forkortelser}(ES) vha. PTS. 
-Lerduen er i vores opstilling udskiftet med en bold, men ellers følges reglerne for ES.
-\todo[color=yellow! 100, inline, author=Anders]{Henvisning til litteraturliste eller fodnote}
-Bolden bevæger sig i et 3D rum med negligerbar luftmodstand. \\
+Tracking af en lerdue i English Skeet (ES) vha. PTS. 
+Lerduen er i vores opstilling udskiftet med en bold, men ellers følges reglerne for ES, \citep{ES_regler}.
+Bolden bevæger sig i et 3D-rum med negligerbar luftmodstand. \\
 
 \begin{figure}[th!]
 \centering
@@ -82,14 +81,13 @@ t = \frac{x}{\cos \theta v_0}
 \label{eq:pf:x(t)}
 \end{equation}
 
-Den fundne værdi for t indsættes i $y(t)$, og udtrykket reduceres: 
+Den fundne værdi for t indsættes i $y(t)$, og udtrykket reduceres, \citep[Side. 67]{fund_of_physics}: 
 
 \begin{eqnarray}
 y(t(x)) &=& \sin \theta \frac{x}{\cos \theta v_0} v_0 - \frac{g}{2} \left(\frac{x}{\cos \theta v_0}\right)^2 + y_0 \\
 y(x) &=& \tan \theta x - \frac{gx^2}{2(\cos \theta v_0)^2} + y_0
 \label{eq:pf:y(x(t))}
 \end{eqnarray}
-\todo[inline, author=Michael]{Udtrykker herover kan også ses på s. 67 i Fundamentals of Physics}
 Det ses at der er 3 ubekendte i ligningen. Dog er 3 punkter kendt fra HH parablen. Det er givet i reglerne for ESS at målet affyres fra en højde på 3.05 [m], så det indsættes i formlen. 
 \begin{equation}
 y(x) = \tan \theta x - \frac{gx^2}{2(\cos \theta v_0)^2} + 3.05
