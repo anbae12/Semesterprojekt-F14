@@ -43,23 +43,27 @@ Med følgende bestemmelser er det muligt at finde pan og tilts teoritiske inerti
 \begin{split}
 { inerti }_{ tilt } &= \left( \left( 1/12\cdot \rho \cdot { {L_{1}} }^{ 3 } \right) +\left( \rho \left( {L_{2}}-2\cdot {L_{pro}} \right) { \left( \frac { {L_{1}}-{L_{pro}}}{ 2 }  \right)  }^{ 2 } \right)  \right) \cdot 2
 \\
-{ inerti }_{ tilt } &= 0,0157499
+ &= 0,0157499
 \\
 { inerti }_{ pan }&=\left( 1/12\cdot \rho \cdot { { L }_{ 3 } }^{ 3 } \right) +\left( \rho \left( { L }_{ 4 }-{ L }_{ pro } \right) { \left( \frac { { L }_{ 3 }-{ L }_{ pro } }{ 2 }  \right)  }^{ 2 } \right) \cdot 2
 \\
-{ inerti }_{ pan } &=0,0315708
+ &=0,0315708
 \end{split}
 \end{align}
 
-Inertimomenterne er beregnet i ligning \ref{eq:inerti_tilt_pan}. Dog skal gearingen mellem motorene og hhv. pan og tilt tages i betragtning. Set fra motorene er gearingsfaktoren 30:1, hvilket bevirker at det faktiske intermoment for hhv. pan- og tiltstrukturen er en tredive del mindre, ligning \ref{eq:inerti_tilt_pan_fak}.
-\begin{align}
+
+
+
+Inertimomenterne er beregnet i ligning \ref{eq:inerti_tilt_pan}. Dog udsættes motorene ikke for det teoritiske inertimoment. De to gearinger har et gearingsforhold 30:1 og 1:3 set fra motor. Multiplikation af gearingerningerne opløftet i anden, reducerer de teoritiske intermomenter med en faktor 100.  \todo[author=Anders,inline,color=gray! 100]{Mikael, måske skal der være en henvisning til sammenlægning af gearing.}
+
+\begin{align*}
 \label{eq:inerti_tilt_pan_fak}
 \begin{split}
-{inerti-fak}_{tilt}&=5,24997\cdot{10}^{-4} [kg \cdot {m}^{2}]
+{inertifak_{tilt}}&=1,57499\cdot{10}^{-4} [kg \cdot {m}^{2}]
 \\
-{inerti-fak}_{pan}&=10,5236\cdot{10}^{-4} [kg \cdot {m}^{2}]
+{inertifak_{pan}}&=3,15708\cdot{10}^{-4} [kg \cdot {m}^{2}]
 \end{split}
-\end{align}
+\end{align*}
 
 \subsection{Konklusion af PTS's inertimoment}
 Ud fra simplificeringerne er inertimomentet for hhv. pan og tilt fundet. Selvom værdierne er små, tages de er betragtning til designet af de to kontrollere.
