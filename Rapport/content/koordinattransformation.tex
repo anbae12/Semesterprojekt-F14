@@ -1,5 +1,50 @@
 \section{Koordinattransformation}
 \label{sec:koordinattransformation}
 
+De kartesiske koordinater $P_k=[x, y, z]$ skal transformeres til sværiske koordinater $P_s=[\rho, \phi, \theta]$, hvor $\phi$ og $\theta$ bruges som vinkelbestemmelserne for hhv. pan og tilt.\\
 
-\citep[Kap. 10.6, s. 598]{adam}
+Positionbestemmelsen af det kartesiske koordinatset som funktion af er udredt tidligere og fremgår i ligning \ref{eq:pf:vektorparabel3d1}. 
+
+\begin{align}
+\begin{split}
+Pos\left( t \right) =\left( \begin{matrix} x \\ y \\ z \end{matrix} \right) =\left( \begin{matrix} 32,851\cdot t-19,3 \\ 9,34\cdot t-5,5 \\ -4,91{ \cdot t }^{ 2 }+5,473\cdot t+3,05 \end{matrix} \right) 
+\label{eq:pf:vektorparabel3d1}
+\end{split}
+\end{align}
+\todo[author=Anders,inline]{Mangler PTS offset husk målebånd.}
+
+Koordinattransformationen fra kartesiske til sværiske kan gøres ud for nedenstående ligninger.
+
+
+\begin{align}
+\begin{split}
+\rho &=\sqrt { { x }^{ 2 } +{ y }^{ 2 }+{ z }^{ 2 }} 
+\\
+\phi &={ tan }^{ -1 }\left( \frac { \sqrt { { x }^{ 2 }+{ y }^{ 2 } }  }{ z }  \right) 
+\\
+\theta &={ tan }^{ -1 }\left( \frac { y }{ x }  \right) 
+\label{eq:sv_koordi}
+\end{split}
+\end{align}
+hvor $\phi$ og $\theta$ er angivet i grader. \citep[Kap. 10.6, s. 598]{adam}.
+
+
+
+
+
+
+\bigskip
+
+
+
+Bestemmelse af PS for givet ligning..
+
+
+PTS indsættes som reference. 
+
+Henvis til matlab. 
+
+
+
+
+Det er nødvendigt med en transformation mellem koordinatinputtet og 
