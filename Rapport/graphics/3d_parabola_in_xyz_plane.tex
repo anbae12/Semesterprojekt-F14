@@ -1,0 +1,142 @@
+% Axis label
+\draw(-.5,0,0)node[below] {\scriptsize-5}--(-.5,-.02,0);
+\draw(-1,0,0)node[below]{\scriptsize-10}--(-1,-.02,0);
+\draw(-1.5,0,0)node[below]{\scriptsize-15}--(-1.5,-.02,0);
+\draw(-2.,0,0)node[below]{\scriptsize-20}--(-2,-.02,0);
+\draw(.5,0,0)node[below] {\scriptsize 5}--(.5,-.02,0);
+\draw(1,0,0)node[below]{\scriptsize 10}--(1,-.02,0);
+\draw(1.5,0,0)node[below]{\scriptsize 15}--(1.5,-.02,0);
+\draw(2.,0,0)node[below]{\scriptsize 20}--(2,-.02,0);
+\draw(2.5,0,0)node[below]{\scriptsize 25}--(2.5,-.02,0);
+\draw(3,0,0)node[below]{\scriptsize 30}--(3,-.02,0);
+\draw(0,.5,0)node[right] {\scriptsize 5}--(.02,.5,0);
+\draw(0,0,.5)node[right] {\scriptsize 5}--(.02,0,0.5);
+\draw(0,0,1)node[right] {\scriptsize 10}--(.02,0,1);
+\draw(0,0,1.5)node[right] {\scriptsize 15}--(.02,0,1.5);
+\draw(0,0,2)node[right] {\scriptsize 20}--(.02,0,2);
+
+\draw(0,0,-1)node[right] {\scriptsize-10}--(.02,0,-1);
+\draw(0,0,-.5)node[right] {\scriptsize-5}--(.02,0,-.5);
+
+
+%set up some coordinates 
+%-----------------------
+\coordinate (TCS) at (0,0,0);
+\coordinate (B) at (0,.04,1.92);
+\coordinate (P) at (-1,0,0);
+
+\coordinate (P11) at (-1.92,0,0.55);
+\coordinate (P44) at (0,0,-1.92);
+\coordinate (P77) at (1.92,0,0.55);
+
+
+% Path
+\coordinate (path1) at (-1.93,0.305,0.55);
+\coordinate (path2) at (-1.7657,0.33114,0.5033);
+\coordinate (path3) at (-1.6015,0.35482,0.4566);
+\coordinate (path4) at (-1.4372,0.37605,0.4099);
+\coordinate (path5) at (-1.273,0.39482,0.3632);
+\coordinate (path6) at (-1.1088,0.41114,0.3165);
+\coordinate (path7) at (-0.9445,0.425,0.2698);
+\coordinate (path8) at (-0.78025,0.43641,0.2231);
+\coordinate (path9) at (-0.616,0.44536,0.1764);
+\coordinate (path10) at (-0.45175,0.45186,0.1297);
+\coordinate (path11) at (-0.2875,0.4559,0.083);
+\coordinate (path12) at (-0.12325,0.45749,0.0363);
+\coordinate (path13) at (0.041,0.45662,-0.0104);
+\coordinate (path14) at (0.20525,0.4533,-0.0571);
+\coordinate (path15) at (0.3695,0.44752,-0.1038);
+\coordinate (path16) at (0.53375,0.43929,-0.1505);
+\coordinate (path17) at (0.698,0.4286,-0.1972);
+\coordinate (path18) at (0.86225,0.41546,-0.2439);
+\coordinate (path19) at (1.0265,0.39986,-0.2906);
+\coordinate (path20) at (1.1907,0.38181,-0.3373);
+\coordinate (path21) at (1.355,0.3613,-0.384);
+\coordinate (path22) at (1.5192,0.33834,-0.4307);
+\coordinate (path23) at (1.6835,0.31292,-0.4774);
+\coordinate (path24) at (1.8477,0.28505,-0.5241);
+\coordinate (path25) at (2.012,0.25472,-0.5708);
+\coordinate (path26) at (2.1763,0.22194,-0.6175);
+\coordinate (path27) at (2.3405,0.1867,-0.6642);
+\coordinate (path28) at (2.5048,0.14901,-0.7109);
+\coordinate (path29) at (2.669,0.10886,-0.7576);
+\coordinate (path30) at (2.8333,0.066257,-0.8043);
+\coordinate (path31) at (2.9975,0.0212,-0.851);
+
+
+
+
+%draw the main coordinate system axes
+\draw[<->] (-2.2,0,0)-- (3.2,0,0) node[right]{$X$};
+\draw[->] (TCS)-- (0,.75,0) node[above]{$Y$};
+\draw[<->] (0,0,-1.2)-- (0,0,2.2) node[below]{$Z$};
+
+
+
+% Position
+\fill (B) circle[radius=0.5pt] node[left]{B};
+
+% Skeet position for each sample
+\fill (path1) circle[blue,radius=0.5pt]node[above]{\tiny D};% node[blue,above]{\tiny (-19,2 ; 30,5 ; 5,5)};
+\fill (path2) circle[radius=0.5pt];
+\fill (path3) circle[radius=0.5pt];
+\fill (path4) circle[radius=0.5pt];
+\fill (path5) circle[radius=0.5pt];
+\fill (path6) circle[radius=0.5pt];
+\fill (path7) circle[radius=0.5pt];
+\fill (path8) circle[radius=0.5pt];
+\fill (path9) circle[radius=0.5pt];
+\fill (path10) circle[radius=0.5pt];
+\fill (path11) circle[radius=0.5pt];
+\fill (path12) circle[radius=0.5pt];
+\fill (path13) circle[radius=0.5pt];
+\fill (path14) circle[radius=0.5pt];
+\fill (path15) circle[radius=0.5pt];
+\fill (path16) circle[radius=0.5pt];
+\fill (path17) circle[radius=0.5pt];
+\fill (path18) circle[radius=0.5pt];
+\fill (path19) circle[radius=0.5pt];
+\fill (path20) circle[radius=0.5pt];
+\fill (path21) circle[radius=0.5pt];
+\fill (path22) circle[radius=0.5pt];
+\fill (path23) circle[radius=0.5pt];
+\fill (path24) circle[radius=0.5pt];
+\fill (path25) circle[radius=0.5pt];
+\fill (path26) circle[radius=0.5pt];
+\fill (path27) circle[radius=0.5pt];
+\fill (path28) circle[radius=0.5pt];
+\fill (path29) circle[radius=0.5pt];
+\fill (path30) circle[radius=0.5pt];
+\fill (path31) circle[radius=0.5pt]node[above]{\tiny G};%node[blue,above]{\tiny (29,98 ; 0,21 ; -8.51)};
+
+\draw[red,dotted,->] (B)-- (path1);
+\draw[red,dotted,->] (B)-- (path2);
+\draw[red,dotted,->] (B)-- (path3);
+\draw[red,dotted,->] (B)-- (path4);
+\draw[red,dotted,->] (B)-- (path5);
+\draw[red,dotted,->] (B)-- (path6);
+\draw[red,dotted,->] (B)-- (path7);
+\draw[red,dotted,->] (B)-- (path8);
+\draw[red,dotted,->] (B)-- (path9);
+\draw[red,dotted,->] (B)-- (path10);
+\draw[red,dotted,->] (B)-- (path11);
+\draw[red,dotted,->] (B)-- (path12);
+\draw[red,dotted,->] (B)-- (path13);
+\draw[red,dotted,->] (B)-- (path14);
+\draw[red,dotted,->] (B)-- (path15);
+\draw[red,dotted,->] (B)-- (path16);
+\draw[red,dotted,->] (B)-- (path17);
+\draw[green,dotted,->] (B)-- (path18); % PTS on tracket!
+\draw[green,dotted,->] (B)-- (path19); 
+\draw[green,dotted,->] (B)-- (path20); 
+\draw[green,dotted,->] (B)-- (path21); 
+\draw[green,dotted,->] (B)-- (path22); 
+\draw[green,dotted,->] (B)-- (path23); 
+\draw[green,dotted,->] (B)-- (path24);
+\draw[green,dotted,->] (B)-- (path25); 
+\draw[green,dotted,->] (B)-- (path26); 
+\draw[green,dotted,->] (B)-- (path27);
+\draw[green,dotted,->] (B)-- (path28); 
+\draw[green,dotted,->] (B)-- (path29);
+\draw[green,dotted,->] (B)-- (path30); 
+\draw[green,dotted,->] (B)-- (path31);   
