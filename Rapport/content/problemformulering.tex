@@ -32,7 +32,7 @@ Herunder er parablen vist i et
 \begin{tikzpicture}[scale=1]
 \include*{./graphics/high_house_2D_parabola}
 \end{tikzpicture}
-\caption[Lerdue parabel]{Viser parablen af lerduens bane i 2D}
+\caption[Lerdue parabel]{Viser parablen af lerduens bane i 2D som højde som funktion af afstanden.}
 \label{fig:HH2D_para}
 \end{figure}
 ~\\[10pt]
@@ -48,7 +48,7 @@ PTS placering i punktet B.
 \begin{tikzpicture}[scale=0.2]
 \include*{./graphics/parabola_in_xy_plane}
 \end{tikzpicture}
-\caption[tekst i indholdsfortegnelsen]{Viser målets bane set ovenfra. D er udgangspunktet, G er nedslagspunktet. B er placeringen af PTS.}
+\caption[tekst i indholdsfortegnelsen]{Viser målets bane set i xz-planen. D er udgangspunktet, G er nedslagspunktet. B er placeringen af PTS.}
 \label{fig:para_in_xy_plane}
 \end{figure}
 
@@ -147,36 +147,23 @@ t_{nedslag} = 1.523 [s]
 
 \subsubsection{Parabel i 3 dimensioner}
 Nu omskrives parablen fundet i \ref{eq:pf:vektorparabel2} til x,y,z koordinater. 
-Grundplanet er x,y og højden er givet ved z. Dvs. at $z(t) = y_{2D}(t)$ og at $x(t)$ samt $y(t)$ afhænger af $x_{2D}(t)$ samt vinklen $\alpha$. 
-$\alpha$ er givet ved vinklen mellem parablen projekteret ned på x,y planet (som på figur \ref{fig:para_in_xy_plane}) og x aksen. 
+Grundplanet er x,z og højden er givet ved y. Dvs. at $y(t) = y_{2D}(t)$ og at $x(t)$ samt $z(t)$ afhænger af $x_{2D}(t)$ samt vinklen $\alpha$. 
+$\alpha$ er givet ved vinklen mellem parablen projekteret ned på x,z planet (som på figur \ref{fig:para_in_xy_plane}) og y aksen. 
 \todo[inline, author=Michael, color=blue! 50]{Kan også skrives som vinklen mellem parablen og x,z planet?}
 Vektorfunktionen kan skrives (ved $\alpha = 15.872 \degree$): 
 
 \begin{align}
 \begin{split}
-Pos(t) = \left( \begin{array}{c}
-	x(t) \\
-	y(t) \\
-	z(t)
-	\end{array}
-	\right)
+Pos\left( t \right) = \left( \begin{matrix} x\left( t \right)  \\ y\left( t \right)  \\ z\left( t \right)  \end{matrix} \right) &=\left( \begin{matrix} cos\left( \alpha  \right) \cdot { x }_{ 2D }\left( t \right) -19,3 \\ { y }_{ 2D }\left( t \right)  \\ sin\left( \alpha  \right) \cdot { x }_{ 2D }\left( t \right) -5,5 \end{matrix} \right) 
+\\
 %----------------------------------------
-	&= \left( \begin{array}{c}
-	\cos \alpha \times x_{2D}(t) - 19.3 \\
-	\sin \alpha \times x_{2D}(t) - 5.5 \\
-	y_{2D}(t)
-	\end{array}
-	\right) \\
-%----------------------------------------
-	&= \left( \begin{array}{c}
-	32.851 t - 19.3 \\
-	9.34 t - 5.5 \\
-	- 4.91 t^2 + 5.473 t + 3.05
-	\end{array}
-	\right)
+&= \left( \begin{matrix} 32,851\cdot t-19,3 \\ -{ 4,91\cdot t }^{ 2 }+5,473\cdot t+3,05 \\ 9,34\cdot t-5,5 \end{matrix} \right) 
 \label{eq:pf:vektorparabel3d}
 \end{split}
 \end{align}
+
+
+
 
 
 Bemærk udgangspunktet for kastet er flyttet fra origo, til HHs position. (Punkt D på figur \ref{fig:para_in_xy_plane})
