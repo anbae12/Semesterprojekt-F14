@@ -1,18 +1,18 @@
 \section{Koordinattransformation}
 \label{sec:koordinattransformation}
 
-De kartesiske koordinater $P_k=[x, y, z]$ skal transformeres til sværiske koordinater $P_s=[\rho, \phi, \theta]$, hvor $\phi$ og $\theta$ bruges som vinkelbestemmelserne for hhv. pan og tilt.\\
+De kartesiske koordinater \(P_k=[x, y, z]\) skal transformeres til sværiske koordinater \(P_s=[\rho, \phi, \theta]\), hvor \(\phi\) og \(\theta\) bruges som vinkelbestemmelserne for hhv. pan og tilt.\\ \todo{tjek op på viklerne}
 
 Positionbestemmelsen af det kartesiske koordinatset som funktion af er udredt tidligere og fremgår i ligning \ref{eq:pf:vektorparabel3d1}. 
 
 \begin{align}
 \begin{split}
-Pos\left( t \right) =\left( \begin{matrix} x \\ y \\ z \end{matrix} \right) =\left( \begin{matrix} 32,851\cdot t-19,3 \\ 9,34\cdot t-5,5 \\ -4,91{ \cdot t }^{ 2 }+5,473\cdot t+3,05 \end{matrix} \right) 
+Pos\left( t \right) =\left( \begin{matrix} x \\ y \\ z \end{matrix} \right) =\left( \begin{matrix} 32,851\cdot t-19,2 \\ 9,34\cdot t+5,5 \\ -4,91{ \cdot t }^{ 2 }+5,473\cdot t+3,05 \end{matrix} \right) 
 \label{eq:pf:vektorparabel3d1}
 \end{split}
 \end{align}
 \todo[author=Anders,inline]{Mangler PTS offset husk målebånd.}
-
+\todo[author=ANders,inline]{byt rundt på y og z i ligning}
 Koordinattransformationen fra kartesiske til sværiske kan gøres ud for nedenstående ligninger.
 
 
@@ -26,14 +26,15 @@ Koordinattransformationen fra kartesiske til sværiske kan gøres ud for nedenst
 \label{eq:sv_koordi}
 \end{split}
 \end{align}
-hvor $\phi$ og $\theta$ er angivet i grader. \citep[Kap. 10.6, s. 598]{adam}.
+\todo{skrive den som en vektor}
+hvor \(\phi\) og \(\theta\) er angivet i grader. \citep[Kap. 10.6, s. 598]{adam}.
 
 \begin{figure}[!th]
 \centering
 \begin{tikzpicture}[scale=2]
 \include*{./graphics/3d_parabola_in_xyz_plane}
 \end{tikzpicture}
-\caption[tekst i indholdsfortegnelsen]{Viser målets postion med en samplefrekvens på $10[Hz]$.  set ovenfra. D er udgangspunktet, G er nedslagspunktet. B er placeringen af PTS.}
+\caption[tekst i indholdsfortegnelsen]{Viser målets postion med en samplefrekvens på 10 [Hz].  set ovenfra. D er udgangspunktet, G er nedslagspunktet. B er placeringen af PTS.}
 \label{fig:para_in_xy_plane}
 \end{figure}
 \todo[author=Anders]{mangler at måle højden på tilts roationsakse.}

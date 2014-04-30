@@ -17,13 +17,12 @@ banen ses på figur \ref{fig:ES}. Det kartesiske koordinatsystem har origo i hal
 som indtegnet 
 nederst på figuren. I ES skal rammes serier af duer/mål der afskydes fra 
 enten ”High House” eller ”Low House”, og med skud fra hver af de otte stationer langs 
-cirkelperiferien. Dette projekt er afgrænset til et enkelt tilfælde - afskydning fra ”High-
-House” med pan-and-tilt systemet placeret på station 4.\\
+cirkelperiferien. Dette projekt er afgrænset til et enkelt tilfælde - afskydning fra ”High-House” med pan-and-tilt systemet placeret på station 4.\todo[author=Anders]{Sidste sætning skal omformuleres.}\\
 
 Jævnfør reglerne for ES, skal duer/mål passere target crossing point (TCS) som er 
-placeret i $4,57 [m]$ over origo. (0; 0; 4.57). Fejlmargin for passagen er $\pm0,45 [m]$. 
-Målene skal desuden flyve $50 - 52 [m]$.  High house er placeret $20,11 [m]$ fra TCS, i en 
-højde af $3,05 [m]$. 
+placeret i 4,57 [m] over origo. (0; 0; 4.57). Fejlmargin for passagen er \(\pm\)0,45 [m]. 
+Målene skal desuden flyve 50 - 52 [m].  High house er placeret 20,11 [m] fra TCS, i en 
+højde af 3,05 [m]. 
 %Da luftmodstanden er negligerbar kan parablen (2. grads polynomium) findes ved at indsætte de kendte punkter. 
 Herunder er parablen vist i et 
 2D plan, figur \ref{fig:HH2D_para}.
@@ -36,9 +35,9 @@ Herunder er parablen vist i et
 \label{fig:HH2D_para}
 \end{figure}
 ~\\[10pt]
-Målet bliver affyret med en hastighed på $34.589 [\frac{m}{s}]$, i en vinkel på $9.103^{\circ}$ ift. xy-
+Målet bliver affyret med en hastighed på 34.589 \([\frac{m}{s}]\), i en vinkel på \(9.103^{\circ}\) ift. xy-
 planet. Set ovenfra bevæger målet sig som set på figur \ref{fig:para_in_xy_plane}. 
-Figuren ses nedslagspunktet fra High-House, der er i alt $52 [m]$ startpositionen samt 
+Figuren ses nedslagspunktet fra High-House, der er i alt 52 [m] startpositionen samt 
 PTS placering i punktet B. 
 
 
@@ -73,16 +72,16 @@ Kasteparablen er givet ved vektorfunktionen i ligning  \ref{eq:pf:vektorparabel}
 \label{eq:pf:vektorparabel}
 \end{equation}
 
-Hvor $\theta$ er afskydningsvinklen, $v_0$ er afskydningshastigheden, $g$ er tyngdeacceleration og $x_0$,$y_0$ er begyndelsespunktet. 
+Hvor \(\theta\) er afskydningsvinklen, \(v_0\) er afskydningshastigheden, \(g\) er tyngdeacceleration og \(x_0\), \(y_0\) er begyndelsespunktet. 
 
-For at få en parabel på formen y(x), isoleres t i x(t) med henblik på at substituere t i y(x): ($x_0$ sættes til 0.)
+For at få en parabel på formen y(x), isoleres t i x(t) med henblik på at substituere t i y(x): (\(x_0\) sættes til 0.)
 
 \begin{equation}
 t = \frac{x}{\cos \left( \theta \right) v_0}
 \label{eq:pf:x(t)}
 \end{equation}
 
-Den fundne værdi for t indsættes i $y(t)$, og udtrykket reduceres, \citep[Side. 67]{fund_of_physics}: 
+Den fundne værdi for t indsættes i \(y(t)\), og udtrykket reduceres, \citep[Side. 67]{fund_of_physics}: 
 
 \begin{align}
 \begin{split}
@@ -92,17 +91,17 @@ y(x) &= \tan \left( \theta \right) x - \frac{gx^2}{2(\cos \left( \theta \right) 
 \end{split}
 \end{align}
 
-Det ses at der er 3 ubekendte i ligningen. Dog er 3 punkter kendt fra HH parablen. Det er givet i reglerne for ESS at målet affyres fra en højde på $y_0 = 3.05 [m]$, så det indsættes i formlen. 
+Det ses at der er 3 ubekendte i ligningen. Dog er 3 punkter kendt fra HH parablen. Det er givet i reglerne for ESS at målet affyres fra en højde på \(y_0\) = 3,05 [m], så det indsættes i formlen. 
 \begin{equation}
-y(x) = \tan \theta x - \frac{gx^2}{2(\cos \left( \theta \right)  v_0)^2} + 3.05
+y(x) = \tan \theta x - \frac{gx^2}{2(\cos \left( \theta \right)  v_0)^2} + 3,05
 \label{eq:pf:y(x)2}
 \end{equation}
-Det er givet at målet skal passere TCS som er placeret i en højde på $4.57 [m]$, $20.11 [m$] fra HH. 
-Desuden skal målet bevæge sig $50 - 52 [m]$, i de videre beregninger $52 [m]$. Det giver koordinatsættene (20.11; 4.57) og (52; 0). Vha. disse bestemmes $\theta$ og $v_0$ til:\footnote{Ved $g = 9.82[m/{s}^{2]}$}
-\todo[inline, author=Michael]{Måske giver det ikke mening med alle de decimaler, da det er udregnet med g = 9.82 - men jeg ved heller ikke hvor jeg skal finde en mere præcis måling af g?}
+Det er givet at målet skal passere TCS som er placeret i en højde på 4,57 [m], 20,11 [m] fra HH. 
+Desuden skal målet bevæge sig 50 - 52 [m], i de videre beregninger 52 [m]. Det giver koordinatsættene \((20,11 ; 4,57)\) og \((52 ; 0)\). Vha. disse bestemmes \(\theta\) og \(v_0\) til:\footnote{Ved \(g = 9,82[m/{s}^{2]}\)}
+\todo[inline, author=Michael]{Måske giver det ikke mening med alle de decimaler, da det er udregnet med g = 9,82 - men jeg ved heller ikke hvor jeg skal finde en mere præcis måling af g?}
 \begin{eqnarray}
-\theta &=& 9.103 \degree \\
-v_0 &=& 34.589 \left[ \frac { m }{ s }  \right] 
+\theta &=& 9,103 \degree \\
+v_0 &=& 34,589 \left[ \frac { m }{ s }  \right] 
 \end{eqnarray}
 
 Disse parametre indsættes i vektorfunktionen fra ligning \ref{eq:pf:vektorparabel} samt udtrykket fra ligning \ref{eq:pf:y(x)2}. Udtrykkene reduceres: 
@@ -115,14 +114,14 @@ Disse parametre indsættes i vektorfunktionen fra ligning \ref{eq:pf:vektorparab
 	\end{array}
 	\right)
 	&= \left( \begin{array}{c}
-	\cos \left(9.103 \degree \right) 34.589 t \\
-	\sin \left(9.103 \degree \right) 34.589 t - \frac{9.82}{2} t^2 + 3.05
+	\cos \left(9,103 \degree \right) 34,589 t \\
+	\sin \left(9,103 \degree \right) 34,589 t - \frac{9,82}{2} t^2 + 3,05
 	\end{array}
 	\right) \\
 % ------------------------------
 	&= \left( \begin{array}{c}
-	34.153 t \\
-	- 4.91 t^2 + 5.473 t + 3.05
+	34,153 t \\
+	- 4,91 t^2 + 5,473 t + 3,05
 	\end{array}
 	\right)
 \label{eq:pf:vektorparabel2}
@@ -131,33 +130,33 @@ Disse parametre indsættes i vektorfunktionen fra ligning \ref{eq:pf:vektorparab
 
 \begin{align}
 \begin{split}
-y(x) &= \tan \left(9.103 \degree \right) x - \frac{9.82x^2}{2(\cos \left(9.103 \degree \right) 34.589)^2} + 3.05 \\
+y(x) &= \tan \left(9,103 \degree \right) x - \frac{9,82x^2}{2(\cos \left(9,103 \degree \right) 34,589)^2} + 3,05 \\
 % -------------------------------
-&= - 0.00421 x^2 + 0.1602 x  + 3.05
+&= - 0,00421 x^2 + 0,1602 x  + 3,05
 \label{eq:pf:y(x)3}
 \end{split}
 \end{align}
 
-For at finde ud af hvornår målet rammer jorden, sættes $y(t) = 0$. Det giver:
+For at finde ud af hvornår målet rammer jorden, sættes \(y(t) = 0\). Det giver:
 
 \begin{equation}
-t_{nedslag} = 1.523 [s]
+t_{nedslag} = 1,523 [s]
 \label{eq:pf:nedslagstid}
 \end{equation}
 
 \subsubsection{Parabel i 3 dimensioner}
 Nu omskrives parablen fundet i \ref{eq:pf:vektorparabel2} til x,y,z koordinater. 
-Grundplanet er x,z og højden er givet ved y. Dvs. at $y(t) = y_{2D}(t)$ og at $x(t)$ samt $z(t)$ afhænger af $x_{2D}(t)$ samt vinklen $\alpha$. 
-$\alpha$ er givet ved vinklen mellem parablen projekteret ned på x,z planet (som på figur \ref{fig:para_in_xy_plane}) og y aksen. 
+Grundplanet er x,z og højden er givet ved y. Dvs. at \(y(t) = y_{2D}(t)\) og at \(x(t)\) samt \(z(t)\) afhænger af \(x_{2D}(t)\) samt vinklen \(\alpha\). 
+\(\alpha\) er givet ved vinklen mellem parablen projekteret ned på x,z planet (som på figur \ref{fig:para_in_xy_plane}) og y aksen. 
 \todo[inline, author=Michael, color=blue! 50]{Kan også skrives som vinklen mellem parablen og x,z planet?}
-Vektorfunktionen kan skrives (ved $\alpha = 15.872 \degree$): 
+Vektorfunktionen kan skrives (ved \(\alpha = 15,872 \degree\)): 
 
 \begin{align}
 \begin{split}
-Pos\left( t \right) = \left( \begin{matrix} x\left( t \right)  \\ y\left( t \right)  \\ z\left( t \right)  \end{matrix} \right) &=\left( \begin{matrix} cos\left( \alpha  \right) \cdot { x }_{ 2D }\left( t \right) -19,3 \\ { y }_{ 2D }\left( t \right)  \\ sin\left( \alpha  \right) \cdot { x }_{ 2D }\left( t \right) -5,5 \end{matrix} \right) 
+Pos\left( t \right) = \left( \begin{matrix} x\left( t \right)  \\ y\left( t \right)  \\ z\left( t \right)  \end{matrix} \right) &=\left( \begin{matrix} cos\left( \alpha  \right) \cdot { x }_{ 2D }\left( t \right) -19,2 \\ { y }_{ 2D }\left( t \right)  \\ sin\left( \alpha  \right) \cdot { x }_{ 2D }\left( t \right) +5,5 \end{matrix} \right) 
 \\
 %----------------------------------------
-&= \left( \begin{matrix} 32,851\cdot t-19,3 \\ -{ 4,91\cdot t }^{ 2 }+5,473\cdot t+3,05 \\ 9,34\cdot t-5,5 \end{matrix} \right) 
+&= \left( \begin{matrix} 32,851\cdot t-19,2 \\ -{ 4,91\cdot t }^{ 2 }+5,473\cdot t+3,05 \\ 9,34\cdot t+5,5 \end{matrix} \right) 
 \label{eq:pf:vektorparabel3d}
 \end{split}
 \end{align}
