@@ -51,6 +51,17 @@ PTS placering i punktet B.
 \label{fig:para_in_xy_plane}
 \end{figure}
 
+\begin{figure}[!th]
+\centering
+\begin{tikzpicture}[scale=2]
+\include*{./graphics/3d_parabola_in_xyz_plane}
+\end{tikzpicture}
+\caption[tekst i indholdsfortegnelsen]{Viser målets postion med en samplefrekvens på 10 [Hz].  set ovenfra. D er udgangspunktet, G er nedslagspunktet. B er placeringen af PTS.}
+\label{fig:para_in_xy_plane}
+\end{figure}
+\todo[author=Anders]{Jeg ved ikke om denne skal bruges, men nu er den tegnet}
+
+
 \subsection{Udregning af tallene}
 \todo[inline, author=Michael]{Skal sikkert flyttes til appendix?}
 
@@ -145,6 +156,7 @@ t_{nedslag} = 1,523 [s]
 \end{equation}
 
 \subsubsection{Parabel i 3 dimensioner}
+\label{subsubsec:para}
 Nu omskrives parablen fundet i \ref{eq:pf:vektorparabel2} til x,y,z koordinater. 
 Grundplanet er x,z og højden er givet ved y. Dvs. at \(y(t) = y_{2D}(t)\) og at \(x(t)\) samt \(z(t)\) afhænger af \(x_{2D}(t)\) samt vinklen \(\alpha\). 
 \(\alpha\) er givet ved vinklen mellem parablen projekteret ned på x,z planet (som på figur \ref{fig:para_in_xy_plane}) og y aksen. 
