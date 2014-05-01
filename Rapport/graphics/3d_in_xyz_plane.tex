@@ -1,0 +1,40 @@
+\coordinate (O) at (0,0,0);
+\coordinate (P) at (-0.75,0.75,-0.75);
+\coordinate (Pxz) at (-0.75,0,-0.75);
+
+\coordinate (Px1) at (-0.375,0,-0.375);
+\coordinate (Px) at (-0.375,0,0);
+
+\coordinate (Py1) at (0,0.5,0);
+\coordinate (Py) at (-0.375,0.375,-0.375);
+
+
+%draw the main coordinate system axes
+\draw[->] (-1,0,0) -- (1,0,0) node[right]{\(X\)};
+\draw[->] (O) -- (0,0.75,0) node[above]{\(Y\)};
+\draw[->] (0,0,-1) -- (0,0,1) node[below]{\(Z\)};
+
+%draw a vector from origin to point (P) 
+\draw[-stealth,color=red] (O) -- (P);
+
+%draw projection on xy plane, and a connecting line
+\draw[dashed, color=red] (O) -- (Pxz);
+\draw[dashed, color=red] (P) -- (Pxz);
+
+
+
+\node (A) at (-0.55,0,-0.2) {\tiny \(180\degree-\theta\degree\)};
+\node (B) at (-0.21,0.55,-0.2) {\tiny \(90\degree-\phi\degree\)};
+\node (E) at (-0.55,0.625,-0.55) {\tiny \(\rho\)};
+
+\node (C) at (0.25,0,0.15) {\scriptsize Origo PTS};
+\node (D) at (-0.65,0.75,-0.75) {\scriptsize Due};
+
+\path [bend right] (Px1) edge (Px);
+\path [bend right] (Py1) edge (Py);
+
+
+
+\fill (O) circle[radius=0.3pt];
+\fill (P) circle[radius=0.3pt];
+

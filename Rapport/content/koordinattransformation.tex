@@ -1,59 +1,43 @@
 \section{Koordinattransformation}
 \label{sec:koordinattransformation}
-
-De kartesiske koordinater \(P_k=[x, y, z]\) skal transformeres til sværiske koordinater \(P_s=[\rho, \phi, \theta]\), hvor \(\phi\) og \(\theta\) bruges som vinkelbestemmelserne for hhv. pan og tilt.\\ \todo{tjek op på viklerne}
-
-Positionbestemmelsen af det kartesiske koordinatset som funktion af er udredt tidligere og fremgår i ligning \ref{eq:pf:vektorparabel3d1}. 
-
+De kartesiske koordinater \(P_k=[x, y, z]\) skal transformeres til sværiske koordinater \(P_s=[\rho \text{ ; } \phi \text{ ; } \theta]\), hvor \(\phi\) og \(\theta\) bruges som vinkelbestemmelserne for hhv. tilt og pan og \(\rho\) er afstanden fra PTS til duen som funktion af tiden.
+Positionbestemmelsen som funktion af tiden for det kartesiske koordinatset er udredt i afsnit \ref{subsubsec:para}.
+Idet vinklerne skal bestemmes i forhold til PTS's rotationscenter og ikke koordinatsystemets origo, skal PTS's rotationscenter trækkes, \(PTS=[\text{0 ; 0,45 ; 19,2}]\). Koordinattransformation tager udgangspunkt i de kartisiske koordinater givet i ligning \ref{eq:pf:vektorparabel3d1}. 
 \begin{align}
 \begin{split}
-Pos\left( t \right) =\left( \begin{matrix} x \\ y \\ z \end{matrix} \right) =\left( \begin{matrix} 32,851\cdot t-19,2 \\ 9,34\cdot t+5,5 \\ -4,91{ \cdot t }^{ 2 }+5,473\cdot t+3,05 \end{matrix} \right) 
+{ P }_{ c }\left( t \right) &=Pos\left( t \right) -PTS
+\\
+&=\left( \begin{matrix} x\left( t \right) -0 \\ y\left( t \right) -0,45 \\ z\left( t \right) -19,2 \end{matrix} \right) 
+\\ 
+&=\left( \begin{matrix} 32,851\cdot t-19,2 \\ -{ 4,91\cdot t }^{ 2 }+5,473\cdot t+3,05-0,45 \\ 9,34\cdot t+5,5-19,2 \end{matrix} \right) 
+\\
+&=\left( \begin{matrix} 32,851\cdot t-19,2 \\ -{ 4,91\cdot t }^{ 2 }+5,473\cdot t+2,6 \\ 9,34\cdot t-13,7 \end{matrix} \right) 
 \label{eq:pf:vektorparabel3d1}
 \end{split}
 \end{align}
-\todo[author=Anders,inline]{Mangler PTS offset husk målebånd.}
-\todo[author=ANders,inline]{byt rundt på y og z i ligning}
-Koordinattransformationen fra kartesiske til sværiske kan gøres ud for nedenstående ligninger.
 
-
-\begin{align}
-\begin{split}
-\rho &=\sqrt { { x }^{ 2 } +{ y }^{ 2 }+{ z }^{ 2 }} 
-\\
-\phi &={ tan }^{ -1 }\left( \frac { \sqrt { { x }^{ 2 }+{ y }^{ 2 } }  }{ z }  \right) 
-\\
-\theta &={ tan }^{ -1 }\left( \frac { y }{ x }  \right) 
-\label{eq:sv_koordi}
-\end{split}
-\end{align}
-\todo{skrive den som en vektor}
-hvor \(\phi\) og \(\theta\) er angivet i grader. \citep[Kap. 10.6, s. 598]{adam}.
+Før koordinattransformationen fra kartesiske til sværiske koordinater vises et grafisk overblik af \(\phi\) og \(\theta\) samt \(\rho\), figur \ref{fig:thetaphi_degree}. Grundet PTS offset fra ligning \ref{eq:pf:vektorparabel3d1}, er origo for det særiske koordinatsystem, origo af PTS to rotationsakser. 
 
 \begin{figure}[!th]
 \centering
-\begin{tikzpicture}[scale=2]
-\include*{./graphics/3d_parabola_in_xyz_plane}
+\begin{tikzpicture}[scale=4]
+\include*{./graphics/3d_in_xyz_plane}
 \end{tikzpicture}
-\caption[tekst i indholdsfortegnelsen]{Viser målets postion med en samplefrekvens på 10 [Hz].  set ovenfra. D er udgangspunktet, G er nedslagspunktet. B er placeringen af PTS.}
-\label{fig:para_in_xy_plane}
+\caption[Sværisk koordinatsystem til koordinattransformation]{Viser duens placering i det sværiske rum som funktion af  \(\phi\) og \(\theta\) samt \(\rho\).}
+\label{fig:thetaphi_degree}
 \end{figure}
-\todo[author=Anders]{mangler at måle højden på tilts roationsakse.}
 
 
 
 
-\bigskip
 
-
-
-Bestemmelse af PS for givet ligning..
-
-
-PTS indsættes som reference. 
-
-Henvis til matlab. 
-
-
-
-
-Det er nødvendigt med en transformation mellem koordinatinputtet og 
+Transformationen fra kartesiske koordinater til sværiske koordinater gøres ud for nedenstående ligning.
+\begin{align}
+\begin{split}
+{ P }_{ s }\left( t \right) &=\left( \begin{matrix} \rho  \\ \phi  \\ \theta  \end{matrix} \right) =\left( \begin{matrix} \sqrt { { { P }_{ c_x }\left( t \right) }^{ 2 }+{ { P }_{ c_y }\left( t \right) }^{ 2 }+{ { P }_{ c_z }\left( t \right) }^{ 2 } }  \\ { tan }^{ -1 }\left( \frac { \sqrt { { { P }_{ c_x }\left( t \right) }^{ 2 }+{ { P }_{ c_y }\left( t \right) }^{ 2 } }  }{ { P }_{ c_z }\left( t \right) }  \right)  \\ { tan }^{ -1 }\left( \frac { { P }_{ c_y }\left( t \right) }{ { P }_{ c_x }\left( t \right) }  \right)  \end{matrix} \right) 
+\\
+ &=\left( \begin{matrix} \sqrt { { \left( 32,851\cdot t-19,2 \right)  }^{ 2 }+{ \left( -{ 4,91\cdot t }^{ 2 }+5,473\cdot t+2,6 \right)  }^{ 2 }+{ \left( 9,34\cdot t-13,7 \right)  }^{ 2 } }  \\ { tan }^{ -1 }\left( \frac { \sqrt { { \left( 32,851\cdot t-19,2 \right)  }^{ 2 }+{ \left( -{ 4,91\cdot t }^{ 2 }+5,473\cdot t+2,6 \right)  }^{ 2 } }  }{ 9,34\cdot t-13,7 }  \right)  \\ { tan }^{ -1 }\left( \frac { -{ 4,91\cdot t }^{ 2 }+5,473\cdot t+2,6 }{ 32,851\cdot t-19,2 }  \right)  \end{matrix} \right) 
+\label{eq:sv_koordi}
+\end{split}
+\end{align}
+hvor \(\rho\) er afstanden i meter, \(\phi\) og \(\theta\) er angivet i grader. \citep[Kap. 10.6, s. 598]{adam}.
