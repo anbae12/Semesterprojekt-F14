@@ -204,7 +204,7 @@ sammen med de to spændingsniveauer, hvorudfra tidskonstanten bestemmes.
 \end{figure}
 Figur \ref{fig:induktans0} viser flere målingers transientrespons.
 \paragraph{Metode 2}
-Seriemodstanden \(R_s1\) er blevet målt til 473,3 \([\Omega]\).
+Seriemodstanden \(R_{s1}\) er blevet målt til 473,3 \([\Omega]\).
 Spændingen har en amplitude på 2,4 [V] og et DC-offset på 2,5 [V].
 På figur \ref{fig:induktans1} er steady-state responsen for spændingsfaldene over DC-motoren og seriemodstanden indtegnet.
 \begin{figure}[th!]
@@ -334,7 +334,7 @@ Jf. Newtons 2. lov vil det resulterende kraftmoment være givet ved ligning \ref
 Dette kraftmoment kan også udtrykkes som kraftmomentet på rotoren fra snoren, \(T_{op}\),
 fratrukket friktionskraftmomentet \(T_f\), som udtrykt i ligning \ref{eq:Tres1}.
 \begin{equation}
-	T_{res}=T_{op}-\|T_f\|
+	T_{res}=T_{op}-\left|T_f\right|
 	\label{eq:Tres1}
  \end{equation}
 Bemærk at \(T_f\) er hele friktionskraftmomentet, inkl. Coulomb-friktion.
@@ -359,7 +359,7 @@ Når rotoren har opnået en given vinkelhastighed, og snorkraften stopper,
 vil rotoren decelerere med en vinkelacceleration \(\alpha_{ned}\), som skyldes friktionskraftmomentet,
 jf. ligning \ref{eq:Tf0}.
 \begin{equation}
-	\|T_f\|=J_m\|\alpha{ned}\|
+	\|T_f\|=J_m\left|\alpha{ned}\right|
 	\label{eq:Tf0}
  \end{equation}
 
@@ -379,12 +379,11 @@ kan rotorens inertimoment udtrykkes vha. de målbare størrelser
 mens friktionskraftmomentet kan udtrykkes vha. \(m_{lod}\), \(r_{disk}\), \(\alpha_{op}\) og \(\alpha_{ned}\),
 som i ligningerne \ref{eq:Jrotor} og \ref{eq:Tf1}.
 \begin{equation}
-	J_{m}=	m_{lod}\cdot{r_{disk}}\cdot\left\|\frac{\alpha_{op}\cdot{r_{disk}}-g}{\alpha_{op}+\|\alpha_{ned}\|}\right\|
-			-\frac{1}{2}\cdot{m_{disk}}\cdot\left(r_{hul}^2+r_{disk}^2\right)
+J_{ m }=m_{ lod }\cdot { r_{ disk } }\cdot \left| \frac { \alpha _{ op }\cdot { r_{ disk } }-g }{ \alpha _{ op }+\left| \alpha _{ ned } \right|  }  \right| -\frac { 1 }{ 2 } \cdot { m_{ disk } }\cdot \left( r_{ hul }^{ 2 }+r_{ disk }^{ 2 } \right) 
 	\label{eq:Jrotor}
 \end{equation}
 \begin{equation}
-	\|T_f\|= \alpha_{ned}\cdot{m_{lod}}\cdot{r_{disk}}\cdot\left\|\frac{\alpha_{op}\cdot{r_{disk}}-g}{\alpha_{op}+\|\alpha_{ned}\|}\right\|
+\left| T_{ f } \right| =\alpha _{ ned }\cdot { m_{ lod } }\cdot { r_{ disk } }\cdot \left| \frac { \alpha _{ op }\cdot { r_{ disk } }-g }{ \alpha _{ op }+\left| \alpha _{ ned } \right|  }  \right| 
 	\label{eq:Tf1}
  \end{equation}
 \subsubsection{Fremgangsmåde}
@@ -393,8 +392,8 @@ Et vejet lod fastgøres til disken med en snor, og snoren vikles rundt om disken
 Med et oscilloskop måles spændingsfaldet over motoren, mens loddet lades falde til gulvet.
 Når loddet har ramt gulvet, og spændingsfaldet er 0 V, stoppes målingen, og forsøget gentages.
 \subsubsection{Måleresultater}
-Diksen har en masse på 21,2 g, en ydre radius på 1,25 cm og en indre radius på 5 mm.
-Loddets masse er 851,7 g.
+Diksen har en masse på 21,2 [g], en ydre radius på 1,25 [cm] og en indre radius på 5 [mm].
+Loddets masse er 851,7 [g].
 På figur \ref{fig:vemf0} er målingerne af \(V_{EMF}\) indtegnet.
 
 \begin{figure}[th!]
