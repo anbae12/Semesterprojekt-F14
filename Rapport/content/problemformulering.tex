@@ -1,69 +1,105 @@
 \section{Problemformulering}
 Tracking af en lerdue i English Skeet (ES) vha. PTS. 
-Lerduen er i vores opstilling udskiftet med en bold, men ellers følges reglerne for ES, \citep{ES_regler}.
-Bolden bevæger sig i et 3D-rum med negligerbar luftmodstand. \\
+Lerduen/målet regnes i vores opstilling blot som et punkt, men ellers følges reglerne for ES \citep{ES_regler}.
+Bolden bevæger sig i et 3D-rum med negligerbar luftmodstand. 
 
 \begin{figure}[th!]
 \centering
-\includegraphics[width=0.4\textwidth]{./graphics/skeet-diagram_med_akser}
+\includegraphics[width=1\textwidth]{./graphics/skeet_diagram_cropped}
 \caption[tekst i indholdsfortegnelsen]{figurtekst}
 \label{fig:ES}
 \end{figure}	
 Systemets input er 60 kartesisiske koordinatsæt (x,y,z) per sekund. Hvor disse 
-koordinater stammer fra, er uden for projektafgrænsningen. \\
+koordinater stammer fra er uden for projektafgrænsningen. 
 
 Systemet dimensioneres til brug ifbm. en konkurrence i ES. En skitse over 
-banen ses på figur \ref{fig:ES}. Det kartesiske koordinatsystem har origo i halvcirklens centrum, 
-som indtegnet 
-nederst på figuren. I ES skal rammes serier af duer/mål der afskydes fra 
+banen ses på figur \ref{fig:ES}. 
+%Det kartesiske koordinatsystem har origo i halvcirklens centrum, som indtegnet nederst på figuren. 
+I ES skal rammes serier af duer/mål der afskydes fra 
 enten ”High House” eller ”Low House”, og med skud fra hver af de otte stationer langs 
-cirkelperiferien. Dette projekt er afgrænset til et enkelt tilfælde - afskydning fra ”High-House” med pan-and-tilt systemet placeret på station 4.\todo[author=Anders]{Sidste sætning skal omformuleres.}\\
+cirkelperiferien. Dette projekt er afgrænset til et enkelt tilfælde - afskydning fra ”High-House” med PTS placeret på station 4. 
 
-Jævnfør reglerne for ES, skal duer/mål passere target crossing point (TCS) som er 
-placeret i 4,57 [m] over origo. (0 ; 0 ; 4.57). Fejlmargin for passagen er \(\pm\)0,45 [m]. 
-Målene skal desuden flyve 50 - 52 [m].  High house er placeret 20,11 [m] fra TCS, i en 
-højde af 3,05 [m]. 
-%Da luftmodstanden er negligerbar kan parablen (2. grads polynomium) findes ved at indsætte de kendte punkter. 
-Herunder er parablen vist i et 
+Det kartesiske koordinatsystem har origo ved PTS's origo. PTS's origo er placeret 45 [cm] over jorden. Ved begyndelsen af applikationen er PTS stationært, med både $\phi$ og $\theta$ lig med 0. Dvs. at tilt rammen er parallel med YZ planet. 
+
+Målets parabel er givet ved vektorfunktionen \ref{eq:pf:vektorparabel3d}
+
+\begin{equation}
+Pos\left( t \right) = 
+\left( \begin{matrix} 
+	x\left( t \right)  \\ 
+	y\left( t \right)  \\ 
+	z\left( t \right)  \end{matrix} \right) =	\left( \begin{matrix}
+	32,851\cdot t-19,2 \\
+	9,34\cdot t+5,5 \\
+	-{ 4,91\cdot t }^{ 2 }+5,473\cdot t+3,05 
+ \end{matrix} \right) 
+\label{eq:pf:vektorparabel3d}
+\end{equation}
+
+Herunder er parablen vist i projekteret ned på et 
 2D plan, figur \ref{fig:HH2D_para}.
-\begin{figure}[!th]
-\centering
-\begin{tikzpicture}[scale=1]
-\include*{./graphics/high_house_2D_parabola}
-\end{tikzpicture}
-\caption[Lerdue parabel]{Viser parablen af lerduens bane i 2D som højde som funktion af afstanden.}
-\label{fig:HH2D_para}
-\end{figure}
-~\\[10pt]
+
 Målet bliver affyret med en hastighed på 34,589 \([\frac{m}{s}]\), i en vinkel på \(9,103^{\circ}\) ift. xz-
 planet. Set ovenfra bevæger målet sig som set på figur \ref{fig:para_in_xy_plane}. 
 Figuren ses nedslagspunktet fra High-House, der er i alt 52 [m] startpositionen samt 
 PTS placering i punktet B. 
 
+Geværet der bruges i English Skeet har en spredning på ca. 2\degree . Systemet skal altså sigte efter målet med en nøjagtighed på $\pm 1 \degree$ før geværet affyres.
+Ideelt set skal skytten skyde ca. når målet rammer toppunktet. 
+Derfor skal PTS følge systemet, senest når målet når toppunktet. 
+Geværet er monteret vinkelret på tilt-planet, og luftmodstand samt tyngdekraft.
+
+Pan-rammen er begrænset til 170\degree  bevægelsesfrihed, og begrænser derved systemets maksimalt tilladte overshoot.
+
+%
+%\begin{equation}
+%	T_{settling} = t_{toppunkt} = 0,557 s
+%\end{equation}
+%
+Systemets 
 
 
-\begin{figure}[!th]
+
+\begin{figure}[h!]
 \centering
-\begin{tikzpicture}[scale=0.2]
-\include*{./graphics/parabola_in_xy_plane}
-\end{tikzpicture}
-\caption[tekst i indholdsfortegnelsen]{Viser målets bane set i xz-planen. D er udgangspunktet, G er nedslagspunktet. B er placeringen af PTS.}
-\label{fig:para_in_xy_plane}
+%
+\subfloat[Viser parablen af lerduens bane i 2D med højde som funktion af afstanden.\label{fig:HH2D_para}]{%
+	\begin{tikzpicture}[scale=0.8]
+	\include*{./graphics/high_house_2D_parabola}
+	\end{tikzpicture}
+}
+\subfloat[Målets bane projekteret på xy-planet\label{fig:para_in_xy_plane}]{%
+	\begin{tikzpicture}[scale=0.16]
+	\include*{./graphics/parabola_in_xy_plane}
+	\end{tikzpicture}
+}
+\caption[Målets parabel i 2 dimensioner]{Parablen i 2D}
 \end{figure}
+
+
 
 \begin{figure}[!th]
 \centering
 \begin{tikzpicture}[scale=2]
 \include*{./graphics/3d_parabola_in_xyz_plane}
 \end{tikzpicture}
-\caption[tekst i indholdsfortegnelsen]{Viser målets postion med en samplefrekvens på 10 [Hz].  set ovenfra. D er udgangspunktet, G er nedslagspunktet. B er placeringen af PTS.}
-\label{fig:para_in_xy_plane}
+\caption[tekst i indholdsfortegnelsen]{Viser målets postion med en samplefrekvens på 10 [Hz] set ovenfra. D er udgangspunktet, G er nedslagspunktet. B er placeringen af PTS.}
+\label{fig:para_in_xyz_plane}
 \end{figure}
-\todo[author=Anders]{Jeg ved ikke om denne skal bruges, men nu er den tegnet}
+
 
 
 \subsection{Udregning af tallene}
-\todo[inline, author=Michael]{Skal sikkert flyttes til appendix?}
+\label{sec:udregning_af_parabel}
+\todo[inline, author=Michael]{Skal sikkert flyttes til appendix? \\ Bør omskrives lidt: Flyt origo til PTS med det samme, start med kasteparablen, find 3 variable vha. 3 datasæt, Jobs done!}
+
+
+Jævnfør reglerne for ES, skal duer/mål passere target crossing point (TCS) som er 
+placeret i 4,57 [m] over origo. (0 ; 0 ; 4.57). Fejlmargin for passagen er \(\pm\)0,45 [m]. 
+Målene skal desuden flyve 50 - 52 [m].  High house er placeret 20,11 [m] fra TCS, i en 
+højde af 3,05 [m]. 
+
+Da luftmodstanden er negligerbar kan parablen (2. grads polynomium) findes ved at indsætte de kendte punkter. 
 
 For at simplificere udregningerne, regnes parablen kun i 2D. Det er trivielt at tilføje den tredje, så det gøres til sidst (hvis jeg finder det relevant). 
 
