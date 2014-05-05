@@ -25,7 +25,7 @@ rotation, derfor tænker jeg at tilts vægt bare skal lægges til \({L_{3}}\).}
 \subsection{Beregning af Pan \& Tilt-rammernes inertimoment}
 Den teoritiske beregning er foretaget ud fra følgende simplificeringer:
 \begin{itemize}
-\item Aluminimumsprofilen, 40x40L, har en massefylde på \(\rho=1,5 [kg/m]\), \citep[Kap. 2 side. 4]{alu_profil_desitet}.
+\item Aluminimumsprofilen, 40x40L, har en massefylde på \(\rho=1,5\) [kg/m], \citep[Kap. 2 side. 4]{alu_profil_desitet}.
 \item Rammerne simplificeres som bestående af tynde stænger, således at hver ramme har to stænger, hvis bidrag
 til inertimomentet kan beregnes som var de punktmasser forskudt i forhold til rotationsaksen\citep[Side. 254, ligning 10-36]{fund_of_physics},
 vha. ligning \ref{eq:punktmasse_para}.
@@ -55,6 +55,8 @@ Med ovenstående formler er det muligt at finde Pan og Tilt-rammernes teoritiske
  &=0,0315708 \text{ [kg m$^2$]}
 \end{split}
 \end{align}
+
+\todo[inline,author=Anders-Mikael]{Tilt påvirker pan..\\ størst når tilt er vandret\\ mindst når tilt er lodret\\ og sådan påvirker geringen set fra motoren.}
 
 Inertimomenterne er beregnet i ligningerne \ref{eq:inerti_tilt_pan}.
 Systemets gearing gør dog at inertimomenterne, som motorerne belastes med, er mindre.
