@@ -8,7 +8,6 @@ FPGA'en er i projeket et BASYS board\footnote{DIGILENT BASYS 2}, der programmere
 Ovenstående krav til funktionaliteten på FPGAen er fastsat af 
 projektformuleringen.
 
-
 \subsection{Foretagede valg i opbygning af FPGA funktionalitet}
 Eftersom de fleste krav til FPGAen er givet af projektbeskrivelsen er der ikke 
 lavet noget større analysearbejde af FPGAens funktionalitet. Undervejs i 
@@ -26,9 +25,9 @@ udbygge og genbruge.
 Der skal fra FPGAen genereres PWM signaler til at styre motorerne på PTS.
 Det ønskedes at have en PWM frekvens, der ikke ligger i det hørbare område. 
 Det ønskedes også at have en god opløsning på PWM. 
-Ved 11 bit og brug af BASYS boardets interne clock på 50 [MHz] bliver PWM frekvensen passende høj:
+Ved 11 bit og brug af BASYS boardets interne clock på 50 MHz bliver PWM frekvensen passende høj:
 \begin{equation}
-  \frac{2^{11}}{50  \text{ [KHz]}} = 24.41 \text{ [KHz]} 
+  \frac{2^{11}}{50 MHz} = 24.41 KHz 
 \end{equation}
 
 \subsection{Opbygningen på FPGA}
@@ -42,7 +41,6 @@ Herunder følger en forklaring på komponenternes funktionalitet.
 \subsection*{Tic counter}
 \textbf{Input:}
 Signaler fra encoder på PTS. Reset signal fra tic reset.
-
 \textbf{Output:} Positionen på hver af motorerne angivet i antal tics mellem 0 
 og 1080.
 

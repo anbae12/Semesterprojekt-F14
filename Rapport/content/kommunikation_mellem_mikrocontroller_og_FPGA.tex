@@ -1,5 +1,16 @@
 \section{Kommunikation mellem mikrocontroller og FPGA}
 
+Kommunikationen mellem Microcontolleren og FPGA’en sker med SPI. SPI står for Serial Peripheral Interface. Det er en protokol hvor, der bliver overført data mellem en master og en eller flere slaver. Overførelsen sker i full duplex mode, så der bliver sendt data både fra masteren og slaven på samme tid.
+Der er fire forbindelse mellem masteren og slaverne: Slave Select, Serial CLock (SCLK), MOSI og MISO. Slave Select bruges bruges til at vælge hvilken slave der skal overføres data med. Den kan også sammenlignes med en chip select. SCLK bruges som clock frekvens, som synkronisere Salve select, MOSI og MISO. MOSI står for Master Output Slave Input, det er dataet master sender til slaven, ligeså er MISO Master Input Slave Output, som er dataet som, master modtager fra slaven.
+Når der er flere end en slave, deler de SCLK, MOSI og MISO, men de har en Slave Select hver. Forløbet er sådan at master sender et SS signal til den ønskede slave. De slaver der ikke har modtaget et SS signal ingnorer det der bliver sendt på MOSI og MISO. I et system kun med en slave kan SS udelades, da der kun er en slave at vælge. 
+
+\subsection{Overvejelser og valg}
+
+
+
+
+\subsection{Brugen af SPI}
+
 
 %%% FORMAT SPI
 

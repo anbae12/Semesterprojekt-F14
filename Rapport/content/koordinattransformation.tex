@@ -3,23 +3,26 @@
 
 De kartesiske koordinater \(P_k=[x, y, z]\) skal transformeres til sværiske koordinater \(P_s=[\rho \text{ ; } \phi \text{ ; } \theta]\), hvor \(\phi\) og \(\theta\) bruges som vinkelbestemmelserne for hhv. tilt og pan og \(\rho\) er afstanden fra PTS til duen som funktion af tiden.
 Positionbestemmelsen som funktion af tiden for det kartesiske koordinatset er udredt i afsnit \ref{subsubsec:para}.
-Idet vinklerne skal bestemmes i forhold til PTS's rotationscenter og ikke koordinatsystemets origo, skal PTS's rotationscenter trækkes, \(PTS=[\text{0 ; 0,45 ; 19,2}]\). 
-\subsection{Kartisk koordinater}
-Koordinattransformation tager udgangspunkt i de kartisiske koordinater givet i ligning \ref{eq:pf:vektorparabel3d1}. 
+Idet vinklerne skal bestemmes i forhold til PTS's rotationscenter og ikke koordinatsystemets origo, skal PTS's rotationscenter trækkes fra, \(PTS=[\text{19,2 ; 0 ; 0,45}]\). 
+\subsection{Kartetisk koordinater}
+Koordinattransformation tager udgangspunkt i den kartisiske stedvektor \(Pos(t) \), ligning \ref{eq:pf:vektorparabel3d} samt PTS's offset, ligning \ref{eq:pf:stedvektorparabel}.
+
+
+
+
 \begin{align}
 \begin{split}
 { P }_{ c }\left( t \right) &=Pos\left( t \right) -PTS
 \\
-&=\left( \begin{matrix} x\left( t \right) -0 \\ y\left( t \right) -0,45 \\ z\left( t \right) -19,2 \end{matrix} \right) 
-\\ 
-%&=\left( \begin{matrix} 32,851\cdot t-19,2 \\ -{ 4,91\cdot t }^{ 2 }+5,473\cdot t+3,05-0,45 \\ 9,34\cdot t+5,5-19,2 \end{matrix} \right) 
-%\\
-&=\left( \begin{matrix} 32,851\cdot t-19,2 \\ -{ 4,91\cdot t }^{ 2 }+5,473\cdot t+2,6 \\ 9,34\cdot t-13,7 \end{matrix} \right) 
-\label{eq:pf:vektorparabel3d1}
+%&=\left( \begin{matrix} x\left( t \right) -19,2 \\ y\left( t \right) -0  \\ z\left( t \right) -0,45\end{matrix} \right) \\ 
+%&=\left( \begin{matrix} 32,851\cdot t-19,2 \\ -{ 4,91\cdot t }^{ 2 }+5,473\cdot t+3,05-0,45 \\ 9,34\cdot t+5,5-19,2 \end{matrix} \right) \\
+&= \left( \begin{matrix} - 9,34\cdot t-13,7 \\
+  32,851\cdot t-19,3 \\ 
+ -{ 4,91\cdot t }^{ 2 }+5,473\cdot t+2,6\end{matrix} \right) 
+\label{eq:pf:stedvektorparabel}
 \end{split}
 \end{align}
-\todo[author=Anders]{Stedfunktion }
-Før koordinattransformationen fra kartesiske til sværiske koordinater vises et grafisk overblik af \(\phi\) og \(\theta\) samt \(\rho\), figur \ref{fig:thetaphi_degree}. Grundet PTS offset fra ligning \ref{eq:pf:vektorparabel3d1}, er origo for det særiske koordinatsystem, origo af PTS to rotationsakser. 
+Før koordinattransformationen fra kartesiske til sværiske koordinater vises et grafisk overblik af \(\phi\) og \(\theta\) samt \(\rho\), figur \ref{fig:thetaphi_degree}. Grundet PTS offset er origo for det særiske koordinatsystem, origo af PTS to rotationsakser. 
 
 \begin{figure}[!th]
 \centering
@@ -37,7 +40,7 @@ Transformationen fra kartesiske koordinater til sværiske koordinater gøres ud 
 \begin{split}
 { P }_{ s }\left( t \right) &=\left( \begin{matrix} \rho  \\ \phi  \\ \theta  \end{matrix} \right) =\left( \begin{matrix} \sqrt { { { P }_{ c_x }\left( t \right) }^{ 2 }+{ { P }_{ c_y }\left( t \right) }^{ 2 }+{ { P }_{ c_z }\left( t \right) }^{ 2 } }  \\ { tan }^{ -1 }\left( \frac { \sqrt { { { P }_{ c_x }\left( t \right) }^{ 2 }+{ { P }_{ c_y }\left( t \right) }^{ 2 } }  }{ { P }_{ c_z }\left( t \right) }  \right)  \\ { tan }^{ -1 }\left( \frac { { P }_{ c_y }\left( t \right) }{ { P }_{ c_x }\left( t \right) }  \right)  \end{matrix} \right) 
 \\
- &=\left( \begin{matrix} \sqrt { { \left( 32,851\cdot t-19,2 \right)  }^{ 2 }+{ \left( -{ 4,91\cdot t }^{ 2 }+5,473\cdot t+2,6 \right)  }^{ 2 }+{ \left( 9,34\cdot t-13,7 \right)  }^{ 2 } }  \\ { tan }^{ -1 }\left( \frac { \sqrt { { \left( 32,851\cdot t-19,2 \right)  }^{ 2 }+{ \left( -{ 4,91\cdot t }^{ 2 }+5,473\cdot t+2,6 \right)  }^{ 2 } }  }{ 9,34\cdot t-13,7 }  \right)  \\ { tan }^{ -1 }\left( \frac { -{ 4,91\cdot t }^{ 2 }+5,473\cdot t+2,6 }{ 32,851\cdot t-19,2 }  \right)  \end{matrix} \right) 
+ &=\left( \begin{matrix} \sqrt { { \left( -9,34\cdot t-13,7 \right)  }^{ 2 }+{ \left( 32,851\cdot t-19,3 \right)  }^{ 2 }+{ \left( -{ 4,91\cdot t }^{ 2 }+5,473\cdot t+2,6 \right)  }^{ 2 } }  \\ { tan }^{ -1 }\left( \frac { \sqrt { { \left( -9,34\cdot t-13,7 \right)  }^{ 2 }+{ \left( 32,851\cdot t-19,3 \right)  }^{ 2 } }  }{  -{ 4,91\cdot t }^{ 2 }+5,473\cdot t+2,6 }  \right)  \\ { tan }^{ -1 }\left( \frac { 32,851\cdot t-19,3 }{ -9,34\cdot t-13,7 }  \right)  \end{matrix} \right) 
 \label{eq:sv_koordi}
 \end{split}
 \end{align}
