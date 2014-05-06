@@ -1,24 +1,35 @@
 \section{FPGA}
 \label{sec:FPGA}
 
-\todo[inline]{Mikkel: Er slet ikke færdigt, så lad venligst være med at rette eller andet.}
+\todo[inline, color = pink]{Mikkel: Er slet ikke færdigt, så lad venligst være med at rette eller andet.}
 FPGA'en er leddet mellem microcontrolleren og motorene på PTS. 
 Kommunikationen mellem FPGA og microcontroller skal ske ved hjælp af SPI. 
 FPGA'en skal producere PWM signal til motorerne på PTS og skal kunne tælle motorenes rotationer. 
-FPGA'en er i projeket et BASYS board \footnote{DIGILENT BASYS 2}, der programmeres ved brug af VHDL.
+FPGA'en er i projeket et BASYS board\footnote{DIGILENT BASYS 2}, der programmeres ved brug af VHDL\footnote{VHSIC Hardware Description Language}.
+Ovenstående krav til funktionaliteten på FPGAen er fastsat af 
+projektformuleringen.
 
-\subsection{Struktur}
-Det er forsøgt at bygge funktionaliteter op ved at skrive generiske komponenter. 
 
-\subsection{PWM}
+\subsection{VALG?!?!}
+\subsubsection*{PWM}
 Der skal fra FPGA'en genereres PWM signaler til at styre motorerne på PTS.
-\subsubsection*{Valg af PWM frekvens}
 Det ønskedes at have en PWM frekvens, der ikke ligger i det hørbare område. 
 Det ønskedes også at have en god opløsning på PWM. 
 Ved 11 bit og brug af BASYS boardets interne clock på 50 MHz bliver PWM frekvensen passende høj:
 \begin{equation}
   \frac{2^{11}}{50 MHz} = 24.41 KHz 
 \end{equation}
+
+\subsection{Opbygning?!?!?}
+Det er forsøgt at bygge den ønskede funktionalitet op ved at skrive en række generiske komponenter og skrive andre komponenter, der tager sig af applikationsspecifikke opgaver. 
+På denne måde skulle koden gerne blive let at udbygge eller genbruge. 
+\subsubsection*{Forklaring af komponenter?!?!}
+På figur \ref{fig:FPGA_blok} ses opbygningen på FPGAen. De grønne bokse angiver 
+komponenter på FPGAen, mens de grå cirkler angiver hvad, der ikke ligger på 
+FPGAens chip. Pilene imellem FPGAens komponenter angiver i hvilken retning der 
+kommer data.
+
+\todo[inline, color = pink]{Mikkel: Hvorfor kan jeg overhovedet ikke finde ud af det der halløj. Må have fat i Anders.}
 
 \begin{figure}[!th]
 \centering
