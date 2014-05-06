@@ -34,3 +34,5 @@ Rapport/content/problemformulering.log
 Rapport/content/*.aux
 Rapport/content/FPGA.log
 Rapport/graphics/FPGA_blok.log
+Rapport/content/PTS.log
+Rapport/master_doc.tdo
