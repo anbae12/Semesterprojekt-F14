@@ -19,10 +19,10 @@ I ES skal rammes serier af duer/mål der afskydes fra
 enten ”High House” eller ”Low House”, og med skud fra hver af de otte stationer langs 
 cirkelperiferien. Dette projekt er afgrænset til et enkelt tilfælde - afskydning fra ”High-House” med PTS placeret på station 4. 
 
-Det kartesiske koordinatsystem har origo banens centrum. Akserne er indtegnet på figur \ref{fig:ES}. PTS's origo er placeret 45 [cm] over jorden. Ved begyndelsen af applikationen er PTS stationært, med både $\phi$ og $\theta$ lig med 0. Dvs. at tilt rammen er parallel med YZ planet. 
+Det kartesiske koordinatsystem har origo på banens centrum. Akserne er indtegnet på figur \ref{fig:ES}. PTS's origo er placeret 45 [cm] over jorden. Ved begyndelsen af applikationen er PTS stationært, med både $\phi$ og $\theta$ lig med 0. Dvs. at tilt rammen er parallel med YZ planet. 
 
 Målets parabel er givet ved vektorfunktionen \ref{eq:pf:vektorparabel3d}
-
+\todo[inline, author=Michael]{Ved ikke om den skal med allerede her?}
 \begin{equation}
 Pos\left( t \right) = 
 \left( \begin{matrix} 
@@ -50,7 +50,7 @@ Derfor skal PTS følge systemet, senest når målet når toppunktet.
 Geværet er monteret vinkelret på tilt-planet, og luftmodstand samt tyngdekraft.
 
 Pan-rammen er begrænset til 170\degree  bevægelsesfrihed, og begrænser derved systemets maksimalt tilladte overshoot.
-
+\todo[inline, author=Michael]{Mangler: Mål pan-rammens bevægelsesfrihed}
 %
 %\begin{equation}
 %	T_{settling} = t_{toppunkt} = 0,557 s
@@ -101,7 +101,7 @@ højde af 3,05 [m].
 
 Da luftmodstanden er negligerbar kan parablen (2. grads polynomium) findes ved at indsætte de kendte punkter. 
 
-For at simplificere udregningerne, regnes parablen kun i 2D. Det er trivielt at tilføje den tredje, så det gøres til sidst (hvis jeg finder det relevant). 
+For at simplificere udregningerne, regnes parablen først i 2D. Når denne er fundet kan den tredje dimension tilføjes.  
 
 Kasteparablen er givet ved vektorfunktionen i ligning  \ref{eq:pf:vektorparabel}.
 
@@ -194,17 +194,25 @@ t_{nedslag} = 1,523 [s]
 \subsubsection{Parabel i 3 dimensioner}
 \label{subsubsec:para}
 Nu omskrives parablen fundet i ligning \ref{eq:pf:vektorparabel2} til x,y,z koordinater. 
-Grundplanet er x,z og højden er givet ved y. Dvs. at \(y(t) = y_{2D}(t)\) og at \(x(t)\) samt \(z(t)\) afhænger af \(x_{2D}(t)\) samt vinklen \(\alpha\). 
-\(\alpha\) er givet ved vinklen mellem parablen projekteret ned på x,z planet (som på figur \ref{fig:para_in_xy_plane}) og y aksen. 
+Grundplanet er XY og højden er givet ved Z. Dvs. at \(z(t) = y_{2D}(t)\) og at \(x(t)\) samt \(y(t)\) afhænger af \(x_{2D}(t)\) samt vinklen \(\alpha\). 
+\(\alpha\) er givet ved vinklen mellem parablen projekteret ned på x,y planet (som på figur \ref{fig:para_in_xy_plane}) og y aksen. 
 \todo[inline, author=Michael, color=blue! 50]{Kan også skrives som vinklen mellem parablen og x,z planet?}
 Vektorfunktionen kan skrives (ved \(\alpha = 15,872 \degree\)): 
 
 \begin{align}
 \begin{split}
-Pos\left( t \right) = \left( \begin{matrix} x\left( t \right)  \\ y\left( t \right)  \\ z\left( t \right)  \end{matrix} \right) &=\left( \begin{matrix} cos\left( \alpha  \right) \cdot { x }_{ 2D }\left( t \right) -19,2 \\ { y }_{ 2D }\left( t \right)  \\ sin\left( \alpha  \right) \cdot { x }_{ 2D }\left( t \right) +5,5 \end{matrix} \right) 
+Pos\left( t \right) = 
+\left( \begin{matrix} x\left( t \right)  \\
+ y\left( t \right)  \\ 
+ z\left( t \right)  \end{matrix} \right) &=
+ \left( \begin{matrix} - sin\left( \alpha  \right) \cdot { x }_{ 2D }\left( t \right) + 5.5 \\
+ cos\left( \alpha  \right) \cdot { x }_{ 2D }\left( t \right) - 19.3  \\
+  { y }_{ 2D }\left( t \right)  \end{matrix} \right)
 \\
 %----------------------------------------
-&= \left( \begin{matrix} 32,851\cdot t-19,2 \\ -{ 4,91\cdot t }^{ 2 }+5,473\cdot t+3,05 \\ 9,34\cdot t+5,5 \end{matrix} \right) 
+&= \left( \begin{matrix} - 9,34\cdot t+5,5 \\
+  32,851\cdot t-19,3 \\ 
+ -{ 4,91\cdot t }^{ 2 }+5,473\cdot t+3,05\end{matrix} \right) 
 \label{eq:pf:vektorparabel3d}
 \end{split}
 \end{align}
