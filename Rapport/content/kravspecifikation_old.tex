@@ -1,0 +1,54 @@
+\section{Kravspecifikation}
+\label{sec:kravspecifikation}
+\todo[inline, author=Michael]{Tidligt udkast, vent venligst med at rette noget som helst ;)}
+Kravene til systemet er givet ud fra reglerne for English Skeet. 
+Beregningerne der ligger til grund for dette afsnit kan ses i appendix \textbf{5000}. 
+
+PTS har monteret et gevær der skal kunne følge et mål i English Skeet. I reglerne er affyringspunktet, forventet nedslagspunktet og "Target crossing point" (som målet skal passere) givet. Målets kasteparabel er udregnet vha. interpolation af disse 3 punkter. Parablen er givet i \ref{eq:ks:vektorparabel3d}. 
+
+\begin{equation}
+Pos\left( t \right) = 
+\left( \begin{matrix} 
+	x\left( t \right)  \\ 
+	y\left( t \right)  \\ 
+	z\left( t \right)  \end{matrix} \right) =
+	 \left( \begin{matrix} 
+	- 9,34\cdot t+5,5 \\
+  32,851\cdot t-19,3 \\ 
+ -{ 4,91\cdot t }^{ 2 }+5,473\cdot t+3,05\end{matrix} \right) 
+\label{eq:ks:vektorparabel3d}
+\end{equation}
+
+
+Normalt affyres geværet ca. når målet er ved toppunktet. 
+PTS skal derfor sigte på målet senest når målet når toppunktet. Toppunktet er nået når den vertikale hastighed er nul.\footnote{Se appendix qp17}
+
+\begin{align}
+  t_{settling} &= 0,557 [s]
+  \label{eq:ks:settlingtime}
+\end{align}
+
+Applikation er slut når målet rammer jorden. Nedslagstiden er givet ved:
+
+\begin{align}
+  t_{settling} &= 1,523 [s]
+  \label{eq:ks:nedslagstid}
+\end{align}
+
+Haglene spredes så de dækker et område med diameter på 1,32 [m] på 37 meter. 
+Dette gælder ved brug af Skeet-choke på geværet. Spredningsvinklen er givet ved:
+
+\begin{align}
+  Spredning &= \tan \left(\frac{1,32}{2} / 37 \right) \\
+  &= 2.04 \degree
+  \label{eq:ks:spredning}
+\end{align}
+
+PTS skal altså pege på målet med $\pm 1 \degree$ præcision. Dette gælder for både pan- ($\phi$) og tilt-rammen ($\theta$)
+
+For tiltrammen er der ingen krav til overshoot, imens overshoot for pan er defineret udfra systemet fysiske begrænsninger. 
+
+
+
+
+%\footnote{http://en.wikipedia.org/wiki/Shotgun#Pattern_and_choke}

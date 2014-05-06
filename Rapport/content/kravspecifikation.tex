@@ -1,11 +1,14 @@
 \section{Kravspecifikation}
 \label{sec:kravspecifikation}
-\todo[inline, author=Michael]{Tidligt udkast, vent venligst med at rette noget som helst ;)}
-Kravene til systemet er givet ud fra reglerne for English Skeet. 
-Beregningerne der ligger til grund for dette afsnit kan ses i appendix \textbf{5000}. 
+Kravene til systemet findes vha. reglerne for English Skeet, \citep{ES_regler},
+samt det udleverede Pan \& Tilt-systems fysiske begrænsninger.
 
-PTS har monteret et gevær der skal kunne følge et mål i English Skeet. I reglerne er affyringspunktet, forventet nedslagspunktet og "Target crossing point" (som målet skal passere) givet. Målets kasteparabel er udregnet vha. interpolation af disse 3 punkter. Parablen er givet i \ref{eq:ks:vektorparabel3d}. 
+%%%%%%%%%%%%%%%%%%%%%P&T figur
 
+Lerduens bane kan beregnes vha. de i reglerne givne værdier for affyringspunkt, forventet nedslagspunkt
+og "Target Crossing Point" (punktet, som lerduen skal passere).
+Med antagelsen om negligerbar luftmodstand kan en kasteparabel således udregnes ved interpolation af disse tre punkter.
+Kasteparablen er givet ved ligning \ref{eq:ks:vektorparabel3d}, med orego som angivet på figur \ref{fig:ES}.
 \begin{equation}
 Pos\left( t \right) = 
 \left( \begin{matrix} 
@@ -15,40 +18,59 @@ Pos\left( t \right) =
 	 \left( \begin{matrix} 
 	- 9,34\cdot t+5,5 \\
   32,851\cdot t-19,3 \\ 
- -{ 4,91\cdot t }^{ 2 }+5,473\cdot t+3,05\end{matrix} \right) 
+ -{ 4,91\cdot t }^{ 2 }+5,473\cdot t+3,05\end{matrix} \right) [\text{m}]
 \label{eq:ks:vektorparabel3d}
 \end{equation}
+En gennemgang af beregningerne der ligger bag kasteparablen findes i sektion \ref{sec:udregning_af_parabel}.
 
+Med kasteparablen er det muligt at specificere systemets betingelser yderligere:
+Lerduen bliver affyret med en hastighed på 34,589 \([\frac{m}{s}]\) i en vinkel på \(9,103^{\circ}\) ift. xz-planet jf. figur \ref{fig:ES}.
+Set ovenfra bevæger målet sig som illustreret på figur \ref{fig:para_in_xy_plane}. 
+På figur \ref{fig:HH2D_para} ses nedslagspunktet, G, fra High-House 52 [m] efter startpositionen, D, samt  
+PTS' placering (i punktet B).\\
+\begin{figure}[h!]
+\centering
+\subfloat[Lerduens højde som funktion af afstanden til D.\label{fig:HH2D_para}]{%
+	\begin{tikzpicture}[scale=0.8]
+	\include*{./graphics/high_house_2D_parabola}
+	\end{tikzpicture}
+}
+\subfloat[Lerduens bane projekteret på xy-planet.\label{fig:para_in_xy_plane}]{%
+	\begin{tikzpicture}[scale=0.16]
+	\include*{./graphics/parabola_in_xy_plane}
+	\end{tikzpicture}
+}
+\caption[Lerduens parabel i 2D]{Viser parablen af lerduens bane i 2D.}
+\end{figure}
 
-Normalt affyres geværet ca. når målet er ved toppunktet. 
-PTS skal derfor sigte på målet senest når målet når toppunktet. Toppunktet er nået når den vertikale hastighed er nul.\footnote{Se appendix qp17}
-
+Det anslås, at man kan nå at affyre de to skud mellem tidspunktet,
+hvor lerduen når toppunktet og nedslagstidspunktet (når lerduen når low house), se ligning \ref{eq:ks:nedslagstid}.
+I dette tidsrum skal Pan \& Tilt-systemet sigte på lerduen så geværet kan ramme.
+Der er altså et tidsmæssigt krav til reguleringen om en Settling Time for systemet,
+der er lavere end tiden \(t_{s}\) angivet i ligning \ref{eq:ks:settlingtime}.
 \begin{align}
-  t_{settling} &= 0,557 [s]
+  t_{s} &= 0,557 [s] &\text{(Settling Time)}
   \label{eq:ks:settlingtime}
 \end{align}
-
-Applikation er slut når målet rammer jorden. Nedslagstiden er givet ved:
-
 \begin{align}
-  t_{settling} &= 1,523 [s]
+  t_{n} &= 1,523 [s] &\text{(Nedslagstid)}
   \label{eq:ks:nedslagstid}
 \end{align}
 
-Haglene spredes så de dækker et område med diameter på 1,32 [m] på 37 meter. 
-Dette gælder ved brug af Skeet-choke på geværet. Spredningsvinklen er givet ved:
-
+Haglene fra et 12 gauge haglgevær med Skeet Choke spredes så de dækker et område
+med en diameter på 1,32 [m] på en afstand på 37 [m], \todo[inline,author=Mikael]{Kilde: wikipedia}. %http://en.wikipedia.org/wiki/Shotgun#Pattern_and_choke
+Spredningsvinklen er dermed givet ved ligning \ref{eq:ks:spredning}.
 \begin{align}
   Spredning &= \tan \left(\frac{1,32}{2} / 37 \right) \\
   &= 2.04 \degree
   \label{eq:ks:spredning}
 \end{align}
+Der er altså et krav om at geværet peger på lerduen med en præcision på \(\pm 1 \degree\).
+Dette krav gælder for både pan-rammens vinkel (\(\phi\)) og tilt-rammens vinkel (\(\theta\)).
 
-PTS skal altså pege på målet med $\pm 1 \degree$ præcision. Dette gælder for både pan- ($\phi$) og tilt-rammen ($\theta$)
-
-For tiltrammen er der ingen krav til overshoot, imens overshoot for pan er defineret udfra systemet fysiske begrænsninger. 
-
-
-
-
-%\footnote{http://en.wikipedia.org/wiki/Shotgun#Pattern_and_choke}
+Tilt-rammen kan bevæge sig frit,
+men pan-rammen kan pga. en stopklods kun rotere
+\(170 \degree\)\todo[inline,author=Mikael]{Denne værdi er ukorrekt! Mål efter!}.
+Dette giver altså en øvre og en nedre grænse for pan-rammens maksimale udsving,
+som afhænger af reguleringen
+- et for højt overshoot på pan-positionen kan give udsving, der ikke holder sig inden for grænserne.
