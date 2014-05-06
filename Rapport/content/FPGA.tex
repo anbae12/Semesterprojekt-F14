@@ -29,3 +29,34 @@ Ved 11 bit og brug af BASYS boardets interne clock på 50 MHz bliver PWM frekven
 \label{fig:FPGA_blok}
 \end{figure}
 \todo[author=Anders,inline]{Jeg skal lige have tjekket op med nikolaj omkring forbindelsen til Decoder til output decoder.}
+
+
+
+%%% FORMAT SPI
+
+Fra Mikrokontroller til FPGA format:
+\begin{figure}[th!]
+\centering
+\begin{tabular}{c|c|c|c|c}
+1 motorbit &1 retningsbit & 1 sæt PWMbit & 2 NOPbit & 11 PWM dutycyclebit
+
+\end{tabular}
+\captionsetup{type=figure}
+\caption[tekst i indholdsfortegnelsen]{tabeltekst}
+\label{tb:}
+\end{figure}
+
+
+
+
+Fra FPGA til Mikrokontroller format:
+\begin{figure}[th!]
+\centering
+\begin{tabular}{c|c|c|c}
+1 motorbit & 4 NOPbit & 11 decoderbit
+
+\end{tabular}
+\captionsetup{type=figure}
+\caption[tekst i indholdsfortegnelsen]{tabeltekst}
+\label{tb:}
+\end{figure}
