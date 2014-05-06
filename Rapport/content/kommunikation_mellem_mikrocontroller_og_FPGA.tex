@@ -5,7 +5,11 @@ Der er fire forbindelse mellem masteren og slaverne: Slave Select, Serial CLock 
 Når der er flere end en slave, deler de SCLK, MOSI og MISO, men de har en Slave Select hver. Forløbet er sådan at master sender et SS signal til den ønskede slave. De slaver der ikke har modtaget et SS signal ingnorer det der bliver sendt på MOSI og MISO. I et system kun med en slave kan SS udelades, da der kun er en slave at vælge. 
 
 \subsection{Overvejelser og valg}
-
+Der er gået mange overvejelser i hvordan SPI'en mellem Microcontrollren og FPGA'en skal  opbygges.
+Det blev vedtaget at Micocontrolleren var masteren og FPGA blev slaven, da FPGA'en helst skulle være så enkel som mulig.
+Microcontrolleren har også indbygget tre SPI programmer, hvor den kan være masteren. De tre typer er TI Synchronous Serial Frame Format (SSFT), Freescale og Microwire. Til at overfører dataene mellem Microcontrolleren og FPGA’en skal der bruges en enkel protokol med full duplex. Hovedgrundene for at protokollen skal være enkel, er at der ikke sendes meget data, dataene er enkel og afstanden den sendes er kort. Derfor blev SSFT valgt som protokol. I SSFT liggre svaret på nogle af overvejelserne. Overvejelserne har været om MOSI skal trigger på rising eller falling edge, og hvordan Slave Select skulle opføre sig.   
+Frekvensen af SCLK skal vælges så høj, at SPI ikke bliver en flaskehals i kommunikationen mellem Microcontroller og FPGA’en, og tilpas lav, så der ikke introduceres unødige fejlkilder, ved at FPGA’en ikke kan følge med. 
+Størrelsen af framen, som sendes skulle være så stor at PWM (duty cycle?) kan sendes til FPGA’en og ticksne fra FPGA’en kan sendes i den rigtige opløsning. PWM og ticks har begge en størrekse af 11 bit, der skal også være et motor, retnings- og feedback bit.  Det giver at framen mindst skal være 14 bit lang. Microcontrolleren understøtter en størrelse mellem fire og 16 bit, 16 bit blev valgt da der så er plads til at udbygge.
 
 
 
