@@ -1,6 +1,6 @@
 \section{FPGA}
 \label{sec:FPGA}
-\todo[inline, color = pink]{Mikkel: Er slet ikke færdigt, så lad venligst være med at rette eller andet.}
+\todo[inline, color = pink]{Mikkel: Er slet ikke færdigt, så lad venligst være med at rette eller tilføje.}
 FPGA'en er leddet mellem microcontrolleren og motorene på PTS. 
 Kommunikationen mellem FPGA og microcontroller skal ske ved hjælp af SPI. 
 FPGA'en skal producere PWM signal til motorerne på PTS og skal kunne tælle motorenes rotationer. 
@@ -9,11 +9,21 @@ Ovenstående krav til funktionaliteten på FPGAen er fastsat af
 projektformuleringen.
 
 
-\subsection{VALG?!?!}
+\subsection{Foretagede valg i opbygning af FPGA funktionalitet}
 Eftersom de fleste krav til FPGAen er givet af projektbeskrivelsen er der ikke 
-lavet noget større 
+lavet noget større analysearbejde af FPGAens funktionalitet. Undervejs i 
+udviklingen af funktionaliteten er der dog taget nogle valg.
+
+\subsubsection*{Generiske komponenter}
+For at lave et system med lav kobling er det forsøgt at lave 
+generiske komponenter til de funktionaliteter, der er af generel art. 
+Til at varetage den resterende funktionalitet er der skrevet applikationsspecifikke 
+komponenter.
+Denne opbygning mellem generiske og applikationsspecifikke komponenter sikrer, at koden er let at 
+udbygge og genbruge.
+
 \subsubsection*{PWM}
-Der skal fra FPGA'en genereres PWM signaler til at styre motorerne på PTS.
+Der skal fra FPGAen genereres PWM signaler til at styre motorerne på PTS.
 Det ønskedes at have en PWM frekvens, der ikke ligger i det hørbare område. 
 Det ønskedes også at have en god opløsning på PWM. 
 Ved 11 bit og brug af BASYS boardets interne clock på 50 [MHz] bliver PWM frekvensen passende høj:
@@ -21,14 +31,46 @@ Ved 11 bit og brug af BASYS boardets interne clock på 50 [MHz] bliver PWM frekv
   \frac{2^{11}}{50  \text{ [KHz]}} = 24.41 \text{ [KHz]} 
 \end{equation}
 
-\subsection{Opbygning?!?!?}
-Det er forsøgt at bygge den ønskede funktionalitet op ved at skrive en række generiske komponenter og skrive andre komponenter, der tager sig af applikationsspecifikke opgaver. 
-På denne måde skulle koden gerne blive let at udbygge eller genbruge. 
-\subsubsection*{Forklaring af komponenter?!?!}
-På figur \ref{fig:FPGA_blok} ses opbygningen på FPGAen. De grønne bokse angiver 
-komponenter på FPGAen, mens de grå cirkler angiver hvad, der ikke ligger på 
-FPGAens chip. Pilene imellem FPGAens komponenter angiver i hvilken retning der 
-kommer data.
+\subsection{Opbygningen på FPGA}
+På figur \ref{fig:FPGA_blok} ses et simplificeret diagram over komponenterne på FPGAen. 
+De grønne bokse angiver komponenter på FPGAen, mens de grå cirkler angiver hvad, der ikke ligger på 
+FPGAens chip. Pilene imellem FPGAens komponenter angiver retningen på 
+datastrømme. Diagrammet er simplificeret ved at vise to ens komponenter som én. 
+F.eks. er der ikke én tic counter komponent på FPGAen, men derimod to.
+Herunder følger en forklaring på komponenternes funktionalitet.
+
+\subsection*{Tic counter}
+\textbf{Input:}
+Signaler fra encoder på PTS. Reset signal fra tic reset.
+
+\textbf{Output:} Positionen på hver af motorerne angivet i antal tics mellem 0 
+og 1080.
+
+Da encoderne på PTS er quadrature encodere er det muligt at bestemme både retning og 
+tælle rotationer på motoren.
+\todo[inline, color = pink]{Mikkel: Skal vi have mere om quadrature encodere eller er dette nok? Det er trods alt rimelig simpelt.}
+Frafiltrerer eventuelt støj ved at kigge på de sidste 20 inputs fra encoderne.
+Tæller positionen op eller ned afhængigt af inputtet fra encoderne. 
+Tæller ned fra 0 til 1079.
+For at kalibrere positionen er det nødvendigt for tic counter komponenten at få 
+et reset signal fra tic reset komponenten. 
+Når dette reset signal modtages nulstilles positionen og er herved kalibreret.
+
+\subsection*{Tic reset}
+
+\subsection*{Display }
+
+\subsection*{Clock scaler}
+
+\subsection*{PWM}
+
+\subsection*{Input decoder}
+
+\subsection*{Output decoder}
+
+\subsection*{SPI}
+
+
 
 
 \begin{figure}[!th]
@@ -36,37 +78,8 @@ kommer data.
 \begin{tikzpicture}[node distance = 5 cm,scale=1]
 \include*{./graphics/FPGA_blok}
 \end{tikzpicture}
-\caption[tekst i indholdsfortegnelsen]{figurtekst.}
+\caption[Kom]{Simplificeret diagram over komponenterne på FPGAen}
 \label{fig:FPGA_blok}
 \end{figure}
 
 
-
-%%% FORMAT SPI
-
-Fra Mikrokontroller til FPGA format:
-\begin{figure}[th!]
-\centering
-\begin{tabular}{c|c|c|c|c}
-1 motorbit &1 retningsbit & 1 sæt PWMbit & 2 NOPbit & 11 PWM dutycyclebit
-
-\end{tabular}
-\captionsetup{type=figure}
-\caption[tekst i indholdsfortegnelsen]{tabeltekst}
-\label{tb:}
-\end{figure}
-
-
-
-
-Fra FPGA til Mikrokontroller format:
-\begin{figure}[th!]
-\centering
-\begin{tabular}{c|c|c|c}
-1 motorbit & 4 NOPbit & 11 decoderbit
-
-\end{tabular}
-\captionsetup{type=figure}
-\caption[tekst i indholdsfortegnelsen]{tabeltekst}
-\label{tb:}
-\end{figure}

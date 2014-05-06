@@ -1,16 +1,24 @@
 \node[task_title](display) [] {Display};
-\node[task_description](Display_Debug) [right of= display] {Display (Debug)};
-\node[task_description](Clock_scaler) [right of= Display_Debug] {Clock Scaler};
+\node[task_description](Display_Debug) [right of= display] {Display};
+\node[task_description](Clock_scaler) [right of= Display_Debug] {Clock scaler};
 \node[task_description](Tic_counter) [yshift=2.5cm,below of= Display_Debug] {Tic counter};
 \node[task_title](encoder1) [yshift=0.5cm, left of= Tic_counter] {Encoder1};
 \node[task_title](encoder2) [yshift=-0.5cm, left of= Tic_counter] {Encoder2};
-\node[task_description](PWM) [yshift=2.5cm,,below of= Tic_counter] {PWM};
+
+%Mikkel
+\node[task_description](Tic_reset)[yshift=2.5cm,,below of= Tic_counter] {Tic reset};
+\node[task_title](Hall_sensor) [left of= Tic_reset] {Hall sensor};
+\path[->] (Hall_sensor) edge[bend left=0] (Tic_reset);
+\path[->] (Tic_reset) edge[bend left=0] (Tic_counter);
+%Mikkel
+
+\node[task_description](PWM) [yshift=2.5cm,,below of= Tic_reset] {PWM};
 \node[task_title](PWM1) [yshift=0.5cm,left of= PWM] {PWM1};
 \node[task_title](PWM2) [yshift=-0.5cm,left of= PWM] {PWM2};
 \node[task_description](SPI) [yshift=2.5cm,,below of= PWM] {SPI};
 \node[task_title](SPIcom) [left of= SPI] {SPI};
-\node[task_description](input_Decoder) [yshift=0.75cm,right of= SPI] {Input Decoder};
-\node[task_description](output_Decoder) [yshift=-0.75cm,right of= SPI] {Output Decoder};
+\node[task_description](input_Decoder) [yshift=0.75cm,right of= SPI] {Input decoder};
+\node[task_description](output_Decoder) [yshift=-0.75cm,right of= SPI] {Output decoder};
 
 
 \node[](child1)[xshift=3cm,right of=Tic_counter]{};

@@ -1,1 +1,31 @@
 \section{Kommunikation mellem mikrocontroller og FPGA}
+
+
+%%% FORMAT SPI
+
+Fra Mikrokontroller til FPGA format:
+\begin{figure}[th!]
+\centering
+\begin{tabular}{c|c|c|c|c}
+1 motorbit &1 retningsbit & 1 set PWMbit & 2 ignorebits & 11 PWM dutycyclebits
+
+\end{tabular}
+\captionsetup{type=figure}
+\caption[tekst i indholdsfortegnelsen]{tabeltekst}
+\label{tb:}
+\end{figure}
+
+
+
+
+Fra FPGA til Mikrokontroller format:
+\begin{figure}[th!]
+\centering
+\begin{tabular}{c|c|c|c}
+1 motorbit & 4 ignorebits & 11 decoderbits
+
+\end{tabular}
+\captionsetup{type=figure}
+\caption[tekst i indholdsfortegnelsen]{tabeltekst}
+\label{tb:}
+\end{figure}
