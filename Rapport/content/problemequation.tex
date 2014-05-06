@@ -1,18 +1,15 @@
-\section{Udregning af tallene}
+\section{Lerduens karakteristika}
 \label{sec:udregning_af_parabel}
-\todo[inline, author=Michael]{Skal sikkert flyttes til appendix?}
 
-
-Jævnfør reglerne for ES, skal duer/mål passere target crossing point (TCS) som er 
-placeret i 4,57 [m] over origo. (0 ; 0 ; 4.57). Fejlmargin for passagen er \(\pm\)0,45 [m]. 
-Målene skal desuden flyve 50 - 52 [m].  High house er placeret 20,11 [m] fra TCS, i en 
+Jævnfør reglerne for ES, skal lerduen passere target crossing point (TCS) som er 
+placeret i 4,57 [m] over origo med en fejlmargin på \(\pm\)0,45 [m] for passagen. 
+Lerduen skal flyve 50 [m] - 52 [m]. "High House" er placeret 20,11 [m] fra TCS, i en 
 højde af 3,05 [m]. 
 
-For at simplificere udregningerne, regnes parablen først i 2D. Når denne er fundet kan den tredje dimension tilføjes.  
+\subsection{Parabel i 2 dimensioner}
+For at simplificere udregningerne, bestemmes parablen først i 2D. Når denne er fundet kan den tredje dimension tilføjes.\\
 
-Da luftmodstanden er negligerbar kan parablen (2. grads polynomium) findes ved at indsætte de kendte punkter. 
-
-Kasteparablen er givet ved vektorfunktionen i ligning  \ref{eq:pf:vektorparabel}.
+Da luftmodstanden er negligerbar kan parablen (2. grads polynomium) findes ved at indsætte de kendte punkter. Kasteparablen er givet ved vektorfunktionen i ligning \ref{eq:pf:vektorparabel}.
 
 \begin{equation}
 	Pos(t) = \left( \begin{array}{c}
@@ -28,7 +25,7 @@ Kasteparablen er givet ved vektorfunktionen i ligning  \ref{eq:pf:vektorparabel}
 \label{eq:pf:vektorparabel}
 \end{equation}
 
-Hvor \(\theta\) er afskydningsvinklen, \(v_0\) er afskydningshastigheden, \(g\) er tyngdeacceleration og \(x_0\), \(y_0\) er begyndelsespunktet. 
+Hvor \(\theta\) er afskydningsvinklen, \(v_0\) er afskydningshastigheden, \(g=9,82 \left[ \frac { m }{ { s }^{ 2 } } \right] \) er tyngdeacceleration og \(x_0\), \(y_0\) er begyndelsespunktet. 
 
 For at få en parabel på formen y(x), isoleres t i x(t) med henblik på at substituere t i y(x): (\(x_0\) sættes til 0.)
 
@@ -37,8 +34,7 @@ t = \frac{x}{\cos \left( \theta \right) v_0}
 \label{eq:pf:x(t)}
 \end{equation}
 
-Den fundne værdi for t indsættes i \(y(t)\), og udtrykket reduceres, \citep[Side. 67]{fund_of_physics}: 
-
+Den fundne værdi for t indsættes i \(y(t)\) og udtrykket reduceres, \citep[Side. 67]{fund_of_physics}.
 \begin{align}
 \begin{split}
 y(t(x)) &= \sin \left( \theta \right) \frac{x}{\cos \left( \theta \right) v_0} v_0 - \frac{g}{2} \left(\frac{x}{\cos \left( \theta \right) v_0}\right)^2 + y_0 \\
@@ -47,20 +43,20 @@ y(x) &= \tan \left( \theta \right) x - \frac{gx^2}{2(\cos \left( \theta \right) 
 \end{split}
 \end{align}
 
-Det ses at der er 3 ubekendte i ligningen. Dog er 3 punkter kendt fra HH parablen. Det er givet i reglerne for ESS at målet affyres fra en højde på \(y_0\) = 3,05 [m], det indsættes i formlen. 
+Det ses at der er 3 ubekendte i ligningen. I reglerne for ES affyres lerduerne fra en højde af \(y_0\) = 3,05 [m].
 \begin{equation}
 y(x) = \tan \theta x - \frac{gx^2}{2(\cos \left( \theta \right)  v_0)^2} + 3,05
 \label{eq:pf:y(x)2}
 \end{equation}
-Det er givet at målet skal passere TCS som er placeret i en højde på 4,57 [m], 20,11 [m] fra HH. 
-Desuden skal målet bevæge sig 50 - 52 [m], i de videre beregninger 52 [m]. Det giver koordinatsættene (20,11 ; 4,57) og (52 ; 0). Vha. disse bestemmes \(\theta\) og \(v_0\) til:\footnote{Ved \(g = 9,82[m/{s}^{2]}\)}
-\todo[inline, author=Michael]{Ændre evt. g til 9.816}
+I reglerne fremgår det at lerduens flugt passere TCS, som er placeret i en højde på 4,57 [m], 20,11 [m] fra HH. Det sidste krav er at lerduen først skal ramme jorden efter 50 [m] - 52 [m], (52 [m] i projektet). \\
+Det giver koordinatsættene (20,11 ; 4,57) og (52 ; 0). Vha. disse bestemmelser er udtrykkes \(\theta\) og \(v_0\)\todo{eventuel lige en formel til bestemmelsen.}.
+
 \begin{eqnarray}
 \theta &=& 9,103 \degree \\
 v_0 &=& 34,589 \left[ \frac { m }{ s }  \right] 
 \end{eqnarray}
 
-Disse parametre indsættes i vektorfunktionen fra ligning \ref{eq:pf:vektorparabel} samt udtrykket fra ligning \ref{eq:pf:y(x)2}. Udtrykkene reduceres: 
+ \(\theta\) og \(v_0\) indsættes i stedvektoren fra ligning \ref{eq:pf:vektorparabel} samt udtrykket fra ligning \ref{eq:pf:y(x)2}, hvorefter det reduceres.
 
 \begin{align}
 \begin{split}
@@ -83,7 +79,7 @@ Disse parametre indsættes i vektorfunktionen fra ligning \ref{eq:pf:vektorparab
 \label{eq:pf:vektorparabel2}
 \end{split}
 \end{align}
-
+\todo[inline]{nedenstående ligning skal tjekkes op.}
 \begin{align}
 \begin{split}
 y(x) &= \tan \left(9,103 \degree \right) x - \frac{9,82x^2}{2(\cos \left(9,103 \degree \right) 34,589)^2} + 3,05 \\
@@ -93,20 +89,20 @@ y(x) &= \tan \left(9,103 \degree \right) x - \frac{9,82x^2}{2(\cos \left(9,103 \
 \end{split}
 \end{align}
 
-For at finde ud af hvornår målet rammer jorden, sættes \(y(t) = 0\). Det giver:
+For at finde ud af hvornår lerduen rammer jorden, sættes \(y(t) = 0\). Det giver:
 
 \begin{equation}
 t_{nedslag} = 1,523 [s]
 \label{eq:pf:nedslagstid}
 \end{equation}
 
-\subsubsection{Parabel i 3 dimensioner}
+\subsection{Parabel i 3 dimensioner}
 \label{subsubsec:para}
 Nu omskrives parablen fundet i ligning \ref{eq:pf:vektorparabel2} til x,y,z koordinater. 
-Grundplanet er XY og højden er givet ved Z. Dvs. at \(z(t) = y_{2D}(t)\) og at \(x(t)\) samt \(y(t)\) afhænger af \(x_{2D}(t)\) samt vinklen \(\alpha\). 
-\(\alpha\) er givet ved vinklen mellem parablen projekteret ned på x,y planet (som på figur \ref{fig:para_in_xy_plane}) og y aksen. 
+Grundplanet er xy og højden er givet ved z. Dvs. at \(z(t) = y_{2D}(t)\) og at \(x(t)\) samt \(y(t)\) afhænger af \(x_{2D}(t)\) samt vinklen \(\alpha\). 
+\(\alpha\) er givet ved vinklen mellem parablen projekteret ned på xy-planet (som på figur \ref{fig:para_in_xy_plane}) og y-planet.
 \todo[inline, author=Michael, color=blue! 50]{Kan også skrives som vinklen mellem parablen og x,z planet?}
-Vektorfunktionen kan skrives (ved \(\alpha = 15,872 \degree\)): 
+Stedvektoren for lerduens position i 3D kan skrives (ved \(\alpha = 15,872 \degree\))\todo{Hvordan og hvor finder vi alfa?}. 
 
 \begin{align}
 \begin{split}
