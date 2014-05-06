@@ -1,35 +1,43 @@
 \node[task_title](display) [] {Display};
 \node[task_description](Display_Debug) [right of= display] {Display (Debug)};
 \node[task_description](Clock_scaler) [right of= Display_Debug] {Clock Scaler};
-\node[task_description](Decoder) [yshift=2.5cm,below of= Display_Debug] {Decoder};
-\node[task_title](encoder1) [yshift=0.5cm, left of= Decoder] {Encoder1};
-\node[task_title](encoder2) [yshift=-0.5cm, left of= Decoder] {Encoder2};
-\node[task_description](PWM) [yshift=2.5cm,,below of= Decoder] {PWM};
+\node[task_description](Tic_counter) [yshift=2.5cm,below of= Display_Debug] {Tic counter};
+\node[task_title](encoder1) [yshift=0.5cm, left of= Tic_counter] {Encoder1};
+\node[task_title](encoder2) [yshift=-0.5cm, left of= Tic_counter] {Encoder2};
+\node[task_description](PWM) [yshift=2.5cm,,below of= Tic_counter] {PWM};
 \node[task_title](PWM1) [yshift=0.5cm,left of= PWM] {PWM1};
 \node[task_title](PWM2) [yshift=-0.5cm,left of= PWM] {PWM2};
 \node[task_description](SPI) [yshift=2.5cm,,below of= PWM] {SPI};
 \node[task_title](SPIcom) [left of= SPI] {SPI};
-\node[task_description](input_decoder) [yshift=0.75cm,right of= SPI] {Input decoder};
-\node[task_description](output_decoder) [yshift=-0.75cm,right of= SPI] {Output decoder};
+\node[task_description](input_Decoder) [yshift=0.75cm,right of= SPI] {Input Decoder};
+\node[task_description](output_Decoder) [yshift=-0.75cm,right of= SPI] {Output Decoder};
 
 
-\node[](child1)[xshift=3cm,right of=Decoder]{};
-\node[](child2)[xshift=-2cm,right of=output_decoder]{};
+\node[](child1)[xshift=3cm,right of=Tic_counter]{};
+\node[](child2)[xshift=-2cm,right of=output_Decoder]{};
 
 
 \path[->] (display) edge[bend left=0] (Display_Debug);
 \path[->] (Clock_scaler) edge[bend left=0] (Display_Debug);
-\path[->] (Decoder) edge[bend left=0] (Display_Debug);
-\path[->] (encoder1) edge[bend left=10] (Decoder);
-\path[->] (encoder2) edge[bend left=-10] (Decoder);
-\path[] (Decoder) edge[bend left=0] (child1);
-\path[] (child1) edge[bend left=0] (child2);
-\path[->] (child2) edge[bend left=0] (output_decoder);
-\path[->] (input_decoder) edge[bend left=0] (PWM);
+\path[->] (Tic_counter) edge[bend left=0] (Display_Debug);
+\path[->] (encoder1) edge[bend left=10] (Tic_counter);
+\path[->] (encoder2) edge[bend left=-10] (Tic_counter);
+\path[] (Tic_counter) edge[bend left=0] (child1.center);
+\path[] (child1.center) edge[bend left=0] (child2.center);
+\path[->] (child2.center) edge[bend left=0] (output_Decoder);
+\path[->] (input_Decoder) edge[bend left=0] (PWM);
 \path[->] (PWM) edge[bend left=-10] (PWM1);
 \path[->] (PWM) edge[bend left=10] (PWM2);
 %\path[->] (SPIcom) edge[bend left=-10] (SPI);
 %\path[<->] (SPIcom) edge[bend left=10] (SPI);
 \path[<->] (SPIcom) edge[bend left=0] (SPI);
-\path[->] (SPI) edge[bend left=10] (input_decoder);
-\path[<-] (SPI) edge[bend left=-10] (output_decoder);
+\path[->] (SPI) edge[bend left=10] (input_Decoder);
+\path[<-] (SPI) edge[bend left=-10] (output_Decoder);
+
+% Mikkels shit
+\node[xshift=2cm,yshift=2.5cm] at (display) (seperator1) {};
+\node[xshift=2cm,yshift=-2.5cm] at (SPIcom) (seperator2) {};
+\path[dashed] (seperator1) edge (seperator2);
+
+\node[xshift=2cm,yshift=2cm] at (Display_Debug) (header_point) {\huge \textbf{FPGA}};
+
