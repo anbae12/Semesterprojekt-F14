@@ -21,20 +21,21 @@ cirkelperiferien. Dette projekt er afgrænset til et enkelt tilfælde - afskydni
 
 Det kartesiske koordinatsystem har origo på banens centrum. Akserne er indtegnet på figur \ref{fig:ES}. PTS's origo er placeret 45 [cm] over jorden. Ved begyndelsen af applikationen er PTS stationært, med både $\phi$ og $\theta$ lig med 0. Dvs. at tilt rammen er parallel med YZ planet. 
 
-Målets parabel er givet ved vektorfunktionen \ref{eq:pf:vektorparabel3d}
-\todo[inline, author=Michael]{Ved ikke om den skal med allerede her?}
-\begin{equation}
-Pos\left( t \right) = 
-\left( \begin{matrix} 
-	x\left( t \right)  \\ 
-	y\left( t \right)  \\ 
-	z\left( t \right)  \end{matrix} \right) =	\left( \begin{matrix}
-	32,851\cdot t-19,2 \\
-	9,34\cdot t+5,5 \\
-	-{ 4,91\cdot t }^{ 2 }+5,473\cdot t+3,05 
- \end{matrix} \right) 
-\label{eq:pf:vektorparabel3d}
-\end{equation}
+%Målets parabel er givet ved vektorfunktionen \ref{eq:pf:vektorparabel3d}
+%\todo[inline, author=Michael]{Ved ikke om den skal med allerede her?}
+
+%\begin{equation}
+%Pos\left( t \right) = 
+%\left( \begin{matrix} 
+%	x\left( t \right)  \\ 
+%	y\left( t \right)  \\ 
+%	z\left( t \right)  \end{matrix} \right) =	%\left( \begin{matrix}
+%	32,851\cdot t-19,2 \\
+%	9,34\cdot t+5,5 \\
+%	-{ 4,91\cdot t }^{ 2 }+5,473\cdot t+3,05 
+% \end{matrix} \right) 
+%\label{eq:pf:vektorparabel3d}
+%\end{equation}
 
 Herunder er parablen vist i projekteret ned på et 
 2D plan, figur \ref{fig:HH2D_para}.
@@ -49,14 +50,14 @@ Ideelt set skal skytten skyde ca. når målet rammer toppunktet.
 Derfor skal PTS følge systemet, senest når målet når toppunktet. 
 Geværet er monteret vinkelret på tilt-planet, og luftmodstand samt tyngdekraft.
 
-Pan-rammen er begrænset til 170\degree  bevægelsesfrihed, og begrænser derved systemets maksimalt tilladte overshoot.
+Pan-rammen er begrænset til 170\degree   bevægelsesfrihed, og begrænser derved systemets maksimalt tilladte overshoot.
 \todo[inline, author=Michael]{Mangler: Mål pan-rammens bevægelsesfrihed}
 %
 %\begin{equation}
 %	T_{settling} = t_{toppunkt} = 0,557 s
 %\end{equation}
 %
-Systemets 
+
 
 
 
@@ -91,7 +92,7 @@ Systemets
 
 \subsection{Udregning af tallene}
 \label{sec:udregning_af_parabel}
-\todo[inline, author=Michael]{Skal sikkert flyttes til appendix? \\ Bør omskrives lidt: Flyt origo til PTS med det samme, start med kasteparablen, find 3 variable vha. 3 datasæt, Jobs done!}
+\todo[inline, author=Michael]{Skal sikkert flyttes til appendix?}
 
 
 Jævnfør reglerne for ES, skal duer/mål passere target crossing point (TCS) som er 
@@ -99,9 +100,9 @@ placeret i 4,57 [m] over origo. (0 ; 0 ; 4.57). Fejlmargin for passagen er \(\pm
 Målene skal desuden flyve 50 - 52 [m].  High house er placeret 20,11 [m] fra TCS, i en 
 højde af 3,05 [m]. 
 
-Da luftmodstanden er negligerbar kan parablen (2. grads polynomium) findes ved at indsætte de kendte punkter. 
-
 For at simplificere udregningerne, regnes parablen først i 2D. Når denne er fundet kan den tredje dimension tilføjes.  
+
+Da luftmodstanden er negligerbar kan parablen (2. grads polynomium) findes ved at indsætte de kendte punkter. 
 
 Kasteparablen er givet ved vektorfunktionen i ligning  \ref{eq:pf:vektorparabel}.
 
@@ -138,14 +139,14 @@ y(x) &= \tan \left( \theta \right) x - \frac{gx^2}{2(\cos \left( \theta \right) 
 \end{split}
 \end{align}
 
-Det ses at der er 3 ubekendte i ligningen. Dog er 3 punkter kendt fra HH parablen. Det er givet i reglerne for ESS at målet affyres fra en højde på \(y_0\) = 3,05 [m], så det indsættes i formlen. 
+Det ses at der er 3 ubekendte i ligningen. Dog er 3 punkter kendt fra HH parablen. Det er givet i reglerne for ESS at målet affyres fra en højde på \(y_0\) = 3,05 [m], det indsættes i formlen. 
 \begin{equation}
 y(x) = \tan \theta x - \frac{gx^2}{2(\cos \left( \theta \right)  v_0)^2} + 3,05
 \label{eq:pf:y(x)2}
 \end{equation}
 Det er givet at målet skal passere TCS som er placeret i en højde på 4,57 [m], 20,11 [m] fra HH. 
 Desuden skal målet bevæge sig 50 - 52 [m], i de videre beregninger 52 [m]. Det giver koordinatsættene (20,11 ; 4,57) og (52 ; 0). Vha. disse bestemmes \(\theta\) og \(v_0\) til:\footnote{Ved \(g = 9,82[m/{s}^{2]}\)}
-\todo[inline, author=Michael]{Måske giver det ikke mening med alle de decimaler, da det er udregnet med g = 9,82 - men jeg ved heller ikke hvor jeg skal finde en mere præcis måling af g?}
+\todo[inline, author=Michael]{Ændre evt. g til 9.816}
 \begin{eqnarray}
 \theta &=& 9,103 \degree \\
 v_0 &=& 34,589 \left[ \frac { m }{ s }  \right] 
