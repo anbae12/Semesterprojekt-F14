@@ -9,7 +9,7 @@
 \node[task_description](Tic_reset)[yshift=2.5cm,,below of= Tic_counter] {Tic reset};
 \node[task_title](Hall_sensor) [left of= Tic_reset] {Hall sensor};
 \path[->] (Hall_sensor) edge[bend left=0] (Tic_reset);
-\path[->] (Tic_reset) edge[bend left=0] (Tic_counter);
+\path[<->] (Tic_reset) edge[bend left=0] (Tic_counter);
 %Mikkel
 
 \node[task_description](PWM) [yshift=2.5cm,,below of= Tic_reset] {PWM};
