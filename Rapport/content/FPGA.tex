@@ -14,9 +14,9 @@ projektformuleringen.
 Der skal fra FPGA'en genereres PWM signaler til at styre motorerne på PTS.
 Det ønskedes at have en PWM frekvens, der ikke ligger i det hørbare område. 
 Det ønskedes også at have en god opløsning på PWM. 
-Ved 11 bit og brug af BASYS boardets interne clock på 50 MHz bliver PWM frekvensen passende høj:
+Ved 11 bit og brug af BASYS boardets interne clock på 50 [MHz] bliver PWM frekvensen passende høj:
 \begin{equation}
-  \frac{2^{11}}{50 MHz} = 24.41 KHz 
+  \frac{2^{11}}{50  \text{ [KHz]}} = 24.41 \text{ [KHz]} 
 \end{equation}
 
 \subsection{Opbygning?!?!?}
@@ -28,7 +28,7 @@ komponenter på FPGAen, mens de grå cirkler angiver hvad, der ikke ligger på
 FPGAens chip. Pilene imellem FPGAens komponenter angiver i hvilken retning der 
 kommer data.
 
-\todo[inline, color = pink]{Mikkel: Hvorfor kan jeg overhovedet ikke finde ud af det der halløj. Må have fat i Anders.}
+
 
 \begin{figure}[!th]
 \centering
