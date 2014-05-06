@@ -6,10 +6,6 @@ Positionbestemmelsen som funktion af tiden for det kartesiske koordinatset er ud
 Idet vinklerne skal bestemmes i forhold til PTS's rotationscenter og ikke koordinatsystemets origo, skal PTS's rotationscenter trækkes fra, \(PTS=[\text{19,2 ; 0 ; 0,45}]\). 
 \subsection{Kartetisk koordinater}
 Koordinattransformation tager udgangspunkt i den kartisiske stedvektor \(Pos(t) \), ligning \ref{eq:pf:vektorparabel3d} samt PTS's offset, ligning \ref{eq:pf:stedvektorparabel}.
-
-
-
-
 \begin{align}
 \begin{split}
 { P }_{ c }\left( t \right) &=Pos\left( t \right) -PTS
@@ -33,12 +29,13 @@ Før koordinattransformationen fra kartesiske til sværiske koordinater vises et
 \label{fig:thetaphi_degree}
 \end{figure}
 
+\todo[inline,author=Anders]{Jeg skal endnu engang have tjekket op stedvektoren fordi den er sat iforhold til HH}
 
 \subsection{Sværisk koordinater}
 Transformationen fra kartesiske koordinater til sværiske koordinater gøres ud for nedenstående ligning.
 \begin{align}
 \begin{split}
-{ P }_{ s }\left( t \right) &=\left( \begin{matrix} \rho  \\ \phi  \\ \theta  \end{matrix} \right) =\left( \begin{matrix} \sqrt { { { P }_{ c_x }\left( t \right) }^{ 2 }+{ { P }_{ c_y }\left( t \right) }^{ 2 }+{ { P }_{ c_z }\left( t \right) }^{ 2 } }  \\ { tan }^{ -1 }\left( \frac { \sqrt { { { P }_{ c_x }\left( t \right) }^{ 2 }+{ { P }_{ c_y }\left( t \right) }^{ 2 } }  }{ { P }_{ c_z }\left( t \right) }  \right)  \\ { tan }^{ -1 }\left( \frac { { P }_{ c_y }\left( t \right) }{ { P }_{ c_x }\left( t \right) }  \right)  \end{matrix} \right) 
+{ P }_{ s }\left( t \right) &=\left( \begin{matrix} \rho \left( t \right)  \\ \phi \left( t \right)  \\ \theta \left( t \right)  \end{matrix} \right)  =\left( \begin{matrix} \sqrt { { { P }_{ c_x }\left( t \right) }^{ 2 }+{ { P }_{ c_y }\left( t \right) }^{ 2 }+{ { P }_{ c_z }\left( t \right) }^{ 2 } }  \\ { tan }^{ -1 }\left( \frac { \sqrt { { { P }_{ c_x }\left( t \right) }^{ 2 }+{ { P }_{ c_y }\left( t \right) }^{ 2 } }  }{ { P }_{ c_z }\left( t \right) }  \right)  \\ { tan }^{ -1 }\left( \frac { { P }_{ c_y }\left( t \right) }{ { P }_{ c_x }\left( t \right) }  \right)  \end{matrix} \right) 
 \\
  &=\left( \begin{matrix} \sqrt { { \left( -9,34\cdot t-13,7 \right)  }^{ 2 }+{ \left( 32,851\cdot t-19,3 \right)  }^{ 2 }+{ \left( -{ 4,91\cdot t }^{ 2 }+5,473\cdot t+2,6 \right)  }^{ 2 } }  \\ { tan }^{ -1 }\left( \frac { \sqrt { { \left( -9,34\cdot t-13,7 \right)  }^{ 2 }+{ \left( 32,851\cdot t-19,3 \right)  }^{ 2 } }  }{  -{ 4,91\cdot t }^{ 2 }+5,473\cdot t+2,6 }  \right)  \\ { tan }^{ -1 }\left( \frac { 32,851\cdot t-19,3 }{ -9,34\cdot t-13,7 }  \right)  \end{matrix} \right) 
 \label{eq:sv_koordi}
