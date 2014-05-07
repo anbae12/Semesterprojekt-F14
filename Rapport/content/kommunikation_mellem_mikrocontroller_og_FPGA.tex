@@ -29,3 +29,32 @@ Forløbet for en overførelse er SLCK en puls mere end besked størelsen er lang
 SPI på FPGA’en er meget enkel, det er to shift registre, en til MOSI og en til MISO. På Micro controlleren kommer dataene fra en FIFO buffer. Det er FIFO bufferen der shifter det mest betydende bit (MSB) ned på MOSI. På FPGA’en bliver MOSI shiftet ind i et shift register, så det passer med at MSB er MSB’s plads. På FGPA’en er det MSB den sender først til MISO. Når Slave Select er høj bliver der ikke overførst data, derfor er det når den er høj, hvor der bliver flyttet data rundt, da der man så ikke flytter data for tidligt eller sendt. 
 
 Det er en enkel protokol som bliver brugt uden tjeksum eller nogen anden form for administration der bliver brugt. Frame størrelse er på 16 bit. På figur ?? kan man se opbygningen af både framen der bliver sendt til FPGA’en og til Micro controlleren. Til FPGA’en bliver der sendt den PWM der skal sættes på den bestemte motor i den bestemte retning. Det er det motor- og retningsbittene bestemmer. Da SPI er full duplex skal der sendes data fra både Micro controlleren og FPGA’en, FPGA’en kan ikke sende data uden at Micro controlleren også gør det. På micro controlleren ville man gerne kunne få en position uden at den sætter en ny PWM. Derfor skal der bruges en bit, hvor FGPA’en kan se om den skal sætte PWM’en eller om den kun skal sende information tilbage. Der er det Position (Hvad det nu kaldes?) bruges til. Hvis den er høj bliver framen kasseret, men hvis den er lav bliver PWM’en sat.  
+
+
+%%% FORMAT SPI
+
+  
+Fra Mikrokontroller til FPGA format:
+\begin{figure}[th!]
+\centering
+\begin{tabular}{c|c|c|c|c}
+1 motorbit &1 retningsbit & 1 set PWMbit & 2 ignored bits & 11 PWM dutycyclebits
+\end{tabular}
+\captionsetup{type=figure}
+\caption[tekst i indholdsfortegnelsen]{tabeltekst}
+\label{tb:}
+\end{figure}
+
+   
+  
+  Fra FPGA til Mikrokontroller format:
+ \begin{figure}[th!]
+ \centering
+ \begin{tabular}{c|c|c|c}
+ 1 motorbit & 4 ignored bits & 11 decoderbits
+  
+ \end{tabular}
+ \captionsetup{type=figure}
+ \caption[tekst i indholdsfortegnelsen]{tabeltekst}
+ \label{tb:}
+ \end{figure}
