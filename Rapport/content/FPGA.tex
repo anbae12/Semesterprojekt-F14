@@ -64,7 +64,6 @@ og 1080. Retningen, som motorerne roterer i.
 
 Da encoderne på PTS er quadrature encodere er det muligt at bestemme både retning og 
 tælle rotationer på motoren.
-\todo[inline, color = pink]{Mikkel: Skal vi have mere om quadrature encodere eller er dette nok? Det er trods alt rimelig simpelt.}
 Frafiltrerer eventuelt støj ved at kigge på de sidste 20 inputs fra encoderne.
 Tæller positionen op eller ned afhængigt af inputtet fra encoderne. 
 Tæller ned fra 0 til 1079.
@@ -76,31 +75,73 @@ Når dette reset signal modtages nulstilles positionen og er herved kalibreret.
 \textbf{Input:} Signaler fra hall sensorer på PTS. Rotationsretning.
 
 \textbf{Output:} Reset signal.
- \missingfigure{Mangler en figur der viser konceptet!}
+
+\begin{figure}[!th]
+\centering
+\include*{./graphics/hall_sensor_signal}
+\caption[Signal fra hall sensor]{Signalet fra hall sensor, når magneten på PTS køres hen over. Ved pilene udsendes reset signalet.}
+\label{fig:hall_sensor_signal}
+\end{figure}
+
 Som beskrevet tidligere er der et behov for at lave et reset signal til positionen. 
 Dette skal gøres ved hjælp af hall sensorer på PTS. 
 Det viser sig dog at hall sensorernes output ikke kun er højt på ét encodertick. 
 Derfor kan signalet fra hall sensorerne ikke i sig selv bruges som reset signal.
-PTS rotationsretningen tages derfor med i beregningen.
+PTS rotationsretningen tages derfor med i betragtning.
 Hvis PTS roterer i én retning sendes sættes reset signalet højt på opadgående 
 flanke på hall sensor outputtet, mens reset signalet sættes højt på nedadgående 
-flanke i den anden retning. 
+flanke i den anden retning. Reset signalet udsendes derved på samme sted, som vist på figur \ref{fig:hall_sensor_signal}.
 Hermed fås et så smalt område, hvor reset signalet er højt, som muligt. 
 Det er testet at dette område svarer til ca. 1-2 ticks.
 
 \subsection*{Display}
+\textbf{Input:} Motorposition fra tic counter. Skaleret clock signal fra clock 
+scaler.
+
+\textbf{Output:} Signal der styrer displayet.
+
+Modtager motorpositionen fra tic counter komponenten og viser det på de fire 8-digit-displays 
+på BASYS boardet. Bruger det skalerede clock signal til at multiplexe mellem de 
+fire displays.
 
 \subsection*{Clock scaler}
+\textbf{Input:} BASYS boardets interne clock.
 
-\subsection*{PWM}
+\textbf{Output:} Skaleret clock signal
+
+Skalerer clock signalet.
 
 \subsection*{Input decoder}
+\textbf{Input:} 16 bit data fra SPI.
+
+\textbf{Output:} PWM kanal og tilhørende PWM dutycycle (11 bit).
+
+Hvis PWM set bittet er højt skal den opdatare PWM kanal og tilhørende PWM dutycycle.
+Opdateringen sker ved at tage 2 MSB og lave dem til et PWM kanal output. De 11 
+LSB sendes som PWM dutycycle output.
+
+\subsection*{PWM}
+\textbf{Input:} PWM kanal og tilhørende PWM dutycycle (11 bit).
+
+\textbf{Output:} PWM til PTS.
+
+Sørger for at levere PWM til PTS ud fra PWM kanal og dutycycle.
 
 \subsection*{Output decoder}
+\textbf{Input:} Motorposition fra tic counter.
+
+\textbf{Output:} 16 bit data.
+
+Sørger for skiftevis at sætte motorposition for de to motorer som LSB i 16 
+bit data. MSB bruges til at angive, hvilken motor positionen er til.
+
 
 \subsection*{SPI}
+\textbf{Input:} 16 bit data fra output decoder. 16 bit data udefra.
 
+\textbf{Output:} 16 bit SPI data ud.
 
+Modtager SPI data udefra og sender 16 bit data ud.
 
 
 \begin{figure}[!th]
@@ -108,7 +149,7 @@ Det er testet at dette område svarer til ca. 1-2 ticks.
 \begin{tikzpicture}[node distance = 5 cm,scale=1]
 \include*{./graphics/FPGA_blok}
 \end{tikzpicture}
-\caption[Kom]{Simplificeret diagram over komponenterne på FPGAen}
+\caption[Diagram over FPGA komponenter]{Simplificeret diagram over komponenterne på FPGAen}
 \label{fig:FPGA_blok}
 \end{figure}
 
