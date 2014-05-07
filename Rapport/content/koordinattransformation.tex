@@ -4,6 +4,7 @@
 De kartesiske koordinater \(P_k=[x, y, z]\) skal transformeres til sværiske koordinater \(P_s=[\rho \text{ ; } \phi \text{ ; } \theta]\), hvor \(\phi\) og \(\theta\) bruges som vinkelbestemmelserne for hhv. tilt og pan og \(\rho\) er afstanden fra PTS til duen som funktion af tiden.
 Positionbestemmelsen som funktion af tiden for det kartesiske koordinatset er udredt i afsnit \ref{subsubsec:para}.
 Idet vinklerne skal bestemmes i forhold til PTS's rotationscenter og ikke koordinatsystemets origo, skal PTS's rotationscenter trækkes fra, \(PTS=[\text{19,2 ; 0 ; 0,45}]\). 
+
 \subsection{Kartetisk koordinater}
 Koordinattransformation tager udgangspunkt i den kartisiske stedvektor \(Pos(t) \), ligning \ref{eq:pf:vektorparabel3d} samt PTS's offset, ligning \ref{eq:pf:stedvektorparabel}.
 \begin{align}
@@ -28,8 +29,6 @@ Før koordinattransformationen fra kartesiske til sværiske koordinater vises et
 \caption[Sværisk koordinatsystem til koordinattransformation]{Viser duens placering i det sværiske rum som funktion af  \(\phi\), \(\theta\) og \(\rho\).}
 \label{fig:thetaphi_degree}
 \end{figure}
-
-\todo[inline,author=Anders]{Jeg skal endnu engang have tjekket op stedvektoren fordi den er sat iforhold til HH}
 
 \subsection{Sværisk koordinater}
 Transformationen fra kartesiske koordinater til sværiske koordinater gøres ud for nedenstående ligning.
