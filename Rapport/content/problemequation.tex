@@ -49,7 +49,7 @@ y(x) = \tan \theta x - \frac{gx^2}{2(\cos \left( \theta \right)  v_0)^2} + 3,05
 \label{eq:pf:y(x)2}
 \end{equation}
 I reglerne fremgår det at lerduens flugt passere TCS, som er placeret i en højde på 4,57 [m], 20,11 [m] fra HH. Det sidste krav er at lerduen først skal ramme jorden efter 50 [m] - 52 [m], (52 [m] i projektet). \\
-Det giver koordinatsættene (20,11 ; 4,57) og (52 ; 0). Vha. disse bestemmelser er udtrykkes \(\theta\) og \(v_0\)\todo{eventuel lige en formel til bestemmelsen.}.
+Det giver koordinatsættene (20,11 ; 4,57) og (52 ; 0). Vha. disse bestemmelser er udtrykkes \(\theta\) og \(v_0\).
 
 \begin{eqnarray}
 \theta &=& 9,103 \degree \\
@@ -79,7 +79,7 @@ v_0 &=& 34,589 \left[ \frac { m }{ s }  \right]
 \label{eq:pf:vektorparabel2}
 \end{split}
 \end{align}
-\todo[inline]{nedenstående ligning skal tjekkes op.}
+\todo[inline,author=Anders]{Hvad skal nedenstående ligning bruges til?}
 \begin{align}
 \begin{split}
 y(x) &= \tan \left(9,103 \degree \right) x - \frac{9,82x^2}{2(\cos \left(9,103 \degree \right) 34,589)^2} + 3,05 \\
@@ -89,21 +89,14 @@ y(x) &= \tan \left(9,103 \degree \right) x - \frac{9,82x^2}{2(\cos \left(9,103 \
 \end{split}
 \end{align}
 
-For at finde ud af hvornår lerduen rammer jorden, sættes \(y(t) = 0\). Det giver:
-
-\begin{equation}
-t_{nedslag} = 1,523 [s]
-\label{eq:pf:nedslagstid}
-\end{equation}
 
 \subsection{Parabel i 3 dimensioner}
 \label{subsubsec:para}
 Nu omskrives parablen fundet i ligning \ref{eq:pf:vektorparabel2} til x,y,z koordinater. 
 Grundplanet er xy og højden er givet ved z. Dvs. at \(z(t) = y_{2D}(t)\) og at \(x(t)\) samt \(y(t)\) afhænger af \(x_{2D}(t)\) samt vinklen \(\alpha\). 
-\(\alpha\) er givet ved vinklen mellem parablen projekteret ned på xy-planet (som på figur \ref{fig:para_in_xy_plane}) og y-planet.
-\todo[inline, author=Michael, color=blue! 50]{Kan også skrives som vinklen mellem parablen og x,z planet?}
-Stedvektoren for lerduens position i 3D kan skrives (ved \(\alpha = 15,872 \degree\))\todo{Hvordan og hvor finder vi alfa?}. 
-
+\(\alpha\) er givet ved vinklen mellem parablen projekteret ned på xy-planet (som vist på figur \ref{fig:para_in_xy_plane}) og y-planet.
+%\todo[inline, author=Michael, color=blue! 50]{Kan også skrives som vinklen mellem parablen og x,z planet?}
+Stedvektoren for lerduens position i 3D er givet i nedenstående ligning, hvor \(\alpha = 15,872 \degree\).
 \begin{align}
 \begin{split}
 Pos\left( t \right) = 
@@ -125,5 +118,4 @@ Pos\left( t \right) =
 
 
 
-
-Bemærk udgangspunktet for kastet er flyttet fra origo, til HHs position. (Punkt D på figur \ref{fig:para_in_xy_plane})
+Bemærk udgangspunktet for kastet er flyttet fra origo, til HHs position. (Punkt D på figur \ref{fig:para_in_xy_plane}).
