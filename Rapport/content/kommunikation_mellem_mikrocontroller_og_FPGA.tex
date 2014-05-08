@@ -28,7 +28,15 @@ Størrelsen af framen skulle være sås stor, at PWM kan sendes til FPGA’en, o
 
 For at lave SPI på Microcontrolleren, bruges versionen SSFT. Den bruger fire pins ved overførelse af data: SSIClk, SSIFss, SSITx og SSIRx. SSI står for Synchronous Serial Interface, som er Micro controlleren version af SPI. SSIClk er SCLK, SSIFss er Slave Select, SSITx er MOSI og SSIRx er MISO.
 
-\todo[author=Åse,inline]{Indsætte en figur af forløbet af SPI, noget ligesom det i databladet, eller et billedet fra oscilloskoppet}
+%%%%%%%%%%%% TIKZPICTURE %%%%%%%%%%%%
+\begin{figure}[!th]
+\centering
+\begin{tikzpicture}[scale=1]
+\include*{./graphics/MISOMOSI}
+\end{tikzpicture}
+\caption[tekst i indholdsfortegnelsen]{figurtekst}
+\label{fig:}
+\end{figure}
 
 En frame tager antallet af SLCK at overfører. Antallet af SCLK en puls mere end frame størrelsen. Da der i denne opgave er en frame størrelse på 16 bit, så har SLCK 17 pulser. Ved den første puls sættes Slave Select høj, men sættes lav igen ved falling edge på SCLK. Bagefter sendes de 16 bit synkront med SCLK. Hver gang der er rising edge på SCLK sendes et bit, FPGA’en aflæser bitten på falling edge, da MOSI har haft tid til at omstille sig til høj eller lav.
 
@@ -55,7 +63,7 @@ Fra Mikrokontroller til FPGA format:
   Fra FPGA til Mikrokontroller format:
  \begin{figure}[th!]
  \centering
- \begin{tabular}{c|c|c|c}
+ \begin{tabular}{c|c|c}
  1 motorbit & 4 ignored bits & 11 decoderbits
   
  \end{tabular}

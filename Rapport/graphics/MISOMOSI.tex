@@ -1,0 +1,38 @@
+\coordinate(P1) at (0,0);
+\coordinate(P2) at (0,5);
+\coordinate(P3) at (5.5,5);
+\coordinate(P4) at (5.5,0);
+\coordinate(PN4) at (4.25,4);
+\coordinate(PN3) at (4.25,3);
+\coordinate(PN2) at (4.25,2);
+\coordinate(PN1) at (4.25,1);
+\coordinate(PN0) at (1.5,2.5);
+
+\coordinate(B1) at (8,0);
+\coordinate(B2) at (8,5);
+\coordinate(B3) at (13.5,5);
+\coordinate(B4) at (13.5,0);
+\coordinate(BN4) at (9.25,4);
+\coordinate(BN3) at (9.25,3);
+\coordinate(BN2) at (9.25,2);
+\coordinate(BN1) at (9.25,1);
+\coordinate(BN0) at (12,2.5);
+
+\draw[fill=orange!20](P1)--(P2)--(P3)--(P4)--(P1);
+\draw[fill=green!10](B1)--(B2)--(B3)--(B4)--(B1);
+
+\node (D) at (PN0) {SPI Master};
+\node (D) at (PN4) {SCLK};
+\node (D) at (PN3) {MOSI};
+\node (D) at (PN2) {MISO};
+\node (D) at (PN1) {SS};
+\node (D) at (BN4) {SCLK};
+\node (D) at (BN3) {MOSI};
+\node (D) at (BN2) {MISO};
+\node (D) at (BN1) {SS};
+\node (D) at (BN0) {SPI Slave};
+
+\draw[-to,shorten >=-1pt,ultra thick](5.25,4)--(8.25,4);
+\draw[-to,shorten >=-1pt,ultra thick](5.25,3)--(8.25,3);
+\draw[-to,shorten >=-1pt,ultra thick](8.25,2)--(5.25,2);
+\draw[-to,shorten >=-1pt,ultra thick](5.25,1)--(8.25,1);
