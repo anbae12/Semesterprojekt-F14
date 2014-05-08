@@ -1,8 +1,18 @@
 \section{DC motoren}
 Dette appendix beskæftiger sig med bestemmelsen af motorparametrene.
 \subsection{DC Motor karakteristik}
-DC Motoren kan modelleres efter diagrammet på fig. \todo[inline]{kredsløbsdiagram skal indsættes}\todo[inline]{Kildehenvisning til DC motor model}.
-Ligningen for \(V_m\) er givet ved ligning \ref{eq:Vm_transient0}.
+DC Motoren kan modelleres efter diagrammet på figur \ref{fig:DCmotor}. \todo[]{Kredsløbsdiagram skal tegnes i tikz}
+
+\begin{figure}[!th]
+\centering
+\includegraphics[width=0.7\textwidth]{./graphics/Mangleratblivetegnet}
+%\begin{tikzpicture}[scale=2]
+%\include*{./graphics/}
+%\end{tikzpicture}
+\caption[DC motor]{Diagram over fysiske komponenter i DC motoren.}
+\label{fig:DCmotor}
+\end{figure}
+Ligningen for \(V_m\) er givet ved ligning \ref{eq:Vm_transient0}, \citep{DCmotormodel}.
 \begin{equation}
 	V_m(t)=L_m \cdot \frac{\mathrm d}{\mathrm d t} \big( i_m(t) \big)+R_m \cdot i_m(t) + V_{EMF}(t)
 	\label{eq:Vm_transient0} 
@@ -32,7 +42,7 @@ Kraftmomentet kan altså udtrykkes ved ligning \ref{eq:Tm_leveret}
 	\label{eq:Tm_leveret} 
  \end{equation}
 
-Proportionalitetskonstanterne \(K_b\) og \(K_t\) har i SI-enheder samme numeriske værdi\todo{KILDE!}.
+Proportionalitetskonstanterne \(K_b\) og \(K_t\) har i SI-enheder samme numeriske værdi, \citep[Physical setup]{matlabdcmodel}.
 
 \subsection{Eksperiment 1}
 \label{ss:eksperiment1}
@@ -58,8 +68,7 @@ Værdierne noteres, og forsøget gentages ved andre spændinger.
 
 De anvendte multimetre er af typen TTi 1604.
 \subsubsection{Måleresultater}
-I tabel \ref{tb:resistans} findes målingerne af strøm og spænding.\todo[inline,color=blue! 50]{Mikael, jeg synes de vil se bedre ud i tabellen, hvis der 
-var et mindre decimal i de ni første, \(V_m\).}
+I tabel \ref{tb:resistans} findes målingerne af strøm og spænding.
 \begin{figure}[th!]
 	\centering
 	\input{content/tb_resistans.tex}
@@ -78,17 +87,19 @@ Den målte strøm-spændingskarakteristik for DC-motoren er indtegnet på figur 
 \end{figure}
 Som det ses på figur \ref{fig:resistans0} er sammenhængen mellem strøm og spænding
 tilnærmelsesvis lineær, og en lineær regression på dataene vil altså give en tilnærmet værdi for \(R_m\).
-\(R_m\) er ved lineær regression beregnet til 5,21 \([\Omega]\). \todo[inline]{Flere decimaler?}
+\(R_m\) er ved lineær regression beregnet til 5,215 \([\Omega]\).\\
+Den mindste effektafsættelse i motoren var 48 [mW].
 
-Den i forsøget mindste afsatte effekt i motoren er 48 [mW].
 \subsubsection{Diskussion}
 Da sammenhængen mellem strøm og spænding i målingerne er tilnærmelsesvis lineær,
 vurderes den fundne værdi for \(R_m\) at være meget nøjagtig,
 om ikke andet, så for effektafsættelser i motoren på mindst 48 [mW].
+
 \subsubsection{Konklusion}
 Motorens ækvivalente resistans, \(R_m\) er vha. sammenhørende målinger af strøm og spænding
 for en rotationslåst motor, ved effektafsættelser i motoren på 48 [mW] og højere,
-blevet bestemt til 5,21 \([\Omega]\). \todo[inline]{Flere decimaler?}
+blevet bestemt til 5,215 \([\Omega]\).
+
 \subsection{Eksperiment 2}
 \label{ss:eksperiment2}
 \subsubsection{Formål}
@@ -100,18 +111,27 @@ mens metode 2 tager udgangspunkt i faseforskellen mellem forskellige komplekse i
 \paragraph{Metode 1}
 Forhindres motoren i at rotere, vil vinkelhastigheden som beskrevet i afsnit \ref{ss:eksperiment1} være nul.
 Ved denne metode er vi interesseret i systemets transientrespons, hvor strømmen \(i_m\) ikke er konstant.
-Forbindes en modstand \(R_s\) i serie med DC-motoren som vist på fig. %\ref{fig:e2_rl1}
-\todo[inline]{Indsæt kredsløbsdiagram med Rs}
-vil der være tale om et RL-kredsløb, med en tidskonstant \(\tau\) givet ved ligning \ref{eq:rltimeconstant}.
+Forbindes en modstand \(R_s\) i serie med DC-motoren som vist på figur \ref{fig:eksperiment2metode1} vil der være tale om et RL-kredsløb, med en tidskonstant \(\tau\) givet ved ligning \ref{eq:rltimeconstant}.
+
+\begin{figure}[!th]
+\centering
+\includegraphics[width=0.1\textwidth]{./graphics/Mangleratblivetegnet2}
+%\begin{tikzpicture}[scale=2]
+%\include*{./graphics/}
+%\end{tikzpicture}
+\caption[]{MANGLER AT BLIVE TENGET}
+\label{fig:eksperiment2metode1}
+\end{figure}
+
+
 Transientresponsen for alle strømme og spændingsfald i kredsløbet har denne tidskonstant.
-\todo[inline]{Indsæt kilde eller forklaring til RL-tidskonstant.}
+
 \begin{equation}
 	\tau=\frac{L_m}{R_m+R_s}
 	\label{eq:rltimeconstant} 
  \end{equation}
-Tidskonstanten er et mål for tiden det tager systemet at opnå ca. 63,2 \% af slutværdien.\todo[inline]{D\&B-kilde}
-For en (eksponentielt) aftagende kurve med tidskonstanten \(\tau\) kan tidskonstanten aflæses som
-tidsforskellen mellem to niveauer V0 og V1, hvor V1 er ca. 36,8 \% af V0.
+Tidskonstanten er et mål for tiden det tager systemet at opnå \textbf{ca.??} 63,2 \% af slutværdien. For en (eksponentielt) aftagende kurve med tidskonstanten \(\tau\) kan tidskonstanten aflæses som
+tidsforskellen mellem to niveauer V0 og V1, hvor V1 er \textbf{ca.??} 36,8 \% af V0.
 
 Ved omskrivning af ligning \ref{eq:rltimeconstant} kan induktansen altså bestemmes vha. ligning \ref{eq:induktans0}.
 \begin{equation}
@@ -121,16 +141,27 @@ Ved omskrivning af ligning \ref{eq:rltimeconstant} kan induktansen altså bestem
 \paragraph{Metode 2}
 Forhindres motoren i at rotere, vil vinkelhastigheden som beskrevet i afsnit \ref{ss:eksperiment1} være nul.
 Ved denne metode er vi interesseret i systemets steady-state respons.
-Forbindes en modstand \(R_{s1}\) i serie med DC-motoren som vist på fig. %ref{fig:e2_rl2}
-\todo[inline]{Indsæt kredsløbsdiagram med Rs1 og AC-forsyning med DC offset}
+Forbindes en modstand \(R_{s1}\) i serie med DC-motoren som vist på figur ref{fig:eksperiment2metode2}
 vil impedansen \(\mathbf{Z_m}\) af DC-motoren være givet ved ligning \ref{eq:zm_0}.
+
+\begin{figure}[!th]
+\centering
+\includegraphics[width=0.1\textwidth]{./graphics/Mangleratblivetegnet3}
+%\begin{tikzpicture}[scale=2]
+%\include*{./graphics/}
+%\end{tikzpicture}
+\caption[]{MANGLER AT BLIVE TENGET - Indsæt kredsløbsdiagram med Rs1 og AC-forsyning med DC offset}
+\label{fig:eksperiment2metode2}
+\end{figure}
+
+
 \begin{equation}
 	\mathbf{Z_m}=R_{s1}\cdot\frac{\mathbf{V_1}-\mathbf{V_2}}{\mathbf{V_2}}
 			=R_{s1}\cdot\left(\frac{\mathbf{V_1}}{\mathbf{V_2}}-1\right)
 			=R_{s1}\cdot\left(\frac{A_1}{A_2}\cdot{e}^{\phi}-1\right)
 	\label{eq:zm_0} 
  \end{equation}
-Bemærk at spændingsfaldene noteres med fed skrift for at indikere at her er tale om phasors (komplekse tal),
+Bemærk at spændingsfaldene noteres med fed skrift for at indikere at her er tale om phasors,
 at \(A_1\) og \(A_2\) angiver amplituderne af \(\mathbf{V_1}\) og \(\mathbf{V_2}\),
 samt at \(\phi=\phi_1-\phi_2\) angiver faseforskellen mellem de to signaler.
 Denne faseforskel kan også udtrykkes ved tidsforsinkelsen \(\Delta{t}\) ganget med vinkelfrekvensen \(\omega\).
@@ -169,20 +200,17 @@ Effektafsættelsen \(P_{avg}\) i en modstand R, påført en vekselspænding med 
 \subsubsection{Fremgangsmåde}
 \paragraph{Metode 1}
 En modstand \(R_s\) måles efter med et multimeter og fobindes i serie med DC-motoren
-som på figur %\ref{fig:e2_rl1}
-.
+som på figur \ref{fig:eksperiment2metode1}.
 Kredsløbet bestående af DC-motoren og \(R_s\) påføres en kendt spænding.
 Strømmen gennem kredsløbet afbrydes på strømforsyningen og spændingsfaldet
 over \(R_s\) måles med et oscilloskop.
 Dataene eksporteres og tidskonstanten bestemmes herudfra.
 
-Det anvendte multimeter er af typen TTi 1604,
-og oscilloskopet er af typen Agilent Technologies DSO-X 2024A.
+Det anvendte multimeter er af typen TTi 1604 og oscilloskopet er af typen Agilent Technologies DSO-X 2024A.
 
 \paragraph{Metode 2}
 En modstand \(R_{s1}\) måles efter med et multimeter og forbindes i serie med DC-motoren
-som på figur %\ref{fig:e2_rl2}
-.
+som på figur \ref{fig:eksperiment2metode2}.
 Kredsløbet påføres en kendt AC-spænding fra en funktionsgenerator med et DC-offset så spændingen
 altid er positiv.
 Da funktionsgeneratoren ikke skal overbelastes, skal \(R_{s1}\) vælges tilpas stor.
@@ -191,7 +219,7 @@ Med et oscilloskop måles spændingsfaldene \(\mathbf{V_1}\) og \(\mathbf{V_2}\)
 Dataene eksporteres og faseforskellen samt forholdet mellem amplituderne \(A_1\) og \(A_2\) bestemmes herudfra.
 \subsubsection{Måleresultater}
 \paragraph{Metode 1}
-Seriemodstanden \(R_s\) er blevet målt til 61,77 \([Omega]\).
+Seriemodstanden \(R_s\) er blevet målt til 61,77 \([\Omega]\).
 På figur \ref{fig:induktans0} er transientresponsen for spændingsfaldet over \(R_s\) indtegnet
 sammen med de to spændingsniveauer, hvorudfra tidskonstanten bestemmes.
 \begin{figure}[th!]
@@ -199,10 +227,11 @@ sammen med de to spændingsniveauer, hvorudfra tidskonstanten bestemmes.
 	\includegraphics[width=1\textwidth]{./graphics/induktans0.eps}
 	\caption[Transientrespons for låst motor]
 		{Transientrespons for låst motor. De to vandrette røde linjer angiver spændingsniveauerne til bestemmelse af tidskonstanten.
-		Den øverste linje er ved 4 [V], mens den nederste linje er ved 4 [V] \(\cdot \frac{1}{e}\).}
+		Den øverste linje er ved 4 [V], mens den nederste linje er ved \(4\cdot \frac{1}{e}\)  [V].}
 	\label{fig:induktans0}
 \end{figure}
 Figur \ref{fig:induktans0} viser flere målingers transientrespons.
+
 \paragraph{Metode 2}
 Seriemodstanden \(R_{s1}\) er blevet målt til 473,3 \([\Omega]\).
 Spændingen har en amplitude på 2,4 [V] og et DC-offset på 2,5 [V].
@@ -215,11 +244,13 @@ På figur \ref{fig:induktans1} er steady-state responsen for spændingsfaldene o
 		To tilpassede sinuskurver, fundet vha. MATLAB's fit-funktion, er indtegnet med lyseblåt og rødt.}
 	\label{fig:induktans1}
 \end{figure}
+
 \subsubsection{Databehandling}
 \paragraph{Metode 1}
 For hver måling af transientresponsen, vist i figur \ref{fig:induktans0} er induktansen blevet
 bestemt ved brug af ligning \ref{eq:induktans0}.
 Gennemsnitsinduktansen er ved denne metode blevet fundet til \(L_m=0,395\) [H].
+
 \paragraph{Metode 2}
 Vha. MATLAB's fit-funktion er to sinuskurver blevet tilpasset til de målte spændingsfald.
 Ud fra funktionsforskrifterne på de to sinuskurver er amplitudeforholdet \(\frac{A_1}{A_2}\)
@@ -228,30 +259,32 @@ og vha. ligningerne \ref{eq:Rm_0} og \ref{eq:Lm_0} er resistansen hhv. induktans
 179,94 \([\Omega]\) hhv. 3,047 [mH].
 Effektafsættelsen i motoren er med amplitudeforskellen på \(\mathbf{V_1}\) og \(\mathbf{V_2}\) samt
 de i forsøget fundne værdier \(R_{s1}\) og \(R_m\) ved brug af ligning \ref{eq:effekt} beregnet til 0,405 [mW].
+
 \subsubsection{Diskussion}
-Den lineære sammenhæng mellem strøm og spænding fundet i afnit \ref{ss:eksperiment1} kan ikke benægtes,
-og for effektafsættelser i motoren på over 48 [mW] må resistansen kunne antages at være 5,21 \([\Omega]\) som beregnet.
+Den lineære sammenhæng mellem strøm og spænding fundet i afsnit \ref{ss:eksperiment1} kan ikke benægtes,
+og for effektafsættelser i motoren på over 48 [mW] må resistansen kunne antages at være \(5,215\) \([\Omega]\)  som beregnet.
 Men, som fundet ved forsøget med metode 2, så er motorens resistans langt højere,
 179,94 \([\Omega]\) ved en effektafsættelse i motoren på 0,405 [mW].
 Dette indikerer, at motorens ækvivalente resistans er lineær i de brugbare intervaller, altså ved de effektafsættelser en
 praktisk applikation ville få brug for, altså over 48 [mW], men at motoren opfører sig anderledes når effektafsættelsen
 bliver tilpas lille, i strørrelsesordenen under 1 [mW].
 Til brug i modelleringen og simuleringen af motoren til den praktiske applikation, hvor motoren skal kunne rotere,
-vurderes det derfor at den i afsnit \ref{ss:eksperiment1} fundne ækvivalente modstand på \(R_m=5,21 [\Omega]\) giver en meget
-nøjagtig værdi for den faktiske modstand i motoren.
+vurderes det derfor at den i afsnit \ref{ss:eksperiment1} fundne ækvivalente modstand på \(R_m=5,215\) \([\Omega]\) giver en meget nøjagtig værdi for den faktiske modstand i motoren.\\
 
 Induktansen er imidlertid sværere at bestemme, da effektafsættelsen i de udførte forsøg er lav.
 Hvilken induktans, der er den bedste tilnærmelse til motorens ækvivalente induktans,
-står uklart efter disse forsøg.
-\todo[inline]{Skriv noget bedre!}
+står uklart efter disse forsøg, da de to resultater varierer med en faktor på cirka 130. Derfor blev der foretaget kontrolmålinger vha. et LCR-meter af typen Agilent Techologies U1733C. Målingerne blev foretaget ved 10 [kHz] og havde en middelværdi på 2,667 [mH] \(\pm\) hhv. en faktor 2 og en faktor 0,5. 
+Fordoblingen og halveringen er grundet motorakslens position i forhold til DC motorens kul.\\
 
 \subsubsection{Konklusion}
-
+Eksperiment 2 viser hvordan effektafsættelsen i DC motoren har betydning for dens resistans. Idet DC motorene i applikationen antages for at have en effektafsættelse over 48 [mW] medfører dette motorens har en resistans på \(R_m=5,215\) \([\Omega]\).\\
+Til modelleringen af DC motoren besluttes motorens induktans værende \(L_m=3,047\) \([mH]\), som fundet i Metode 2 og eftervist af LCR-meteret.
 
 \subsection{Eksperiment 3}
 \label{ss:eksperiment3}
 \subsubsection{Formål}
 Bestemmelse af proportionalitetskonstanterne \(K_b\) og \(K_t\) samt den viskøse friktionskonstant \(B\).
+
 \subsubsection{Teori}
 Hvis man påfører motoren en DC-spænding og lader den rotere frit, uden ekstra belastning,
 så kan ligning \ref{eq:Vm_transient1} omskrives til ligning \ref{eq:Vm_freerun0}.
@@ -278,7 +311,7 @@ idet det vides, at der er 360 ticks pr. omgang, \citep{emgmotor}.
 For hver måling beregnes \(K_b\) og \(K_t\) samt \(B\) vha. ligningerne \ref{eq:Vm_freerun0} og \ref{eq:KtimBw}.
 
 Det anvendte multimeter er af typen TTi 1604,
-og antallet af ticks taltes med en tæller på FPGA'en, der automatisk stopper efter 1 minut.
+og antallet af ticks blev talt med en tæller på FPGA'en, der automatisk stopper efter 1 minut.
 \subsubsection{Måleresultater}
 I tabel \ref{tb:steadystatenoload} findes målingerne af strøm, spænding og vinkelhastighed.
 \begin{figure}[th!]
@@ -309,7 +342,7 @@ der afspejler effektafsættelser, der vil forekomme i applikationen.
 Der er dog blevet set bort fra Coulomb-friktionen, og der vil skulle tages højde for dette under modelleringen.
 \subsubsection{Konklusion}
 Proportionalitetskonstanterne \(K_b\) og \(K_t\) er blevet fundet til i SI-enheder at have den numeriske værdi 0,517.
-Den viskøse friktionskonstant \(B\) er blevet funder til 0,00319 \([N \cdot m \cdot s]\).
+Den viskøse friktionskonstant \(B\) er blevet fundet til 0,00319 \([N \cdot m \cdot s]\).
 Alle konstanterne er blevet fundet vha. værdien af \(R_m\) fra afsnit \ref{ss:eksperiment1}.
 \subsection{Eksperiment 4}
 \subsubsection{Formål}
@@ -359,7 +392,7 @@ Når rotoren har opnået en given vinkelhastighed, og snorkraften stopper,
 vil rotoren decelerere med en vinkelacceleration \(\alpha_{ned}\), som skyldes friktionskraftmomentet,
 jf. ligning \ref{eq:Tf0}.
 \begin{equation}
-	\left|T_f\right|=J_m\left|\alpha{ned}\right|
+	\left|T_f\right|=J_m\left|\alpha_{ned}\right|
 	\label{eq:Tf0}
  \end{equation}
 
@@ -425,7 +458,7 @@ For hver måling bestemtes hældningerne \(\alpha_{op}\) og \(\alpha_{ned}\) vha
 og ud fra dette er gennemsnitsaccelerationerne blevet fundet til
 \(\alpha_{op}=49,3\) \([\frac{\text{rad}}{\text{s}}]\) og \(\alpha_{ned}=-69,1\) \([\frac{\text{rad}}{\text{s}}]\).
 Med disse værdier er inertimomentet beregnet vha. ligning \ref{eq:Jrotor}, og friktionskraftmomentet vha. ligning \ref{eq:Tf1}.
-De beregnede værdier er hhv. \(J_m=8.26\cdot10^{-4}\) \([\text{kg}\cdot{\text{m}^2}]\) og \(\left| { T }_{ f } \right| =0,0571\) \( [\text{N} \cdot \text{m}]\).
+De beregnede værdier er hhv. \(J_m=8,26\cdot10^{-4}\) \([\text{kg}\cdot{\text{m}^2}]\) og \(\left| { T }_{ f } \right| =0,0571\) \( [\text{N} \cdot \text{m}]\).
 \subsubsection{Diskussion}
 At \(V_{EMF}\) aftager lineært fremfor eksponentielt indikerer,
 at den viskøse friktion er lav i forhold til Coulomb-friktionen.
@@ -434,26 +467,16 @@ og giver et nøjagtigt billede af den tilstedeværende friktion samt rotorens in
 \subsubsection{Konklusion}
 Rotorens inertimoment er bestemt til \(J_m=8,26\cdot10^{-4}\) \([\text{kg}\cdot{\text{m}^2}]\).
 Friktionskraftmomentet er bestemt til \(\left| { T }_{ f } \right| =0,0571\) \( [\text{N} \cdot \text{m}]\).
-\subsection{Opsummering af DC motorparameter}
 
-Her bliver de forskellige 
-
-
-
-
-\begin{figure}[th!]
-\centering
-\begin{tabular}{c}
-DC motor parameter \\\hline
-ad \\
-ad \\
-ad \\
-ad \\
-\end{tabular}
-\captionsetup{type=table}
-\caption[tekst i indholdsfortegnelsen]{tabeltekst}
-\label{tb:}
-\end{figure}
-
-
-
+\subsection{Opsummering af motorparameter}
+\label{opsummering_af_motorparameter}
+Nedenstående motorparameterne er fundet i Eksperiment 1-4 og disse værdier bruges til modelering af DC motorene.
+\begin{itemize}
+\item \(R_m\)=5,215 \([\Omega]\)
+\item \(L_m = 3,047\) \([mH]\) 
+\item \(K_b = 0,517\) \(\left[ V\cdot\frac{s}{rad} \right] \)
+\item \(K_t = 0,517\) \(\left[ \frac{N\cdot m}{A} \right] \)
+\item \(B = 0,00319\) \(\left[  N \cdot m \cdot s\right]  \)
+\item \(J_m = 8,26\cdot10^{-4}\) \(\left[ kg\cdot{m^2} \right]  \)
+\item \(\left| T _f \right| = 0,0571\) \(\left[ N \cdot m \right]   \)
+\end{itemize}
