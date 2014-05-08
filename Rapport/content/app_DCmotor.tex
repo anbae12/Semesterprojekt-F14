@@ -104,11 +104,12 @@ blevet bestemt til 5,215 \([\Omega]\).
 \label{ss:eksperiment2}
 \subsubsection{Formål}
 Bestemmelse af motorens ækvivalente induktans, \(L_m\).
-Der er benyttet to forskellige metoder til bestemmelsen af induktansen.
+Der er benyttet tre forskellige metoder til bestemmelsen af induktansen.
 Metode 1 tager udgangspunkt i tidskonstanten for et RL-kredsløb,
 mens metode 2 tager udgangspunkt i faseforskellen mellem forskellige komplekse impedanser i serie.
+Metode 3 benytter et LCR-meter, som er et måleapparat der kan måle en passiv komponents impedans, til bestemmelsen af induktansen.
 \subsubsection{Teori}
-\paragraph{Metode 1}
+\paragraph{Metode 1\\}
 Forhindres motoren i at rotere, vil vinkelhastigheden som beskrevet i afsnit \ref{ss:eksperiment1} være nul.
 Ved denne metode er vi interesseret i systemets transientrespons, hvor strømmen \(i_m\) ikke er konstant.
 Forbindes en modstand \(R_s\) i serie med DC-motoren som vist på figur \ref{fig:eksperiment2metode1} vil der være tale om et RL-kredsløb, med en tidskonstant \(\tau\) givet ved ligning \ref{eq:rltimeconstant}.
@@ -131,14 +132,14 @@ Transientresponsen for alle strømme og spændingsfald i kredsløbet har denne t
 	\label{eq:rltimeconstant} 
  \end{equation}
 Tidskonstanten er et mål for tiden det tager systemet at opnå \textbf{ca.??} 63,2 \% af slutværdien. For en (eksponentielt) aftagende kurve med tidskonstanten \(\tau\) kan tidskonstanten aflæses som
-tidsforskellen mellem to niveauer V0 og V1, hvor V1 er \textbf{ca.??} 36,8 \% af V0.
+tidsforskellen mellem to niveauer \(V_0\) og \(V_1\), hvor \(V_1\) er ca. 36,8 \% af \(V_0\).
 
 Ved omskrivning af ligning \ref{eq:rltimeconstant} kan induktansen altså bestemmes vha. ligning \ref{eq:induktans0}.
 \begin{equation}
 	L_m=\tau\cdot(R_m+R_s)
 	\label{eq:induktans0} 
  \end{equation}
-\paragraph{Metode 2}
+\paragraph{Metode 2\\}
 Forhindres motoren i at rotere, vil vinkelhastigheden som beskrevet i afsnit \ref{ss:eksperiment1} være nul.
 Ved denne metode er vi interesseret i systemets steady-state respons.
 Forbindes en modstand \(R_{s1}\) i serie med DC-motoren som vist på figur ref{fig:eksperiment2metode2}
@@ -197,8 +198,11 @@ Effektafsættelsen \(P_{avg}\) i en modstand R, påført en vekselspænding med 
 	P_{avg}=\frac{\left(V_{rms}\right)^2}{R}=\frac{\left(\frac{V}{\sqrt{2}}\right)^2}{R}
 	\label{eq:effekt}
  \end{equation}
+
 \subsubsection{Fremgangsmåde}
-\paragraph{Metode 1}
+Alle metoderne involverer en måling på DC-motoren, og det er derfor vigtigt ved hvert forsøg at placere
+rotoren i forskellige positioner, da kullenes placering har en indflydelse på induktansen.
+\paragraph{Metode 1\\}
 En modstand \(R_s\) måles efter med et multimeter og fobindes i serie med DC-motoren
 som på figur \ref{fig:eksperiment2metode1}.
 Kredsløbet bestående af DC-motoren og \(R_s\) påføres en kendt spænding.
@@ -208,7 +212,7 @@ Dataene eksporteres og tidskonstanten bestemmes herudfra.
 
 Det anvendte multimeter er af typen TTi 1604 og oscilloskopet er af typen Agilent Technologies DSO-X 2024A.
 
-\paragraph{Metode 2}
+\paragraph{Metode 2\\}
 En modstand \(R_{s1}\) måles efter med et multimeter og forbindes i serie med DC-motoren
 som på figur \ref{fig:eksperiment2metode2}.
 Kredsløbet påføres en kendt AC-spænding fra en funktionsgenerator med et DC-offset så spændingen
@@ -217,8 +221,13 @@ Da funktionsgeneratoren ikke skal overbelastes, skal \(R_{s1}\) vælges tilpas s
 AC-spændingens frekvens er 10 [kHz].
 Med et oscilloskop måles spændingsfaldene \(\mathbf{V_1}\) og \(\mathbf{V_2}\).
 Dataene eksporteres og faseforskellen samt forholdet mellem amplituderne \(A_1\) og \(A_2\) bestemmes herudfra.
+
+\paragraph{Metode 3\\}
+DC-motoren forbindes til LCR-meteret, som indstilles til "L" (induktansmåling).
+Ved forskellige testfrekvenser noteres resultatet.
+
 \subsubsection{Måleresultater}
-\paragraph{Metode 1}
+\paragraph{Metode 1\\}
 Seriemodstanden \(R_s\) er blevet målt til 61,77 \([\Omega]\).
 På figur \ref{fig:induktans0} er transientresponsen for spændingsfaldet over \(R_s\) indtegnet
 sammen med de to spændingsniveauer, hvorudfra tidskonstanten bestemmes.
@@ -232,7 +241,7 @@ sammen med de to spændingsniveauer, hvorudfra tidskonstanten bestemmes.
 \end{figure}
 Figur \ref{fig:induktans0} viser flere målingers transientrespons.
 
-\paragraph{Metode 2}
+\paragraph{Metode 2\\}
 Seriemodstanden \(R_{s1}\) er blevet målt til 473,3 \([\Omega]\).
 Spændingen har en amplitude på 2,4 [V] og et DC-offset på 2,5 [V].
 På figur \ref{fig:induktans1} er steady-state responsen for spændingsfaldene over DC-motoren og seriemodstanden indtegnet.
@@ -245,13 +254,26 @@ På figur \ref{fig:induktans1} er steady-state responsen for spændingsfaldene o
 	\label{fig:induktans1}
 \end{figure}
 
+\paragraph{Metode 3\\}
+\todo[inline,author=Mikael]{Indsæt tabel med induktans for forskellige motorpositioner og forskellige testfrekvenser}
+I tabel \ref{tb:lcr} findes induktansmålingerne fra LCR-meteret.
+\begin{figure}[th!]
+	\centering
+	\input{content/tb_lcr.tex}
+	\captionsetup{type=table}
+	\caption[Induktansmålinger fra LCR-meteret]
+			{Induktansmålinger fra LCR-meteret.}
+	\label{tb:lcr}
+\end{figure}
+Det anvendte LCR-meter er af typen Agilent Techologies U1733C.
+
 \subsubsection{Databehandling}
-\paragraph{Metode 1}
+\paragraph{Metode 1\\}
 For hver måling af transientresponsen, vist i figur \ref{fig:induktans0} er induktansen blevet
 bestemt ved brug af ligning \ref{eq:induktans0}.
 Gennemsnitsinduktansen er ved denne metode blevet fundet til \(L_m=0,395\) [H].
 
-\paragraph{Metode 2}
+\paragraph{Metode 2\\}
 Vha. MATLAB's fit-funktion er to sinuskurver blevet tilpasset til de målte spændingsfald.
 Ud fra funktionsforskrifterne på de to sinuskurver er amplitudeforholdet \(\frac{A_1}{A_2}\)
 og faseforskellen \(\phi\) blevet beregnet,
@@ -259,6 +281,18 @@ og vha. ligningerne \ref{eq:Rm_0} og \ref{eq:Lm_0} er resistansen hhv. induktans
 179,94 \([\Omega]\) hhv. 3,047 [mH].
 Effektafsættelsen i motoren er med amplitudeforskellen på \(\mathbf{V_1}\) og \(\mathbf{V_2}\) samt
 de i forsøget fundne værdier \(R_{s1}\) og \(R_m\) ved brug af ligning \ref{eq:effekt} beregnet til 0,405 [mW].
+
+\paragraph{Metode 3\\}
+\todo[inline,author=Mikael]{Gennemsnitsinduktans for hver testfrekvens.}
+Tabel \ref{tb:lcr_avg} indeholder gennemsnitsinduktanserne målt af LCR-meteret ved de forskellige testfrekvenser.
+\begin{figure}[th!]
+	\centering
+	\input{content/tb_lcr_avg.tex}
+	\captionsetup{type=table}
+	\caption[Gennemsnitsinduktanser fra LCR-meteret]
+			{Gennemsnitsinduktanser fra LCR-meteret.}
+	\label{tb:lcr_avg}
+\end{figure}
 
 \subsubsection{Diskussion}
 Den lineære sammenhæng mellem strøm og spænding fundet i afsnit \ref{ss:eksperiment1} kan ikke benægtes,
@@ -272,13 +306,22 @@ Til brug i modelleringen og simuleringen af motoren til den praktiske applikatio
 vurderes det derfor at den i afsnit \ref{ss:eksperiment1} fundne ækvivalente modstand på \(R_m=5,215\) \([\Omega]\) giver en meget nøjagtig værdi for den faktiske modstand i motoren.\\
 
 Induktansen er imidlertid sværere at bestemme, da effektafsættelsen i de udførte forsøg er lav.
-Hvilken induktans, der er den bedste tilnærmelse til motorens ækvivalente induktans,
-står uklart efter disse forsøg, da de to resultater varierer med en faktor på cirka 130. Derfor blev der foretaget kontrolmålinger vha. et LCR-meter af typen Agilent Techologies U1733C. Målingerne blev foretaget ved 10 [kHz] og havde en middelværdi på 2,667 [mH] \(\pm\) hhv. en faktor 2 og en faktor 0,5. 
-Fordoblingen og halveringen er grundet motorakslens position i forhold til DC motorens kul.\\
+Igen vælges det resultat, der er blevet fundet ved betingelser, der minder om den praktiske applikation,
+således at modellen tilnærmer DC-motorens dynamik i den praktiske applikation.
+Motoren vil i den praktiske applikation påføres en PWM-spænding med en PWM-frekvens
+på 24 [kHz]. Det vurderes derfor, at de induktanser, der er fundet ved frekvenser i samme størrelsesorden
+giver det bedste estimat for motorens induktans i den praktiske applikation.
+Det vil sige, at induktansen fundet ved metode 2 samt induktansen fundet ved testfrekvensen på 10 [kHz]
+ved metode 3 danner grundlag for estimatet. Det bemærkes, at resultatet fra metode 2 stemmer overens med
+resultatet for metode 3.
+Da resultaterne fra dette eksperiment er meget spredte, kan der ikke findes en nøjagtig værdi for induktansen.
+Motorens induktans estimeres derfor til at være ca. 3 [mH]\todo{3 mH???}.
 
 \subsubsection{Konklusion}
 Eksperiment 2 viser hvordan effektafsættelsen i DC motoren har betydning for dens resistans. Idet DC motorene i applikationen antages for at have en effektafsættelse over 48 [mW] medfører dette motorens har en resistans på \(R_m=5,215\) \([\Omega]\).\\
-Til modelleringen af DC motoren besluttes motorens induktans værende \(L_m=3,047\) \([mH]\), som fundet i Metode 2 og eftervist af LCR-meteret.
+
+Til modelleringen af DC motoren estimeres motorens induktans til \(L_m=3\) \([mH]\).
+Estimatet gælder kun ved inputfrekvenser i størrelsesordenen 10 [kHz].
 
 \subsection{Eksperiment 3}
 \label{ss:eksperiment3}
