@@ -1,2 +1,75 @@
 \section{Mikrokontroller}
 \label{sec:mikrokontroller}
+\subsection{Krav til mikrokontrolleren}
+Mikrokontrolleren har følgende opgaver: 
+\todo[inline, author=Michael]{YOU CANT TOUCH THIS - lad mig lige skrive færdig!}
+\begin{itemize}
+	\item Afvikling af regulatorerne.
+	\item Kommunikation med FPGA vha. SPI.
+	\item Modtage kommandoer fra PC'en via UART.
+	\item Sende relevant data til brugeren via UART.
+\end{itemize}
+
+Afvikling af regulatorerne skal afvikles i realtid, da det ellers er vanskelligt at modellere forsinkelsen. 
+
+
+SPI\footnote{Serial Peripheral Interface, også kaldet SSI} bruges til at overføre PTS's position fra FPGA til mikrokontroller. Desuden overføres beregnet duty-cycle fra mikrokontroller til FPGA. Kommunikationen skal være tilpas hurtig, så regulatorerne ikke beregner på forældet data. 
+\todo[inline, author=Michael]{Opstil bedre krav til SPI kommunikation, men hvordan? Det er vel noget med at den også skal reagere i realtid, så vi også kan modellere delayet fra SPI kommunikationen? Risiko for cirkelargumentation her. }
+
+Systemet skal kunne modtage bruger inputs gennem et terminalprogram. Brugerinterfacet er ikke tidskritisk. Der skal være mulighed for at udlæse systemparametre:
+
+\begin{itemize}
+	\item PTS' position. 
+	\item Ønsket position. 
+	\item Log-fil.
+\end{itemize}
+
+Systemet skal reagere på følgende bruger inputs
+
+
+\begin{itemize}
+	\item Start tracking
+	\item Stop tracking
+	\item Reset systemet
+	\item Gå til koordinat (x,y,z)
+\end{itemize}
+
+
+\subsection{Valg af skedulering}
+Der er undersøgt 4 forskellige mulige skeduleringsalgoritmer: 
+
+\begin{itemize}
+	\item CoOS\footnote{coocox.com/CoOS.htm}
+	\item freeRTOS\footnote{freertos.org}
+	\item Run-To-Complete-Scheduler\footnote{Introduceret i EMP-kurset}
+	\item Super-loop
+\end{itemize}
+
+Til valget er der lagt vægt på følgende parametre: 
+
+\begin{itemize}
+	\item Opfylder kravene til realtidsafvikling af regulatorerne. 
+	\item Muligheden for at (gen)bruge elementer fra EMP-kurset.
+\end{itemize}
+
+
+\begin{tabular}{|l|l|l|l|l|}
+\hline 
+ & coOS & freeRTOS & RTCS & Super loop \\ 
+\hline 
+Skedulering & Preemptive  &   &   &   \\ 
+									\\
+\hline 
+Indeholder queues &   &   &   &   \\ 
+\hline 
+Semaphorer og mutexes &   &   &   &   \\ 
+\hline 
+• & • & • & • & • \\ 
+\hline 
+\end{tabular} 
+
+
+\subsection{Implementering}
+\subsection{Test} 
+\subsection{Delkonklusion}
+
