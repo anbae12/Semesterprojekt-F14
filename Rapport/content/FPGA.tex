@@ -1,7 +1,7 @@
 \section{FPGA}
 \label{sec:FPGA}
-\todo[inline, color = pink]{Mikkel: Er slet ikke færdigt, så lad venligst være med at rette eller tilføje.}
-FPGA'en er leddet mellem microcontrolleren og motorene på PTS. 
+\todo[inline, color = pink]{Mikkel: Er nogenlunde færdigt, så må hjertens gerne læses igennem :) }
+FPGA'en er leddet mellem mikrokontrolleren og motorene på PTS. 
 Kommunikationen mellem FPGA og microcontroller skal ske ved hjælp af SPI. 
 FPGA'en skal producere PWM signal til motorerne på PTS og skal kunne tælle motorenes rotationer. 
 FPGA'en er i projeket et BASYS board\footnote{DIGILENT BASYS 2}, der programmeres ved brug af VHDL\footnote{VHSIC Hardware Description Language}.
@@ -9,25 +9,24 @@ Ovenstående krav til funktionaliteten på FPGAen er fastsat af
 projektformuleringen.
 
 \subsection{Foretagede valg i opbygning af FPGA funktionalitet}
-Eftersom de fleste krav til FPGAen er givet af projektbeskrivelsen er der ikke 
+Eftersom de fleste krav til FPGAen er givet af projektbeskrivelsen, er der ikke 
 lavet noget større analysearbejde af FPGAens funktionalitet. Undervejs i 
 udviklingen af funktionaliteten er der dog taget nogle valg.
 
 \subsubsection*{Generiske komponenter}
 For at lave et system med lav kobling er det forsøgt at lave 
 generiske komponenter til de funktionaliteter, der er af generel art. 
-Til at varetage den resterende funktionalitet er der skrevet applikationsspecifikke 
+Til at varetage den resterende funktionalitet, er der skrevet applikationsspecifikke 
 komponenter.
-Denne opbygning mellem generiske og applikationsspecifikke komponenter sikrer, at koden er let at 
-udbygge og genbruge.
+Denne sikrer, at koden er let at udbygge og genbruge.
 
 \subsubsection*{PWM}
 Der skal fra FPGAen genereres PWM signaler til at styre motorerne på PTS.
-Det ønskedes at have en PWM frekvens, der ikke ligger i det hørbare område. 
-Det ønskedes også at have en god opløsning på PWM. 
-Ved 11 bit og brug af BASYS boardets interne clock på 50 MHz bliver PWM frekvensen passende høj:
+Det ønskes at have en PWM frekvens, der ikke ligger i det hørbare område, hvilket ca. går op til 20 $[kHz]$ \footnote{en.wikipedia.org/wiki/Hearing\_range}. 
+Det ønskes ydermere at have en god opløsning på PWM. 
+Ved 11 bits opløsning på PWM og brug af BASYS boardets interne clock på 50 $[MHz]$ bliver PWM frekvensen passende høj:
 \begin{equation}
-  \frac{2^{11}}{50 MHz} = 24.41 KHz 
+  \frac{2^{11}}{[50 MHz]} = 24.41 [kHz] 
 \end{equation}
 
 \subsubsection*{Kalibrering af motorposition}
@@ -35,15 +34,16 @@ PTS skal kunne tændes i en tilfældig position og derefter kalibreres.
 Kalibreringen af motorpositionen kan laves ved at sørge for at PTS drejer forbi 
 de to hall sensorer, der er placeret på systemet. Dette vil give et signal, da 
 der på PTS er placeret en magnet på hver af rammerne.
-Det blev besluttet af placere ansvaret for at dreje rammerne hen til hall 
+Det blev besluttet at placere ansvaret for at dreje rammerne hen til hall 
 sensorerne hos mikrokontrolleren. Det blev besluttet, da det giver mulighed for 
-en simplere protokol mellem FPGA og mikrokontroller. Det sirker samtidigt at mikrokontrolleren 
+en simplere protokol mellem FPGA og mikrokontroller. Det sikrer samtidigt at mikrokontrolleren 
 altid har kontrol over hvordan PTS bevæger sig.
 Funktionaliteten der skal være på FPGAen er således at opfange outputtet fra 
 hall sensorerne og nulstille den tilhørende position.
-Dog viste det sig at hall sensorernes output ikke kun er højt på ét encodertick, 
+Dog viste det sig, at hall sensorernes output ikke kun er højt på ét encodertick, 
 men derimod adskillige. Det er nødvendigt at FPGAen tager højde for 
 dette.
+\todo[inline, color = pink]{Mikkel: Er ovenstående en for lang smøre om ingenting? Det er bare svært at forklare det på mindre plads.}
 
 \subsection{Opbygningen på FPGA}
 På figur \ref{fig:FPGA_blok} ses et simplificeret diagram over komponenterne på FPGAen. 
@@ -51,7 +51,7 @@ De grønne bokse angiver komponenter på FPGAen, mens de grå cirkler angiver hv
 FPGAens chip. Pilene imellem FPGAens komponenter angiver retningen på 
 datastrømme. Diagrammet er simplificeret ved at vise to ens komponenter som én. 
 F.eks. er der ikke én tic counter komponent på FPGAen, men derimod to.
-Herunder følger en forklaring på komponenternes.
+Herunder følger en forklaring på komponenterne.
 
 \todo[inline, color = pink]{Mikkel: Måske ender meget af nedenstående i appendix?}
 
@@ -64,7 +64,7 @@ og 1080. Retningen, som motorerne roterer i.
 
 Da encoderne på PTS er quadrature encodere er det muligt at bestemme både retning og 
 tælle rotationer på motoren.
-Frafiltrerer eventuelt støj ved at kigge på de sidste 20 inputs fra encoderne.
+Komponenten frafiltrerer eventuelt støj ved at kigge på de sidste 20 inputs fra encoderne.
 Tæller positionen op eller ned afhængigt af inputtet fra encoderne. 
 Tæller ned fra 0 til 1079.
 For at kalibrere positionen er det nødvendigt for tic counter komponenten at få 
@@ -83,15 +83,15 @@ Når dette reset signal modtages nulstilles positionen og er herved kalibreret.
 \label{fig:hall_sensor_signal}
 \end{figure}
 
-Som beskrevet tidligere er der et behov for at lave et reset signal til positionen. 
+Som beskrevet tidligere er der behov for et reset signal til positionen. 
 Dette skal gøres ved hjælp af hall sensorer på PTS. 
-Det viser sig dog at hall sensorernes output ikke kun er højt på ét encodertick. 
+Det viser sig dog, at hall sensorernes output ikke kun er højt på ét encodertick. 
 Derfor kan signalet fra hall sensorerne ikke i sig selv bruges som reset signal.
 PTS rotationsretningen tages derfor med i betragtning.
-Hvis PTS roterer i én retning sendes sættes reset signalet højt på opadgående 
+Hvis PTS roterer i én retning sættes reset signalet højt på opadgående 
 flanke på hall sensor outputtet, mens reset signalet sættes højt på nedadgående 
 flanke i den anden retning. Reset signalet udsendes derved på samme sted, som vist på figur \ref{fig:hall_sensor_signal}.
-Hermed fås et så smalt område, hvor reset signalet er højt, som muligt. 
+Hermed fås det smallest mulige område, hvor reset signalet er højt.
 Det er testet at dette område svarer til ca. 1-2 ticks.
 
 \subsection*{Display}
@@ -116,7 +116,7 @@ Skalerer clock signalet.
 
 \textbf{Output:} PWM kanal og tilhørende PWM dutycycle (11 bit).
 
-Hvis PWM set bittet er højt skal den opdatare PWM kanal og tilhørende PWM dutycycle.
+Hvis PWM set bittet er højt skal opdateres PWM kanal og tilhørende PWM dutycycle.
 Opdateringen sker ved at tage 2 MSB og lave dem til et PWM kanal output. De 11 
 LSB sendes som PWM dutycycle output.
 
@@ -132,8 +132,8 @@ Sørger for at levere PWM til PTS ud fra PWM kanal og dutycycle.
 
 \textbf{Output:} 16 bit data.
 
-Sørger for skiftevis at sætte motorposition for de to motorer som LSB i 16 
-bit data. MSB bruges til at angive, hvilken motor positionen er til.
+Sørger for skiftevis at sætte motorposition for de to motorer som LSB.
+MSB bruges til at angive, hvilken motor positionen er til.
 
 
 \subsection*{SPI}
@@ -141,7 +141,7 @@ bit data. MSB bruges til at angive, hvilken motor positionen er til.
 
 \textbf{Output:} 16 bit SPI data ud.
 
-Modtager SPI data udefra og sender 16 bit data ud.
+Modtager SPI data udefra. Sørger samtidigt for at sende de 16 bit data fra output decoder.
 
 
 \begin{figure}[!th]
