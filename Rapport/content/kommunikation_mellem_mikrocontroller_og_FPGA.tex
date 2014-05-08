@@ -1,6 +1,14 @@
 \section{Kommunikation mellem mikrocontroller og FPGA}
 
-\todo[author=Åse,inline]{Indsætte en figur af SPI}
+\begin{figure}[!th]
+\centering
+\begin{tikzpicture}[scale=1]
+\include*{./graphics/SPIfigur}
+\end{tikzpicture}
+\caption[tekst i indholdsfortegnelsen]{figurtekst}
+\label{fig:}
+\end{figure}
+
 
 Kommunikationen mellem Micro contolleren og FPGA’en foregår med SPI. SPI står for Serial Peripheral Interface. Det er en protokol hvor, der bliver overført data mellem en master og en eller flere slaver. Overførelsen sker med full duplex, så der bliver sendt data både fra masteren og slaven på samme tid.
 
