@@ -3,6 +3,7 @@
 \subsection{Krav til mikrokontrolleren}
 Mikrokontrolleren har følgende opgaver: 
 \todo[inline, author=Michael]{YOU CANT TOUCH THIS - lad mig lige skrive færdig!}
+\todo[inline, author=Michael]{}
 \begin{itemize}
 	\item Afvikling af regulatorerne.
 	\item Kommunikation med FPGA vha. SPI.
@@ -14,17 +15,19 @@ Afvikling af regulatorerne skal afvikles i realtid, da det ellers er vanskelligt
 
 
 SPI\footnote{Serial Peripheral Interface, også kaldet SSI} bruges til at overføre PTS's position fra FPGA til mikrokontroller. Desuden overføres beregnet duty-cycle fra mikrokontroller til FPGA. Kommunikationen skal være tilpas hurtig, så regulatorerne ikke beregner på forældet data. 
-\todo[inline, author=Michael]{Opstil bedre krav til SPI kommunikation, men hvordan? Det er vel noget med at den også skal reagere i realtid, så vi også kan modellere delayet fra SPI kommunikationen? Risiko for cirkelargumentation her. }
+\todo[inline, author=Michael]{Overførslen af et dataword svarer til sampling tiden. Tiden for overførsel af et data-word skal derfor være signifikant lavere end sampletiden.  }
 
 Systemet skal kunne modtage bruger inputs gennem et terminalprogram. Brugerinterfacet er ikke tidskritisk. Der skal være mulighed for at udlæse systemparametre:
 
 \begin{itemize}
 	\item PTS' position. 
 	\item Ønsket position. 
-	\item Log-fil.
+	\item Afvigelse fra ønsket position. 
 \end{itemize}
 
-Systemet skal reagere på følgende bruger inputs
+Desuden skal systemet gemme disse informationer i en log-fil, som kan udlæses efter systemet er færdig med at tracke målet. 
+
+Systemet skal kunne reagere på følgende bruger inputs:
 
 
 \begin{itemize}
@@ -52,22 +55,24 @@ Til valget er der lagt vægt på følgende parametre:
 	\item Muligheden for at (gen)bruge elementer fra EMP-kurset.
 \end{itemize}
 
-
+\begin{table}[h!]
 \begin{tabular}{|l|l|l|l|l|}
 \hline 
  & coOS & freeRTOS & RTCS & Super loop \\ 
 \hline 
-Skedulering & Preemptive  &   &   &   \\ 
-									\\
+Skedulering & Preemptive priority  & Preemptive priority  & Non-preemptive & Non-preemptive  \\ 
+			& /round robin		&	/round robin & &	\\
 \hline 
-Indeholder queues &   &   &   &   \\ 
+Queues & Ja & Ja & Nej & Nej \\ 
 \hline 
-Semaphorer og mutexes &   &   &   &   \\ 
+Semaphore & ?  & Counting + binære & Binære  & Nej  \\ 
 \hline 
 • & • & • & • & • \\ 
 \hline 
 \end{tabular} 
-
+\caption{Specifikationer for de undersøgte systemer}
+\label{tb:os_comparison}
+\end{table}
 
 \subsection{Implementering}
 \subsection{Test} 
