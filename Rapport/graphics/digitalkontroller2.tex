@@ -9,8 +9,6 @@
 \node [output, right of=Hs] (output){};
 \node[freq,below of=Dz,xshift=1.3cm,yshift=1cm](freq600){600 [Hz]};
 \node [block, below of=freq600,xshift=-1.75cm,yshift=1cm] (AD2) {A/D};
-   
-   
 
 \draw [draw,->] (input) -- node {\footnotesize $Pos(t)$} (AD);
 \draw [draw,->] (freq60) -- (AD);
@@ -26,14 +24,18 @@
 \draw [draw,->] (y) |- node [near end] {\footnotesize $Y(t)$} (AD2);
 \draw [->] (AD2) -| node[pos=0.97] {\footnotesize -} node [near end] {\footnotesize $y(k)$} (sum1);
 
+\coordinate[left of=Dahold,xshift=1cm,yshift=1.5cm](UL);
+\coordinate[left of=Dahold,xshift=1cm,yshift=-4.25cm](BL);
+\coordinate[left of=output,xshift=2.25cm,yshift=1.5cm](UR);
+\coordinate[left of=output,xshift=2.25cm,yshift=-4.25cm](BR);
 
-\coordinate[right of=input,xshift=-1cm,yshift=1.5cm](UL);
-\coordinate[right of=input,xshift=-1cm,yshift=-4.25cm](BL);
-\coordinate[left of=output,xshift=-0.75cm,yshift=1.5cm](UR);
-\coordinate[left of=output,xshift=-0.75cm,yshift=-4.25cm](BR);
-\draw[dashed](UL)--(BL)--(BR)--(UR)--(UL);
-\node [right of= UL,xshift=-1cm,yshift=-0.25cm] (bla){Digital Controller};
+\coordinate[left of= Dahold,xshift=1cm,yshift=-1cm](Mid1);
+\coordinate[left of= Dahold,xshift=-1.75cm,yshift=-1cm](Mid2);
+\coordinate[left of= Dahold,xshift=-1.75cm,yshift=-4.25cm](Mid3);
+
+\draw[dashed](UL)--(Mid1)--(Mid2)--(Mid3)--(BL)--(BR)--(UR)--(UL);
+
+\node [right of= UL,xshift=-1.75cm,yshift=-0.25cm] (bla){$H_{zoh}(z)$};
 \node [below of= AD2,xshift=0cm,yshift=1.8cm] (bla1){\scriptsize FPGA Encoder};
-
 \node [above of= Dz,xshift=0cm,yshift=-1.8cm] (bla1){\scriptsize Controller};
 \node [above of= Dahold,xshift=0cm,yshift=-1.8cm] (bla1){\scriptsize FPGA PWM};
