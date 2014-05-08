@@ -1,0 +1,35 @@
+\node [input, name=input] {};
+\node [block, right of=input] (AD) {A/D};
+\node[freq,below of=AD,yshift=1cm](freq60){60 [Hz]};
+\node [block, right of=AD,xshift=0cm] (Koordinattransformation) {Koor.trans};
+\node[sum,right of= Koordinattransformation,xshift=1cm](sum1){Sum};
+\node [block, right of=sum1,xshift=-0.5cm] (Dz) {D(z)};
+\node [block, right of=Dz] (Dahold) {D/A \& hold};
+\node [block, right of=Dahold] (Hs) {H(s)};
+\node [output, right of=Hs] (output){};
+\node[freq,below of=Dz,xshift=1.3cm,yshift=1cm](freq600){600 [Hz]};
+\node [block, below of=freq600,xshift=-1.75cm,yshift=1cm] (AD2) {A/D};
+   
+   
+
+\draw [draw,->] (input) -- node {$Pos(t)$} (AD);
+\draw [draw,->] (freq60) -- (AD);
+\draw [draw,->] (AD) -- node {$x(k)$} (Koordinattransformation);
+\draw [draw,->] (Koordinattransformation) -- node[pos=0.8] {$+$} (sum1);%node [near end] (sum1);
+\draw [draw,->] (sum1) -- node {$e(k)$} (Dz);
+\draw [draw,->] (Dz) -- node {$u(k)$} (Dahold);
+\draw [draw,->] (Dahold) -- node {$u(k)$} (Hs);
+\draw [->] (Hs) -- node [name=y] {$y(t)$}(output);
+\draw [draw,->] (freq600) -| (Dz);
+\draw [draw,->] (freq600) -| (Dahold);
+\draw [draw,->] (freq600) -| (AD2);
+\draw [draw,->] (y) |- (AD2);
+\draw [->] (AD2) -| node[pos=0.97] {$-$} node [near end] {$y(k)$} (sum1);
+
+
+\coordinate[right of=input,xshift=-1cm,yshift=1.5cm](UL);
+\coordinate[right of=input,xshift=-1cm,yshift=-4cm](BL);
+\coordinate[left of=output,xshift=-0.75cm,yshift=1.5cm](UR);
+\coordinate[left of=output,xshift=-0.75cm,yshift=-4cm](BR);
+\draw[dashed](UL)--(BL)--(BR)--(UR)--(UL);
+\node [right of= UL,xshift=-1cm,yshift=-0.25cm] (bla){Digital Controller};
