@@ -255,16 +255,19 @@ På figur \ref{fig:induktans1} er steady-state responsen for spændingsfaldene o
 \end{figure}
 
 \paragraph{Metode 3\\}
-\todo[inline,author=Mikael]{Indsæt tabel med induktans for forskellige motorpositioner og forskellige testfrekvenser}
-I tabel \ref{tb:lcr} findes induktansmålingerne fra LCR-meteret.
+På figur \ref{fig:induktans2} er induktansmålingerne fra LCR-meteret indtegnet.
 \begin{figure}[th!]
 	\centering
-	\input{content/tb_lcr.tex}
-	\captionsetup{type=table}
-	\caption[Induktansmålinger fra LCR-meteret]
-			{Induktansmålinger fra LCR-meteret.}
-	\label{tb:lcr}
+	\includegraphics[width=1\textwidth]{./graphics/induktans2.eps}
+	\caption[Induktans målt med LCR-meter]
+		{Induktanser målt ved forskellige testfrekvenser og motorpositioner med LCR-meteret.
+		For hver motorposition er der tegnet en linje gennem de 4-5 målepunkter.
+		Ved 100 [kHz] er induktansen kun blevet målt for tre motorpositioner.
+		Den tykke linje angiver gennemsnittet af de målte induktanser for de fire laveste testfrekvenser,
+		100, 120, 1000 og 10000 [Hz].}
+	\label{fig:induktans2}
 \end{figure}
+
 Det anvendte LCR-meter er af typen Agilent Techologies U1733C.
 
 \subsubsection{Databehandling}
@@ -283,16 +286,13 @@ Effektafsættelsen i motoren er med amplitudeforskellen på \(\mathbf{V_1}\) og 
 de i forsøget fundne værdier \(R_{s1}\) og \(R_m\) ved brug af ligning \ref{eq:effekt} beregnet til 0,405 [mW].
 
 \paragraph{Metode 3\\}
-\todo[inline,author=Mikael]{Gennemsnitsinduktans for hver testfrekvens.}
-Tabel \ref{tb:lcr_avg} indeholder gennemsnitsinduktanserne målt af LCR-meteret ved de forskellige testfrekvenser.
-\begin{figure}[th!]
-	\centering
-	\input{content/tb_lcr_avg.tex}
-	\captionsetup{type=table}
-	\caption[Gennemsnitsinduktanser fra LCR-meteret]
-			{Gennemsnitsinduktanser fra LCR-meteret.}
-	\label{tb:lcr_avg}
-\end{figure}
+Som det fremstår af figur \ref{fig:induktans2} er den målte induktans forskellig for hver testfrekvens.
+Det blev fundet, at induktansmåling ved 100 [kHz] ikke var brugbar, da resultatet var negativt.
+Derfor blev der kun foretaget tre målinger ved 100 [kHz].
+For hver af de fire laveste testfrekvenser blev middelinduktansen fundet, og
+en linje gennem disse induktanser er tegnet med fed på figur \ref{fig:induktans2}.
+
+Gennemsnittet af de fire middelværdier er 2,2 [mH].
 
 \subsubsection{Diskussion}
 Den lineære sammenhæng mellem strøm og spænding fundet i afsnit \ref{ss:eksperiment1} kan ikke benægtes,
@@ -306,22 +306,20 @@ Til brug i modelleringen og simuleringen af motoren til den praktiske applikatio
 vurderes det derfor at den i afsnit \ref{ss:eksperiment1} fundne ækvivalente modstand på \(R_m=5,215\) \([\Omega]\) giver en meget nøjagtig værdi for den faktiske modstand i motoren.\\
 
 Induktansen er imidlertid sværere at bestemme, da effektafsættelsen i de udførte forsøg er lav.
-Igen vælges det resultat, der er blevet fundet ved betingelser, der minder om den praktiske applikation,
-således at modellen tilnærmer DC-motorens dynamik i den praktiske applikation.
-Motoren vil i den praktiske applikation påføres en PWM-spænding med en PWM-frekvens
-på 24 [kHz]. Det vurderes derfor, at de induktanser, der er fundet ved frekvenser i samme størrelsesorden
-giver det bedste estimat for motorens induktans i den praktiske applikation.
-Det vil sige, at induktansen fundet ved metode 2 samt induktansen fundet ved testfrekvensen på 10 [kHz]
-ved metode 3 danner grundlag for estimatet. Det bemærkes, at resultatet fra metode 2 stemmer overens med
-resultatet for metode 3.
-Da resultaterne fra dette eksperiment er meget spredte, kan der ikke findes en nøjagtig værdi for induktansen.
-Motorens induktans estimeres derfor til at være ca. 3 [mH]\todo{3 mH???}.
+Resultatet fra metode 1 afviger meget fra resultaterne fra metode 2 og 3, og vurderes at være ubrugeligt
+til modelleringen af motoren til den praktiske applikation.
+I den praktiske applikation vil motoren blive udsat for en PWM-spænding med en PWM-frekvens på ca. 24 [kHz].
+Denne PWM-spænding er er et skift mellem to DC-niveauer, og har en grundfrekvens på 24 [kHz].
+Det vurderes derfor, at LCR-meterets resultater for 10 [kHz] danner det bedste grundlag for et
+estimat af induktansen. Bemærk at den meget store spredning på målingerne på tværs af testfrekvenserne
+gør, at estimatet kun er vejledende.
+Der gives et vejledende estimat på 2,2 [mH].
+
 
 \subsubsection{Konklusion}
 Eksperiment 2 viser hvordan effektafsættelsen i DC motoren har betydning for dens resistans. Idet DC motorene i applikationen antages for at have en effektafsættelse over 48 [mW] medfører dette motorens har en resistans på \(R_m=5,215\) \([\Omega]\).\\
 
-Til modelleringen af DC motoren estimeres motorens induktans til \(L_m=3\) \([mH]\).
-Estimatet gælder kun ved inputfrekvenser i størrelsesordenen 10 [kHz].
+Til modelleringen af DC motoren estimeres motorens induktans til \(L_m\approx2.2\) \([mH]\).
 
 \subsection{Eksperiment 3}
 \label{ss:eksperiment3}
