@@ -1,4 +1,28 @@
-\section{Pan \& Tilt-rammernes inertimoment}
+\section{Matematisk model af Pan \& Tilt-systemet}
+Under designet af en regulator skal systemet identificeres. Der er forskellige metoder til systemidentifikation.
+Én metode ser som udgangspunkt systemet som en "black box", og identificerer systemet
+på baggrund af sammenhørende værdier for input og output.
+En anden metode tager udgangspunkt i matematisk at beskrive de enkelte dele i systemet
+for på den måde at sammenstykke en model af hele systemet.
+Det vælges at benytte den sidstnævnte metode til bestemmelsen af en simplificeret
+model af Pan \& Tilt-systemet af følgende årsager:
+\begin{itemize}
+\item Matematiske modeller for systemets enkelte elementer findes i litteraturen.
+\item De matematiske modeller er lineære og simple.
+\item Den første metode vurderes mere tidskrævende.
+\end{itemize}
+Ulempen ved at bruge teoretiske lineære matematiske modeller er,
+at de altid vil være tilnærmelser, og ikke beskriver ulineariteter som dødbånd og tidsforsinkelser.
+
+En skitse af Pan \& Tilt-systemet findes i figur \todo{figur}.
+\missingfigure{Model med Open Loop Pan\&Tilt-system (koblet)}
+To DC-motorer af typen EMG30 er forbundet til systemet.
+Det antages, at motorerne kan beskrives ved samme matematiske model.
+Den matematiske model er beskrevet i appendix \ref{sec:dcmotor},
+der også beskæftiger sig med bestemmelsen af motorparametrene.
+
+
+\subsection{Pan \& Tilt-rammernes inertimoment}
 \label{sec:teo_PTS}
 For at opnå den optimale respons, skal reguleringen tage højde for, at Pan \& Tilt-motorerne møder modstand i form af
 Pan \& Tilt-rammernes inertimoment. Inertimomentet kan bestemmes ved kendskab til rammernes
@@ -23,7 +47,7 @@ og Tilt-rammens påvirkning på inertimomentet omkring pan-aksen diskuteres.
 
 \todo[inline, author=Michael, color=blue! 50]{Jeg har regnet mig frem til at tilt bevæger sig indenfor for disse grænser:   ( -0,54 degree < tilt < 12,15 degree ). (Dette gælder hvis PTS origin er placeret 0,4 m over Station 4, hvilket er vores udgangspunkt). }
 
-\subsection{Beregning af Pan \& Tilt-rammernes inertimoment}
+\subsubsection{Beregning af inertimoment}
 Den teoritiske beregning er foretaget ud fra følgende antagelser og simplificeringer:
 \begin{itemize}
 \item Aluminimumsprofilen, 40x40L, har en massefylde på \(\rho=1,5\) [kg/m], \citep[Kap. 2 side. 4]{alu_profil_desitet}.
@@ -57,7 +81,6 @@ Med ovenstående formler er det muligt at finde Pan og Tilt-rammernes teoritiske
 \end{split}
 \end{align}
 
-\todo[inline,author=Anders-Mikael]{Tilt påvirker pan..\\ størst når tilt er vandret\\ mindst når tilt er lodret\\ og sådan påvirker geringen set fra motoren.}
 Tilt-rammens indflydelse på inertimomentet som pan-motoren skal rotere, er afhængig af tilt-rammens vinkel.
 Når tilt-rammen er lodret er bidraget til pan-inertimomentet mindst, jf. ligning \ref{eq:punktmasse_para}, fordi afstanden
 af to af stængerne til rotationsaksen (pan) er mindst. Ligeledes vil bidraget til pan-inertimomentet være størst når tilt-rammen er vandret.
@@ -75,22 +98,18 @@ rotationsaksen, og at de to stænger med længden \({L_{2}}\) er vinkelret på d
 Med ligningerne \ref{eq:punktmasse_para} og \ref{eq:stang}
 kan tilt-rammens bidrag til pan-inertimomentet altså beregnes vha ligning \ref{eq:tiltOnPan}.
 \begin{align}
-%\begin{equation}
 I_{pan,tilt_{min}}&=2\cdot{}\left(\frac{1}{12}\cdot{}\rho\cdot{}L_{2}^3
 +\rho\cdot{}\left(L_1-2\cdot{}L_{pro}\right)\left(\frac{L_2-L_{pro}}{2}\right)^2\right)
 \\
 &=0,0146464 \text{ [kg m$^2$]}
 \label{eq:tiltOnPan} 
-%\end{equation}
 \end{align}
 Inertimomentet på pan-aksen er derfor givet ved summationen af pan-rammens inertimoment og tilt-rammens inertimoment,
 som angivet i ligning \ref{eq:pan_inerti}.
 \begin{align}
-%\begin{equation}
 { I }_{ pan,1.1 } &= I_{ pan,1 }+I_ { pan,tilt_{ min} }
 \\&=0,0462172 \text{ [kg m$^2$]}
 \label{eq:pan_inerti} 
-%\end{equation}
 \end{align}
 
 Inertimomentet for tilt er beregnet i ligning \ref{eq:inerti_tilt_pan}, mens inertimomentet for pan er beregnet i ligning \label{eq:pan_inerti}.

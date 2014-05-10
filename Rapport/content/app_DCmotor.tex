@@ -1,5 +1,6 @@
 \section{DC motoren}
-Dette appendix beskæftiger sig med bestemmelsen af motorparametrene.
+\label{sec:dcmotor}
+Dette appendix beskæftiger sig med den matematiske model af DC-motoren og bestemmelsen af motorparametrene.
 \subsection{DC Motor karakteristik}
 DC Motoren kan modelleres efter diagrammet på figur \ref{fig:DCmotor}. \todo[]{Kredsløbsdiagram skal tegnes i tikz}
 
@@ -34,16 +35,57 @@ Kraftmomentet kan udtrykkes som funktion af strømmen, som i ligning \ref{eq:Tm_
 	\label{eq:Tm_im} 
  \end{equation}
 Samtidig kan kraftmomentet, som motoren producerer, udtrykkes som multiplikationen af inertimoment og vinkelacceleration.
-Det inertimoment, der leveres til belastningen vil være kraftmomentet fra motoren fratrukket friktionen.
-Friktionen antages til disse beregninger at være viskøs, dvs. proportional med vinkelhastigheden.
+Det kraftmoment, der leveres til belastningen vil være kraftmomentet fra motoren fratrukket friktionen.
+Friktionen \(T_f\) antages til disse beregninger at være viskøs, dvs. proportional med vinkelhastigheden med konstanten \(B\).
 Kraftmomentet kan altså udtrykkes ved ligning \ref{eq:Tm_leveret}
-\begin{equation}
-	T_m(t)=J\cdot\frac{\mathrm d}{\mathrm d t} \big(\omega(t) \big)+B\cdot\omega(t)
+\begin{align}
+	T_m(t)&=J\cdot\frac{\mathrm d}{\mathrm d t} \big(\omega(t) \big)+T_f\\
+		&=J\cdot\frac{\mathrm d}{\mathrm d t} \big(\omega(t) \big)+B\cdot\omega(t)
 	\label{eq:Tm_leveret} 
+ \end{align}
+Inertimomentet \(J\) kan beskrives ved ligning \ref{eq:Jtotal}, hvor \(J_m\) er motorens indre inertimoment og \(J_L\)
+er belastningens inertimoment (Pan \& Tilt-rammerne).
+\begin{equation}
+	J=J_m+J_L
+	\label{eq:Jtotal} 
  \end{equation}
-
 Proportionalitetskonstanterne \(K_b\) og \(K_t\) har i SI-enheder samme numeriske værdi, \citep[Physical setup]{matlabdcmodel}.
 
+Strømmen kan vha. ligningerne \ref{eq:Tm_im} og \ref{eq:Tm_leveret} udtrykkes som i ligning \ref{eq:im}.
+\begin{equation}
+	i_m(t)=\frac{J}{K_t}\cdot{}\frac{\mathrm d}{\mathrm d t} \big(\omega(t) \big)+\frac{B}{K_t}\cdot{}\omega(t)
+	\label{eq:im} 
+ \end{equation}
+Dennes tidsafledte er givet ved ligning \ref{eq:dim}.
+\begin{equation}
+	\frac{\mathrm d}{\mathrm d t} \big(i_m(t) \big)=\frac{J}{K_t}\cdot{}\frac{\mathrm d^2}{\mathrm d t^2} \big(\omega(t) \big)
+		+\frac{B}{K_t}\cdot{}\frac{\mathrm d}{\mathrm d t} \big(\omega(t) \big)
+	\label{eq:dim} 
+ \end{equation}
+Indsættes ligningerne \ref{eq:im}, \ref{eq:dim} og \ref{eq:Jtotal} i ligning \ref{eq:Vm_transient1} fås ligning \ref{eq:Vm_transient2}.
+\begin{equation}
+	V_m(t)=\frac{L_m\cdot{}\left(J_L+J_m\right)}{K_t}\cdot{}\frac{\mathrm d^2}{\mathrm d t^2} \big(\omega(t) \big)
+		+\frac{R_m\cdot{}\left(J_L+J_m\right)+L_m\cdot{}B}{K_t}\cdot{}\frac{\mathrm d}{\mathrm d t} \big(\omega(t) \big)
+		+\left(K_b+\frac{R_m\cdot{}B}{K_t}\right)\cdot{}\omega(t)
+	\label{eq:Vm_transient2} 
+ \end{equation}
+Ved indsættelse af konstanterne \(k_1\), \(k_2\) og \(k_3\) som defineret i ligningerne \ref{eq:konstanter},
+fås ligning \ref{eq:Vm_transient3}.
+\begin{equation}
+	k_1=\frac{L_m\cdot{}\left(J_L+J_m\right)}{K_t},
+	k_2=\frac{R_m\cdot{}\left(J_L+J_m\right)+L_m\cdot{}B}{K_t},
+	k_3=\left(K_b+\frac{R_m\cdot{}B}{K_t}\right),
+	\label{eq:konstanter} 
+ \end{equation}
+\begin{equation}
+	V_m(t)=k_1\cdot{}\frac{\mathrm d^2}{\mathrm d t^2} \big(\omega(t) \big)
+		+k_2\cdot{}\frac{\mathrm d}{\mathrm d t} \big(\omega(t) \big)
+		+k_3\cdot{}\omega(t)
+	\label{eq:Vm_transient3}
+ \end{equation}
+Ligning \ref{eq:Vm_transient3}, som er en lineær 2. ordens differentialligning, udgør den matematiske model af motoren.
+
+Resten af dette appendix beskriver de eksperimenter, der er blevet udført med henblik på bestemmelsen af motorparametrene.
 \subsection{Eksperiment 1}
 \label{ss:eksperiment1}
 \subsubsection{Formål}
