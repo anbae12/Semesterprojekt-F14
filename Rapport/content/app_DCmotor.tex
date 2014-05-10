@@ -15,23 +15,23 @@ DC Motoren kan modelleres efter diagrammet på figur \ref{fig:DCmotor}. \todo[]{
 \end{figure}
 Ligningen for \(V_m\) er givet ved ligning \ref{eq:Vm_transient0}, \citep{DCmotormodel}.
 \begin{equation}
-	V_m(t)=L_m \cdot \frac{\mathrm d}{\mathrm d t} \big( i_m(t) \big)+R_m \cdot i_m(t) + V_{EMF}(t)
+	V_m\left(t\right)=L_m \cdot \frac{\mathrm d}{\mathrm d t} \big( i_m\left(t\right) \big)+R_m \cdot i_m\left(t\right) + V_{EMF}\left(t\right)
 	\label{eq:Vm_transient0} 
  \end{equation}
 Den modelektromotoriske kraft, \(V_{EMF}\) er givet ved ligning \ref{eq:VEMF}.
 \begin{equation}
-	V_{EMF}(t) = K_b \cdot \omega(t)
+	V_{EMF}\left(t\right) = K_b \cdot \omega\left(t\right)
 	\label{eq:VEMF}
 \end{equation}
 Med ligning \ref{eq:VEMF} kan ligning \ref{eq:Vm_transient0} omskrives til ligning \ref{eq:Vm_transient1}.
 \begin{equation}
-	V_m(t)=L_m \cdot \frac{\mathrm d}{\mathrm d t} \big( i_m(t) \big)+R_m \cdot i_m(t) +K_b \cdot \omega(t)
+	V_m\left(t\right)=L_m \cdot \frac{\mathrm d}{\mathrm d t} \big( i_m\left(t\right) \big)+R_m \cdot i_m\left(t\right) +K_b \cdot \omega\left(t\right)
 	\label{eq:Vm_transient1} 
  \end{equation}
 
 Kraftmomentet kan udtrykkes som funktion af strømmen, som i ligning \ref{eq:Tm_im}.
 \begin{equation}
-	T_m(t)=K_t\cdot{i_m(t)}
+	T_m\left(t\right)=K_t\cdot{i_m\left(t\right)}
 	\label{eq:Tm_im} 
  \end{equation}
 Samtidig kan kraftmomentet, som motoren producerer, udtrykkes som multiplikationen af inertimoment og vinkelacceleration.
@@ -39,8 +39,8 @@ Det kraftmoment, der leveres til belastningen vil være kraftmomentet fra motore
 Friktionen \(T_f\) antages til disse beregninger at være viskøs, dvs. proportional med vinkelhastigheden med konstanten \(B\).
 Kraftmomentet kan altså udtrykkes ved ligning \ref{eq:Tm_leveret}
 \begin{align}
-	T_m(t)&=J\cdot\frac{\mathrm d}{\mathrm d t} \big(\omega(t) \big)+T_f\\
-		&=J\cdot\frac{\mathrm d}{\mathrm d t} \big(\omega(t) \big)+B\cdot\omega(t)
+	T_m\left(t\right)&=J\cdot\frac{\mathrm d}{\mathrm d t} \big(\omega\left(t\right) \big)+T_f\\
+		&=J\cdot\frac{\mathrm d}{\mathrm d t} \big(\omega\left(t\right) \big)+B\cdot\omega\left(t\right)
 	\label{eq:Tm_leveret} 
  \end{align}
 Inertimomentet \(J\) kan beskrives ved ligning \ref{eq:Jtotal}, hvor \(J_m\) er motorens indre inertimoment og \(J_L\)
@@ -53,20 +53,20 @@ Proportionalitetskonstanterne \(K_b\) og \(K_t\) har i SI-enheder samme numerisk
 
 Strømmen kan vha. ligningerne \ref{eq:Tm_im} og \ref{eq:Tm_leveret} udtrykkes som i ligning \ref{eq:im}.
 \begin{equation}
-	i_m(t)=\frac{J}{K_t}\cdot{}\frac{\mathrm d}{\mathrm d t} \big(\omega(t) \big)+\frac{B}{K_t}\cdot{}\omega(t)
+	i_m\left(t\right)=\frac{J}{K_t}\cdot{}\frac{\mathrm d}{\mathrm d t} \big(\omega\left(t\right) \big)+\frac{B}{K_t}\cdot{}\omega\left(t\right)
 	\label{eq:im} 
  \end{equation}
 Dennes tidsafledte er givet ved ligning \ref{eq:dim}.
 \begin{equation}
-	\frac{\mathrm d}{\mathrm d t} \big(i_m(t) \big)=\frac{J}{K_t}\cdot{}\frac{\mathrm d^2}{\mathrm d t^2} \big(\omega(t) \big)
-		+\frac{B}{K_t}\cdot{}\frac{\mathrm d}{\mathrm d t} \big(\omega(t) \big)
+	\frac{\mathrm d}{\mathrm d t} \big(i_m\left(t\right) \big)=\frac{J}{K_t}\cdot{}\frac{\mathrm d^2}{\mathrm d t^2} \big(\omega\left(t\right) \big)
+		+\frac{B}{K_t}\cdot{}\frac{\mathrm d}{\mathrm d t} \big(\omega\left(t\right) \big)
 	\label{eq:dim} 
  \end{equation}
 Indsættes ligningerne \ref{eq:im}, \ref{eq:dim} og \ref{eq:Jtotal} i ligning \ref{eq:Vm_transient1} fås ligning \ref{eq:Vm_transient2}.
 \begin{equation}
-	V_m(t)=\frac{L_m\cdot{}\left(J_L+J_m\right)}{K_t}\cdot{}\frac{\mathrm d^2}{\mathrm d t^2} \big(\omega(t) \big)
-		+\frac{R_m\cdot{}\left(J_L+J_m\right)+L_m\cdot{}B}{K_t}\cdot{}\frac{\mathrm d}{\mathrm d t} \big(\omega(t) \big)
-		+\left(K_b+\frac{R_m\cdot{}B}{K_t}\right)\cdot{}\omega(t)
+	V_m\left(t\right)=\frac{L_m\cdot{}\left(J_L+J_m\right)}{K_t}\cdot{}\frac{\mathrm d^2}{\mathrm d t^2} \big(\omega\left(t\right) \big)
+		+\frac{R_m\cdot{}\left(J_L+J_m\right)+L_m\cdot{}B}{K_t}\cdot{}\frac{\mathrm d}{\mathrm d t} \big(\omega\left(t\right) \big)
+		+\left(K_b+\frac{R_m\cdot{}B}{K_t}\right)\cdot{}\omega\left(t\right)
 	\label{eq:Vm_transient2} 
  \end{equation}
 Ved indsættelse af konstanterne \(k_1\), \(k_2\) og \(k_3\) som defineret i ligningerne \ref{eq:konstanter},
@@ -78,9 +78,9 @@ fås ligning \ref{eq:Vm_transient3}.
 	\label{eq:konstanter} 
  \end{equation}
 \begin{equation}
-	V_m(t)=k_1\cdot{}\frac{\mathrm d^2}{\mathrm d t^2} \big(\omega(t) \big)
-		+k_2\cdot{}\frac{\mathrm d}{\mathrm d t} \big(\omega(t) \big)
-		+k_3\cdot{}\omega(t)
+	V_m\left(t\right)=k_1\cdot{}\frac{\mathrm d^2}{\mathrm d t^2} \big(\omega\left(t\right) \big)
+		+k_2\cdot{}\frac{\mathrm d}{\mathrm d t} \big(\omega\left(t\right) \big)
+		+k_3\cdot{}\omega\left(t\right)
 	\label{eq:Vm_transient3}
  \end{equation}
 Ligning \ref{eq:Vm_transient3}, som er en lineær 2. ordens differentialligning, udgør den matematiske model af motoren.
@@ -439,7 +439,7 @@ Bestemmelse af størrelsen på friktionen i motoren.
 Hvis der ikke løber strøm igennem motoren,
 kan ligning \ref{eq:Vm_transient1} omskrives til ligning \ref{eq:Vm_nocurrent}.
 \begin{equation}
-	V_m(t)=K_b\cdot\omega(t)
+	V_m\left(t\right)=K_b\cdot\omega\left(t\right)
 	\label{eq:Vm_nocurrent}
  \end{equation}
 

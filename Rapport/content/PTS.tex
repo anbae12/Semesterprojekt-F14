@@ -18,9 +18,38 @@ En skitse af Pan \& Tilt-systemet findes i figur \todo{figur}.
 \missingfigure{Model med Open Loop Pan\&Tilt-system (koblet)}
 To DC-motorer af typen EMG30 er forbundet til systemet.
 Det antages, at motorerne kan beskrives ved samme matematiske model.
-Den matematiske model er beskrevet i appendix \ref{sec:dcmotor},
-der også beskæftiger sig med bestemmelsen af motorparametrene.
+Den matematiske model af DC-motoren er beskrevet i appendix \ref{sec:dcmotor},
+der også beskæftiger sig med bestemmelsen af parametrene for en EMG30-motor.
+Motoren kan beskrives ved ligning \ref{eq:matVm_transient3}. Der henvises til appendix \ref{sec:dcmotor}
+for yderligere forklaring af modellen og konstanterne \(k_1\), \(k_2\) og \(k_3\).
+\begin{equation}
+	V_m\left(t\right)=k_1\cdot{}\frac{\mathrm d^2}{\mathrm d t^2} \big(\omega\left(t\right) \big)
+		+k_2\cdot{}\frac{\mathrm d}{\mathrm d t} \big(\omega\left(t\right) \big)
+		+k_3\cdot{}\omega\left(t\right)
+	\label{eq:matVm_transient3}
+ \end{equation}
+Vi er interesserede i en overførselsfunktion for DC-motoren. Med antagelse om at \(\omega\) og dens tidsafledte er 0
+Laplace-transformeres ligning \ref{eq:matVm_transient3}, og den resulterende overførselsfunktion findes
+i ligning \ref{eq:transOmega}.
+\begin{equation}
+	\frac{\Omega\left(s\right)}{V_m\left(s\right)}=\frac{1}{k_1s^2+k_2s+k_3}
+	\label{eq:transOmega}
+ \end{equation}
+Ligning \ref{eq:transOmega} beskriver motorens rotors vinkelhastighed \(\Omega\left(s\right)\) som funktion af spændingsfaldet
+\(V_m\left(s\right)\)over motoren. Bemærk at reduktionsgearingen i motoren gør at vinkelhastigheden set fra Pan \& Tilt rammerne
+er lavere.
+Vinkelhastigheden \(\omega\) er den tidsafledte af vinklen \(\theta\),
+og hvis det antages at motorens startvinkel er 0, så kan motorens overførselsfunktion
+findes ved tilføjelse af en integrator \(\frac{1}{s}\) til ligning \ref{eq:transOmega}.
+Motorens overførselsfunktion \(G_m\left(s\right)\) fra input spændingsfald til output vinkel (inden reduktionsgearing) findes
+i ligning \ref{eq:transTheta}.
+\begin{equation}
+	G_m\left(s\right)=\frac{\Omega\left(s\right)}{V_m\left(s\right)}\cdot{}\frac{1}{s}=\frac{1}{k_1s^3+k_2s^2+k_3s}
+	\label{eq:transTheta}
+\end{equation}
 
+FPGA'ens positionsencoders læser motorens vinkel inden reduktionsgearingen,
+altså outputtet af \(G_m\left(s\right)\).
 
 \subsection{Pan \& Tilt-rammernes inertimoment}
 \label{sec:teo_PTS}
