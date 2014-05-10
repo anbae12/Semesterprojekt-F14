@@ -16,6 +16,9 @@ at de altid vil være tilnærmelser, og ikke beskriver ulineariteter som dødbå
 
 En skitse af Pan \& Tilt-systemet findes i figur \todo{figur}.
 \missingfigure{Model med Open Loop Pan\&Tilt-system (koblet)}
+
+\todo[inline,author=Mikael]{Beskriv afkoblingen af Pan fra Tilt, dens begrundelse og dens konsekvenser for de følgende beregninger}
+
 To DC-motorer af typen EMG30 er forbundet til systemet.
 Det antages, at motorerne kan beskrives ved samme matematiske model.
 Den matematiske model af DC-motoren er beskrevet i appendix \ref{sec:dcmotor},
@@ -50,6 +53,11 @@ i ligning \ref{eq:transTheta}.
 
 FPGA'ens positionsencoders læser motorens vinkel inden reduktionsgearingen,
 altså outputtet af \(G_m\left(s\right)\).
+
+DC-motorens overførselsfunktion afhænger af dens belastning,
+og belastningen (inertimomentet der skal roteres) er indeholdt i konstanterne \(k_1\) og \(k_2\).
+Der er altså en separat overførselsfunktion \(G_m\left(s\right)\) for Pan og for Tilt,
+da rammerne har forskelligt inertimoment. Bestemmelsen af inertimomenterne findes i afsnit \ref{sec:teo_PTS}.
 
 \subsection{Pan \& Tilt-rammernes inertimoment}
 \label{sec:teo_PTS}
