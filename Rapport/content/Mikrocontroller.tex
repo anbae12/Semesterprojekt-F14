@@ -41,6 +41,21 @@ Systemet skal kunne reagere på følgende bruger inputs:
 	\item Læs log
 \end{itemize}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Beskrivelse af valgt(?) mikrocontroller.}
+\todo[inline, author=Michael]{Tilføj datasheet til kildelisten}
+Den udleverede mikrocontroller er en 32 bit Stellaris LM3S6965, baseret på en ARM Cortex M3 kerne. Den opererer ved 50 mHz og bruger Thump 2 instruktionssættet. Den indeholder 256 KB flash hukommelse samt 64 KB SRAM. 
+
+SPI er indbygget som et hardwaremodul, med seperate FIFO buffere til afsendelse og modtagelse. Hardwaren sender data fra den ene den buffer og lægger modtaget data i den anden. Derfor er det ikke nødvendigt for programmøren at holde styr på timingen. Størrelsen af hvert dataframe kan være 4 - 16 bits. 
+
+UART er også implementeret som et hardwaremodul. Modulet indeholder seperate FIFO buffere til afsendelse og modtagelse af data, hver med plads til 16 datawords (max 8 bit). 
+
+Kontrolleren indeholder også et væld af hardwaremoduler til andre funktioner, men disse er ikke relevante for projektet.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Valg af skedulering}
 Der er undersøgt 4 forskellige mulige skeduleringsalgoritmer: 
@@ -90,7 +105,7 @@ Semaphore & ?  & Counting + binære & Binære  & Nej  \\
 
 Valget af freeRTOS som operativsystem gjorde det muligt at opdele programmet i seperate tasks. Taskdiagrammet er vist på figur \ref{fig:task_diagram}. 
 
-\todo[inline, author=Michael]{I figuren burde vi bruge rette linjer istedet for de afrundede. Desuden skal kommunikationen med SPI indtegnes på en eller anden måde.}
+\todo[inline, author=Michael]{I figuren burde vi bruge rette linjer istedet for de afrundede. Desuden skal kommunikationen med SPI indtegnes på en eller anden måde. Irrelevante semaphorer over de fleste køer skal også fjernes. }
 % TASK DIAGRAM
 \begin{figure}[!h]
 \centering
@@ -103,18 +118,21 @@ Valget af freeRTOS som operativsystem gjorde det muligt at opdele programmet i s
 
 \subsubsection{Beskrivelse af de enkelte tasks}
 \begin{description}
-	\item[Uart send] blabk
-	\item[Uart receive] bla
-	\item[Interface] blob
-	\item[read pos] bliiib
-	\item[Control] controool
-	\item[log updater] loog
+	\item[Uart send] Tager indholdet fra uart\_ out\_ buffer og ligger dem ind i UART-modulets hardware FIFO buffer. Dette er nødvendigt fordi hw. bufferen kun indeholder 16 pladser\footnote{Jævnfør s. 430 i LM3S6965}.
+	\item[Uart receive] Læser UART-modulets hardware buffer og lægger de modtagne data over i uart\_ in \_ buffer. 
+	\item[Interface] Tolker på brugerinputs og sender relevante kommandoer til Control- og read\_ pos-tasken.
+	\item[read pos] Opdaterer target\_ pos med målets nuværende koordinater 60 gange i sekundet. I vores projekt læser den blot værdierne fra et array, men den kan sagtens udskiftes med en anden task der f.eks. tolker på input fra et kamera.
+	\item[Control] Afvikler regulatorerne. Se mere indgående beskrivelse i sektion \ref{sec:control_task}. Denne task afvikles i realtid, med en frekvens på 600 Hz. 
+	\item[log updater] Denne task opdaterer logfilen  med data fra "status" køen.
 \end{description}
 
 
 %Semaphorer på target_pos. 
 %Ingen semaphorer på køer, undtagen uart out buffer
 
+
+\subsubsection{Control task}
+\label{sec:control_task}
 
 
 \subsection{Test} 
