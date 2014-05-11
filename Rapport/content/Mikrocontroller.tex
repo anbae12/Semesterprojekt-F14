@@ -1,9 +1,11 @@
 \section{Mikrokontroller}
 \label{sec:mikrokontroller}
 \subsection{Krav til mikrokontrolleren}
+\todo[inline, author=Michael]{Husk at TEST sektionen skal se om vi opfylder disse krav. Hvis ikke vi tester tingene skal de slettes fra dette afsnit!!!}
 Mikrokontrolleren har følgende opgaver: 
 \todo[inline, author=Michael]{YOU CANT TOUCH THIS - lad mig lige skrive færdig!}
-\todo[inline, author=Michael]{}
+\todo[inline, author=Michael]{Denne sektion mangler generelt at blive forkortet. }
+\todo[inline, author=Michael]{Anders, kan vi ændre layouttet så listerne ikke tager så meget plads? }
 \begin{itemize}
 	\item Afvikling af regulatorerne.
 	\item Kommunikation med FPGA vha. SPI.
@@ -11,13 +13,13 @@ Mikrokontrolleren har følgende opgaver:
 	\item Sende relevant data til brugeren via UART.
 \end{itemize}
 
-Afvikling af regulatorerne skal afvikles i realtid, da det ellers er vanskelligt at modellere forsinkelsen. 
+Regulatorerne skal afvikles i realtid, da det ellers er vanskelligt at modellere forsinkelsen matematisk.
 
 
-SPI\footnote{Serial Peripheral Interface, også kaldet SSI} bruges til at overføre PTS's position fra FPGA til mikrokontroller. Desuden overføres beregnet duty-cycle fra mikrokontroller til FPGA. Kommunikationen skal være tilpas hurtig, så regulatorerne ikke beregner på forældet data. 
-\todo[inline, author=Michael]{Overførslen af et dataword svarer til sampling tiden. Tiden for overførsel af et data-word skal derfor være signifikant lavere end sampletiden.  }
+SPI\footnote{Serial Peripheral Interface, også kaldet SSI} bruges til at overføre PTS's position fra FPGA til mikrokontroller. Desuden overføres beregnet duty-cycle fra mikrokontroller til FPGA. Kommunikationen skal være tilpas hurtig, så regulatorerne ikke beregner på forældet data. Forsinkelsen for overførsel af data må ikke overstige 5\% af sampletiden. 
+\todo[inline, author=Michael]{Ved Ts = 1/600 er det $8,33 * 10^5$. Indsæt de endelige tal når matematikgruppen når videre med tallene. }
 
-Systemet skal kunne modtage bruger inputs gennem et terminalprogram. Brugerinterfacet er ikke tidskritisk. Der skal være mulighed for at udlæse systemparametre:
+Systemet skal kunne modtage brugerinput gennem et terminalprogram. Brugerinterfacet er ikke tidskritisk. Der skal være mulighed for at udlæse systemparametre:
 
 \begin{itemize}
 	\item PTS' position. 
@@ -35,6 +37,8 @@ Systemet skal kunne reagere på følgende bruger inputs:
 	\item Stop tracking
 	\item Reset systemet
 	\item Gå til koordinat (x,y,z)
+	\item Set PWM
+	\item Læs log
 \end{itemize}
 
 
@@ -73,8 +77,54 @@ Semaphore & ?  & Counting + binære & Binære  & Nej  \\
 \caption{Specifikationer for de undersøgte systemer}
 \label{tb:os_comparison}
 \end{table}
-
+\todo[inline, author=Michael]{Ikke færdig}
 \subsection{Implementering}
-\subsection{Test} 
-\subsection{Delkonklusion}
+%disp: 
+% task diagram
+% beskrivelse af tasks
+% implementering af enkelt task (CONTROL TASK). 
+%   - hvordan sikres at denne kører realtid.
+% 
+% beskrivelse af interfacet
+% 
 
+Valget af freeRTOS som operativsystem gjorde det muligt at opdele programmet i seperate tasks. Taskdiagrammet er vist på figur \ref{fig:task_diagram}. 
+
+\todo[inline, author=Michael]{I figuren burde vi bruge rette linjer istedet for de afrundede. Desuden skal kommunikationen med SPI indtegnes på en eller anden måde.}
+% TASK DIAGRAM
+\begin{figure}[!h]
+\centering
+\begin{tikzpicture}[node distance = 3.2cm]
+	\include*{./graphics/uc_task_diagram}
+\end{tikzpicture}
+\caption[Task diagram]{Taskdiagrammet viser programmets opdeling i tasks.}
+\label{fig:task_diagram}
+\end{figure}
+
+\subsubsection{Beskrivelse af de enkelte tasks}
+\begin{description}
+	\item[Uart send] blabk
+	\item[Uart receive] bla
+	\item[Interface] blob
+	\item[read pos] bliiib
+	\item[Control] controool
+	\item[log updater] loog
+\end{description}
+
+
+%Semaphorer på target_pos. 
+%Ingen semaphorer på køer, undtagen uart out buffer
+
+
+
+\subsection{Test} 
+% Test af SPI overførsel
+% Test af realtidsafvikling af reguleringssløjferne, 
+% lever vi op til kravene?
+% 
+
+
+
+
+
+\subsection{Delkonklusion}
