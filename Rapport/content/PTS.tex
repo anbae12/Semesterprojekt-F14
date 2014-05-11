@@ -47,7 +47,7 @@ for yderligere forklaring af modellen.
 \begin{equation}
 	k_1=\frac{L_m\cdot{}\left(J_L+J_m\right)}{K_t},
 	k_2=\frac{R_m\cdot{}\left(J_L+J_m\right)+L_m\cdot{}B}{K_t},
-	k_3=\left(K_b+\frac{R_m\cdot{}B}{K_t}\right),
+	k_3=K_b+\frac{R_m\cdot{}B}{K_t},
 	\label{eq:matkonstanter} 
  \end{equation}
 \(L_m\) er motorens ækvivalente induktans, \(R_m\) dens resistans, \(J_m\) dens indre inertimoment,
@@ -69,7 +69,7 @@ Vi er interesserede i en overførselsfunktion for DC-motoren. Med antagelse om a
 Laplace-transformeres ligning \ref{eq:matVm_transient3}, og den resulterende overførselsfunktion findes
 i ligning \ref{eq:transOmega}.
 \begin{equation}
-	\frac{\Omega\left(s\right)}{V_m\left(s\right)}=\frac{1}{k_1s^2+k_2s+k_3}
+	\frac{\Omega\left(s\right)}{V_m\left(s\right)}=\frac{1}{k_1\cdot{}s^2+k_2\cdot{}s+k_3}
 	\label{eq:transOmega}
  \end{equation}
 Ligning \ref{eq:transOmega} beskriver motorens rotors vinkelhastighed \(\Omega\left(s\right)\) som funktion af spændingsfaldet
@@ -81,7 +81,7 @@ findes blot ved tilføjelse af en integrator \(\frac{1}{s}\) til ligning \ref{eq
 Motorens overførselsfunktion \(G_m\left(s\right)\) fra input spændingsfald til output vinkel (inden reduktionsgearing) findes
 i ligning \ref{eq:transTheta}.
 \begin{equation}
-	G_m\left(s\right)=\frac{\Omega\left(s\right)}{V_m\left(s\right)}\cdot{}\frac{1}{s}=\frac{1}{k_1s^3+k_2s^2+k_3s}
+	G_m\left(s\right)=\frac{\Omega\left(s\right)}{V_m\left(s\right)}\cdot{}\frac{1}{s}=\frac{1}{k_1\cdot{}s^3+k_2\cdot{}s^2+k_3\cdot{}s}
 	\label{eq:transTheta}
 \end{equation}
 DC-motorens overførselsfunktion afhænger af dens belastning,
@@ -108,6 +108,11 @@ til reguleringen.
 Det vælges at modellere konverteringen som en simpel lineær forstærkning af en duty cycle mellem -100 \% og +100 \%
 til en DC-spænding mellem -12 [V] og +12 [V]. Med denne simple model ændres systemets orden ikke,
 og det vurderes, at tidsforsinkelsen fra input duty cycle til motorbevægelse er negligerbar.
+Overførselsfunktionen fra duty cycle til DC-spænding står i ligning \ref{eq:transPWM}.
+\begin{equation}
+	PWM\left(s\right)=PWM=12
+	\label{eq:transPWM}
+\end{equation}
 \todo[inline,author=Mikael,color=red]{Er det bedre at modellere konverteringen som et analogt lavpasfilter?????}
 \todo[inline,author=Mikael]{Dedikér et underafsnit til diskussion af tidsforsinkelser, digitale såvel som analoge.}
 
@@ -123,7 +128,7 @@ På figuren er rammernes enkelte længder markeret, og de er målt til \({L_{1}}
 \begin{tikzpicture}[scale=0.8]
 \include*{./graphics/inerti_PTS}
 \end{tikzpicture}
-\caption[Skitse af PTS]{Viser en skitse af system, hvorpå de to inertimomenter findes for PTS.}
+\caption[Skitse af Pan \& Tilt-rammerne]{Skitse af Pan \& Tilt-rammerne.}
 \label{fig:inerti_PTS}
 \end{figure}
 
@@ -143,3 +148,39 @@ som beregnet i appendix \ref{sec:inertimomentberegning}.
 \end{align}
 \(J_{pan}\) er beregnet ud fra et konstant bidrag fra tilt-rammen under antagelsen om,
 at denne står tilnærmelsesvis lodret under hele bevægelsen.
+
+\subsection{Pan- og tilt-systemernes åbensløjfeoverførselsfunktioner}
+Hvert SISO-undersystem består af én PWM-blok på FPGA'en og en DC-motor med belastning.
+To overførselsfunktioner \(G_{pan}\) og \(G_{tilt}\) for pan- og tilt-systemet kan opskrives
+som produktet af ligning \ref{eq:transPWM} og \ref{eq:transTheta}. De to overførselsfunktioner
+står i ligningerne \ref{eq:transpantilt0}, og de er illustreret i figur \ref{fig:openloop1}.
+\begin{align}
+\label{eq:transpantilt0}
+\begin{split}
+	G_{pan}\left(s\right)&=PWM\left(s\right)\cdot{}G_{m,p}\left(s\right)\\
+	&=12\cdot{}\frac{1}
+			{\left(\frac{L_m\cdot{}\left(J_{pan}+J_m\right)}{K_t}\right)\cdot{}s^3
+			+\left(\frac{R_m\cdot{}\left(J_{pan}+J_m\right)+L_m\cdot{}B}{K_t}\right)\cdot{}s^2
+			+\left(K_b+\frac{R_m\cdot{}B}{K_t}\right)\cdot{}s}
+	\\
+	\\
+	G_{tilt}\left(s\right)&=PWM\left(s\right)\cdot{}G_{m,t}\left(s\right)\\
+	&=12\cdot{}\frac{1}
+			{\left(\frac{L_m\cdot{}\left(J_{tilt}+J_m\right)}{K_t}\right)\cdot{}s^3
+			+\left(\frac{R_m\cdot{}\left(J_{tilt}+J_m\right)+L_m\cdot{}B}{K_t}\right)\cdot{}s^2
+			+\left(K_b+\frac{R_m\cdot{}B}{K_t}\right)\cdot{}s}
+\end{split}
+\end{align}
+\begin{figure}[!th]
+\centering
+\begin{tikzpicture}[auto, node distance=2.6cm,>=latex']
+\include*{./graphics/openloop1}
+\end{tikzpicture}
+\caption[Åbensløjfeoverførselsfunktioner]{Åbensløjfeoverførselsfunktionerne \(G_{pan}\left(s\right)\) og \(G_{tilt}\left(s\right)\).
+	Signalet \(d.c.\left(t\right)\) er en duty cycle mellem -100 \% og +100 \%.}
+\label{fig:openloop1}
+\end{figure}
+\todo[inline,author=Mikael]{Jeg vil gerne bede TikZ-sagkyndige om at godkende figur \ref{fig:openloop1}.\\Det er mit første værk.}
+
+Åbensløjfeoverførselsfunktionerne \(G_{pan}\) og \(G_{tilt}\) danner udgangspunktet
+for analysen der hører til designet af reguleringssløjferne.
