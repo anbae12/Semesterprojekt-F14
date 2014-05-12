@@ -3,7 +3,7 @@
 \begin{figure}[!th]
 \centering
 \begin{tikzpicture}[scale=1]
-\include*{./graphics/SPIfigur}
+\include*{./graphics/MISOMOSI}
 \end{tikzpicture}
 \caption[tekst i indholdsfortegnelsen]{figurtekst}
 \label{fig:}
@@ -40,11 +40,13 @@ For at lave SPI på Microcontrolleren, bruges versionen SSFT. Den bruger fire pi
 \begin{figure}[!th]
 \centering
 \begin{tikzpicture}[scale=1]
-\include*{./graphics/MISOMOSI}
+\include*{./graphics/SPIfigur}
 \end{tikzpicture}
 \caption[tekst i indholdsfortegnelsen]{figurtekst}
 \label{fig:}
 \end{figure}
+
+\todo[author=Åse,inline]{I figuren står der "4 til 16 bits". Det skal ændres så der kun står "16 bits".}
 
 En frame tager antallet af SLCK at overfører. Antallet af SCLK en puls mere end frame størrelsen. Da der i denne opgave er en frame størrelse på 16 bit, så har SLCK 17 pulser. Ved den første puls sættes Slave Select høj, men sættes lav igen ved falling edge på SCLK. Bagefter sendes de 16 bit synkront med SCLK. Hver gang der er rising edge på SCLK sendes et bit, FPGA’en aflæser bitten på falling edge, da MOSI har haft tid til at omstille sig til høj eller lav.
 
