@@ -1,7 +1,12 @@
 \section{Regulator}
 \label{sec:kontrollerdeign}
-Det er valgt at designe regulatoren efter processen illustreret i figur \todo{fig}.%\ref{fig:designproces}.
-\missingfigure{fig:designproces}
+Det er valgt at designe regulatoren efter processen illustreret i figur \ref{fig:designproces}.
+\begin{figure}[!th]
+\centering
+\include*{./graphics/designproces}
+\caption[Designprocessen]{Designprocessen. Kilde: \cite{reg_modern_control_systems}.}
+\label{fig:designproces}
+\end{figure}
 Formålet med reguleringen er som beskrevet i afsnit \ref{sec:problemformulering},
 at kontrollere pan- og tilt-rammernes position, så de tracker en lerdue.
 Dette gøres ved styring af deres hastighed, ved at justere spændingsfaldene over de
@@ -39,7 +44,20 @@ Men som illustreret på figur \ref{fig:digitalkontroller1}, så skal regulerings
 "køres" (sample) med en frekvens \(f_s=\frac{1}{T_s}\), der ikke nødvendigvis er 60 [Hz].
 Dvs. A/D- og D/A-konverteringerne skal foregå med frekvensen \(f_s\).
 
-
+Der er overordnet to strategier til valg af samplingfrekvensen \(f_s\) hvormed
+reguleringssløjfen skal køre.
+Hvis man designer en kontinuert regulator til det kontinuerte domæne, så
+skal diskretiseringen af controlleren være så tæt på den kontinuerte regulator som muligt.
+Det vil sige, samplingfrekvensen skal vælges så høj som mulig.
+Hvis man derimod designer en diskret regulator til det diskrete domæne,
+så er diskretiseringen allerede foretaget inden designet af regulatoren.
+Dvs. man finder en diskretiseret model af det fysiske system inden designet af regulatoren.
+Kravet til diskretiseringen af åbensløjfeoverføringsfunktionerne er, at den diskrete repræsentation
+skal være tilfredsstillende tæt på de kontinuerte overføringsfunktioner.
+Hvis den diskrete overføringsfunktion eksempelvis afviger 20 \% fra den kontinuerte, ville man
+sandsynligvis overveje at benytte en højere samplingfrekvens til diskretiseringen.
+Sammenligningen af den diskrete overførselsfunktion og den kontinuerte overføringsfunktion
+kan være både i tidsdomænet (fx steprespons) og i frekvensdomænet (frekvensrespons, fx. Bode-plots).
 
 
 
