@@ -1,7 +1,7 @@
 \section{Regulator}
 \label{sec:kontrollerdeign}
-Det er valgt at designe regulatoren efter processen illustreret i figur \todo{fig}.%\ref{fig:designprocess}.
-\missingfigure{fig:designprocess}
+Det er valgt at designe regulatoren efter processen illustreret i figur \todo{fig}.%\ref{fig:designproces}.
+\missingfigure{fig:designproces}
 Formålet med reguleringen er som beskrevet i afsnit \ref{sec:problemformulering},
 at kontrollere pan- og tilt-rammernes position, så de tracker en lerdue.
 Dette gøres ved styring af deres hastighed, ved at justere spændingsfaldene over de
@@ -9,23 +9,40 @@ to DC-motorer. Spændingsfaldene styres af PWM-generatorer, og regulatoren
 kan derfor styre motorernes hastighed ved at vælge PWM-signalernes duty cycles.
 
 I afsnit \ref{sec:kravspecifikation} opstilles kravene til systemets respons.
-Disse er opsummeret nedenfor.
+Disse er for en 1-radian reference opsummeret nedenfor.
 \begin{itemize}
 \item \(t_{s} <= 0,557 \mathrm{\left[s\right]}\) (Settling Time)
-\item \(SSE <= 1 \degree\) (Steady State Error i grader)
-\item \(P.O. (pan) <= 5 \%\) (Overshoot i procent)
+\item \(SSE <= 1,78 \%\) (Steady State Tracking Error)
+\item \(P.O. (pan) <= 134 \%\) (Overshoot i procent)
 \end{itemize}
 
-
-\subsection{Design af PI, PD eller PID}
+Det er fastlagt i projektoplægget, at regulatoren skal implementeres på mikrocontrolleren.
+Da systemet som input modtager kartesiske koordinater,
+skal der også på mikrocontrolleren foregå en koordinattransformation
+til den logiske vinkelrepræsentation med sfæriske koordinater.
+Systemets konfiguration består altså af en koordinattransformation,
+en regulering, en aktuering og en positionsmåling, som illustreret
+i figur \ref{fig:digitalkontroller1}.
+Bemærk at denne konfiguration er for ét SISO-undersystem (enten pan eller tilt),
+og at mikrocontrolleren skal regulere begge SISO-undersystemer.
 \begin{figure}[!th]
 \centering
 \begin{tikzpicture}[auto, node distance=2.6cm,>=latex']
 \include*{./graphics/digitalkontroller1}
 \end{tikzpicture}
-\caption[tekst i indholdsfortegnelsen]{figurtekst}
-\label{fig:}
+\caption[Systemkonfiguration]{Systemkonfiguration}
+\label{fig:digitalkontroller1}
 \end{figure}
+Som beskrevet i afsnit \ref{sec:problemformulering},
+så er input-samplingen fastlagt til at foregå med en frekvens på 60 [Hz].
+Men som illustreret på figur \ref{fig:digitalkontroller1}, så skal reguleringssløjfen
+"køres" (sample) med en frekvens \(f_s=\frac{1}{T_s}\), der ikke nødvendigvis er 60 [Hz].
+Dvs. A/D- og D/A-konverteringerne skal foregå med frekvensen \(f_s\).
+
+
+
+
+
 
 \begin{figure}[!th]
 \centering
