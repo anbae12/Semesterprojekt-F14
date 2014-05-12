@@ -1,0 +1,30 @@
+
+
+\tikzstyle{block} = [draw, fill=blue!20, rectangle, 
+    minimum height=1.5 cm, minimum width=6cm]
+
+\begin{tikzpicture}[auto, node distance=2cm,>=latex']
+      \node [block] (block1) {Establish the control goals};
+      \node [block] (block2)[yshift = -0.5 cm,below of= block1] {Identify the variables to be controlled};
+      \node [block] (block3)[yshift = -0.5 cm,below of= block2] {Write the specifications};
+      \node [block] (block4)[yshift = -0.5 cm,below of= block3] {Establish the system configuration};  
+      \node [block] (block5)[yshift = -0.5 cm,below of= block4] {Obtain a model....};       
+      \node [block] (block6)[yshift = -0.5 cm,below of= block5] {Describe a controller...};  
+      \node [block] (block7)[yshift = -0.5 cm,below of= block6] {Optimize....};    
+      
+      \node [] (point1)[xshift = - 4 cm, below of= block7] {};    
+      \node [] (point2)[xshift = +2.1 cm, below of= block7] {};  
+      
+       \draw[->,thick](block1) to (block2);
+       \draw[->,thick](block2) to (block3);
+       \draw[->,thick](block3) to (block4);
+       \draw[->,thick](block4) to (block5);
+       \draw[->,thick](block5) to (block6);
+       \draw[->,thick](block6) to (block7);
+       
+       \draw[-,thick](block7.200) |- (point1.center);
+       \draw[->,thick](point1.center) |- (block4);
+       
+       \path[->,thick](block7.340) edge[bend left = 0] (point2.center);
+       
+\end{tikzpicture}
