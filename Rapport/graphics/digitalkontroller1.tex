@@ -1,36 +1,39 @@
 \node [input, name=input] {};
-\node [block, right of=input] (PWM) {\(PWM\left(s\right)\)};
-\node [block, right of=PWM,xshift=0cm] (Gm) {\(G_{m,t}\left(s\right)\)};
-\node [output, right of=Gm] (output){};
+\node [block, right of=input] (AD) {A/D};
+\node[freq,below of=AD,yshift=1cm](freq60){60 [Hz]};
+\node [block, right of=AD,xshift=0cm] (Koordinattransformation) {Koor.trans};
+\node[sum,right of= Koordinattransformation,xshift=1cm](sum1){Sum};
+\node [block, right of=sum1,xshift=-0.5cm] (Dz) {D(z)};
+\node [block, right of=Dz] (Dahold) {D/A \& hold};
+\node [block, right of=Dahold] (Hs) {H(s)};
+\node [output, right of=Hs] (output){};
+\node[freq,below of=Dz,xshift=1.3cm,yshift=1cm](freq600){600 [Hz]};
+\node [block, below of=freq600,xshift=-1.75cm,yshift=1cm] (AD2) {A/D};
+   
+   
 
-\draw [draw,->] (input) -- node {\footnotesize $d.c.(t)$} (PWM);
-\draw [draw,->] (Gm) -- node[name=theta] {\footnotesize $\theta\left(t\right)$} (output);
+\draw [draw,->] (input) -- node {\footnotesize $Pos(t)$} (AD);
+\draw [draw,->] (freq60) -- (AD);
+\draw [draw,->] (AD) -- node {\footnotesize $x(k)$} (Koordinattransformation);
+\draw [draw,->] (Koordinattransformation) -- node[pos=0.8] {\footnotesize +} (sum1);%node [near end] (sum1);
+\draw [draw,->] (sum1) -- node {\footnotesize $e(k)$} (Dz);
+\draw [draw,->] (Dz) -- node {\footnotesize $u(k)$} (Dahold);
+\draw [draw,->] (Dahold) -- node {\footnotesize $U(t)$} (Hs);
+\draw [->] (Hs) -- node [name=y] {\footnotesize $Y(t)$}(output);
+\draw [draw,->] (freq600) -| (Dz);
+\draw [draw,->] (freq600) -| (Dahold);
+\draw [draw,->] (freq600) -| (AD2);
+\draw [draw,->] (y) |- node [near end] {\footnotesize $Y(t)$} (AD2);
+\draw [->] (AD2) -| node[pos=0.97] {\footnotesize -} node [near end] {\footnotesize $y(k)$} (sum1);
 
-\draw [draw,->] (PWM) -- (Gm);
 
-\coordinate[right of=input,xshift=-1.31cm,yshift=1.5cm](UL);
-\coordinate[right of=input,xshift=-1.31cm,yshift=-0.8cm](BL);
-\coordinate[left of=output,xshift=1.25cm,yshift=1.5cm](UR);
-\coordinate[left of=output,xshift=1.25cm,yshift=-0.8cm](BR);
+\coordinate[right of=input,xshift=-1cm,yshift=1.5cm](UL);
+\coordinate[right of=input,xshift=-1cm,yshift=-4.25cm](BL);
+\coordinate[left of=output,xshift=-0.75cm,yshift=1.5cm](UR);
+\coordinate[left of=output,xshift=-0.75cm,yshift=-4.25cm](BR);
 \draw[dashed](UL)--(BL)--(BR)--(UR)--(UL);
-\node [right of= UL,xshift=-1.5cm,yshift=-0.25cm] (bla){\(G_{tilt}\left(s\right)\)};
+\node [right of= UL,xshift=-1cm,yshift=-0.25cm] (bla){Digital Controller};
+\node [below of= AD2,xshift=0cm,yshift=1.8cm] (bla1){\scriptsize FPGA Encoder};
 
-
-
-
-\node [input, name=input1, right of=output,xshift=-2.2cm]{};
-\node [block, right of=input1] (PWM1) {\(PWM\left(s\right)\)};
-\node [block, right of=PWM1,xshift=0cm] (Gm1) {\(G_{m,p}\left(s\right)\)};
-\node [output, right of=Gm1] (output1){};
-
-\draw [draw,->] (input1) -- node {\footnotesize $d.c.(t)$} (PWM1);
-\draw [draw,->] (Gm1) -- node {\footnotesize $\phi\left(t\right)$} (output1);
-
-\draw [draw,->] (PWM1) -- (Gm1);
-
-\coordinate[right of=input1,xshift=-1.31cm,yshift=1.5cm](UL1);
-\coordinate[right of=input1,xshift=-1.31cm,yshift=-0.8cm](BL1);
-\coordinate[left of=output1,xshift=1.25cm,yshift=1.5cm](UR1);
-\coordinate[left of=output1,xshift=1.25cm,yshift=-0.8cm](BR1);
-\draw[dashed](UL1)--(BL1)--(BR1)--(UR1)--(UL1);
-\node [right of= UL1,xshift=-1.5cm,yshift=-0.25cm] (bla1){\(G_{pan}\left(s\right)\)};
+\node [above of= Dz,xshift=0cm,yshift=-1.8cm] (bla1){\scriptsize Controller};
+\node [above of= Dahold,xshift=0cm,yshift=-1.8cm] (bla1){\scriptsize FPGA PWM};
