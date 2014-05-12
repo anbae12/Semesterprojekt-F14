@@ -4,7 +4,7 @@ Det er valgt at designe regulatoren efter processen illustreret i figur \ref{fig
 \begin{figure}[!th]
 \centering
 \include*{./graphics/designproces}
-\caption[Designprocessen]{Designprocessen. Kilde: \cite{reg_modern_control_systems}.}
+\caption[Designprocessen]{Designprocessen, \citep{reg_modern_control_systems}.}
 \label{fig:designproces}
 \end{figure}
 Formålet med reguleringen er som beskrevet i afsnit \ref{sec:problemformulering},
@@ -16,9 +16,9 @@ kan derfor styre motorernes hastighed ved at vælge PWM-signalernes duty cycles.
 I afsnit \ref{sec:kravspecifikation} opstilles kravene til systemets respons.
 Disse er for en 1-radian reference opsummeret nedenfor.
 \begin{itemize}
-\item \(t_{s} <= 0,557 \mathrm{\left[s\right]}\) (Settling Time)
-\item \(SSE <= 1,78 \%\) (Steady State Tracking Error)
-\item \(P.O. (pan) <= 134 \%\) (Overshoot i procent)
+\item \(t_{s} \leq 0,557 \mathrm{\left[s\right]}\) (Settling Time)
+\item \(SSE \leq 1,78 \%\) (Steady State Tracking Error)
+\item \(P.O. \leq 134 \%\) (Overshoot i procent)
 \end{itemize}
 
 Det er fastlagt i projektoplægget, at regulatoren skal implementeres på mikrocontrolleren.
