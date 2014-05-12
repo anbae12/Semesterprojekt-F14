@@ -1,0 +1,37 @@
+\node [input, name=input] {};
+\node [block, right of=input] (PWM) {\(PWM\left(s\right)\)};
+\node [block, right of=PWM,xshift=0cm] (Gm) {\(G_{m,t}\left(s\right)\)};
+\node [output, right of=Gm] (output){};
+
+\draw [draw,->] (input) -- node {\footnotesize $d.c.(t)$} (PWM);
+\draw [draw,<-] (output) -- node {\footnotesize $\theta\left(t\right)$} (Gm);
+
+\draw [draw,->] (PWM) -- (Gm);
+
+\coordinate[right of=input,xshift=-1.31cm,yshift=1.5cm](UL);
+\coordinate[right of=input,xshift=-1.31cm,yshift=-0.8cm](BL);
+\coordinate[left of=output,xshift=1.25cm,yshift=1.5cm](UR);
+\coordinate[left of=output,xshift=1.25cm,yshift=-0.8cm](BR);
+\draw[dashed](UL)--(BL)--(BR)--(UR)--(UL);
+\node [right of= UL,xshift=-1.5cm,yshift=-0.25cm] (bla){\(G_{tilt}\left(s\right)\)};
+
+
+
+
+
+\node [input, name=input1, right of=output,xshift=-2.2cm]{};
+\node [block, right of=input1] (PWM1) {\(PWM\left(s\right)\)};
+\node [block, right of=PWM1,xshift=0cm] (Gm1) {\(G_{m,p}\left(s\right)\)};
+\node [output, right of=Gm1] (output1){};
+
+\draw [draw,->] (input1) -- node {\footnotesize $d.c.(t)$} (PWM1);
+\draw [draw,<-] (output1) -- node {\footnotesize $\phi\left(t\right)$} (Gm1);
+
+\draw [draw,->] (PWM1) -- (Gm1);
+
+\coordinate[right of=input1,xshift=-1.31cm,yshift=1.5cm](UL1);
+\coordinate[right of=input1,xshift=-1.31cm,yshift=-0.8cm](BL1);
+\coordinate[left of=output1,xshift=1.25cm,yshift=1.5cm](UR1);
+\coordinate[left of=output1,xshift=1.25cm,yshift=-0.8cm](BR1);
+\draw[dashed](UL1)--(BL1)--(BR1)--(UR1)--(UL1);
+\node [right of= UL1,xshift=-1.5cm,yshift=-0.25cm] (bla1){\(G_{pan}\left(s\right)\)};
