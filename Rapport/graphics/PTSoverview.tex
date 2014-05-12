@@ -1,0 +1,32 @@
+\node [draw, fill=blue!20, rectangle, minimum height=4em, minimum width=2.5em] (mikrocontroller) {Mikrocontroller};
+\node [draw, fill=blue!20, rectangle, minimum height=8em, minimum width=2.5em, right of=mikrocontroller, xshift=2cm] (FPGA) {FPGA};
+\node [block, below of=mikrocontroller,xshift=1.5cm, yshift=-2cm] (brugerinput) {Bruger input};
+\node [block, below of=mikrocontroller, xshift=-1.5cm, yshift=-2cm] (brugerfeedback) {Bruger feedback};
+\node [block, right of=FPGA, xshift=1.5cm, yshift=1.25cm] (H-bro-a) {H-bro};
+\node [block, right of=H-bro-a, xshift=1.75cm] (DCmotorA) {DC motor};
+\node [output, right of=DCmotorA, xshift=1cm] (output1){};
+\node [block, right of=FPGA, xshift=1.5cm, yshift=-1.25cm] (H-bro-b) {H-bro};
+\node [block, right of=H-bro-b, xshift=1.75cm] (DCmotorB) {DC motor};
+\node [output, right of=DCmotorB, xshift=1cm] (output2){};
+\node [above of=FPGA, yshift=-0.1cm] (Pan) {\footnotesize Pan};
+\node [below of=FPGA, yshift=0.1cm] (Tilt) {\footnotesize Tilt};
+
+
+
+\draw [<->] (mikrocontroller) -- node {\footnotesize SPI} (FPGA);
+\draw [<-] (mikrocontroller) -- (brugerinput);
+\draw [->] (mikrocontroller) -- (brugerfeedback);
+\node [below of=mikrocontroller, yshift=-0.75cm] (UART) {\footnotesize UART};
+
+
+\draw [->] (FPGA.61) -- node {\footnotesize PWM} (H-bro-a);
+\draw [->] (H-bro-a) -- node {\footnotesize PWM} (DCmotorA);
+\draw [->] (DCmotorA) -- node {\footnotesize \(\phi\)} (output1);
+\draw [draw,<-] (FPGA.28) -| node [pos=0.2] {\footnotesize Encoder feedback} (DCmotorA);
+
+
+
+\draw [->] (FPGA.299) -- node {\footnotesize PWM} (H-bro-b);
+\draw [->] (H-bro-b) -- node {\footnotesize PWM} (DCmotorB);
+\draw [->] (DCmotorB) -- node {\footnotesize \(\theta\)} (output2);
+\draw [draw,<-] (FPGA.332) -| node [pos=0.2] {\footnotesize Encoder feedback} (DCmotorB);
