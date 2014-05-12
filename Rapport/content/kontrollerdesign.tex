@@ -1,69 +1,19 @@
-\section{Reguleringsdesign}
+\section{Regulator}
 \label{sec:kontrollerdeign}
+Det er valgt at designe regulatoren efter processen illustreret i figur \todo{fig}.%\ref{fig:designprocess}.
+\missingfigure{fig:designprocess}
+Formålet med reguleringen er som beskrevet i afsnit \ref{sec:problemformulering},
+at kontrollere pan- og tilt-rammernes position, så de tracker en lerdue.
+Dette gøres ved styring af deres hastighed, ved at justere spændingsfaldene over de
+to DC-motorer. Spændingsfaldene styres af PWM-generatorer, og regulatoren
+kan derfor styre motorernes hastighed ved at vælge PWM-signalernes duty cycles.
 
-Måske skal den første del placeret et andet sted. \\
-
-Litteratur/DCmotor/5.4
-
-
-
-DC motor puls fundet konstanter.
-\subsection{2. ordens differentialligning af DC motorene}
-Den anden ordens differentialligning, som beskriver DC motoren med følgende simplificeringer er givet i ligning \ref{eq:generel_andenordens}.
+I afsnit \ref{sec:kravspecifikation} opstilles kravene til systemets respons.
+Disse er opsummeret nedenfor.
 \begin{itemize}
-\item bla 
-\item bla 
-\end{itemize}
-
-\begin{align}
-\begin{split}
-v\left( t \right) =\frac { { L }_{ m }\cdot { J }_{ m+PTS } }{ { k }_{ b } } \frac { { d }^{ 2 }\omega  }{ dt } +\frac { { R }_{ m }\cdot { J }_{ m+PTS } }{ { k }_{ b } } \frac { d\omega  }{ dt } +\omega \cdot B\label{eq:generel_andenordens}
-\end{split}
-\end{align}
-
-Laplace med start betingelserne t=0 w'(t)=0 og w''(t)=0,
-\begin{align}
-\begin{split}
-\mathcal{L}\left( v\left( t \right)  \right) &=\mathcal{L}\left( \frac { { L }_{ m }\cdot \left( { J }_{ m }+{ J }_{ PTS } \right)  }{ { k }_{ b } } \frac { { d }^{ 2 }\omega  }{ { dt }^{ 2 } } +\frac { { R }_{ m }\cdot \left( { J }_{ m }+{ J }_{ PTS } \right)  }{ { k }_{ b } } \frac { d\omega  }{ dt } +\omega \cdot B \right) 
-\\
-v\left( s \right) &=\frac { { L }_{ m }\cdot \left( { J }_{ m }+{ J }_{ PTS } \right)  }{ { k }_{ b } } { s }^{ 2 }\cdot \omega \left( s \right) +\frac { { R }_{ m }\cdot \left( { J }_{ m }+{ J }_{ PTS } \right)  }{ { k }_{ b } } { s }\cdot \omega \left( s \right) +B\cdot \omega \left( s \right) 
-\label{eq:generel_andenordens_laplace}
-\end{split}
-\end{align}
-
-
-
-Ligning \ref{eq:generel_andenordens_laplace} faktoriseret, hvorefter det er muligt at finde transferfunktionen for DC motoren. 
-\begin{align}
-\begin{split}
-G\left( s \right) =\frac { \omega \left( s \right)  }{ v\left( s \right)  } =\frac { 1 }{ \frac { { L }_{ m }\cdot \left( { J }_{ m }+{ J }_{ PTS } \right)  }{ { k }_{ b } } { s }^{ 2 }+\frac { { R }_{ m }\cdot \left( { J }_{ m }+{ J }_{ PTS } \right)  }{ { k }_{ b } } s+B } 
-\label{eq:generel_tf}
-\end{split}
-\end{align}
-
-hvor 
-\(K_b = 0.517\), \(B=0.00319\), \(R_m=5.21\), \(J_m=8.26*10^{-4}\), \(Tf=5.71*10^{-2}\), \(Lm=2.667*10^{-3}\), \(J_{tilt}=1.57499*10^{-4}\) og \(J_{pan}=3.15708*10^{-4}\).\\
-\todo[inline,author=Anders]{Der mangler enheder på tallene ovenfor.}
-Inertimomenterne for pan og tilt, som der fremgår fra tidligere, har forskellig påvirkning på DC motor modellen. De indelige transferfunktioner for DC motorene til hhv. pan og tilt-rammerne er givet i ligning \ref{eq:pan_tilt_tf_result}. 
-\begin{align}
-\begin{split}
-G_{ pan }\left( s \right) &=\frac { \omega _{ pan }\left( s \right)  }{ v_{ pan }\left( s \right)  } =\frac { 1 }{ \frac { { L }_{ m }\cdot  \left( { J }_{ m }+{ J }_{ pan } \right) }{ { k }_{ b } } { s }^{ 2 }+\frac { { R }_{ m }\cdot  \left( { J }_{ m }+{ J }_{ pan } \right) }{ { k }_{ b } } s+B } 
-\\
-&=\frac { 1 }{ 5,89\cdot { 10 }^{ -6 }\cdot { s }^{ 2 }+0,01151\cdot s+0,00319 } 
-\\
-G_{ tilt }\left( s \right) &=\frac { \omega _{ tilt }\left( s \right)  }{ v_{ tilt }\left( s \right)  } =\frac { 1 }{ \frac { { L }_{ m }\cdot  \left( { J }_{ m }+{ J }_{ tilt } \right) }{ { k }_{ b } } { s }^{ 2 }+\frac { { R }_{ m }\cdot \left( { J }_{ m }+{ J }_{ tilt } \right) }{ { k }_{ b } } s+B } 
-\\
-&= \frac { 1 }{ 5,073\cdot { 10 }^{ -6 }\cdot { s }^{ 2 }+0,009911\cdot s+0,00319 } 
-\label{eq:pan_tilt_tf_result}
-\end{split}
-\end{align}
-
-\subsection{Krav til systemet}
-Generelt krav
-\begin{itemize}
-\item P.O. = [\%]
-\item Settlingtime = [s]
-\item ESS = 
+\item \(t_{s} <= 0,557 \mathrm{\left[s\right]}\) (Settling Time)
+\item \(SSE <= 1 \degree\) (Steady State Error i grader)
+\item \(P.O. (pan) <= 5 \%\) (Overshoot i procent)
 \end{itemize}
 
 
