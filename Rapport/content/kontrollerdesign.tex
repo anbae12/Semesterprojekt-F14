@@ -104,6 +104,121 @@ har hver en diskretiseret overføringsfunktion hhv. \(G_{zoh,pan}\left(z\right)\
 Kravet til \(G_{zoh,pan}\left(z\right)\) og \(G_{zoh,tilt}\left(z\right)\) er, at de
 med god tilnærmelse opfører sig som \(G_{pan}\left(s\right)\) og \(G_{tilt}\left(s\right)\),
 og dette krav kan skrives som et mindstekrav til samplingfrekvensen \(f_s\).
-Hvis den diskrete overføringsfunktion med god tilnærmelse opfører sig
-som den kontinuerte overføringsfunktion inden for den kontinuerte overføringsfunktions
-båndbredde, er kravet opfyldt.
+
+\subsubsection{Valg af samplingfrekvens}
+\label{subsec:choosefs}
+Reguleringssløjfen skal køre periodisk på mikroprocessoren
+med samplingfrekvensen \(f_s\). Denne skal vælges
+ud fra systemets dynamik (til diskretiseringen), som beskrevet ovenfor,
+fra samplingteoremet (Nyquist-frekvensen) samt ud fra
+mikrocontrollerens begrænsninger.
+
+Da samplingen af inputparablen (A/D-konverteringen) foregår fast ved 60 [Hz],
+som beskrevet i problemformuleringen, er rekonstruktionen
+af det oprindelige signal allerede her begrænset. Dvs. man
+ikke kan få mere information om det oprindelige signal
+uanset hvor hurtigt man sampler efter A/D-konverteringen af
+det oprindelige signal.
+Samplingfrekvensen på 60 [Hz] fortæller os,
+at det oprindelige signal kun er bevaret op til 30 [Hz].
+Hvis reguleringssløjfen køres med en frekvens på under 60 [Hz]
+vil \textit{mere} information gå tabt.
+Derfor skal reguleringssløjfen, ud fra samplingteoremet, helst køres
+ved minimum 60 [Hz].
+
+Diskretiseringen af åbensløjfeoverføringsfunktionerne stiller også krav til samplingfrekvensen.
+Diskretiseringen skal altså sammenlignes med den kontinuerte overføringsfunktion.
+Det vælges at sammenligne diskretiseringen af det fysiske system med det kontinuerte system i tidsdomænet.
+Sløjfen lukkes med en forstærkning på 1, og step-responsens karakteristik sammenlignes
+for den diskretiserede overføringsfunktion \(\frac{G_{zoh,tilt}}{1+G_{zoh,tilt}}\)
+og for den kontinuerte overføringsfunktion \(\frac{G_{tilt}}{1+G_{tilt}}\) (en tilsvarende sammenligning foretages for pan).
+Diskretiseringen opfører sig med bedste tilnærmelse som det kontinuerte system
+når Rise Time, Settling Time og Overshoot efter diskretiseringen
+ændrer sig så lidt som muligt i forhold til responsen af det kontinuerte system.
+Det vurderes, at Rise Time og Settling Time maks. må ændre sig med 5 \% i forhold
+til den kontinuerte respons, mens at Overshoot maks. må ændre sig med 25 \% i forhold til
+den kontinuerte respons.
+Dvs. det kan tolereres hvis overshoot
+ved diskretiseringen ændrer sig fra 2 \% til 3 \%.
+
+Hvis diskretiseringen kræver at reguleringssløjfen kører ved en frekvens \(f_s\),
+der er højere end A/D-konverteringens 60 [Hz], skal det A/D-konverterede
+signal "upsamples" til \(f_s\), og de spejlede "images" af sprektet ved \(n\cdot{}60 \mathrm{\left[Hz\right]}\) skal filtreres væk.
+Upsamplingen har den simpleste implementering
+hvis \(f_s\) er et heltalsmultiplum af den første samplings frekvens (60 [Hz]) \citep{dsp}.
+Diskretiseringen af det fysiske systems åbensløjfeoverføringsfunktioner skal altså samples ved et heltalsmultiplum \(f_s\) af 60 [Hz].
+
+På figur \ref{fig:diskretTiltStep} er stepresponsen for lukketsløjfesystemet (med forstærkning 1)
+med \(G_{tilt}\) indtegnet sammen med den tilsvarende steprespons for to forskellige diskretiseringer
+af \(G_{tilt}\). Som det ses af grafen, er det diskretiserede systems respons tættest
+på det kontinuerte systems respons når samplingfrekvensen er højest.
+\begin{figure}[!th]
+\centering
+	\includegraphics[width=1\textwidth]{./graphics/diskretTiltStep.eps}
+\caption[Sammenligning af steprespons for kontinuert system med diskretiseret system]
+{Sammenligning af steprespons for kontinuert system med diskretiseret system.
+Den mørkeblå kurve er det kontinuerte systems respons,
+og de andre kurver er det diskretiserede systems respons ved en samplingfrekvens på
+60 [Hz] (grøn), 210 [Hz] (rød) og 600 [Hz] (lyseblå).}
+\label{fig:diskretTiltStep}
+\end{figure}
+
+På figur \ref{fig:diskretStepFreq} er samme steprespons' performance afbildet
+for pan og for tilt som funktion af samplingfrekvensen \(f_s\).
+De sammenlignede størrelser er Rise Time, Settling Time og Overshoot.
+Graferne viser ændringen af de tre størrelser i procent i forhold til det kontinuerte systems respons.
+\begin{figure}[!th]
+\centering
+	\includegraphics[width=1\textwidth]{./graphics/diskretStepFreq.eps}
+\caption[Sammenligning af steprespons-performance for kontinuert system med diskretiseret system (\(G_{zoh}\))]
+{Sammenligning af steprespons-performance for kontinuert system med diskretiseret system.
+Den blå kurve angiver fejlen i forhold til lukketsløjferesponsen af \(G_{tilt}\),
+mens den grønne kurve angiver fejlen i forhold til lukketsløjferesponsen af \(G_{pan}\).
+}
+\label{fig:diskretStepFreq}
+\end{figure}
+
+Som forventet kan et generelt mønster ses på graferne i figur \ref{fig:diskretTiltStep} og figur \ref{fig:diskretStepFreq}:
+Jo højere samplingfrekvens, jo tættere kommer diskretiseringens respons på det kontinuerte systems respons.
+En yderligere inspicering viser, at en særligt god performance opnås ved en samplingfrekvens på 600 [Hz],
+hvor kravene til diskretiseringens performance opfyldes.
+
+Figur \ref{fig:diskretTiltStep} og figur \ref{fig:diskretStepFreq}
+giver et grundlag for valg af reguleringssløjfens samplingfrekvens ud fra det fysiske systems dynamik.
+Hvis mikrocontrollerens begrænsninger tages med i betragtning vil man vælge den lavest acceptable
+samplingfrekvens af to årsager. Den ene årsag er, at jo højere periode, jo mindre CPU-belastning er der,
+og jo mere tid er der til mikrocontrollerens andre opgaver som fx kommunikation med en PC-terminal.
+Den anden årsag er, at reguleringssløjfen får mere tid til sine egne opgaver:
+Koordinattransformation, upsampling, regulering (behandling af fejlsignalet) og SPI-kommunikation skal alt sammen foregå
+inden for perioden \(\frac{1}{f_s}\).
+
+Som udgangspunkt vælges derfor en samplingfrekvens på \(f_s=600 \mathrm{\left[Hz\right]}\),
+så diskretiseringen med god tilnærmelse har samme performance som det kontinuerte system,
+og så der er mest tid til reguleringssløjfens beregninger og SPI-kommunikation.
+
+\subsection{Analyse af den diskretiserede overføringsfunktion}
+Den i afsnit \ref{subsec:choosefs} udførte sammenligning af det diskretiserede systems performance
+med det kontinuerte systems performance viser,
+at Rise Time stiger med 3,3 \% for pan og 0,10 \% for tilt,
+Settling Time stiger med 0,48 \% for pan og 1,6 \% for tilt,
+samt at Overshoot stiger med 11 \% for pan og 23 \% for tilt
+ved lukketsløjfesystemet med en forstærkning på 1.
+Diskretiseringen sammenlignes i frekvensdomænet med det kontinuerte system
+i figur \ref{fig:diskretBode}, der viser Bode-plot for \(G_{pan}\) og \(G_{tilt}\) samt
+deres diskretiseringer (ved 600 [Hz]) \(G_{zoh,pan}\) og \(G_{zoh,tilt}\).
+\begin{figure}[!th]
+\centering
+	\includegraphics[width=1\textwidth]{./graphics/diskretBode.eps}
+\caption[Sammenligning af Bode-plots af kontinuert system med diskretiseret system]
+{Sammenligning af Bode-plots af kontinuert system med diskretiseret system.
+Den blå og den røde kurve angiver hhv. \(G_{pan}\) og \(G_{tilt}\) mens
+den grønne og den turkise kurve angiver hhv. \(G_{zoh,pan}\) og \(G_{zoh,tilt}\).
+}
+\label{fig:diskretBode}
+\end{figure}
+Bemærk at figur \ref{fig:diskretBode} er en sammenligning af \textit{åben}sløjfeoverføringsfunktionernes
+frekvensrespons.
+
+Som det ses på grafen, følger det diskretiserede systems respons meget nøje det kontinuerte systems respons.
+Fejlen på størrelsen på responsen er meget lille i hele spektret,
+mens fejlen på fasen er lille ved lave frekvenser og stiger ved høje frekvenser.
