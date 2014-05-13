@@ -1,45 +1,29 @@
 %nodes
  \node[task_title] (pc)                                               {PC};
  \node[task] (uart_rx) [right of=pc,yshift=-1.6cm,xshift=-1cm]                                               {Uart receive};
- \node[buffer_sem] (uart_rx_buff)  [right of=uart_rx]                      {uart in buffer};
+ \node[buffer] (uart_rx_buff)  [right of=uart_rx]                      {uart in buffer};
  \node[task] (uart_tx)       [above of=uart_rx]                      {Uart send};
  \node[buffer_sem] (uart_tx_buff)  [right of=uart_tx]                           {uart out buffer};
  \node[task] (interface)     [right of=uart_rx_buff,yshift=1.6cm]            {Interface};
  
- \node[buffer_sem] (ctrl_bit)     [right of=interface]            {ctrl bit};
+ \node[memory_sem] (ctrl_bit)     [right of=interface]            {ctrl bit};
  \node[task] (ctrl)     [right of=ctrl_bit]            {Control};
  
-%  
-%  \node[buffer_sem] (log_file)     [below of=interface]            {log file};
-%  \node[task] (log)     [below of=log_file]            {log updater};
-%  \node[buffer_sem] (status)     [right of=log]            {status};
-%  \path[->] (log_file)        edge (interface);
-%  \path[->] (log)        edge (log_file);
-%  \path[->] (status)        edge (log);
-%  \path[->] (ctrl)        edge[bend right=25] (status);
- 
- \node[buffer_sem] (log_file)     [below of=interface]            {log file};
+ \node[memory_sem] (log_file)     [below of=interface]            {log file};
  \node[task] (log)     [right of=log_file,yshift=-1.6cm]            {log updater};
- \node[buffer_sem] (status)     [right of=log,yshift=1.6cm]            {status};
+ \node[buffer] (status)     [right of=log,yshift=1.6cm]            {status};
  \path[->] (log_file)        edge (interface);
  \path[->] (log)        edge[bend right=30] (log_file);
  \path[->] (status)        edge[bend right=30] (log);
  \path[->] (ctrl)        edge (status);
  
- 
-%  \node[buffer_sem] (pwm_A)         [right of=ctrl,yshift=1.7cm,xshift=0.1cm]          {pwm};
-%  \node[buffer_sem] (pwm_B)         [right of=ctrl,yshift=1.6cm]          {pwm};
-%  \node[buffer_sem] (pos_A)         [below of=pwm_A,yshift=0.1cm,xshift=0.1cm] {coordinate};
-%  \node[buffer_sem] (pos_B)         [below of=pwm_A]                           {coordinate};
-%  \node[task] (spi_tx)      [right of=pwm_A]                                        {spi send};
-%  \node[task] (spi_rx)      [right of=pos_A]                        {spi receive};
- 
- \node[buffer_sem] (pos_ctrl) [above of=interface] {pos ctrl};
- \node[task] (read_pos) [right of=pos_ctrl,yshift=1.6cm] {read pos};
- \node[buffer_sem] (target_A) [right of=read_pos,yshift=-1.5cm,xshift=0.1cm] {target pos};
- \node[buffer_sem] (target_B) [right of=read_pos,yshift=-1.6cm] {target pos};
-%  
-%  \node[task_title] (fpga) [right of=spi_rx,yshift=1.6cm,xshift=-1cm] {FPGA};
+ \node[memory_sem] (pwm_ctrl) [above of=interface] {PWM ctrl};
+ \node[task] (read_pwm) [right of=pwm_ctrl,yshift=1.6cm] {read PWM};
+ \node[memory_sem] (target) [right of=read_pwm,yshift=-1.5cm,xshift=0.1cm] {target PWM};
+
+% % % % Hvis vi vil lave figuren mindre og have FPGA tegnet på... 
+%  \node[task_title] (fpga) [right of=ctrl,xshift=-1cm] {FPGA};
+%  \path[->] (ctrl) edge (fpga);
  
  %Linjer
  
@@ -56,16 +40,8 @@
  \path[->] (interface)       edge (ctrl_bit);
  \path[->] (ctrl_bit)        edge (ctrl);
  
- \path[->] (interface)        edge (pos_ctrl);
- \path[->] (pos_ctrl)        edge[bend right=30] (read_pos);
- \path[->] (read_pos)        edge[bend right=30] (target_B);
- \path[->] (target_B)        edge (ctrl);
- 
-%  \path[<-] (pwm_B)        edge[bend right=30] (ctrl);
-%  \path[->] (pos_B)        edge[bend left=30] (ctrl);
-%  \path[<-] (spi_tx)        edge (pwm_A);
-%  \path[->] (spi_rx)        edge (pos_A);
- 
-%  \path[->] (spi_tx)        edge[bend left=30] (fpga);
-%  \path[<-] (spi_rx)        edge[bend right=30] (fpga);
+ \path[->] (interface)        edge (pwm_ctrl);
+ \path[->] (pwm_ctrl)        edge[bend right=30] (read_pwm);
+ \path[->] (read_pwm)        edge[bend right=30] (target);
+ \path[->] (target)        edge (ctrl);
  
