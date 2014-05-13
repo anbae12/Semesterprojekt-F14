@@ -16,7 +16,7 @@ Mikrocontrolleren har følgende opgaver:
 	\item Sende relevant data til brugeren via UART.
 \end{itemize}
 
-Regulatorerne skal afvikles i realtid, da det ellers er vanskelligt at modellere forsinkelsen matematisk.
+Regulatorerne skal afvikles i hård realtid\footnote{Dvs. at tasken skal afvikles, inden dens deadline - inden for en periode.}, da det ellers er vanskelligt at modellere forsinkelsen matematisk.
 
 
 SPI\footnote{Serial Peripheral Interface, også kaldet SSI} bruges til at overføre PTS's position fra FPGA til mikrocontroller. Desuden overføres beregnet duty-cycle fra mikrocontroller til FPGA. Kommunikationen skal være tilpas hurtig, så regulatorerne ikke beregner på forældet data. Forsinkelsen for overførsel af data må ikke overstige 5\% af sampletiden. 
@@ -57,7 +57,7 @@ SPI er indbygget som et hardwaremodul, med seperate FIFO buffere til afsendelse 
 UART er også implementeret som et hardwaremodul. Modulet indeholder seperate FIFO buffere til afsendelse og modtagelse af data, hver med plads til 16 datawords (max 8 bit). 
 
 Controlleren indeholder også et væld af hardwaremoduler til andre funktioner, men disse er ikke relevante for projektet.
-
+\todo[inline, author=Michael]{Tilføj evt. et diagram over processorens opbygning.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -100,7 +100,8 @@ i EMP kurset &   &   &   &   \\
 \caption{Specifikationer for de undersøgte systemer}
 \label{tb:os_comparison}
 \end{table}
-\todo[inline, author=Michael]{Ikke færdig}
+\todo[inline, author=Michael]{Ikke færdig - tilføj noget om hvor lang tid et context switch tager. Dispatch latency.}
+%
 \subsection{Implementering}
 %disp: 
 % task diagram
