@@ -127,7 +127,7 @@ Valget af freeRTOS som operativsystem gjorde det muligt at opdele programmet i s
 
 \subsubsection{Beskrivelse af de enkelte tasks}
 \begin{description}
-	\item[Uart send] Tager indholdet fra uart\_ out\_ buffer og ligger dem ind i UART-modulets hardware FIFO buffer. Dette er nødvendigt fordi hw. bufferen kun indeholder 16 pladser\footnote{Jævnfør s. 430 i LM3S6965}.\todo[inline,author=Anders]{Brug \citep[Side. 430]{kilde fra litteratur.bib},, det synes jeg er pænere.}
+	\item[Uart send] Tager indholdet fra uart\_ out\_ buffer og ligger dem ind i UART-modulets hardware FIFO buffer. Dette er nødvendigt fordi hw. bufferen kun indeholder 16 pladser. \citep[Side. 430]{lm3s6965}
 	\item[Uart receive] Læser UART-modulets hardware buffer og lægger de modtagne data over i uart\_ in \_ buffer. 
 	\item[Interface] Tolker på brugerinputs og sender relevante kommandoer til Control- og read\_ pos-tasken.
 	\item[read pos] Opdaterer target\_ pos med målets nuværende koordinater 60 gange i sekundet. I vores projekt læser den blot værdierne fra et array, men den kan sagtens udskiftes med en anden task der f.eks. tolker på input fra et kamera.
