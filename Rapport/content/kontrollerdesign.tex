@@ -16,9 +16,9 @@ kan derfor styre motorernes hastighed ved at vælge PWM-signalernes duty cycles.
 I afsnit \ref{sec:kravspecifikation} opstilles kravene til systemets respons.
 Disse er for en 1-radian reference opsummeret nedenfor.
 \begin{itemize}
-\item \(t_{s} <= 0,557 \mathrm{\left[s\right]}\) (Settling Time)
-\item \(SSE <= 1,78 \%\) (Steady State Tracking Error)
-\item \(P.O. (pan) <= 134 \%\) (Overshoot i procent)
+\item \(t_{s} \leq 0,557 \mathrm{\left[s\right]}\) (Settling Time)
+\item \(SSE \leq 1,78 \%\) (Steady State Tracking Error)
+\item \(P.O. \leq 134 \%\) (Overshoot i procent)
 \end{itemize}
 
 Det er fastlagt i projektoplægget, at regulatoren skal implementeres på mikrocontrolleren.
@@ -106,4 +106,4 @@ med god tilnærmelse opfører sig som \(G_{pan}\left(s\right)\) og \(G_{tilt}\le
 og dette krav kan skrives som et mindstekrav til samplingfrekvensen \(f_s\).
 Hvis den diskrete overføringsfunktion med god tilnærmelse opfører sig
 som den kontinuerte overføringsfunktion inden for den kontinuerte overføringsfunktions
-båndbredde, er kravet opfyldt\citep
+båndbredde, er kravet opfyldt.

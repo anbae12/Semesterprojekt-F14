@@ -25,6 +25,10 @@
        \draw[-,thick](block7.200) |- (point1.center);
        \draw[->,thick](point1.center) |- (block4);
        
-       \path[->,thick](block7.340) edge[bend left = 0] (point2.center);
+       \path[->,thick](block7.340) edge[bend left = 0] (point2.center);   
+       
+       \draw [decorate,decoration={brace,amplitude=25pt}](block1.0) -- node[pos=0.5,xshift=1cm]{Establishment of goals...}(block3.0);
+       \draw [decorate,decoration={brace,amplitude=15pt}](block4.0) -- node[pos=0.5,xshift=1cm]{System definiton and modeling}(block5.0);
+       \draw [decorate,decoration={brace,amplitude=15pt}](block6.0) -- node[pos=0.5,xshift=1cm]{Control system design...}(block7.0);
        
 \end{tikzpicture}

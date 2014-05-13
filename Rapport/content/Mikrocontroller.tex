@@ -3,9 +3,10 @@
 \subsection{Krav til mikrocontrolleren}
 \todo[inline, author=Michael]{Husk at TEST sektionen skal se om vi opfylder disse krav. Hvis ikke vi tester tingene skal de slettes fra dette afsnit!!!}
 Mikrocontrolleren har følgende opgaver: 
-\todo[inline, author=Michael]{YOU CANT TOUCH THIS - lad mig lige skrive færdig!}
-\todo[inline, author=Michael]{Denne sektion mangler generelt at blive forkortet. }
-\todo[inline, author=Michael]{Anders, kan vi ændre layouttet så listerne ikke tager så meget plads? }
+%\todo[inline, author=Michael]{YOU CANT TOUCH THIS - lad mig lige skrive færdig!}
+%\todo[inline, author=Michael]{Denne sektion mangler generelt at blive forkortet. }
+%\todo[inline, author=Michael]{Anders, kan vi ændre layouttet så listerne ikke tager så meget plads? }
+
 
 \begin{itemize}
 \itemsep1pt
@@ -24,6 +25,7 @@ SPI\footnote{Serial Peripheral Interface, også kaldet SSI} bruges til at overf�
 Systemet skal kunne modtage brugerinput gennem et terminalprogram. Brugerinterfacet er ikke tidskritisk. Der skal være mulighed for at udlæse systemparametre:
 
 \begin{itemize}
+\itemsep1pt
 	\item PTS' position. 
 	\item Ønsket position. 
 	\item Afvigelse fra ønsket position. 
@@ -35,6 +37,7 @@ Systemet skal kunne reagere på følgende bruger inputs:
 
 
 \begin{itemize}
+\itemsep1pt
 	\item Start tracking
 	\item Stop tracking
 	\item Reset systemet
@@ -46,7 +49,6 @@ Systemet skal kunne reagere på følgende bruger inputs:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Beskrivelse af valgt(?) mikrocontroller.}
-\todo[inline, author=Michael]{Tilføj datasheet til kildelisten}
 Den udleverede mikrocontroller er en 32 bit Stellaris LM3S6965, baseret på en ARM Cortex M3 kerne. Den opererer ved 50 mHz og bruger Thump 2 instruktionssættet. Den indeholder 256 KB flash hukommelse samt 64 KB SRAM. 
 
 SPI er indbygget som et hardwaremodul, med seperate FIFO buffere til afsendelse og modtagelse. Hardwaren sender data fra den ene den buffer og lægger modtaget data i den anden. Derfor er det ikke nødvendigt for programmøren at holde styr på timingen. Størrelsen af hvert dataframe kan være 4 - 16 bits. 
@@ -63,6 +65,7 @@ Controlleren indeholder også et væld af hardwaremoduler til andre funktioner, 
 Der er undersøgt 4 forskellige mulige skeduleringsalgoritmer: 
 
 \begin{itemize}
+\itemsep1pt
 	\item CoOS\footnote{coocox.com/CoOS.htm}
 	\item freeRTOS\footnote{freertos.org}
 	\item Run-To-Complete-Scheduler\footnote{Introduceret i EMP-kurset}
@@ -72,6 +75,7 @@ Der er undersøgt 4 forskellige mulige skeduleringsalgoritmer:
 Til valget er der lagt vægt på følgende parametre: 
 
 \begin{itemize}
+\itemsep1pt
 	\item Opfylder kravene til realtidsafvikling af regulatorerne. 
 	\item Muligheden for at (gen)bruge elementer fra EMP-kurset.
 \end{itemize}
