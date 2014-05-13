@@ -4,7 +4,7 @@ Det er valgt at designe regulatoren efter processen illustreret i figur \ref{fig
 \begin{figure}[!th]
 \centering
 \include*{./graphics/designproces}
-\caption[Designprocessen]{Designprocessen. Kilde: \cite{reg_modern_control_systems}.}
+\caption[Designprocessen]{Designprocessen. Kilde: \citep{reg_modern_control_systems}.}
 \label{fig:designproces}
 \end{figure}
 Formålet med reguleringen er som beskrevet i afsnit \ref{sec:problemformulering},
@@ -16,9 +16,9 @@ kan derfor styre motorernes hastighed ved at vælge PWM-signalernes duty cycles.
 I afsnit \ref{sec:kravspecifikation} opstilles kravene til systemets respons.
 Disse er for en 1-radian reference opsummeret nedenfor.
 \begin{itemize}
-\item \(t_{s} <= 0,557 \mathrm{\left[s\right]}\) (Settling Time)
-\item \(SSE <= 1,78 \%\) (Steady State Tracking Error)
-\item \(P.O. (pan) <= 134 \%\) (Overshoot i procent)
+\item \(t_{s} \leq 0,557 \mathrm{\left[s\right]}\) (Settling Time)
+\item \(SSE \leq 1,78 \%\) (Steady State Tracking Error)
+\item \(P.O. \leq 134 \%\) (Overshoot i procent)
 \end{itemize}
 
 Det er fastlagt i projektoplægget, at regulatoren skal implementeres på mikrocontrolleren.
@@ -35,7 +35,9 @@ og at mikrocontrolleren skal regulere begge SISO-undersystemer.
 \begin{tikzpicture}[auto, node distance=2.6cm,>=latex']
 \include*{./graphics/digitalkontroller1}
 \end{tikzpicture}
-\caption[Systemkonfiguration]{Systemkonfiguration}
+\caption[Systemkonfiguration]{Systemkonfiguration (blokdiagram).
+	Området markeret med stiplet linje udgør den digitale regulator.
+	De grønne ovaler angiver "clocksignaler", som leverer pulser til de digitale dele af systemet.}
 \label{fig:digitalkontroller1}
 \end{figure}
 Som beskrevet i afsnit \ref{sec:problemformulering},
@@ -58,24 +60,50 @@ Hvis den diskrete overføringsfunktion eksempelvis afviger 20 \% fra den kontinu
 sandsynligvis overveje at benytte en højere samplingfrekvens til diskretiseringen.
 Sammenligningen af den diskrete overførselsfunktion og den kontinuerte overføringsfunktion
 kan være både i tidsdomænet (fx steprespons) og i frekvensdomænet (frekvensrespons, fx. Bode-plots).
+Når man har den diskretiserede model af systemet, kan man i det diskrete domæne (z-domænet)
+udvikle en regulator - denne er altså diskret fra starten.
 
+Da reguleringen foregår i en task på mikrocontrolleren, vælges det
+at udvikle en diskret regulator efter en diskretiseret model af systemet.
+Således kan perioden hvormed regulerings-task'en skal køre, fastlægges ud fra
+samplingperioden \(T_s\). Hvis man havde valgt at designe en analog regulator
+ville perioden skulle vælges så lav som muligt.
 
-
-
+\subsection{Diskretisering af åbensløjfeoverføringsfunktionerne}
+Som beskrevet ovenfor ønskes det at finde en diskretiseret overføringsfunktion
+for det fysiske system. Den kontinuerte del af systemet, som ønskes diskretiseret,
+er markeret på figur \ref{fig:digitalkontroller2}.
 \begin{figure}[!th]
 \centering
 \begin{tikzpicture}[auto, node distance=2.6cm,>=latex']
 \include*{./graphics/digitalkontroller2}
 \end{tikzpicture}
-\caption[tekst i indholdsfortegnelsen]{figurtekst}
-\label{fig:}
+\caption[Diskretisering af åbensløjfeoverføringsfunktion]{Diskretisering af åbensløjfdeoverføringsfunktion.
+	Den kontinuerte del af systemet (markeret med stiplet linje) ønskes diskretiseret.
+	De grønne ovaler angiver "clocksignaler", som leverer pulser til de digitale dele af systemet.}
+\label{fig:digitalkontroller2}
 \end{figure}
 
+Den diskretiserede åbensløjfeoverføringsfunktion fra duty cycle til output vinkel
+benævnes \(G_{zoh}\left(s\right)\). Dette er fordi D/A-konverteringen modelleres som et Zero-Order Hold kredsløb,
+der fastholder en analog værdi proportional med duty cyclen. Dette stemmer overens med den simplificerede
+model for PWM-signalet beskrevet i afsnit \ref{subsec:matFPGA}.
+Den diskrete overføringsfunktions plads i blokdiagrammet for systemet
+er indtegnet i figur \ref{fig:digitalkontroller3}.
 \begin{figure}[!th]
 \centering
 \begin{tikzpicture}[auto, node distance=2.6cm,>=latex']
 \include*{./graphics/digitalkontroller3}
 \end{tikzpicture}
 \caption[tekst i indholdsfortegnelsen]{figurtekst}
-\label{fig:}
+\label{fig:digitalkontroller3}
 \end{figure}
+De to overføringsfunktioner hhv. \(G_{pan}\left(s\right)\) og \(G_{tilt}\left(s\right)\)
+har hver en diskretiseret overføringsfunktion hhv. \(G_{zoh,pan}\left(z\right)\) og \(G_{zoh,tilt}\left(z\right)\).
+
+Kravet til \(G_{zoh,pan}\left(z\right)\) og \(G_{zoh,tilt}\left(z\right)\) er, at de
+med god tilnærmelse opfører sig som \(G_{pan}\left(s\right)\) og \(G_{tilt}\left(s\right)\),
+og dette krav kan skrives som et mindstekrav til samplingfrekvensen \(f_s\).
+Hvis den diskrete overføringsfunktion med god tilnærmelse opfører sig
+som den kontinuerte overføringsfunktion inden for den kontinuerte overføringsfunktions
+båndbredde, er kravet opfyldt.

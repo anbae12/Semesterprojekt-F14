@@ -3,18 +3,18 @@
 \node[freq,below of=AD,yshift=1cm](freq60){60 [Hz]};
 \node [block, right of=AD,xshift=0cm] (Koordinattransformation) {Koor.trans};
 \node[sum,right of= Koordinattransformation,xshift=1cm](sum1){Sum};
-\node [block, right of=sum1,xshift=-0.5cm] (Dz) {D(z)};
-\node [block, right of=Dz] (Hzoh) {$H_{zoh}$};
+\node [block, right of=sum1,xshift=-0.5cm] (Dz) {\(D\left(z\right)\)};
+\node [block, right of=Dz] (Hzoh) {$G_{zoh}\left(z\right)$};
 \node [output, right of= Hzoh] (output){};
 
 
-\draw [draw,->] (input) -- node {\footnotesize $Pos(t)$} (AD);
+\draw [draw,->] (input) -- node {\footnotesize $Pos\left(t\right)$} (AD);
 \draw [draw,->] (freq60) -- (AD);
-\draw [draw,->] (AD) -- node {\footnotesize $x(k)$} (Koordinattransformation);
+\draw [draw,->] (AD) -- node {\footnotesize $x\left(k\right)$} (Koordinattransformation);
 \draw [draw,->] (Koordinattransformation) -- node[pos=0.8] {\footnotesize +} (sum1);%node [near end] (sum1);
-\draw [draw,->] (sum1) -- node {\footnotesize $e(k)$} (Dz);
-\draw [draw,->] (Dz) -- node {\footnotesize $u(k)$} (Hzoh);
-\draw [->] (Hzoh) -- node [name=y] {\footnotesize $y(k)$}(output);
+\draw [draw,->] (sum1) -- node {\footnotesize $e\left(k\right)$} (Dz);
+\draw [draw,->] (Dz) -- node {\footnotesize $u\left(k\right)$} (Hzoh);
+\draw [->] (Hzoh) -- node [name=y] {\footnotesize $\theta\left(k\right)$}(output);
 
 \coordinate[below of=Dz,yshift=1cm](point);
 
