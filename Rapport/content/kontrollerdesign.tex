@@ -7,6 +7,7 @@ Det er valgt at designe regulatoren efter processen illustreret i figur \ref{fig
 \caption[Designprocessen]{Designprocessen. Kilde: \citep{reg_modern_control_systems}.}
 \label{fig:designproces}
 \end{figure}
+\todo[inline,author=Anders]{Der bruges ikke kilde før i rapporten. Eventuel henvis til specifik side.}
 Formålet med reguleringen er som beskrevet i afsnit \ref{sec:problemformulering},
 at kontrollere pan- og tilt-rammernes position, så de tracker en lerdue.
 Dette gøres ved styring af deres hastighed, ved at justere spændingsfaldene over de
@@ -14,7 +15,7 @@ to DC-motorer. Spændingsfaldene styres af PWM-generatorer, og regulatoren
 kan derfor styre motorernes hastighed ved at vælge PWM-signalernes duty cycles.
 
 I afsnit \ref{sec:kravspecifikation} opstilles kravene til systemets respons.
-Disse er for en 1-radian reference opsummeret nedenfor.
+Disse er for en 1-radian\todo[author=Anders]{Der bruges grader i resten af rapporten.} reference opsummeret nedenfor.
 \begin{itemize}
 \item \(t_{s} \leq 0,557 \mathrm{\left[s\right]}\) (Settling Time)
 \item \(SSE \leq 1,78 \%\) (Steady State Tracking Error)
@@ -146,7 +147,7 @@ Hvis diskretiseringen kræver at reguleringssløjfen kører ved en frekvens \(f_
 der er højere end A/D-konverteringens 60 [Hz], skal det A/D-konverterede
 signal "upsamples" til \(f_s\), og de spejlede "images" af sprektet ved \(n\cdot{}60 \mathrm{\left[Hz\right]}\) skal filtreres væk.
 Upsamplingen har den simpleste implementering
-hvis \(f_s\) er et heltalsmultiplum af den første samplings frekvens (60 [Hz]) \citep{dsp}.
+hvis \(f_s\) er et heltalsmultiplum af den første samplings frekvens (60 [Hz])\todo[author=Anders]{eventuelt: frekvens på 60 [Hz].} \citep{dsp}\todo[author=Anders]{Konkret side i henvisningen.}.
 Diskretiseringen af det fysiske systems åbensløjfeoverføringsfunktioner skal altså samples ved et heltalsmultiplum \(f_s\) af 60 [Hz].
 
 På figur \ref{fig:diskretTiltStep} er stepresponsen for lukketsløjfesystemet (med forstærkning 1)
@@ -163,7 +164,7 @@ og de andre kurver er det diskretiserede systems respons ved en samplingfrekvens
 60 [Hz] (grøn), 210 [Hz] (rød) og 600 [Hz] (lyseblå).}
 \label{fig:diskretTiltStep}
 \end{figure}
-
+\todo[inline,author=Anders]{Der står både [s] og [seconds], den ene burde være nok.}
 På figur \ref{fig:diskretStepFreq} er samme steprespons' performance afbildet
 for pan og for tilt som funktion af samplingfrekvensen \(f_s\).
 De sammenlignede størrelser er Rise Time, Settling Time og Overshoot.
@@ -171,11 +172,20 @@ Graferne viser ændringen af de tre størrelser i procent i forhold til det kont
 \begin{figure}[!th]
 \centering
 	\includegraphics[width=1\textwidth]{./graphics/diskretStepFreq.eps}
-\caption[Sammenligning af steprespons-performance for kontinuert system med diskretiseret system (\(G_{zoh}\))]
+%\caption[Sammenligning af steprespons-performance for kontinuert system med diskretiseret system (\(G_{zoh}\))]
+%{Sammenligning af steprespons-performance for kontinuert system med diskretiseret system.
+%Den blå kurve angiver fejlen i forhold til lukketsløjferesponsen af \(G_{tilt}\),
+%mens den grønne kurve angiver fejlen i forhold til lukketsløjferesponsen af \(G_{pan}\).
+%}
+
+\caption[Sammenligning af steprespons-performance for kontinuert system med diskretiseret system $G_{zoh}$]
 {Sammenligning af steprespons-performance for kontinuert system med diskretiseret system.
-Den blå kurve angiver fejlen i forhold til lukketsløjferesponsen af \(G_{tilt}\),
-mens den grønne kurve angiver fejlen i forhold til lukketsløjferesponsen af \(G_{pan}\).
+Den blå kurve angiver fejlen i forhold til lukketsløjferesponsen af $G_{tilt}$,
+mens den grønne kurve angiver fejlen i forhold til lukketsløjferesponsen af $G_{pan}$.
 }
+
+% Åses LateX kan ikke lide \math\ i todo, caption og tilsvarende.
+
 \label{fig:diskretStepFreq}
 \end{figure}
 
