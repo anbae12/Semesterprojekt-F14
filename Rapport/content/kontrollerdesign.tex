@@ -44,14 +44,14 @@ Som beskrevet i afsnit \ref{sec:problemformulering},
 så er input-samplingen fastlagt til at foregå med en frekvens på 60 [Hz].
 Men som illustreret på figur \ref{fig:digitalkontroller1}, så skal reguleringssløjfen
 "køres" (sample) med en frekvens \(f_s=\frac{1}{T_s}\), der ikke nødvendigvis er 60 [Hz].
-Dvs. A/D- og D/A-konverteringerne skal foregå med frekvensen \(f_s\).
+Dvs. A/D- og D/A-konverteringerne (ikke input-samplingen) skal foregå med frekvensen \(f_s\).
 
 Der er overordnet to strategier til valg af samplingfrekvensen \(f_s\) hvormed
-reguleringssløjfen skal køre.
-Hvis man designer en kontinuert regulator til det kontinuerte domæne, så
+reguleringssløjfen skal køre:
+1) Hvis man designer en kontinuert regulator til det kontinuerte domæne, så
 skal diskretiseringen af controlleren være så tæt på den kontinuerte regulator som muligt.
 Det vil sige, samplingfrekvensen skal vælges så høj som mulig.
-Hvis man derimod designer en diskret regulator til det diskrete domæne,
+2) Hvis man derimod designer en diskret regulator til det diskrete domæne,
 så er diskretiseringen allerede foretaget inden designet af regulatoren.
 Dvs. man finder en diskretiseret model af det fysiske system inden designet af regulatoren.
 Kravet til diskretiseringen af åbensløjfeoverføringsfunktionerne er, at den diskrete repræsentation
@@ -66,8 +66,9 @@ udvikle en regulator - denne er altså diskret fra starten.
 Da reguleringen foregår i en task på mikrocontrolleren, vælges det
 at udvikle en diskret regulator efter en diskretiseret model af systemet.
 Således kan perioden hvormed regulerings-task'en skal køre, fastlægges ud fra
-samplingperioden \(T_s\). Hvis man havde valgt at designe en analog regulator
-ville perioden skulle vælges så lav som muligt.
+samplingperioden \(T_s\). Hvis man havde valgt at designe en kontinuert regulator
+ville perioden skulle vælges så lav som muligt, og dette ville stille højere krav
+til mikrocontrolleren.
 
 \subsection{Diskretisering af åbensløjfeoverføringsfunktionerne}
 Som beskrevet ovenfor ønskes det at finde en diskretiseret overføringsfunktion

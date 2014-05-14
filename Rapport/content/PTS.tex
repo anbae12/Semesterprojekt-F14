@@ -5,14 +5,15 @@ Under designet af en regulator skal systemet identificeres. Der er forskellige m
 på baggrund af sammenhørende værdier for input og output.
 En anden metode tager udgangspunkt i matematisk at beskrive de enkelte dele i systemet
 for på den måde at sammenstykke en model af hele systemet.
-Det vælges at benytte den sidstnævnte metode til bestemmelsen af en simplificeret
+Det vælges hovedsageligt at benytte den sidstnævnte metode til bestemmelsen af en simplificeret
 model af Pan \& Tilt-systemet af følgende årsager:
 \begin{itemize}
 \item Matematiske modeller for systemets enkelte elementer findes i litteraturen.
-\item De matematiske modeller er lineære og simple.
-\item Den første metode vurderes mere tidskrævende.
+\item Flere af de matematiske modeller er lineære og simple.
+\item De matematiske modeller giver indsigt i den involverede fysik og giver mulighed
+	for at udtrykke systemets parametre i fysiske størrelser.
 \end{itemize}
-Ulempen ved at bruge teoretiske lineære matematiske modeller er,
+Ulempen ved at bruge teoretiske \textit{lineære} matematiske modeller er,
 at de altid vil være tilnærmelser, og ikke beskriver ulineariteter som dødbånd og tidsforsinkelser.
 
 En skitse af Pan \& Tilt-systemet findes i figur \ref{fig:overview_openloop_PTS}.
@@ -33,7 +34,8 @@ De følgende beregninger tager altså udgangspunkt i det simplificerede afkobled
 To DC-motorer af typen EMG30 er forbundet til systemet.
 Det antages, at motorerne kan beskrives ved samme matematiske model.
 Den matematiske model af DC-motoren er beskrevet i appendix \ref{sec:dcmotor},
-der også beskæftiger sig med bestemmelsen af parametrene for en EMG30-motor (det antages, at systemets motorer har samme parametre).
+der også beskæftiger sig med den eksperimentelle bestemmelse af parametrene for en EMG30-motor
+(det antages, at systemets to motorer har samme parametre).
 Motoren kan beskrives ved ligning \ref{eq:matVm_transient3}, hvor konstanterne \(k_1\), \(k_2\) og \(k_3\)
 er givet ved ligningerne \ref{eq:matkonstanter}. Der henvises til appendix \ref{sec:dcmotor}
 for yderligere forklaring af modellen.
@@ -64,6 +66,10 @@ De eksperimentelt bestemte motorparametre står i tabel \ref{tb:matmotorparametr
 Det er vigtigt at bemærke, at de to motorer adskiller sig fra hinanden ved parameteren \(J_L\), som er belastningens
 inertimoment. Dette er ikke en egentlig motorparameter, men en parameter der udelukkende afhænger
 af pan- og tilt-rammernes dimensioner og vinkel.
+Desuden er det værd at bemærke, at denne model ikke tager højde for statisk friktion og Coulomb-friktion,
+fordi de ikke, som den viskøse friktion, er lineære. Ikke desto mindre giver Coulomb-friktionen under
+bevægelse en konstant dæmpning, der kan kompenseres for med en højere forstærkning.\todo[inline]{Skal vi bruge en kilde ang. Coulomb-friktion?}
+
 Vi er interesserede i en overførselsfunktion for DC-motoren. Med antagelse om at \(\omega\) (vinkelhastigheden) og dens tidsafledte er 0
 Laplace-transformeres ligning \ref{eq:matVm_transient3}, og den resulterende overførselsfunktion findes
 i ligning \ref{eq:transOmega}.
