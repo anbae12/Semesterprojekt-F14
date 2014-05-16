@@ -3,6 +3,7 @@
 Kravene til systemet findes vha. reglerne for English Skeet, \citep{ES_regler},
 samt det udleverede Pan \& Tilt-systems fysiske begrænsninger.
 
+%%%%%%%%%%%%%%%%%%%%%P&T figur
 
 Lerduens bane kan beregnes vha. de i reglerne givne værdier for affyringspunkt, forventet nedslagspunkt
 og "Target Crossing Point" (punktet, som lerduen skal passere).
@@ -24,15 +25,7 @@ En gennemgang af beregningerne der ligger bag kasteparablen findes i sektion \re
 
 Med kasteparablen er det muligt at specificere systemets betingelser yderligere:
 Lerduen bliver affyret med en hastighed på 34,589 \([\frac{m}{s}]\) i en vinkel på \(9,103^{\circ}\) ift. xz-planet jf. figur \ref{fig:ES}.
-
-
-
-
-
-henvis til ligning
-
-
-Set ovenfra bevæger målet sig som illustreret på figur \ref{fig:para_in_xy_plane}. Punktet D er High House (affyringensstedet), Shooting Boundary (SB) og nedslagspunktet G er hhv. 40,3 [m] og 52 [m] fra High-House. PTS' er placeret i punktet B.\\
+Set ovenfra bevæger målet sig som illustreret på figur \ref{fig:HH2D_para}, G er nedslagspunktet og er 52 [m] fra High-House 52 [m], D, samt PTS' placering, B.\\
 \begin{figure}[h!]
 \centering
 \subfloat[Lerduens højde som funktion af afstanden til D.\label{fig:HH2D_para}]{%
@@ -48,16 +41,17 @@ Set ovenfra bevæger målet sig som illustreret på figur \ref{fig:para_in_xy_pl
 \caption[Lerduens parabel i 2D]{Viser parablen af lerduens bane i 2D.}
 \end{figure}
 
-Det anslås, at man kan nå at affyre to skud mellem tidspunktet,
-hvor lerduen når toppunktet og SB, ligning \ref{eq:ks:nedslagstid}.
+Det anslås, at man kan nå at affyre de to skud mellem tidspunktet,
+hvor lerduen når toppunktet og nedslagstidspunktet (punkt G), se \ref{eq:ks:nedslagstid}.
 I dette tidsrum skal Pan \& Tilt-systemet sigte på lerduen så geværet kan ramme.
 Der er altså et tidsmæssigt krav til reguleringen om en Settling Time for systemet,
-der er lavere end tiden \(t_{s}\) angivet i ligning, \ref{eq:ks:settlingtime}.
+der er lavere end tiden \(t_{s}\) angivet i \ref{eq:ks:settlingtime}.
 \begin{align}
   t_{s} &= 0,557 [s] &\text{(Settling Time)}
   \label{eq:ks:settlingtime}
-\\
-  t_{n} &= 1.18 [s] &\text{(Shooting Boundary Limit)}
+\end{align}
+\begin{align}
+  t_{n} &= 1,523 [s] &\text{(Nedslagstid)}
   \label{eq:ks:nedslagstid}
 \end{align}
 
@@ -80,4 +74,5 @@ som afhænger af reguleringen
 - et for højt overshoot på pan-positionen kan give udsving, der ikke holder sig inden for grænserne.
 Hvis det antages, at vinklen \(0 \degree\) er lige midt imellem pan-rammens rotationsgrænser,
 så den kan rotere \(77 \degree\) til hver side, så er det maksimale overshoot for et 1-radians step-input
-givet ved \(34 \%\).
+givet ved \(134 \%\).
+\todo[inline,author=Anders]{P.O. skrives 34\% i følge bogen. desuden skrives det på nævnte facon senere i 6.2.}
