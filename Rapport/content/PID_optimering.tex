@@ -1,25 +1,58 @@
-\section{PID optimering}
+\section{Controller tuning}
 \label{sec:PID}
-\subsection{Nichols Ziegler}
+
+
+\todo[inline,author=ALLE]{Grunden for valg af PID-controller.}
+
+
+
+\subsection{Ziegler-Nichols Tuning Methode}
+Til bestemmelsen af controller-koefficienterne bruges den analytiske fremgangsmåde "Zielger-Nichols Tuning Methode", \citep[Kap. 7.6]{reg_modern_control_systems}. 
+Metoden tager udgangspunkt i systemets "close loop" responds. 
+
+
+Nedenstående tabel \ref{tb:ZieglerNichols} viser hvordan controller-koefficienterne bestemmes.
+
+\begin{figure}[th!]
+\centering
+\begin{tabular}{c|c|c}
+\(K_p\) & \(K_i\) & \(K_d\)\\\hline
+\(0,5  { K }_{ U }\) &-&-\\
+\(0,45  { K }_{ U }\) & \( \frac { 0,54  { K }_{ U } }{ { T }_{ U } }  \) &-\\
+\(0,6  { K }_{ U } \) &  \( \frac { 1,2  { K }_{ U } }{ { T }_{ U } }  \) & \(\frac { 0,6  { K }_{ U }  { T }_{ U } }{ 8 }  \)
+\end{tabular}
+\captionsetup{type=table}
+\caption[Ziegler-Nichols Tuning Methode]{Analytisk fremgangsmåde. "Ziegler-Nichols Tuning Methode".}
+\label{tb:ZieglerNichols}
+\end{figure}
+
+hvor \(K_U\) er forstærkningen og \(T_U\) er den tilhørende oscillations periode hvorved CL-systemet opnår instabilitet.
+
+\subsubsection{Pan- og tilt controller-keofficienter}
+\(K_u\) og \(T_u\) er bestemt ud fra hhv. pans og tilts diskretiserende transferfunktioner, ligning \ref{eq:pantiltdiskretiserendetf} og med et \textbf{lækkert MATLAB script.}\todo[author=Anders]{Skriv noget bedre.}
+\begin{itemize}
+\item \(K_{u=tilt} = 37,24\)
+\item \(T_{u-tilt} = 29,917 \cdot 10^{-3}\) [s] 
+\item \(K_{u-pan} = 37,12\)
+\item \(T_{u-pan} = 34,207\cdot 10^{-3}\) [s] 
+\end{itemize}
+
 
 
 \begin{figure}[th!]
 \centering
-\begin{tabular}{l|c|c|c}
-Controller Type \({ G }_{ c }\left( s \right)\) & \(K_P\) & \(K_I\) & \(K_D\)\\\hline
-\({ K }_{ P } \)& \(0.5  { K }_{ U }\) &-&-\\
-\({ K }_{ P }+\frac { { K }_{ I } }{ s } \) & \(0.45  { K }_{ U }\) & \( \frac { 0.54  { K }_{ U } }{ { T }_{ U } }  \) &-\\
-\({ K }_{ P }+\frac { { K }_{ I } }{ s } +{ K }_{ D }   s\) & \(0.6  { K }_{ U } \) &  \( \frac { 1.2  { K }_{ U } }{ { T }_{ U } }  \) & \(\frac { 0.6  { K }_{ U }  { T }_{ U } }{ 8 }  \)
+\begin{tabular}{c|c|c|c|c|c|c}
+&\(K_{p-tilt}\) & \(K_{i-tilt}\) & \(K_{d-tilt}\)&\(K_{p-pan}\) & \(K_{i-pan}\) & \(K_{d-pan}\)\\\hline
+P&\(18,62\) &-&-&\(18,56\)&-&-\\
+PI&\(1675,8\) & \( 672,1797\) &-&\(1670,4\) & \( 585,9853  \) &-\\
+PID&\(22,3440 \) &  \( 1493,7 \) & \(0,0836  \)&\(22,2720 \) &  \( 1302,2 \) & \(0,0952  \)
 \end{tabular}
 \captionsetup{type=table}
-\caption[tekst i indholdsfortegnelsen]{tabeltekst}
-\label{tb:}
+\caption[Controller-koefficienter, Ziegler-Nichols Tuning Methode]{Controller-koefficienter for pan og tilt.}\label{tb:ZieglerNichols}
 \end{figure}
 
-hvor \(K_U\) er bestemt ved og \(T_U\) er bestemt ved
 
 
 
-
-
-\subsection{Automatisk optimering af PID-koefficienter}
+\subsection{Manuel optimering af controller-koefficienter}
+\todo[inline,author=ALLE]{Idet Ziegler-Nichols giver P.O. på cirka 60 \%, skal keofficienterne optimeres manuelt.}
