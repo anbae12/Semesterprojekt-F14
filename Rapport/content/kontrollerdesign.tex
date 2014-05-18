@@ -248,9 +248,6 @@ Kravene til lavpasfilteret er, at det med så få taps\todo[inline,author=Mikael
 som muligt skal give en rimelig dæmpning af
 spejlbillederne af det oprindelige spektrum vedheltalsmultipla af 60 [Hz].
 
-Det vælges at implementere et 21. ordens FIR-filter, da det foruden tilfredsstillende opfyldelse
+Det vælges at implementere et 26. ordens FIR-filter med Hamming-vindue, da det foruden tilfredsstillende opfyldelse
 af de ovennævnte krav også har lineær fase.
-Da det meste af det oprindelige parabelspektrum findes ved 0 [Hz], vil det være
-fordelagtigt at udnytte Gibbs-oscillationernes placering i frekvensspektret, således
-at den højeste dæmpning er placeret ved heltalsmultipla af 60 [Hz].
 \todo[inline,author=Mikael]{Indsæt to figurer:\\- Bode Plot af FIR-filter.\\- ufiltreret FFT vs. filtreret FFT}
