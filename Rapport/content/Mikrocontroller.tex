@@ -22,17 +22,22 @@ Mikrocontrolleren har følgende opgaver:
 Regulatorerne skal afvikles i hård realtid\footnote{Dvs. at tasken skal afvikles, inden dens deadline - inden for en periode.}, da det ellers er vanskelligt at modellere forsinkelsen matematisk.
 
 
-SPI\footnote{Serial Peripheral Interface, også kaldet SSI} bruges til at overføre PTS's position fra FPGA til mikrocontroller. Desuden overføres beregnet duty-cycle fra mikrocontroller til FPGA. Kommunikationen skal være tilpas hurtig, så regulatorerne ikke beregner på forældet data. Forsinkelsen for overførsel af data må ikke overstige 5\% af sampletiden. 
-\todo[inline, author=Michael]{Ved Ts = 1/600 er det $8,33 * 10^5$. Indsæt de endelige tal når matematikgruppen når videre med tallene. }
+SPI\footnote{Serial Peripheral Interface, også kaldet SSI} bruges til at overføre PTS's position fra FPGA til mikrocontroller. Desuden overføres beregnet duty-cycle fra mikrocontroller til FPGA. Kommunikationen skal være tilpas hurtig, så regulatorerne ikke beregner på forældet data. Forsinkelsen for overførsel af data fra begge motorer må ikke overstige 5\% af sampletiden. Ved $T_s = \frac{1}{600}$ er det: 
+\begin{equation}
+	T_{spi delay} = \frac{1}{600} \times 0.05 = 8,33 \times 10^{-5}[s]
+\end{equation}
 
-Systemet skal kunne modtage brugerinput gennem et terminalprogram. Brugerinterfacet er ikke tidskritisk. Der skal være mulighed for at udlæse systemparametre:
 
-\begin{itemize}
-\itemsep1pt
-	\item PTS' position. 
-	\item Ønsket position. 
-	\item Afvigelse fra ønsket position. 
-\end{itemize}
+Systemet skal kunne modtage brugerinput gennem et terminalprogram. Brugerinterfacet er ikke tidskritisk. Der skal være mulighed for at udlæse væsentlige systemparametre. F.eks. PTS' position, ønsket position, aktuel Pwm duty cycle osv.
+
+\todo[inline, author=Michael]{Måske skal disse systemparametre defineres mere fast.}
+
+%\begin{itemize}
+%\itemsep1pt
+%	\item PTS' position. 
+%	\item Ønsket position. 
+%	\item Afvigelse fra ønsket position. 
+%\end{itemize}
 
 Desuden skal systemet gemme disse informationer i en log-fil, som kan udlæses efter systemet er færdig med at tracke målet. 
 
@@ -59,14 +64,13 @@ SPI er indbygget som et hardwaremodul, med seperate FIFO buffere til afsendelse 
 
 UART er også implementeret som et hardwaremodul. Modulet indeholder seperate FIFO buffere til afsendelse og modtagelse af data, hver med plads til 16 datawords (max 8 bit). 
 
-Controlleren indeholder også et væld af hardwaremoduler til andre funktioner, men disse er ikke relevante for projektet.
-\todo[inline, author=Michael]{Tilføj evt. et diagram over processorens opbygning.}
+%%%%%%% Den næste sætning er vist bare fyldtekst
+%Controlleren indeholder også et væld af hardwaremoduler til andre funktioner, men disse er ikke relevante for projektet.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Valg af skedulering}
-\todo[inline, author=Michael]{Jeg skal lige have skimmet OSC bogen for ideer til denne sektion}
-Der er undersøgt 4 forskellige mulige skeduleringsalgoritmer: 
+\subsection{Valg af skedulering/operativsystem}
+Der er undersøgt 4 forskellige muligheder for skedulering: 
 
 \begin{itemize}
 \itemsep1pt
@@ -76,6 +80,7 @@ Der er undersøgt 4 forskellige mulige skeduleringsalgoritmer:
 	\item Super-loop
 \end{itemize}
 
+De to førstnævnte er fulde operativsystemer med flere mulige skeduleringsalgoritmer. 
 Til valget er der lagt vægt på følgende parametre: 
 
 \begin{itemize}
@@ -114,7 +119,7 @@ i EMP kurset &   &   &   &   \\
 % 
 % beskrivelse af interfacet
 % 
-
+\todo[inline, author=Michael]{Venter på at kodens struktur er helt færdig - inden da giver det ikke mening at skrive dette afsnit færdigt. }
 Valget af freeRTOS som operativsystem gjorde det muligt at opdele programmet i seperate tasks. Taskdiagrammet er vist på figur \ref{fig:task_diagram}. 
 
 \todo[inline, author=Michael]{I figuren burde vi bruge rette linjer istedet for de afrundede. Desuden skal kommunikationen med SPI indtegnes på en eller anden måde. Irrelevante semaphorer over de fleste køer skal også fjernes. }
@@ -146,6 +151,9 @@ Valget af freeRTOS som operativsystem gjorde det muligt at opdele programmet i s
 \subsubsection{Control task}
 \label{sec:control_task}
 
+\subsubsection{SPI}
+\label{sec:spi-implementering}
+\todo[inline, author=Michael]{Att. Åse: Her kunne vi skrive om implementeringen af SPI, den behøver ikke en sektion for sig selv.}
 
 \subsection{Test} 
 % Test af SPI overførsel
