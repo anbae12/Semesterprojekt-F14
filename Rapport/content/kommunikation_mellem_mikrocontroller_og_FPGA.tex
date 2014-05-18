@@ -2,7 +2,10 @@
 
 
 
-Kommunikationen mellem mikrocontolleren og FPGA’en foregår med SPI (Serial Peripheral Interface). Det er en protokol hvor, der bliver overført data mellem en master og en eller flere slaver. Overførelsen sker med full duplex, så der bliver sendt data både fra masteren og slaven på samme tid. Opstillingen mellem en master og en slave kan ses på figur \ref{fig:SPImasterslave}.
+Kommunikationen mellem mikrocontolleren og FPGA’en foregår med SPI (Serial Peripheral Interface). SPI understøtter full-duplex kommunikation mellem en master og en eller flere slaver
+%Det er en standard hvor der bliver overført data mellem en master og en eller flere slaver. 
+%Overførelsen sker med full duplex, så der bliver sendt data både fra masteren og slaven på samme tid. 
+Opstillingen med en master og en slave kan ses på figur \ref{fig:SPImasterslave}.
 \begin{figure}[!th]
 \centering
 \begin{tikzpicture}[scale=0.8]
@@ -12,28 +15,37 @@ Kommunikationen mellem mikrocontolleren og FPGA’en foregår med SPI (Serial Pe
 \label{fig:SPImasterslave}
 \end{figure}
 
-Der er fire kanaler mellem masteren og slaverne: Slave Select (SS), Serial Clock (SCLK), MOSI (Master Output Slave Input) og MISO (Master Input Slave Output). SS bruges til at vælge hvilken slave, der skal overføres data med. Den kan også sammenlignes med en chip select. SCLK bruges som clock frekvens som synkroniserer SS, MOSI og MISO. MOSI er det data master sender til slaven, ligeså er MISO er det data som master modtager fra slaven.
- 
+Der er fire ledninger mellem masteren og slaven: Slave Select (SS), Serial Clock (SCLK), Master Output Slave Input (MOSI) og Master Input Slave Output (MISO). SS bruges til at vælge hvilken slave der skal overføres data til/fra. Den kan også sammenlignes med en chip select. SCLK generes af masteren; SS, MOSI og MISO kører synkront med dette signal. MOSI er det data master sender til slaven, ligeså er MISO er det data som master modtager fra slaven.
+ \todo[inline, author=Michael]{Sidste sætning nok overflødig; det er logisk udfra nanvne samt vist på fig. \ref{fig:SPImasterslave}.}
 
 \subsection{Overvejelser og valg}
-Der er gået mange overvejelser i hvordan SPI'en mellem mikrocontrolleren og FPGA'en skal opbygges.
+%%%%% FYLDTEKST:
+%Der er gået mange overvejelser i hvordan SPI'en mellem mikrocontrolleren og FPGA'en skal opbygges.
 
 Det blev vedtaget at mikrocontrolleren var masteren og FPGA'en blev slaven, da FPGA'en helst skulle være så enkel som mulig.
 
-Mikrocontrolleren har også indbygget tre SPI programmer. De tre typer er TI Synchronous Serial Frame Format (SSFT), Freescale og Microwire. Til at overfører data mellem Mikrocontrolleren og FPGA’en skal der bruges en enkel protokol med full duplex. \todo[author=Anders]{Hovedgrundene til valget af SPI protokol.}Hovedgrundene for at protokollen skal være enkel, er at der ikke sendes meget data, dataene er enkel, og afstanden, den sendes, er kort. Microwire er ikke full duplex. Så det er enten SSFt eller Freescale, der skulle bruges. Da SSFT havde færre opsætningsmuligheder, blev den valgt som protokol. I SSFT ligger svaret på nogle af overvejelserne. Overvejelserne har været om MOSI skal trigger på rising eller falling edge, og hvordan Slave Select skulle opføre sig.
+Mikrocontrolleren har indbygget tre forskellige versioner af SPI. De tre typer er TI Synchronous Serial Frame Format (SSFT), Freescale og Microwire. 
+%Til at overfører data mellem Mikrocontrolleren og FPGA’en skal der bruges en enkel protokol med full duplex. \todo[author=Anders]{Hovedgrundene til valget af SPI protokol.}
+%Hovedgrundene for at protokollen skal være enkel, er at der ikke sendes meget data, dataene er enkel, og afstanden, den sendes, er kort. 
+%Microwire er ikke full duplex. Så det er enten SSFt eller Freescale, der skulle bruges. Da SSFT havde færre opsætningsmuligheder, blev den valgt som protokol. 
+%I SSFT ligger svaret på nogle af overvejelserne. Overvejelserne har været om MOSI skal trigger på rising eller falling edge, og hvordan Slave Select skulle opføre sig.
+Microwire blev udelukket da den ikke er full-duplex og dermed ikke en ren SPI standard. 
+Freescale formatet blev udelukket da opsætningen af denne var mere kompliceret end for SSFT, uden at tilføje ekstra muligheder. 
 
-Frekvensen af SCLK skal vælges så høj, at SPI ikke bliver en flaskehals i kommunikationen mellem mikrocontrolleren og FPGA’en, og tilpas lav, så der ikke introduceres unødige fejlkilder, ved at FPGA’en ikke kan følge med. \todo[author=Åse,inline]{Resultat ???}
+Frekvensen af SCLK skal vælges så høj, at SPI ikke bliver en flaskehals i kommunikationen mellem mikrocontrolleren og FPGA’en, og tilpas lav, så der ikke introduceres unødige fejlkilder, ved at FPGA’en ikke kan følge med.
+\todo[inline, author=Michael]{Linjen herover bør fjernes da det er bedre at kravene ud fra vores krav til control-tasken som helhed. Se uC afsnittet under kravspecifikation.}
 
 \todo[author=Åse,inline]{Hvad er SCLK's frekvens}
 \todo[author=Anders,inline]{Eventuelt skal nedenstående ind i næste afsnit.}
 Størrelsen af framen skulle være så stor, at PWM kan sendes til FPGA’en, og positionen i form af ticks kan sendes fra FPGA’en. Begge skal kunne sendes i den rigtige opløsning. PWM og ticks har begge en størrelse af 11 bit. Der skal også være et motor, retnings- og PWMset bit. Det giver at framen mindst skal være 14 bit lang. Mikrocontrolleren understøtter en størrelse mellem fire og 16 bit.16 bit blev valgt, da der er plads til udbygning.
-
+\todo[inline, author=Michael]{Forkort dette afsnit. F.eks:}
+Størrelse af data framen blev valgt til 16 bit ($2^4$), da det giver mulighed for at sende motorens hastighed og deres position (begge 11 bit) samt kontroldata. Indholdet af de enkelte pakker/datawords kan ses på figur \label{tb:protokol1}.
 
 \subsection{Brugen af SPI}
 
-\todo[author=Åse, inline]{Det teknindske om Mikrocontroller er meget kort. Men det er noget der bare kan læses i stabladet. Skal der henvises til databladet.}
+\todo[author=Åse, inline]{Det tekniske om Mikrocontroller er meget kort. Men det er noget der bare kan læses i databladet. Skal der henvises til databladet.}
 
-På mikrocontrolleren bruges SPI verion SSFT. Den er sat til at være master, derfor er det den, som inistialiserer overførelsen mellem mikrocontrolleren og FPGA'en, \citep[Kap. 13]{lm3s6965}.
+På mikrocontrolleren bruges SPI verion SSFT. Den er sat til at være master, derfor er det den, som initialiserer overførelsen mellem mikrocontrolleren og FPGA'en, \citep[Kap. 13]{lm3s6965}.
 
 På FPGA'en er SPI'en tp shift registre, der konverterer signalet fra seriel til parallel og vice versa. Efter konverteringen sendes det videre ind i systemmet. 
 
