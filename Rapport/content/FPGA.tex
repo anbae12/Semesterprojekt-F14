@@ -2,11 +2,12 @@
 \label{sec:FPGA}
 \todo[inline, color = pink]{Mikkel: Er nogenlunde færdigt, så må hjertens gerne læses igennem :) }
 FPGA'en er leddet mellem mikrokontrolleren og motorene på PTS. 
-Kommunikationen mellem FPGA og microcontroller skal ske ved hjælp af SPI. 
+Kommunikationen mellem FPGA og mikrocontroller skal ske ved hjælp af SPI. 
 FPGA'en skal producere PWM signal til motorerne på PTS og skal kunne tælle motorenes rotationer. 
 FPGA'en er i projeket et BASYS board\footnote{DIGILENT BASYS 2}, der programmeres ved brug af VHDL\footnote{VHSIC Hardware Description Language}.
 Ovenstående krav til funktionaliteten på FPGAen er fastsat af 
 projektformuleringen.
+\todo[inline, author=Michael]{Bør vi have en kort beskrivelse af boardet? Hvilken FPGA der sidder på, antallet af gates/LUTs osv?}
 
 \subsection{Foretagede valg i opbygning af FPGA funktionalitet}
 Eftersom de fleste krav til FPGAen er givet af projektbeskrivelsen, er der ikke 
@@ -27,9 +28,11 @@ Der skal fra FPGAen genereres PWM signaler til at styre motorerne på PTS.
 Det ønskes at have en PWM frekvens, der ikke ligger i det hørbare område, hvilket ca. går op til 20 [kHz]\footnote{\url{en.wikipedia.org/wiki/Hearing\_range}}. 
 Det ønskes ydermere at have en god opløsning på PWM. 
 Ved 11 bits opløsning på PWM og brug af BASYS boardets interne clock på 50 [MHz] bliver PWM frekvensen passende høj:
+\todo[inline, author=Michael]{Find et argument for den valgte opløsning.}
 \begin{equation}
-  \frac{2^{11}}{50 \text{ [MHz]}} = 24.41 \text{ [kHz]}
+  \frac{50 \text{ [MHz]}}{2^{11}} = 24.41 \text{ [kHz]}
 \end{equation}
+
 
 %\subsubsection*{Kalibrering af motorposition}
 \textbf{Kalibrering af motorposition}\\
@@ -38,8 +41,8 @@ Kalibreringen af motorpositionen kan laves ved at sørge for at PTS drejer forbi
 de to hall sensorer, der er placeret på systemet. Dette vil give et signal, da 
 der på PTS er placeret en magnet på hver af rammerne.
 Det blev besluttet at placere ansvaret for at dreje rammerne hen til hall 
-sensorerne hos mikrokontrolleren. Det blev besluttet, da det giver mulighed for 
-en simplere protokol mellem FPGA og mikrokontroller. Det sikrer samtidigt at mikrokontrolleren 
+sensorerne hos mikrocontrolleren. Det blev besluttet, da det giver mulighed for 
+en simplere protokol mellem FPGA og mikrokontroller. Det sikrer samtidigt at mikrocontrolleren 
 altid har kontrol over hvordan PTS bevæger sig.
 Funktionaliteten der skal være på FPGAen er således at opfange outputtet fra 
 hall sensorerne og nulstille den tilhørende position.
@@ -75,7 +78,7 @@ Herunder følger en forklaring på komponenterne.
 Signaler fra encoder på PTS. Reset signal fra tic reset.
 
 \textbf{Output:} Positionen på hver af motorerne angivet i antal tics mellem 0 
-og 1080. Retningen, som motorerne roterer i. 
+og 1079. Retningen, som motorerne roterer i. 
 
 Da encoderne på PTS er quadrature encodere er det muligt at bestemme både retning og 
 tælle rotationer på motoren.
@@ -108,6 +111,7 @@ flanke på hall sensor outputtet, mens reset signalet sættes højt på nedadgå
 flanke i den anden retning. Reset signalet udsendes derved på samme sted, som vist på figur \ref{fig:hall_sensor_signal}.
 Hermed fås det smallest mulige område, hvor reset signalet er højt.
 Det er testet at dette område svarer til ca. 1-2 ticks.
+\todo[inline, author=Michael]{Mere præcis måling af hall sensor området mangler. F.eks. $2 \pm 3$}
 
 %\subsection*{Display}
 \textbf{Display}\\
