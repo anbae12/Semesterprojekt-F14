@@ -45,7 +45,7 @@ Set ovenfra bevæger målet sig som illustreret på figur \ref{fig:para_in_xy_pl
 }
 \caption[Lerduens parabel i 2D]{Viser parablen af lerduens bane i 2D.}
 \end{figure}
-
+\todo[inline, color = pink,author = Mikkel]{Er det ikke ligegyldigt at vi kan affyre to skud, hvis kun ét er tilladt?}
 Det anslås, at man kan nå at affyre to skud mellem tidspunktet,
 hvor lerduen når toppunktet og SB, ligning \ref{eq:ks:nedslagstid}.
 I dette tidsrum skal Pan \& Tilt-systemet sigte på lerduen så geværet kan ramme.
@@ -61,6 +61,7 @@ der er lavere end tiden \(t_{s}\) angivet i ligning, \ref{eq:ks:settlingtime}.
 
 Haglene fra et 12 gauge haglgevær med Skeet Choke spredes så de dækker et område
 med en diameter på 1,32 [m] på en afstand på 37 [m], \citep[Pattern and choke]{patternandchoke}.
+\todo[inline, color = pink,author = Mikkel]{ Ligning 2.4 gælder vel kun ved antagelse af lineær spredning?}
 Spredningsvinklen er dermed givet ved ligning \ref{eq:ks:spredning}.
 \begin{align}
   Spredning &= \tan \left(\frac{1,32}{2} / 37 \right) \\
@@ -71,7 +72,7 @@ Der er altså et krav om at geværet peger på lerduen med en præcision på \(\
 Dette krav gælder for både pan-rammens vinkel (\(\phi\)) og tilt-rammens vinkel (\(\theta\)).
 For en 1-radian reference giver dette altså en maksimal steady state tracking error (SSE) på 1,78 \%.
 \todo[inline, author=Michael]{Den virkelige sammenhænge er mere kompleks: Hvis både pan \& tilt rammen peger 1\degree ved siden af, er den samlede afvigelse vel over 1,02\degree}
-
+\todo[inline, color = pink, author = Mikkel]{Hvad mening giver det at kigge på 1 radian reference og kan man virkelig kalde det SSE?}
 
 Tilt-rammen kan bevæge sig frit,
 men pan-rammen kan pga. en stopklods kun rotere \(154 \degree\)\footnote{Målt eksperimentielt.}.
@@ -81,4 +82,5 @@ som afhænger af reguleringen
 Hvis det antages, at vinklen \(0 \degree\) er lige midt imellem pan-rammens rotationsgrænser,
 så den kan rotere \(77 \degree\) til hver side, så er det maksimale overshoot for et 1-radians step-input
 givet ved \(34 \%\).
+\todo[inline, color = pink, author = Mikkel]{Hvad mening giver den 1 radian reference?}
 \todo[inline, author=Michael]{Indsæt evt. figur med overshoot begrænsninger?}

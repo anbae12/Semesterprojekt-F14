@@ -63,6 +63,8 @@ Den udleverede mikrocontroller er en 32 bit Stellaris LM3S6965, baseret på en A
 SPI er indbygget som et hardwaremodul, med seperate FIFO buffere til afsendelse og modtagelse. Hardwaren sender data fra den ene den buffer og lægger modtaget data i den anden. Derfor er det ikke nødvendigt for programmøren at holde styr på timingen. Størrelsen af hvert dataframe kan være 4 - 16 bits. 
 
 UART er også implementeret som et hardwaremodul. Modulet indeholder seperate FIFO buffere til afsendelse og modtagelse af data, hver med plads til 16 datawords (max 8 bit). 
+\todo[inline, color = pink, author = Mikkel]{Max 8 bit?}
+
 
 %%%%%%% Den næste sætning er vist bare fyldtekst
 %Controlleren indeholder også et væld af hardwaremoduler til andre funktioner, men disse er ikke relevante for projektet.
