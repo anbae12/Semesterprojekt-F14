@@ -42,9 +42,9 @@ og at mikrocontrolleren skal regulere begge SISO-undersystemer.
 \label{fig:digitalkontroller1}
 \end{figure}
 Som beskrevet i afsnit \ref{sec:problemformulering},
-så er input-samplingen fastlagt til at foregå med en frekvens på 60 [Hz].
+så er input-samplingen fastlagt til at foregå med en frekvens på 120 [Hz].
 Men som illustreret på figur \ref{fig:digitalkontroller1}, så skal reguleringssløjfen
-"køres" (sample) med en frekvens \(f_s=\frac{1}{T_s}\), der ikke nødvendigvis er 60 [Hz].
+"køres" (sample) med en frekvens \(f_s=\frac{1}{T_s}\), der ikke nødvendigvis er 120 [Hz].
 \todo[inline, color = pink, author = Mikkel]{Skal opdateres med den frekvens vi bliver enige om.}
 Dvs. A/D- og D/A-konverteringerne (ikke input-samplingen) skal foregå med frekvensen \(f_s\).
 
@@ -116,18 +116,18 @@ ud fra systemets dynamik (til diskretiseringen), som beskrevet ovenfor,
 fra samplingteoremet (Nyquist-frekvensen) samt ud fra
 mikrocontrollerens begrænsninger.
 
-Da samplingen af inputparablen (A/D-konverteringen) foregår fast ved 60 [Hz],
+Da samplingen af inputparablen (A/D-konverteringen) foregår fast ved 120 [Hz],
 som beskrevet i problemformuleringen, er rekonstruktionen
 af det oprindelige signal allerede her begrænset. Dvs. man
 ikke kan få mere information om det oprindelige signal
 uanset hvor hurtigt man sampler efter A/D-konverteringen af
 det oprindelige signal.
-Samplingfrekvensen på 60 [Hz] fortæller os,
-at det oprindelige signal kun er bevaret op til 30 [Hz].
-Hvis reguleringssløjfen køres med en frekvens på under 60 [Hz]
+Samplingfrekvensen på 120 [Hz] fortæller os,
+at det oprindelige signal kun er bevaret op til 60 [Hz].
+Hvis reguleringssløjfen køres med en frekvens på under 120 [Hz]
 vil \textit{mere} information gå tabt.
 Derfor skal reguleringssløjfen, ud fra samplingteoremet, helst køres
-ved minimum 60 [Hz].
+ved minimum 120 [Hz].
 
 Diskretiseringen af åbensløjfeoverføringsfunktionerne stiller også krav til samplingfrekvensen.
 Diskretiseringen skal altså sammenlignes med den kontinuerte overføringsfunktion.
@@ -145,11 +145,11 @@ Dvs. det kan tolereres hvis overshoot
 ved diskretiseringen ændrer sig fra 2 \% til 3 \%.
 
 Hvis diskretiseringen kræver at reguleringssløjfen kører ved en frekvens \(f_s\),
-der er højere end A/D-konverteringens 60 [Hz], skal det A/D-konverterede
-signal "upsamples" til \(f_s\), og de spejlede "images" af sprektet ved \(n\cdot{}60 \mathrm{\left[Hz\right]}\) skal filtreres væk.
+der er højere end A/D-konverteringens 120 [Hz], skal det A/D-konverterede
+signal "upsamples" til \(f_s\), og de spejlede "images" af sprektet ved \(n\cdot{}120 \mathrm{\left[Hz\right]}\) skal filtreres væk.
 Upsamplingen har den simpleste implementering
-hvis \(f_s\) er et heltalsmultiplum af den første samplings frekvens (60 [Hz])\todo[author=Anders]{eventuelt: frekvens på 60 [Hz].} \citep{dsp}\todo[author=Anders]{Konkret side i henvisningen.}.
-Diskretiseringen af det fysiske systems åbensløjfeoverføringsfunktioner skal altså samples ved et heltalsmultiplum \(f_s\) af 60 [Hz].
+hvis \(f_s\) er et heltalsmultiplum af den første samplings frekvens (120 [Hz])\todo[author=Anders]{eventuelt: frekvens på 120 [Hz].} \citep{dsp}\todo[author=Anders]{Konkret side i henvisningen.}.
+Diskretiseringen af det fysiske systems åbensløjfeoverføringsfunktioner skal altså samples ved et heltalsmultiplum \(f_s\) af 120 [Hz].
 
 På figur \ref{fig:diskretTiltStep} er stepresponsen for lukketsløjfesystemet (med forstærkning 1)
 med \(G_{tilt}\) indtegnet sammen med den tilsvarende steprespons for to forskellige diskretiseringer
@@ -162,7 +162,7 @@ på det kontinuerte systems respons når samplingfrekvensen er højest.
 {Sammenligning af steprespons for kontinuert system med diskretiseret system.
 Den mørkeblå kurve er det kontinuerte systems respons,
 og de andre kurver er det diskretiserede systems respons ved en samplingfrekvens på
-60 [Hz] (grøn), 210 [Hz] (rød) og 600 [Hz] (lyseblå).}
+120 [Hz] (grøn), 210 [Hz] (rød) og 600 [Hz] (lyseblå).}
 \label{fig:diskretTiltStep}
 \end{figure}
 \todo[inline,author=Anders]{Der står både [s] og [seconds], den ene burde være nok.}
@@ -247,14 +247,14 @@ Da reguleringssløjfen, som beskrevet i afsnit \ref{subsec:choosefs}, køres med
 som er 10 gange højere end input-samplingfrekvensen, skal der altså foretages en upsampling.
 Upsamplingen indsætter mellem hvert input-sample 9 samples med værdien 0, så hvert input-sample
 kun samples én gang. Dette gør, at input-signalets frekvensspektrum bevares.
-Da input-signalet er samplet ved 60 [Hz] vil det oprindelige spektrum, centreret omkring 0 [Hz],
-spejles ved heltalsmultipla af 60 [Hz]. Disse spejlbilleder af det oprindelige spektrum vil være
+Da input-signalet er samplet ved 120 [Hz] vil det oprindelige spektrum, centreret omkring 0 [Hz],
+spejles ved heltalsmultipla af 120 [Hz]. Disse spejlbilleder af det oprindelige spektrum vil være
 indeholdt i det upsamplede signal, hvis det ikke filtreres. Derfor skal et lavpasfilter anvendes,
 som dæmper spejlbillederne af det oprindelige spektrum.
 
 Kravene til lavpasfilteret er, at det med så få taps\todo[inline,author=Mikael]{Forklar taps}
 som muligt skal give en rimelig dæmpning af
-spejlbillederne af det oprindelige spektrum vedheltalsmultipla af 60 [Hz].
+spejlbillederne af det oprindelige spektrum vedheltalsmultipla af 120 [Hz].
 
 Det vælges at implementere et 26. ordens FIR-filter med Hamming-vindue, da det foruden tilfredsstillende opfyldelse
 af de ovennævnte krav også har lineær fase.
