@@ -45,7 +45,6 @@ Som beskrevet i afsnit \ref{sec:problemformulering},
 så er input-samplingen fastlagt til at foregå med en frekvens på 120 [Hz].
 Men som illustreret på figur \ref{fig:digitalkontroller1}, så skal reguleringssløjfen
 "køres" (sample) med en frekvens \(f_s=\frac{1}{T_s}\), der ikke nødvendigvis er 120 [Hz].
-\todo[inline, color = pink, author = Mikkel]{Skal opdateres med den frekvens vi bliver enige om.}
 Dvs. A/D- og D/A-konverteringerne (ikke input-samplingen) skal foregå med frekvensen \(f_s\).
 
 Der er overordnet to strategier til valg af samplingfrekvensen \(f_s\) hvormed
@@ -146,9 +145,9 @@ ved diskretiseringen ændrer sig fra 2 \% til 3 \%.
 
 Hvis diskretiseringen kræver at reguleringssløjfen kører ved en frekvens \(f_s\),
 der er højere end A/D-konverteringens 120 [Hz], skal det A/D-konverterede
-signal "upsamples" til \(f_s\), og de spejlede "images" af sprektet ved \(n\cdot{}120 \mathrm{\left[Hz\right]}\) skal filtreres væk.
+signal "upsamples" til \(f_s\).
 Upsamplingen har den simpleste implementering
-hvis \(f_s\) er et heltalsmultiplum af den første samplings frekvens (120 [Hz])\todo[author=Anders]{eventuelt: frekvens på 120 [Hz].} \citep{dsp}\todo[author=Anders]{Konkret side i henvisningen.}.
+hvis \(f_s\) er et heltalsmultiplum af den første samplings frekvens (120 [Hz]) \citep[s. 562]{dsp}.
 Diskretiseringen af det fysiske systems åbensløjfeoverføringsfunktioner skal altså samples ved et heltalsmultiplum \(f_s\) af 120 [Hz].
 
 På figur \ref{fig:diskretTiltStep} er stepresponsen for lukketsløjfesystemet (med forstærkning 1)
@@ -162,10 +161,9 @@ på det kontinuerte systems respons når samplingfrekvensen er højest.
 {Sammenligning af steprespons for kontinuert system med diskretiseret system.
 Den mørkeblå kurve er det kontinuerte systems respons,
 og de andre kurver er det diskretiserede systems respons ved en samplingfrekvens på
-120 [Hz] (grøn), 210 [Hz] (rød) og 600 [Hz] (lyseblå).}
+120 [Hz] (grøn), 240 [Hz] (rød) og 600 [Hz] (lyseblå).}
 \label{fig:diskretTiltStep}
 \end{figure}
-\todo[inline,author=Anders]{Der står både [s] og [seconds], den ene burde være nok.}
 På figur \ref{fig:diskretStepFreq} er samme steprespons' performance afbildet
 for pan og for tilt som funktion af samplingfrekvensen \(f_s\).
 De sammenlignede størrelser er Rise Time, Settling Time og Overshoot.
@@ -208,7 +206,7 @@ Som udgangspunkt vælges derfor en samplingfrekvens på \(f_s=600 \mathrm{\left[
 så diskretiseringen med god tilnærmelse har samme performance som det kontinuerte system,
 og så der er mest tid til reguleringssløjfens beregninger og SPI-kommunikation.
 
-\subsection{Analyse af den diskretiserede}
+\subsubsection{Analyse af den diskretiserede overføringsfunktion}
 \todo[inline,author=Anders]{Pan og tilt diskretiserende transferfunktioner. }
 
 \begin{equation}
@@ -244,18 +242,11 @@ mens fejlen på fasen er lille ved lave frekvenser og stiger ved høje frekvense
 
 \subsection{Upsampling}
 Da reguleringssløjfen, som beskrevet i afsnit \ref{subsec:choosefs}, køres med en frekvens på 600 [Hz],
-som er 10 gange højere end input-samplingfrekvensen, skal der altså foretages en upsampling.
-Upsamplingen indsætter mellem hvert input-sample 9 samples med værdien 0, så hvert input-sample
+som er 5 gange højere end input-samplingfrekvensen, skal der altså foretages en upsampling.
+Upsamplingen indsætter mellem hvert input-sample 4 samples med værdien 0, så hvert input-sample
 kun samples én gang. Dette gør, at input-signalets frekvensspektrum bevares.
 Da input-signalet er samplet ved 120 [Hz] vil det oprindelige spektrum, centreret omkring 0 [Hz],
 spejles ved heltalsmultipla af 120 [Hz]. Disse spejlbilleder af det oprindelige spektrum vil være
-indeholdt i det upsamplede signal, hvis det ikke filtreres. Derfor skal et lavpasfilter anvendes,
-som dæmper spejlbillederne af det oprindelige spektrum.
-
-Kravene til lavpasfilteret er, at det med så få taps\todo[inline,author=Mikael]{Forklar taps}
-som muligt skal give en rimelig dæmpning af
-spejlbillederne af det oprindelige spektrum vedheltalsmultipla af 120 [Hz].
-
-Det vælges at implementere et 26. ordens FIR-filter med Hamming-vindue, da det foruden tilfredsstillende opfyldelse
-af de ovennævnte krav også har lineær fase.
-\todo[inline,author=Mikael]{Indsæt to figurer:\\- Bode Plot af FIR-filter.\\- ufiltreret FFT vs. filtreret FFT}
+indeholdt i det upsamplede signal, hvis det ikke filtreres. 
+En filtrering vil dog give signalet en forsinkelse før det når regulatoren,
+og dette bidrager til fejlen. Det vælges derfor ikke at anvende et upsampling-filter.
