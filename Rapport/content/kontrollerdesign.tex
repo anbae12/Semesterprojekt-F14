@@ -233,3 +233,24 @@ frekvensrespons.
 Som det ses på grafen, følger det diskretiserede systems respons meget nøje det kontinuerte systems respons.
 Fejlen på størrelsen på responsen er meget lille i hele spektret,
 mens fejlen på fasen er lille ved lave frekvenser og stiger ved høje frekvenser.
+
+\subsection{Upsampling}
+Da reguleringssløjfen, som beskrevet i afsnit \ref{subsec:choosefs}, køres med en frekvens på 600 [Hz],
+som er 10 gange højere end input-samplingfrekvensen, skal der altså foretages en upsampling.
+Upsamplingen indsætter mellem hvert input-sample 9 samples med værdien 0, så hvert input-sample
+kun samples én gang. Dette gør, at input-signalets frekvensspektrum bevares.
+Da input-signalet er samplet ved 60 [Hz] vil det oprindelige spektrum, centreret omkring 0 [Hz],
+spejles ved heltalsmultipla af 60 [Hz]. Disse spejlbilleder af det oprindelige spektrum vil være
+indeholdt i det upsamplede signal, hvis det ikke filtreres. Derfor skal et lavpasfilter anvendes,
+som dæmper spejlbillederne af det oprindelige spektrum.
+
+Kravene til lavpasfilteret er, at det med så få taps\todo[inline,author=Mikael]{Forklar taps}
+som muligt skal give en rimelig dæmpning af
+spejlbillederne af det oprindelige spektrum vedheltalsmultipla af 60 [Hz].
+
+Det vælges at implementere et 21. ordens FIR-filter, da det foruden tilfredsstillende opfyldelse
+af de ovennævnte krav også har lineær fase.
+Da det meste af det oprindelige parabelspektrum findes ved 0 [Hz], vil det være
+fordelagtigt at udnytte Gibbs-oscillationernes placering i frekvensspektret, således
+at den højeste dæmpning er placeret ved heltalsmultipla af 60 [Hz].
+\todo[inline,author=Mikael]{Indsæt to figurer:\\- Bode Plot af FIR-filter.\\- ufiltreret FFT vs. filtreret FFT}
