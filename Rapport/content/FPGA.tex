@@ -13,25 +13,26 @@ Eftersom de fleste krav til FPGAen er givet af projektbeskrivelsen, er der ikke
 lavet noget større analysearbejde af FPGAens funktionalitet. Undervejs i 
 udviklingen af funktionaliteten er der dog taget nogle valg.
 
-\todo[author=Åse,inline]{Behøves subsubsection? Det er nogle små afsnit.}
-
-\subsubsection*{Generiske komponenter}
+%\subsubsection*{Generiske komponenter}
+\textbf{Generiske komponenter}\\
 For at lave et system med lav kobling er det forsøgt at lave 
 generiske komponenter til de funktionaliteter, der er af generel art. 
 Til at varetage den resterende funktionalitet, er der skrevet applikationsspecifikke 
 komponenter.
 Denne sikrer, at koden er let at udbygge og genbruge.
 
-\subsubsection*{PWM}
+%\subsubsection*{PWM}
+\textbf{PWM}\\
 Der skal fra FPGAen genereres PWM signaler til at styre motorerne på PTS.
 Det ønskes at have en PWM frekvens, der ikke ligger i det hørbare område, hvilket ca. går op til 20 [kHz]\footnote{\url{en.wikipedia.org/wiki/Hearing\_range}}. 
 Det ønskes ydermere at have en god opløsning på PWM. 
 Ved 11 bits opløsning på PWM og brug af BASYS boardets interne clock på 50 [MHz] bliver PWM frekvensen passende høj:
 \begin{equation}
-  \frac{2^{11}}{50 \text{[MHz]}} = 24.41 \text{[kHz]}
+  \frac{2^{11}}{50 \text{ [MHz]}} = 24.41 \text{ [kHz]}
 \end{equation}
 
-\subsubsection*{Kalibrering af motorposition}
+%\subsubsection*{Kalibrering af motorposition}
+\textbf{Kalibrering af motorposition}\\
 PTS skal kunne tændes i en tilfældig position og derefter kalibreres.
 Kalibreringen af motorpositionen kan laves ved at sørge for at PTS drejer forbi 
 de to hall sensorer, der er placeret på systemet. Dette vil give et signal, da 
@@ -68,7 +69,8 @@ Herunder følger en forklaring på komponenterne.
 
 \todo[author=Åse,inline]{Teksten over figuren kan uddybes, med at beskrive de vigtigeste komponenter. Mens kan teksten nedenunder komme i appendix.}
 
-\subsection*{Tic counter}
+%\subsection*{Tic counter}
+\textbf{Tic counter}\\
 \textbf{Input:}
 Signaler fra encoder på PTS. Reset signal fra tic reset.
 
@@ -84,9 +86,9 @@ For at kalibrere positionen er det nødvendigt for tic counter komponenten at f�
 et reset signal fra tic reset komponenten. 
 Når dette reset signal modtages nulstilles positionen og er herved kalibreret.
 
-\subsection*{Tic reset}
-\textbf{Input:} Signaler fra hall sensorer på PTS. Rotationsretning.
-
+%\subsection*{Tic reset}
+\textbf{Tic reset}\\
+\textbf{Input:} Signaler fra hall sensorer på PTS. Rotationsretning.\\
 \textbf{Output:} Reset signal.
 
 \begin{figure}[!th]
@@ -107,7 +109,8 @@ flanke i den anden retning. Reset signalet udsendes derved på samme sted, som v
 Hermed fås det smallest mulige område, hvor reset signalet er højt.
 Det er testet at dette område svarer til ca. 1-2 ticks.
 
-\subsection*{Display}
+%\subsection*{Display}
+\textbf{Display}\\
 \textbf{Input:} Motorposition fra tic counter. Skaleret clock signal fra clock 
 scaler.
 
@@ -117,41 +120,40 @@ Modtager motorpositionen fra tic counter komponenten og viser det på de fire 8-
 på BASYS boardet. Bruger det skalerede clock signal til at multiplexe mellem de 
 fire displays.
 
-\subsection*{Clock scaler}
-\textbf{Input:} BASYS boardets interne clock.
-
+%\subsection*{Clock scaler}
+\textbf{Clock scaler}\\
+\textbf{Input:} BASYS boardets interne clock.\\
 \textbf{Output:} Skaleret clock signal
 
 Skalerer clock signalet.
 
-\subsection*{Input decoder}
-\textbf{Input:} 16 bit data fra SPI.
-
+%\subsection*{Input decoder}
+\textbf{Input decoder}\\
+\textbf{Input:} 16 bit data fra SPI.\\
 \textbf{Output:} PWM kanal og tilhørende PWM dutycycle (11 bit).
 
 Hvis PWM set bittet er højt skal opdateres PWM kanal og tilhørende PWM dutycycle.
 Opdateringen sker ved at tage 2 MSB og lave dem til et PWM kanal output. De 11 
 LSB sendes som PWM dutycycle output.
 
-\subsection*{PWM}
-\textbf{Input:} PWM kanal og tilhørende PWM dutycycle (11 bit).
-
+%\subsection*{PWM}
+\textbf{PWM}\\
+\textbf{Input:} PWM kanal og tilhørende PWM dutycycle (11 bit).\\
 \textbf{Output:} PWM til PTS.
 
 Sørger for at levere PWM til PTS ud fra PWM kanal og dutycycle.
 
-\subsection*{Output decoder}
-\textbf{Input:} Motorposition fra tic counter.
-
+%\subsection*{Output decoder}
+\textbf{Output decoder}\\
+\textbf{Input:} Motorposition fra tic counter.\\
 \textbf{Output:} 16 bit data.
 
 Sørger for skiftevis at sætte motorposition for de to motorer som LSB.
 MSB bruges til at angive, hvilken motor positionen er til.
 
-
-\subsection*{SPI}
-\textbf{Input:} 16 bit data fra output decoder. 16 bit data udefra.
-
+%\subsection*{SPI}
+\textbf{SPI}\\
+\textbf{Input:} 16 bit data fra output decoder. 16 bit data udefra.\\
 \textbf{Output:} 16 bit SPI data ud.
 
 Modtager SPI data udefra. Sørger samtidigt for at sende de 16 bit data fra output decoder.
