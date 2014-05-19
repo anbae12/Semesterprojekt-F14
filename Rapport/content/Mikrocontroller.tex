@@ -283,8 +283,34 @@ Hvis "Ignore PWM" flaget er sat ignoreres den modtagne besked, mens den aktuelle
 % lever vi op til kravene?
 % 
 
+Deadband er testet ved at øge PWM med 6 hz til en motor hvor der blev målt position med 600 hz.
+Ved at se hvornår der sker den første bevægelse er er målt at deadband målt til 141 for tilt og 221 for pan motoren.
+Dette er indsat i en langsom regulator som bliver brugt til at sætte en enkelt position. Her kan error signalet være størst og der er ikke de samme tidskrav til systemet. 
 
+Den matematiske model er sammenlignet med plotdata fra open loop sløjfen på tilt systemet.
+Pan systemet kan ikke bevæge sig hele vejen rundt, så der er ikke foretaget en open loop test af denne motor.
+Testen består i at gå fra 0 til 2047 PWM i trin af 1. PWM bliver forøget med 60Hz og der bliver målt position med 600Hz.
+Sammenligningen er plottet i appendix XXX og den største fejlmargen var XXX.
 
+\todo[inline, color = green, author = Nikolaj]{Jeg har set at dette er plottet, skal det overhovedet med eller var det bare for sjov?}
+
+Realtidsafviklingen af systemet er målt ved at sætte en pin på mikrocontroller boardet og måle resultatet med et oscilloscop.
+Afviklingen af en enkelt control loop i tracking stadiet er målt til XXX \(\micro\) sekunder
+Det kan også aflæses at der er en fast afstand på 1666.667 \(\micro\) sekunder fra start til start, så freeRTOS kan godt følge med til at skedulere med 600 Hz.
+I appendix XXX kan der ses en måling hvor der både bliver målt længden af en task og SPI kommunikationen.
+
+\todo[inline, color = green, author = Nikolaj]{Realtidsafviklingen skal også måles... Men er det ca det her vi vil have til at stå eller skal der mere om dette?}
+
+Reguleringssløjferne er testet ved at plotte loggen og se den maksimale fejl.
+Systemet blev altid sat i samme start position ved funktionen ``reset'' som pegede ind på 18 ticks for tilt og 163 ticks for pan.
+Dette er også det første koordinat i testen, hvilket sikrer at systemet skal lede mindst muligt efter første koordinat.
+Der er foretaget mange test af systemet under fintuning af PID konstanterne.
+for de færdige værdier er der plottet figur XXX i appendix XXX.
+
+\todo[inline, color = green, author = Nikolaj]{Vi har måledata, men vi skal have beregnet nogle bedre PID især til pan systemet før jeg kan henvise til noget.}
 
 
 \subsection{Delkonklusion}
+FreeRTOS er brugbar til tidskritiske operationer.
+Reguleringsstasken kan afvikles med 600Hz. 
+Reguleringssløjferne kan ramme inden for kravene i kravspecifikationen.
