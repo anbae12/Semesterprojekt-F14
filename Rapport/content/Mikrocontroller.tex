@@ -26,7 +26,7 @@ SPI\footnote{Serial Peripheral Interface, også kaldet SSI} bruges til at overf�
 \end{equation}
 
 
-Systemet skal kunne modtage brugerinput gennem et terminalprogram. Brugerinterfacet er ikke tidskritisk. Der skal være mulighed for at udlæse væsentlige systemparametre. F.eks. PTS' position, ønsket position, aktuel Pwm duty cycle osv.
+Systemet skal kunne modtage brugerinput gennem et terminalprogram. Brugerinterfacet er ikke tidskritisk. Der skal være mulighed for at udlæse væsentlige systemparametre såsom: PTS' position, ønsket position, aktuel PWM duty cycle osv.
 
 \todo[inline, author=Michael]{Måske skal disse systemparametre defineres mere fast.}
 
@@ -39,19 +39,6 @@ Systemet skal kunne modtage brugerinput gennem et terminalprogram. Brugerinterfa
 
 Desuden skal systemet gemme disse informationer i en log-fil, som kan udlæses efter systemet er færdig med at tracke målet. 
 
-Systemet skal kunne reagere på følgende bruger inputs:
-
-
-\begin{itemize}
-\itemsep1pt
-	\item Start tracking
-	\item Stop tracking
-	\item Reset systemet
-	\item Gå til koordinat (x,y,z)
-	\item Set PWM
-	\item Læs log
-\end{itemize}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Beskrivelse af valgt(?) mikrocontroller.}
@@ -60,34 +47,21 @@ Den udleverede mikrocontroller er en 32 bit Stellaris LM3S6965, baseret på en A
 
 SPI er indbygget som et hardwaremodul, med seperate FIFO buffere til afsendelse og modtagelse. Hardwaren sender data fra den ene den buffer og lægger modtaget data i den anden. Derfor er det ikke nødvendigt for programmøren at holde styr på timingen. Størrelsen af hvert dataframe kan være 4 - 16 bits. 
 
-UART er også implementeret som et hardwaremodul. Modulet indeholder seperate FIFO buffere til afsendelse og modtagelse af data, hver med plads til 16 datawords (max 8 bit). 
-\todo[inline, color = pink, author = Mikkel]{Max 8 bit?}
+UART er også implementeret som et hardwaremodul. Modulet indeholder seperate FIFO buffere til afsendelse og modtagelse af data, hver med plads til 16 datawords (på max. 8 bit). 
 
-
-%%%%%%% Den næste sætning er vist bare fyldtekst
-%Controlleren indeholder også et væld af hardwaremoduler til andre funktioner, men disse er ikke relevante for projektet.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Valg af skedulering/operativsystem}
-Der er undersøgt 4 forskellige muligheder for skedulering: 
+Der er undersøgt 4 forskellige muligheder for skedulering. CoOS\footnote{\citep{www.coocox.com/CoOS.htm}} og freeRTOS\footnote{\citep{freertos.org}} er komplette real-tids operativsystemer. 
+Run-To-Complete-Scheduler er en simpel scheduler introduceret i EMP kurset. Ved brug af Super-loop metoden afvikles al koden i main-loopet vha. ticks.
+De fire mulige skeduleringer er beskrevet i tabel \ref{tb:os_comparison}.
 
-\begin{itemize}
-\itemsep1pt
-	\item CoOS\footnote{\citep{www.coocox.com/CoOS.htm}} 
-	\item freeRTOS\footnote{\citep{freertos.org}}
-	\item Run-To-Complete-Scheduler\footnote{Introduceret i EMP-kurset}
-	\item Super-loop
-\end{itemize}
-
-De to førstnævnte er fulde operativsystemer med flere mulige skeduleringsalgoritmer. 
-Til valget er der lagt vægt på følgende parametre: 
-
-\begin{itemize}
-\itemsep1pt
-	\item Opfylder kravene til realtidsafvikling af regulatorerne. 
-	\item Muligheden for at (gen)bruge elementer fra EMP-kurset.
-\end{itemize}
+%\begin{itemize}
+%\itemsep-2pt
+%	\item Opfylder kravene til realtidsafvikling af regulatorerne. 
+%	\item Muligheden for at (gen)bruge elementer fra EMP-kurset.
+%\end{itemize}
 
 \begin{table}[h!]
 \begin{tabular}{|l|l|l|l|l|}
@@ -108,6 +82,9 @@ i EMP kurset &   &   &   &   \\
 \caption{Specifikationer for de undersøgte systemer}
 \label{tb:os_comparison}
 \end{table}
+
+Til valget er der lagt vægt på om skeduleringen opfylder kravet til realtidsafvikling af regulatorerne, samt muligheden for at genanvende elementer fra EMP-kurset.
+
 \todo[inline, author=Michael]{Ikke færdig - tilføj noget om hvor lang tid et context switch tager. Dispatch latency.}
 %
 \subsection{Implementering}
@@ -239,7 +216,6 @@ Freescale formatet blev udelukket da opsætningen af denne var mere kompliceret 
 \todo[author=Åse,inline]{Skriv en figur tekst senere} 
 
 \todo[inline, author=Michael]{Alternativ version. Please vote :)}
-\todo[inline, author=Nikolaj]{Jeg stemmer på nummer 2:)}
 
 \begin{figure}[h!]
 \centering
