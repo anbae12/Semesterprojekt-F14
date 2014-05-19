@@ -63,6 +63,8 @@ De fire mulige skeduleringer er beskrevet i tabel \ref{tb:os_comparison}.
 %	\item Muligheden for at (gen)bruge elementer fra EMP-kurset.
 %\end{itemize}
 
+Til valget er der lagt vægt på om skeduleringen opfylder kravet til realtidsafvikling af regulatorerne, samt muligheden for at genanvende elementer fra EMP-kurset.
+
 \begin{table}[h!]
 \begin{tabular}{|l|l|l|l|l|}
 \hline 
@@ -83,9 +85,12 @@ i EMP kurset &   &   &   &   \\
 \label{tb:os_comparison}
 \end{table}
 
-Til valget er der lagt vægt på om skeduleringen opfylder kravet til realtidsafvikling af regulatorerne, samt muligheden for at genanvende elementer fra EMP-kurset.
+\todo[inline, author=Michael]{Jeg kan ikke finde ud af at skrive følgende afsnit. HELP MEAY!}
 
-\todo[inline, author=Michael]{Ikke færdig - tilføj noget om hvor lang tid et context switch tager. Dispatch latency.}
+På baggrund af disse krav blev det valgt at bruge freeRTOS. FreeRTOS opfylder med sin preemptive-priorty skedulering kravene til afvikling i realtid. 
+Desuden har hele gruppen erfaring med systemet ifb. kurset i EMbedded Programmering. 
+
+
 %
 \subsection{Implementering}
 %disp: 
