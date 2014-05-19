@@ -207,12 +207,22 @@ så diskretiseringen med god tilnærmelse har samme performance som det kontinue
 og så der er mest tid til reguleringssløjfens beregninger og SPI-kommunikation.
 
 \subsubsection{Analyse af den diskretiserede overføringsfunktion}
-\todo[inline,author=Anders]{Pan og tilt diskretiserende transferfunktioner. }
-
-\begin{equation}
-	pan
-	\label{eq:pantiltdiskretiserendetf} 
- \end{equation}
+I ligningerne \ref{eq:transpantilt1} findes de diskretiserede overføringsfunktioner.
+\begin{align}
+\label{eq:transpantilt1}
+\begin{split}
+	G_{zoh,pan}\left(z\right)&\approx\frac{7,94\cdot{}10^{-4}\cdot{}z^2
+							+1,56\cdot{}10^{-3}\cdot{}z
+							+1,18\cdot{}10^{-4}}
+							{z^3 - 1,95\cdot{}z^2+9,67\cdot{}10^{-1}\cdot{z}-1,76\cdot{}10^{-2}}
+	\\
+	\\
+	G_{zoh,tilt}\left(z\right)&\approx\frac{1,04\cdot{}10^{-3}\cdot{}z^2
+							+2,03\cdot{}10^{-3}\cdot{}z
+							+1,54\cdot{}10^{-4}}
+							{z^3 - 1,93\cdot{}z^2+9,47\cdot{}10^{-1}\cdot{z}-1,76\cdot{}10^{-2}}
+\end{split}
+\end{align}
  
 Den i afsnit \ref{subsec:choosefs} udførte sammenligning af det diskretiserede systems performance
 med det kontinuerte systems performance viser,
