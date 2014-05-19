@@ -1,29 +1,39 @@
 %nodes
  \node[task_title] (pc)                                               {PC};
  \node[task] (uart_rx) [right of=pc,yshift=-1.6cm,xshift=-1cm]                                               {Uart receive};
- \node[buffer] (uart_rx_buff)  [right of=uart_rx]                      {uart in buffer};
+ \node[buffer_sem] (uart_rx_buff)  [right of=uart_rx]                      {uart in buffer};
  \node[task] (uart_tx)       [above of=uart_rx]                      {Uart send};
  \node[buffer_sem] (uart_tx_buff)  [right of=uart_tx]                           {uart out buffer};
  \node[task] (interface)     [right of=uart_rx_buff,yshift=1.6cm]            {Interface};
  
- \node[memory_sem] (ctrl_bit)     [right of=interface]            {ctrl bit};
+ \node[buffer_sem] (ctrl_bit)     [right of=interface]            {control message};
  \node[task] (ctrl)     [right of=ctrl_bit]            {Control};
  
  \node[memory_sem] (log_file)     [below of=interface]            {log file};
- \node[task] (log)     [right of=log_file,yshift=-1.6cm]            {log updater};
- \node[buffer] (status)     [right of=log,yshift=1.6cm]            {status};
+ \node[task] (log)     [right of=log_file]            {logger};
+ \node[buffer_sem] (status)     [right of=log]            {status};
  \path[->] (log_file)        edge (interface);
- \path[->] (log)        edge[bend right=30] (log_file);
- \path[->] (status)        edge[bend right=30] (log);
+ \path[->] (log)        edge (log_file);
+ \path[->] (status)        edge (log);
  \path[->] (ctrl)        edge (status);
- 
- \node[memory_sem] (pwm_ctrl) [above of=interface] {PWM ctrl};
- \node[task] (read_pwm) [right of=pwm_ctrl,yshift=1.6cm] {read PWM};
- \node[memory_sem] (target) [right of=read_pwm,yshift=-1.5cm,xshift=0.1cm] {target PWM};
+
+ \node[semaphore] (sem_tx) [above of=uart_tx_buff,yshift=-1.5cm] {};
+ \node[semaphore] (sem_rx) [below of=uart_rx_buff,yshift= 1.5cm] {};
+ \path[->] (interface) edge[bend right=30] (sem_tx);
+ \path[->] (interface) edge[bend  left=30] (sem_rx);
+% % %  Hvis vi vil fjerne read pwm fra tegningen
+%  \node[memory_sem] (pwm_ctrl) [above of=interface] {PWM ctrl};
+%  \node[task] (read_pwm) [right of=pwm_ctrl,yshift=1.6cm] {read PWM};
+%  \node[memory_sem] (target) [right of=read_pwm,yshift=-1.5cm,xshift=0.1cm] {target PWM};
+%  \path[->] (interface)        edge (pwm_ctrl);
+%  \path[->] (pwm_ctrl)        edge[bend right=30] (read_pwm);
+%  \path[->] (read_pwm)        edge[bend right=30] (target);
+%  \path[->] (target)        edge (ctrl);
+% % % % 
 
 % % % % Hvis vi vil lave figuren mindre og have FPGA tegnet på... 
-%  \node[task_title] (fpga) [right of=ctrl,xshift=-1cm] {FPGA};
-%  \path[->] (ctrl) edge (fpga);
+ \node[task_title] (fpga) [above of=ctrl] {FPGA};
+ \path[->] (ctrl) edge (fpga);
  
  %Linjer
  
@@ -40,8 +50,5 @@
  \path[->] (interface)       edge (ctrl_bit);
  \path[->] (ctrl_bit)        edge (ctrl);
  
- \path[->] (interface)        edge (pwm_ctrl);
- \path[->] (pwm_ctrl)        edge[bend right=30] (read_pwm);
- \path[->] (read_pwm)        edge[bend right=30] (target);
- \path[->] (target)        edge (ctrl);
+ \path[->] (ctrl) edge[bend left=40] (ctrl_bit);
  

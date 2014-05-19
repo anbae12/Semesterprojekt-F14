@@ -1,11 +1,9 @@
 \newpage
-%\newcommand{\atoc}[1]{\addtocontents{toc}{#1\par}}
-%\renewcommand{\thesection}{\arabic{section}.}
 
 
-\makeatletter
-%\@addtoreset{section}{part}
-\makeatother
+
+%\makeatletter
+%\makeatother
 \newlength\mylen
 \renewcommand\thepart{\Roman{part}}
 \renewcommand\cftpartpresnum{Part~}
@@ -17,3 +15,27 @@
 \listoffigures
 \listoftables  
 
+\subsection*{Indhold CDROM}
+\begin{figure}[th!]
+\centering
+\begin{tabular}{l|l}
+Hvad&Sti\\\hline
+Rapporten&/Master\_doc.pdf\\
+&/Data/\\
+&/PIDoptimering/\\
+
+\end{tabular}
+\captionsetup{type=table}
+%\caption[Indhold på CDROM'en]{Ovenstående tabel beskriver indholdet på CDROM'en.}
+\label{tb:CD}
+\end{figure}
+
+
+
+
+
+
+
+\newpage
+\subsection*{Tekst som mangler at blive skrevet}
+\listoftodos

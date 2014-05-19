@@ -1,6 +1,8 @@
 \input{./content/preamble}
 \input{./content/task_diagram_styles_v2}
 \input{./content/controller_diagram_styles_v1}
+%lstlistings distance to text
+\lstset{aboveskip=0pt,belowskip=-10pt} %is this too agressive?
 \begin{document}
 \pagenumbering{Roman}
 \include{./content/forside}
@@ -12,9 +14,10 @@
 \include{./content/indholdsfortegnelse}
 \pagestyle{fancy}
 \fancyfoot{}
-\fancyfoot[LE,RO]{\thepage}
-\fancyfoot[LO,CE]{}
-\fancyfoot[CO,RE]{}
+\fancyfoot[LE,RO]{}
+\fancyfoot[LO,RE]{}
+\fancyfoot[LO,RE]{}
+\fancyfoot[LO,RE]{\thepage}
 
 % Disable indentation
 \setlength{\parindent}{0pt}

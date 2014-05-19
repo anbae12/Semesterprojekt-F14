@@ -35,6 +35,7 @@ Det er derfor valgt at repræsentere PWM dutycycle ved 11 bit.
 Ved 11 bits opløsning på PWM og brug af BASYS boardets interne clock på 50 [MHz] bliver PWM frekvensen passende høj:
 \todo[inline, author=Michael]{Find et argument for den valgte opløsning.}
 \todo[inline, color = pink, author = Mikkel]{Er ovenstående godt nok? :) }
+\todo[inline, author=Michael]{Ja! }
 
 \begin{equation}
   \frac{50 \text{ [MHz]}}{2^{11}} = 24.41 \text{ [kHz]}
@@ -161,6 +162,8 @@ Agerer som SPI slave i kommunikation med mikrocontrolleren.
 Modtager SPI data udefra. Sørger samtidigt for at sende de 16 bit data fra output decoder.
 
 
+\subsection{SPI}
+På FPGA'en er SPI'en to shift registre. SPI'en konvertere det serielle signal fra MOSI til at parallel signal. Det signal sendes videre til Input decoder, som deler det op i komposanter. Fra Output decoder får SPI signalet, den skal sende til mikrocontrolleren.
 
 
 
