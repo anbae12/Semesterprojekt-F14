@@ -1,6 +1,41 @@
 \newpage
+
+
+
+%\makeatletter
+%\makeatother
+\newlength\mylen
+\renewcommand\thepart{\Roman{part}}
+\renewcommand\cftpartpresnum{Part~}
+\settowidth\mylen{\bfseries\cftpartpresnum\cftpartaftersnum}
+\addtolength\cftpartnumwidth{\mylen}
+
+
 \tableofcontents
 \listoffigures
-\todo[inline,author=Anders]{Der mangler at opdateres figur tekster.}
 \listoftables  
 
+\subsection*{Indhold CDROM}
+\begin{figure}[th!]
+\centering
+\begin{tabular}{l|l}
+Hvad&Sti\\\hline
+Rapporten&/Master\_doc.pdf\\
+&/Data/\\
+&/PIDoptimering/\\
+
+\end{tabular}
+\captionsetup{type=table}
+%\caption[Indhold på CDROM'en]{Ovenstående tabel beskriver indholdet på CDROM'en.}
+\label{tb:CD}
+\end{figure}
+
+
+
+
+
+
+
+\newpage
+\subsection*{Tekst som mangler at blive skrevet}
+\listoftodos
