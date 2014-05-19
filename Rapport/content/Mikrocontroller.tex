@@ -64,26 +64,31 @@ De fire mulige skeduleringer er beskrevet i tabel \ref{tb:os_comparison}.
 %\end{itemize}
 
 Til valget er der lagt vægt på om skeduleringen opfylder kravet til realtidsafvikling af regulatorerne, samt muligheden for at genanvende elementer fra EMP-kurset.
-
-\begin{table}[h!]
-\begin{tabular}{|l|l|l|l|l|}
-\hline 
- & coOS & freeRTOS & RTCS & Super loop \\ 
-\hline 
+\begin{figure}[th!]
+\centering
+\begin{tabular}{l|l|l|l|l}
+ & coOS & freeRTOS & RTCS & Super loop \\ \hline 
 Skedulering & Preemptive priority  & Preemptive priority  & Non-preemptive & Non-preemptive  \\ 
-			& /round robin		&	/round robin & &	\\
-\hline 
-Queues & Ja & Ja & Nej & Nej \\ 
-\hline 
-Semaphore & Counting og Binære  & Counting og Binære & Binære  & Nej  \\ 
-\hline 
+	           & /round robin		& /round robin              & &	\\\hline 
+Queues & Ja & Ja & Nej & Nej \\ \hline 
+Semaphore & Counting og Binære  & Counting og Binære & Binære  & Nej  \\\hline 
 Introduceret & Nej & Ja & Ja & Ja \\ 
 i EMP kurset &   &   &   &   \\
-\hline 
-\end{tabular} 
+\end{tabular}
+%\begin{tabular}{|l|l|l|l|l|}\hline 
+% & coOS & freeRTOS & RTCS & Super loop \\ \hline 
+%Skedulering & Preemptive priority  & Preemptive priority  & Non-preemptive & Non-preemptive  \\ 
+%			& /round robin		&	/round robin & &	\\\hline 
+%Queues & Ja & Ja & Nej & Nej \\ \hline 
+%Semaphore & Counting og Binære  & Counting og Binære & Binære  & Nej  \\\hline 
+%Introduceret & Nej & Ja & Ja & Ja \\ 
+%i EMP kurset &   &   &   &   \\\hline 
+%\end{tabular}
+\captionsetup{type=table}
 \caption{Specifikationer for de undersøgte systemer}
 \label{tb:os_comparison}
-\end{table}
+\end{figure}
+
 
 
 \todo[inline, author=Michael]{Jeg kan ikke finde ud af at skrive følgende afsnit. HELP MEAY!}
