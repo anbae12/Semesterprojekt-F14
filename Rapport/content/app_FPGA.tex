@@ -1,0 +1,89 @@
+\section{FPGA'ens komponenter}
+\label{sec:fpgaappendix}
+Dette appendix forklarer alle komponenter på FPGA'en.
+Et forsimlet diagram over komponenterne på FPGA'en ses på figur \ref{fig:FPGA_blok}.
+
+
+\textbf{Tic counter}\\
+\textbf{Input:}
+Signaler fra encoder på PTS. Reset signal fra tic reset.
+
+\textbf{Output:} Positionen på hver af motorerne angivet i antal tics mellem 0 
+og 1079. Retningen, som motorerne roterer i. 
+
+Da encoderne på PTS er quadrature encodere er det muligt at bestemme både retning og 
+tælle rotationer på motoren.
+Tæller positionen op eller ned afhængigt af inputtet fra encoderne. 
+Tæller ned fra 0 til 1079.
+For at kalibrere positionen er det nødvendigt for tic counter komponenten at få 
+et reset signal fra tic reset komponenten. 
+Når dette reset signal modtages nulstilles positionen og er herved kalibreret.
+
+\textbf{Tic reset}\\
+\textbf{Input:} Signaler fra hall sensorer på PTS. Rotationsretning.\\
+\textbf{Output:} Reset signal.
+
+\begin{figure}[!th]
+\centering
+\include*{./graphics/hall_sensor_signal}
+\caption[Signal fra hall sensor]{Signalet fra hall sensor, når magneten på PTS køres hen over. Ved pilene udsendes reset signalet.}
+\label{fig:hall_sensor_signal}
+\end{figure}
+
+Som beskrevet tidligere er der behov for et reset signal til positionen. 
+Dette skal gøres ved hjælp af hall sensorer på PTS. 
+Det viser sig dog, at hall sensorernes output ikke kun er højt på ét encodertick. 
+Derfor kan signalet fra hall sensorerne ikke i sig selv bruges som reset signal.
+PTS rotationsretningen tages derfor med i betragtning.
+Hvis PTS roterer i én retning sættes reset signalet højt på opadgående 
+flanke på hall sensor outputtet, mens reset signalet sættes højt på nedadgående 
+flanke i den anden retning. Reset signalet udsendes derved på samme sted, som vist på figur \ref{fig:hall_sensor_signal}.
+Hermed fås det smallest mulige område, hvor reset signalet er højt.
+Præcisionen på denne kalibrering er $\pm$ 1 tick.
+
+\textbf{Display}\\
+\textbf{Input:} Motorposition fra tic counter. Skaleret clock signal fra clock 
+scaler.
+
+\textbf{Output:} Signal der styrer displayet.
+
+Modtager motorpositionen fra tic counter komponenten og viser det på de fire 8-digit-displays 
+på BASYS boardet. Bruger det skalerede clock signal til at multiplexe mellem de 
+fire displays.
+
+\textbf{Clock scaler}\\
+\textbf{Input:} BASYS boardets interne clock.\\
+\textbf{Output:} Skaleret clock signal
+
+Skalerer clock signalet.
+
+\textbf{Input decoder}\\
+\textbf{Input:} 16 bit data fra SPI.\\
+\textbf{Output:} PWM kanal og tilhørende PWM dutycycle (11 bit).
+
+Hvis PWM set bittet er højt skal opdateres PWM kanal og tilhørende PWM dutycycle.
+Opdateringen sker ved at tage 2 MSB og lave dem til et PWM kanal output. De 11 
+LSB sendes som PWM dutycycle output.
+
+\textbf{PWM}\\
+\textbf{Input:} PWM kanal og tilhørende PWM dutycycle (11 bit).\\
+\textbf{Output:} PWM til PTS.
+
+Sørger for at levere PWM til PTS ud fra PWM kanal og dutycycle.
+
+%\subsection*{Output decoder}
+\textbf{Output decoder}\\
+\textbf{Input:} Motorposition fra tic counter.\\
+\textbf{Output:} 16 bit data.
+
+Sørger for skiftevis at sætte motorposition for de to motorer som LSB.
+MSB bruges til at angive, hvilken motor positionen er til.
+
+\textbf{SPI}\\
+\textbf{Input:} 16 bit data fra output decoder. 16 bit data udefra.\\
+\textbf{Output:} 16 bit SPI data ud.
+
+Agerer som SPI slave i kommunikation med mikrocontrolleren.
+Modtager SPI data udefra. Sørger samtidigt for at sende de 16 bit data fra output decoder.
+
+
