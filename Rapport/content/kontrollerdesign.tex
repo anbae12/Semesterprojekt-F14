@@ -4,9 +4,10 @@ Det er valgt at designe regulatoren efter processen illustreret i figur \ref{fig
 \begin{figure}[!th]
 \centering
 \include*{./graphics/designproces}
-\caption[Designprocessen]{Designprocessen. Kilde: \citep{reg_modern_control_systems}.}
+\caption[Designprocessen]{Designprocessen, \citep[Side. 260]{reg_modern_control_systems}.}
 \label{fig:designproces}
 \end{figure}
+
 Formålet med reguleringen er som beskrevet i afsnit \ref{sec:problemformulering},
 at kontrollere pan- og tilt-rammernes position, så de tracker en lerdue.
 Dette gøres ved styring af deres hastighed, ved at justere spændingsfaldene over de
@@ -18,7 +19,7 @@ Disse er for en 1-radian reference opsummeret nedenfor.
 \begin{itemize}
 \item \(t_{s} \leq 0,557 \mathrm{\left[s\right]}\) (Settling Time)
 \item \(SSE \leq 1,78 \%\) (Steady State Tracking Error)
-\item \(P.O. \leq 134 \%\) (Overshoot i procent)
+\item \(P.O. \leq 34 \%\) (Overshoot i procent)
 \end{itemize}
 
 Det er fastlagt i projektoplægget, at regulatoren skal implementeres på mikrocontrolleren.
@@ -41,17 +42,17 @@ og at mikrocontrolleren skal regulere begge SISO-undersystemer.
 \label{fig:digitalkontroller1}
 \end{figure}
 Som beskrevet i afsnit \ref{sec:problemformulering},
-så er input-samplingen fastlagt til at foregå med en frekvens på 60 [Hz].
+så er input-samplingen fastlagt til at foregå med en frekvens på 120 [Hz].
 Men som illustreret på figur \ref{fig:digitalkontroller1}, så skal reguleringssløjfen
-"køres" (sample) med en frekvens \(f_s=\frac{1}{T_s}\), der ikke nødvendigvis er 60 [Hz].
-Dvs. A/D- og D/A-konverteringerne skal foregå med frekvensen \(f_s\).
+"køres" (sample) med en frekvens \(f_s=\frac{1}{T_s}\), der ikke nødvendigvis er 120 [Hz].
+Dvs. A/D- og D/A-konverteringerne (ikke input-samplingen) skal foregå med frekvensen \(f_s\).
 
 Der er overordnet to strategier til valg af samplingfrekvensen \(f_s\) hvormed
-reguleringssløjfen skal køre.
-Hvis man designer en kontinuert regulator til det kontinuerte domæne, så
+reguleringssløjfen skal køre:
+1) Hvis man designer en kontinuert regulator til det kontinuerte domæne, så
 skal diskretiseringen af controlleren være så tæt på den kontinuerte regulator som muligt.
 Det vil sige, samplingfrekvensen skal vælges så høj som mulig.
-Hvis man derimod designer en diskret regulator til det diskrete domæne,
+2) Hvis man derimod designer en diskret regulator til det diskrete domæne,
 så er diskretiseringen allerede foretaget inden designet af regulatoren.
 Dvs. man finder en diskretiseret model af det fysiske system inden designet af regulatoren.
 Kravet til diskretiseringen af åbensløjfeoverføringsfunktionerne er, at den diskrete repræsentation
@@ -66,8 +67,9 @@ udvikle en regulator - denne er altså diskret fra starten.
 Da reguleringen foregår i en task på mikrocontrolleren, vælges det
 at udvikle en diskret regulator efter en diskretiseret model af systemet.
 Således kan perioden hvormed regulerings-task'en skal køre, fastlægges ud fra
-samplingperioden \(T_s\). Hvis man havde valgt at designe en analog regulator
-ville perioden skulle vælges så lav som muligt.
+samplingperioden \(T_s\). Hvis man havde valgt at designe en kontinuert regulator
+ville perioden skulle vælges så lav som muligt, og dette ville stille højere krav
+til mikrocontrolleren.
 
 \subsection{Diskretisering af åbensløjfeoverføringsfunktionerne}
 Som beskrevet ovenfor ønskes det at finde en diskretiseret overføringsfunktion
@@ -113,18 +115,18 @@ ud fra systemets dynamik (til diskretiseringen), som beskrevet ovenfor,
 fra samplingteoremet (Nyquist-frekvensen) samt ud fra
 mikrocontrollerens begrænsninger.
 
-Da samplingen af inputparablen (A/D-konverteringen) foregår fast ved 60 [Hz],
+Da samplingen af inputparablen (A/D-konverteringen) foregår fast ved 120 [Hz],
 som beskrevet i problemformuleringen, er rekonstruktionen
 af det oprindelige signal allerede her begrænset. Dvs. man
 ikke kan få mere information om det oprindelige signal
 uanset hvor hurtigt man sampler efter A/D-konverteringen af
 det oprindelige signal.
-Samplingfrekvensen på 60 [Hz] fortæller os,
-at det oprindelige signal kun er bevaret op til 30 [Hz].
-Hvis reguleringssløjfen køres med en frekvens på under 60 [Hz]
+Samplingfrekvensen på 120 [Hz] fortæller os,
+at det oprindelige signal kun er bevaret op til 60 [Hz].
+Hvis reguleringssløjfen køres med en frekvens på under 120 [Hz]
 vil \textit{mere} information gå tabt.
 Derfor skal reguleringssløjfen, ud fra samplingteoremet, helst køres
-ved minimum 60 [Hz].
+ved minimum 120 [Hz].
 
 Diskretiseringen af åbensløjfeoverføringsfunktionerne stiller også krav til samplingfrekvensen.
 Diskretiseringen skal altså sammenlignes med den kontinuerte overføringsfunktion.
@@ -142,11 +144,11 @@ Dvs. det kan tolereres hvis overshoot
 ved diskretiseringen ændrer sig fra 2 \% til 3 \%.
 
 Hvis diskretiseringen kræver at reguleringssløjfen kører ved en frekvens \(f_s\),
-der er højere end A/D-konverteringens 60 [Hz], skal det A/D-konverterede
-signal "upsamples" til \(f_s\), og de spejlede "images" af sprektet ved \(n\cdot{}60 \mathrm{\left[Hz\right]}\) skal filtreres væk.
+der er højere end A/D-konverteringens 120 [Hz], skal det A/D-konverterede
+signal "upsamples" til \(f_s\).
 Upsamplingen har den simpleste implementering
-hvis \(f_s\) er et heltalsmultiplum af den første samplings frekvens (60 [Hz]) \citep{dsp}.
-Diskretiseringen af det fysiske systems åbensløjfeoverføringsfunktioner skal altså samples ved et heltalsmultiplum \(f_s\) af 60 [Hz].
+hvis \(f_s\) er et heltalsmultiplum af den første samplings frekvens (120 [Hz]) \citep[s. 562]{dsp}.
+Diskretiseringen af det fysiske systems åbensløjfeoverføringsfunktioner skal altså samples ved et heltalsmultiplum \(f_s\) af 120 [Hz].
 
 På figur \ref{fig:diskretTiltStep} er stepresponsen for lukketsløjfesystemet (med forstærkning 1)
 med \(G_{tilt}\) indtegnet sammen med den tilsvarende steprespons for to forskellige diskretiseringer
@@ -159,10 +161,9 @@ på det kontinuerte systems respons når samplingfrekvensen er højest.
 {Sammenligning af steprespons for kontinuert system med diskretiseret system.
 Den mørkeblå kurve er det kontinuerte systems respons,
 og de andre kurver er det diskretiserede systems respons ved en samplingfrekvens på
-60 [Hz] (grøn), 210 [Hz] (rød) og 600 [Hz] (lyseblå).}
+120 [Hz] (grøn), 240 [Hz] (rød) og 600 [Hz] (lyseblå).}
 \label{fig:diskretTiltStep}
 \end{figure}
-
 På figur \ref{fig:diskretStepFreq} er samme steprespons' performance afbildet
 for pan og for tilt som funktion af samplingfrekvensen \(f_s\).
 De sammenlignede størrelser er Rise Time, Settling Time og Overshoot.
@@ -170,11 +171,20 @@ Graferne viser ændringen af de tre størrelser i procent i forhold til det kont
 \begin{figure}[!th]
 \centering
 	\includegraphics[width=1\textwidth]{./graphics/diskretStepFreq.eps}
-\caption[Sammenligning af steprespons-performance for kontinuert system med diskretiseret system (\(G_{zoh}\))]
+%\caption[Sammenligning af steprespons-performance for kontinuert system med diskretiseret system (\(G_{zoh}\))]
+%{Sammenligning af steprespons-performance for kontinuert system med diskretiseret system.
+%Den blå kurve angiver fejlen i forhold til lukketsløjferesponsen af \(G_{tilt}\),
+%mens den grønne kurve angiver fejlen i forhold til lukketsløjferesponsen af \(G_{pan}\).
+%}
+
+\caption[Sammenligning af steprespons-performance for kontinuert system med diskretiseret system $G_{zoh}$]
 {Sammenligning af steprespons-performance for kontinuert system med diskretiseret system.
-Den blå kurve angiver fejlen i forhold til lukketsløjferesponsen af \(G_{tilt}\),
-mens den grønne kurve angiver fejlen i forhold til lukketsløjferesponsen af \(G_{pan}\).
+Den blå kurve angiver fejlen i forhold til lukketsløjferesponsen af $G_{tilt}$,
+mens den grønne kurve angiver fejlen i forhold til lukketsløjferesponsen af $G_{pan}$.
 }
+
+% Åses LateX kan ikke lide \math\ i todo, caption og tilsvarende.
+
 \label{fig:diskretStepFreq}
 \end{figure}
 
@@ -196,7 +206,14 @@ Som udgangspunkt vælges derfor en samplingfrekvens på \(f_s=600 \mathrm{\left[
 så diskretiseringen med god tilnærmelse har samme performance som det kontinuerte system,
 og så der er mest tid til reguleringssløjfens beregninger og SPI-kommunikation.
 
-\subsection{Analyse af den diskretiserede overføringsfunktion}
+\subsubsection{Analyse af den diskretiserede overføringsfunktion}
+\todo[inline,author=Anders]{Pan og tilt diskretiserende transferfunktioner. }
+
+\begin{equation}
+	pan
+	\label{eq:pantiltdiskretiserendetf} 
+ \end{equation}
+ 
 Den i afsnit \ref{subsec:choosefs} udførte sammenligning af det diskretiserede systems performance
 med det kontinuerte systems performance viser,
 at Rise Time stiger med 3,3 \% for pan og 0,10 \% for tilt,
@@ -222,3 +239,14 @@ frekvensrespons.
 Som det ses på grafen, følger det diskretiserede systems respons meget nøje det kontinuerte systems respons.
 Fejlen på størrelsen på responsen er meget lille i hele spektret,
 mens fejlen på fasen er lille ved lave frekvenser og stiger ved høje frekvenser.
+
+\subsection{Upsampling}
+Da reguleringssløjfen, som beskrevet i afsnit \ref{subsec:choosefs}, køres med en frekvens på 600 [Hz],
+som er 5 gange højere end input-samplingfrekvensen, skal der altså foretages en upsampling.
+Upsamplingen indsætter mellem hvert input-sample 4 samples med værdien 0, så hvert input-sample
+kun samples én gang. Dette gør, at input-signalets frekvensspektrum bevares.
+Da input-signalet er samplet ved 120 [Hz] vil det oprindelige spektrum, centreret omkring 0 [Hz],
+spejles ved heltalsmultipla af 120 [Hz]. Disse spejlbilleder af det oprindelige spektrum vil være
+indeholdt i det upsamplede signal, hvis det ikke filtreres. 
+En filtrering vil dog give signalet en forsinkelse før det når regulatoren,
+og dette bidrager til fejlen. Det vælges derfor ikke at anvende et upsampling-filter.

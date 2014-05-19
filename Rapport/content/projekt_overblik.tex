@@ -1,10 +1,28 @@
 \section{Projektoverblik}
 \label{sec:projektoverblik}
-\todo[inline,author=Anders]{Der må gerne gives feedback.. jeg synes selv jeg er lidt på bar bund med hvad der skal stå}
-Inden rapportens kommende afsnit introdukseres kort et overblik af projektets komponenter og hvordan de kommunikerer med hinanden.\\
-Som der ses på nedenstående figur \ref{fig:overview_openloop_PTS}, er de forskellige komponenter opdelt i forskellige farver.\\
-De grønne kasser repræsenterer mikrocontrolleren som vha. UART kommunikerer med brugeren. \\
-FPGA'en er repræsenteret vha. en lilla kasse som er bindeledet mellem mikrocontrolleren og de to DC motorer. FPGA'en og mikrocontrolleren kommunikere sammen vha. SPI. FPGA'en genererer to PWM-signaler, som driver hhv. H-broen og motor for pan og H-broen og motor for tilt. DC motorene sender deres encoder feedback til FPGA'en.
+%Anders afsnit:
+%\todo[inline,author=Anders]{Der må gerne gives feedback.. jeg synes selv jeg er lidt på bar bund med hvad der skal stå}
+%Inden rapportens kommende afsnit introdukseres et kort overblik af projektets komponenter og hvordan de kommunikerer med hinanden.\\
+%Som der ses på nedenstående figur \ref{fig:overview_openloop_PTS}, er de forskellige komponenter opdelt i forskellige farver.\\
+%De grønne kasser repræsenterer mikrocontrolleren som vha. UART kommunikerer med brugeren. \\
+%FPGA'en er repræsenteret vha. en lilla kasse som er bindeledet mellem mikrocontrolleren og de to DC motorer. 
+%FPGA'en og mikrocontrolleren kommunikere sammen vha. SPI. FPGA'en genererer to PWM-signaler, som driver hhv. H-broen og motor for pan og H-broen og motor for tilt. DC motorene sender deres encoder feedback til FPGA'en.
+
+%Mikkels:
+
+Af projektoplægget er givet, at projektet skal opdeles som vist på 
+figur \ref{fig:overview_openloop_PTS}. 
+Det ligger altså udenfor dette projekt at bestemme den overordnede opdeling.
+Projektoplægget stiller ydermere følgende krav til implementeringen:
+\begin{itemize}
+  \item Regulatorerne skal implementeres på én microprocessor.
+  \item Der skal benyttes SPI kommunikationen imellem microprocessoren og FPGA’en.
+  \item FPGA’en skal styre PWM signalerne til motorerne.
+  \item FPGA’en skal benyttes til at bestemmes motorernes position via encoderne.
+\end{itemize}
+
+\bigskip
+
 \begin{figure}[!th]
 \centering
 \begin{tikzpicture}[auto, node distance=1cm,>=latex']
@@ -13,3 +31,5 @@ FPGA'en er repræsenteret vha. en lilla kasse som er bindeledet mellem mikrocont
 \caption[Principskitse af PTS]{Principskitse af PTS med farvekoder.}
 \label{fig:overview_openloop_PTS}
 \end{figure}
+
+\todo[inline, author=Michael]{Vi skal beslutte hvad vi vil med dette afsnit: Læseguide? Blokopdeling? Indledning? Krav til enkelte dele? Overblik over valgt løsning? \\ Det afhænger vel af hvilken rapportstruktur vi vælger.}

@@ -38,7 +38,6 @@ Med ovenstående formler er det muligt at finde Pan og Tilt-rammernes teoritiske
 \end{split}
 \end{align}
 
-\todo[inline, author=Michael, color=blue! 50]{Jeg har regnet mig frem til at tilt bevæger sig indenfor for disse grænser:   ( -0,54 degree < tilt < 12,15 degree ). (Dette gælder hvis PTS origin er placeret 0,4 m over Station 4, hvilket er vores udgangspunkt). }
 Tilt-rammens indflydelse på inertimomentet som pan-motoren skal rotere, er afhængig af tilt-rammens vinkel.
 Når tilt-rammen er lodret er bidraget til pan-inertimomentet mindst, jf. ligning \ref{eq:punktmasse_para}, fordi afstanden
 af to af stængerne til rotationsaksen (pan) er mindst. Ligeledes vil bidraget til pan-inertimomentet være størst når tilt-rammen er vandret.
@@ -48,9 +47,7 @@ Man kan argumentere for, at denne konstant bør være gennemsnittet af bidragene
 Denne ville kunne tilnærmes ud fra den ideelle responskurve for tilt-systemet, der kan beregnes ud fra den faste parabel, som gives som input.
 Værdien ville således være baseret på ét specifikt parabelinput. En anden tilgang kunne være at vælge minimum-bidraget, og dermed
 have en værdi der er nøjagtig for de tilt-vinkler, der er tæt på lodret, og mere og mere unøjagtig jo mere vandret tilit-vinklen er.
-Sidstnævnte tilgang vælges, fordi tilt-vinklen i lerdueskydningen er tæt på lodret
-\todo[inline,author=Mikael]{Påstanden er uden belæg. Indsæt reference til tilt-vinklen som funktion af tiden evt.},
-og antagelsen om konstant bidrag til inertimoment derfor er nøjagtig.
+Sidstnævnte tilgang vælges, fordi tilt-vinklen i lerdueskydningen er tilnærmelsesvis lodret. Tilt-rammen roterer i vinkelintervallet \([-0.589^{\circ} \leq \phi \leq 12,3^{\circ}]\) jf. lerduens toppunktstid samt nedslagstid på hhv. 0,557 [s] og 1,52 [s], indsat i ligning \ref{eq:sv_koordi}. Antagelsen om konstant bidrag til inertimoment er derfor nøjagtig.
 
 Tilt-rammens bidrag til inertimomentet for pan bestemmes derfor ud fra, at to af tilt-rammens "stænger" er parallele med
 rotationsaksen, og at de to stænger med længden \({L_{2}}\) er vinkelret på den, samt at de roterer om den.

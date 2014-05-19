@@ -22,41 +22,20 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.7\baselineskip}%
 
-%%%%%%%%% RAPPORTENS KAPTILER BEGYNDER!!!
-\include{./content/forkortelser}
-\include{./content/forord}
-\include{./content/indledning}
-\include{./content/problemformulering}
-\include{./content/kravspecifikation}
-\include{./content/projekt_overblik}
-%%%%%%%%%%%% Sektioner %%%%%%%%%%%%
-\include{./content/PTS}
-\include{./content/koordinattransformation}
-\include{./content/kontrollerdesign}
-\include{./content/Mikrocontroller}
-\include{./content/FPGA}
-\include{./content/kommunikation_mellem_mikrocontroller_og_FPGA}
-\include{./content/diskussion}
-\include{./content/konklusion}
 
 
 
+\include{./content/intro}
+%%%%%%%%% RAPPORTENS KAPITLER BEGYNDER!!!
+\include{./content/application}
+\include{./content/systemidentification}
+\include{./content/implementering}
+\include{./content/regulering}
+\include{./content/evaluering}
 %%%%%%%%%%%% Litteratur %%%%%%%%%%%%
 \bibliography{litteraturliste}
 %%%%%%%%%%%% Appendix %%%%%%%%%%%%
-\newpage
-\appendices
-\input{./content/problemequation}
-\newpage
-\input{./content/app_DCmotor}
-\newpage
-\input{./content/app_panandtiltparameter}
-
-
-
-%%%%%%%%%%%% Bilag %%%%%%%%%%%%
-\input{./content/bilag}
-
+\include{./content/appen}
 
 
 

@@ -1,0 +1,15 @@
+\section{Serial Peripheral Interface}
+Kommunikationen mellem mikrocontolleren og FPGA’en foregår med SPI (Serial Peripheral Interface). SPI understøtter full-duplex kommunikation mellem en master og en eller flere slaver
+%Det er en standard hvor der bliver overført data mellem en master og en eller flere slaver. 
+%Overførelsen sker med full duplex, så der bliver sendt data både fra masteren og slaven på samme tid. 
+Opstillingen med en master og en slave kan ses på figur \ref{fig:SPImasterslave}.
+\begin{figure}[!th]
+\centering
+\begin{tikzpicture}[scale=0.8]
+\include*{./graphics/MISOMOSI}
+\end{tikzpicture}
+\caption[SPI protokol]{Skitse af SPI-kommunikation mellem mikrokontroller og FPGA.}
+\label{fig:SPImasterslave}
+\end{figure}
+
+Der er fire ledninger mellem masteren og slaven: Slave Select (SS), Serial Clock (SCLK), Master Output Slave Input (MOSI) og Master Input Slave Output (MISO). SS bruges til at vælge hvilken slave der skal overføres data til/fra. Den kan også sammenlignes med en chip select. SCLK generes af masteren; SS, MOSI og MISO kører synkront med dette signal.

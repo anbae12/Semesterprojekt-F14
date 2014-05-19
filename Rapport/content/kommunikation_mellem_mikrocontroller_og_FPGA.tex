@@ -1,81 +1,71 @@
 \section{Kommunikation mellem mikrocontroller og FPGA}
 
-\begin{figure}[!th]
-\centering
-\begin{tikzpicture}[scale=1]
-\include*{./graphics/MISOMOSI}
-\end{tikzpicture}
-\caption[tekst i indholdsfortegnelsen]{figurtekst}
-\label{fig:}
-\end{figure}
-
-
-Kommunikationen mellem Mikrocontolleren og FPGA’en foregår med SPI. SPI står for Serial Peripheral Interface. Det er en protokol hvor, der bliver overført data mellem en master og en eller flere slaver. Overførelsen sker med full duplex, så der bliver sendt data både fra masteren og slaven på samme tid. Opstillingen mellem en master og en slave kan ses på figur ??.
-
-Der er fire kanaler mellem masteren og slaverne: Slave Select, Serial Clock (SCLK), MOSI og MISO. Slave Select bruges til at vælge hvilken slave, der skal overføres data med. Den kan også sammenlignes med en chip select. SCLK bruges som clock frekvens, den synkroniserer Salve Select, MOSI og MISO. MOSI står for Master Output Slave Input, det er dataet, master sender til slaven, ligeså er MISO Master Input Slave Output, som er dataet, master modtager fra slaven.
- 
-
 \subsection{Overvejelser og valg}
-Der er gået mange overvejelser i hvordan SPI'en mellem Mikrocontrolleren og FPGA'en skal  opbygges.
+%%%%% FYLDTEKST:
+%Der er gået mange overvejelser i hvordan SPI'en mellem mikrocontrolleren og FPGA'en skal opbygges.
 
-Det blev vedtaget at Mikrocontrolleren var masteren og FPGA'en blev slaven, da FPGA'en helst skulle være så enkel som mulig.
+Det blev vedtaget at mikrocontrolleren var masteren og FPGA'en blev slaven, da FPGA'en helst skulle være så enkel som mulig.
 
-Mikrocontrolleren har også indbygget tre SPI programmer. De tre typer er TI Synchronous Serial Frame Format (SSFT), Freescale og Microwire. Til at overfører dataene mellem Mikrocontrolleren og FPGA’en skal der bruges en enkel protokol med full duplex. Hovedgrundene for at protokollen skal være enkel, er at der ikke sendes meget data, dataene er enkel, og afstanden, den sendes, er kort. Microwire er ikke full duplex. Så det er enten SSFt eller Freescale, der skulle bruges. Da SSFT havde færre opsætningsmuligheder, blev den valgt som protokol. I SSFT ligger svaret på nogle af overvejelserne. Overvejelserne har været om MOSI skal trigger på rising eller falling edge, og hvordan Slave Select skulle opføre sig.
+Mikrocontrolleren har indbygget tre forskellige versioner af SPI. De tre typer er TI Synchronous Serial Frame Format (SSFT), Freescale og Microwire. 
+%Til at overfører data mellem Mikrocontrolleren og FPGA’en skal der bruges en enkel protokol med full duplex. \todo[author=Anders]{Hovedgrundene til valget af SPI protokol.}
+%Hovedgrundene for at protokollen skal være enkel, er at der ikke sendes meget data, dataene er enkel, og afstanden, den sendes, er kort. 
+%Microwire er ikke full duplex. Så det er enten SSFt eller Freescale, der skulle bruges. Da SSFT havde færre opsætningsmuligheder, blev den valgt som protokol. 
+%I SSFT ligger svaret på nogle af overvejelserne. Overvejelserne har været om MOSI skal trigger på rising eller falling edge, og hvordan Slave Select skulle opføre sig.
+Microwire blev udelukket da den ikke er full-duplex og dermed ikke en ren SPI standard. 
+Freescale formatet blev udelukket da opsætningen af denne var mere kompliceret end for SSFT, uden at tilføje ekstra muligheder. 
 
-Frekvensen af SCLK skal vælges så høj, at SPI ikke bliver en flaskehals i kommunikationen mellem Micro controller og FPGA’en, og tilpas lav, så der ikke introduceres unødige fejlkilder, ved at FPGA’en ikke kan følge med. Resultat ???
+Frekvensen af SCLK skal vælges så høj, at SPI ikke bliver en flaskehals i kommunikationen mellem mikrocontrolleren og FPGA’en, og tilpas lav, så der ikke introduceres unødige fejlkilder, ved at FPGA’en ikke kan følge med.
+\todo[inline, author=Michael]{Linjen herover bør fjernes da det er bedre at kravene ud fra vores krav til control-tasken som helhed. Se uC afsnittet under kravspecifikation.}
 
 \todo[author=Åse,inline]{Hvad er SCLK's frekvens}
-
-Størrelsen af framen skulle være så stor, at PWM kan sendes til FPGA’en, og positionen i form af ticks kan sendes fra FPGA’en. Begge skal kunne sendes i den rigtige opløsning. PWM og ticks har begge en størrelse af 11 bit. Der skal også være et motor, retnings- og PWMsetbit. Det giver at framen mindst skal være 14 bit lang. Mikrocontrolleren understøtter en størrelse mellem fire og 16 bit.16 bit blev valgt, da der er plads til udbygning.
-
+\todo[author=Anders,inline]{Eventuelt skal nedenstående ind i næste afsnit.}
+Størrelsen af framen skulle være så stor, at PWM kan sendes til FPGA’en, og positionen i form af ticks kan sendes fra FPGA’en. Begge skal kunne sendes i den rigtige opløsning. PWM og ticks har begge en størrelse af 11 bit. Der skal også være et motor, retnings- og PWMset bit. Det giver at framen mindst skal være 14 bit lang. Mikrocontrolleren understøtter en størrelse mellem fire og 16 bit.16 bit blev valgt, da der er plads til udbygning.
+\todo[inline, author=Michael]{Forkort dette afsnit. F.eks:}
+Størrelse af data framen blev valgt til 16 bit ($2^4$), da det giver mulighed for at sende motorens hastighed og deres position (begge 11 bit) samt kontroldata. Indholdet af de enkelte pakker/datawords kan ses på figur \label{tb:protokol1}.
 
 \subsection{Brugen af SPI}
 
-\todo[author=Åse, inline]{Det teknindske om Mikrocontroller er meget kort. Men det er noget der bare kan læses i stabladet. Skal der henvises til databladet.}
 
-På mikrocontrolleren bruges SPI verion SSFT. Den er sat til at være masteren, derfor er det den, som  inistialiserer overførlsen mellem mikrocontrolleren og FPGA'en. En detaljeret beskrivelse se databladet.
+
+\todo[author=Åse, inline]{Det tekniske om Mikrocontroller er meget kort. Men det er noget der bare kan læses i databladet. Skal der henvises til databladet.}
+
+På mikrocontrolleren bruges SPI verion SSFT. Den er sat til at være master, derfor er det den, som initialiserer overførelsen mellem mikrocontrolleren og FPGA'en, \citep[Kap. 13]{lm3s6965}.
 
 På FPGA'en er SPI'en tp shift registre, der konverterer signalet fra seriel til parallel og vice versa. Efter konverteringen sendes det videre ind i systemmet. 
 
-%%%%%%%%%%%% TIKZPICTURE %%%%%%%%%%%%
 \begin{figure}[!th]
 \centering
 \begin{tikzpicture}[scale=1]
 \include*{./graphics/SPIfigur}
 \end{tikzpicture}
 \caption[tekst i indholdsfortegnelsen]{figurtekst}
-\label{fig:}
+\label{fig:signal_SPI}
 \end{figure}
 
-\todo[author=Åse,inline]{Figur måske ligemget nu. }
+Det er en enkel protokol som bliver brugt uden tjeksum eller nogen anden form for administration. Frame størrelse er på 16 bit. På figur \ref{fig:signal_SPI} kan man se opbygningen af både framen der bliver sendt til FPGA’en og til Mikrocontrolleren. Til FPGA’en bliver der sendt den PWM, der skal sættes på den bestemte motor i den bestemte retning. Det er det motor- og retningsbittene bestemmer. Da SPI er full duplex skal der sendes data fra både Mikrocontrolleren og FPGA’en, FPGA’en kan ikke sende data uden at Mikrocontrolleren også gør det. På Mikrocontrolleren ville man gerne kunne få en position uden, at den sætter en ny PWM. Derfor skal der bruges en bit, hvor FGPA’en kan se om den skal sætte PWM’en, eller om den kun skal sende information tilbage. Der er det PWMset bruges til. Hvis den er høj bliver framen kasseret, men hvis den er lav bliver PWM’en sat. Framen der bliver sendt til mikrocontrolleren er positionen på den bestemte motor. Framen ses i nedenstående figur \ref{tb:protokol1}. Øverst ses framestrukturen fra mikrocontrolleren til FPGA'en og nederst ses framestrukturen fra FPGA'en til mikrocontrolleren. 
 
-
-Det er en enkel protokol som bliver brugt uden tjeksum eller nogen anden form for administration. Frame størrelse er på 16 bit. På figur ?? kan man se opbygningen af både framen der bliver sendt til FPGA’en og til Mikrocontrolleren. Til FPGA’en bliver der sendt den PWM, der skal sættes på den bestemte motor i den bestemte retning. Det er det motor- og retningsbittene bestemmer. Da SPI er full duplex skal der sendes data fra både Mikrocontrolleren og FPGA’en, FPGA’en kan ikke sende data uden at Mikrocontrolleren også gør det. På Mikrocontrolleren ville man gerne kunne få en position uden, at den sætter en ny PWM. Derfor skal der bruges en bit, hvor FGPA’en kan se om den skal sætte PWM’en, eller om den kun skal sende information tilbage. Der er det PWMset bruges til. Hvis den er høj bliver framen kasseret, men hvis den er lav bliver PWM’en sat. Framen der bliver sendt til Micro controlleren er posotionen på den bestemte motor.  
-
-
-%%% FORMAT SPI
-  
-Fra Mikrokontroller til FPGA format:
 \begin{figure}[th!]
 \centering
 \begin{tabular}{c|c|c|c|c}
-1 motorbit &1 retningsbit & 1 set PWMbit & 2 ignored bits & 11 PWM dutycyclebits
+1 motorbit &1 retningsbit & 1 set PWMbit & 2 ignored bits & 11 PWM dutycyclebits\\
 \end{tabular}
+ \begin{tabular}{c|c|c}
+ 1 motorbit & 4 ignored bits & 11 decoderbits
+ \end{tabular}
 \captionsetup{type=figure}
-\caption[tekst i indholdsfortegnelsen]{tabeltekst}
+\caption[SPI framestruktur]{Øverst ses framestrukturen fra mikrocontrolleren til FPGA'en. Nederst ses framestrukturen fra FPGA'en til mikrocontrolleren.}
 \label{tb:protokol1}
 \end{figure}
 
    
   
-  Fra FPGA til Mikrokontroller format:
- \begin{figure}[th!]
- \centering
- \begin{tabular}{c|c|c}
- 1 motorbit & 4 ignored bits & 11 decoderbits
-  
- \end{tabular}
- \captionsetup{type=figure}
- \caption[tekst i indholdsfortegnelsen]{tabeltekst}
- \label{tb:protokol2}
- \end{figure}
+ % Fra FPGA til Mikrokontroller format:
+ %\begin{figure}[th!]
+ %\centering
+ %\begin{tabular}{c|c|c}
+ %1 motorbit & 4 ignored bits & 11 decoderbits
+ %\end{tabular}
+ %\captionsetup{type=figure}
+ %\caption[tekst i indholdsfortegnelsen]{tabeltekst}
+ %\label{tb:protokol2}
+ %\end{figure}

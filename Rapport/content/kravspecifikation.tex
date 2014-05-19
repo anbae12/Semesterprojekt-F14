@@ -3,12 +3,13 @@
 Kravene til systemet findes vha. reglerne for English Skeet, \citep{ES_regler},
 samt det udleverede Pan \& Tilt-systems fysiske begrænsninger.
 
-%%%%%%%%%%%%%%%%%%%%%P&T figur
 
-Lerduens bane kan beregnes vha. de i reglerne givne værdier for affyringspunkt, forventet nedslagspunkt
+Lerduens bane beregnes vha. de i reglerne givne værdier for affyringspunkt, forventet nedslagspunkt
 og "Target Crossing Point" (punktet, som lerduen skal passere).
-Med antagelsen om negligerbar luftmodstand kan en kasteparabel således udregnes ved interpolation af disse tre punkter.
-Kasteparablen er givet ved ligning \ref{eq:ks:vektorparabel3d}, med orego som angivet på figur \ref{fig:ES}.
+%Med antagelsen om negligerbar luftmodstand kan en kasteparabel således udregnes ved interpolation af disse tre punkter.
+Lerduens parabel blev fundet ved interpolation af disse tre punkter. Det blev antaget at luftmodstanden var neglibar.
+Kasteparablen er givet ved ligning \ref{eq:ks:vektorparabel3d}, med origo som angivet på figur \ref{fig:ES}.
+
 \begin{equation}
 Pos\left( t \right) = 
 \left( \begin{matrix} 
@@ -21,11 +22,15 @@ Pos\left( t \right) =
  -{ 4,91\cdot t }^{ 2 }+5,473\cdot t+3,05\end{matrix} \right) [\text{m}]
 \label{eq:ks:vektorparabel3d}
 \end{equation}
-En gennemgang af beregningerne der ligger bag kasteparablen findes i sektion \ref{sec:udregning_af_parabel}.
 
-Med kasteparablen er det muligt at specificere systemets betingelser yderligere:
-Lerduen bliver affyret med en hastighed på 34,589 \([\frac{m}{s}]\) i en vinkel på \(9,103^{\circ}\) ift. xz-planet jf. figur \ref{fig:ES}.
-Set ovenfra bevæger målet sig som illustreret på figur \ref{fig:HH2D_para}, G er nedslagspunktet og er 52 [m] fra High-House 52 [m], D, samt PTS' placering, B.\\
+%Med kasteparablen er det muligt at specificere systemets betingelser yderligere:
+Vha. kastaparablen kan affyringshastighed og kastets vinkel ift. xy planet beregnes: 
+Lerduen bliver affyret med en hastighed på 34,589 \([\frac{m}{s}]\) i en vinkel på \(9,103^{\circ}\) 
+ift. xy-planet jf. figur \ref{fig:ES} og ligning \ref{eq:ks:vektorparabel3d}. \todo[inline, author=Michael]{Måske burde henvises til ligning \ref{eq:pf:vektorparabel2} istedet}
+
+En gennemgang af beregningerne der ligger bag kasteparablen findes i appendix \ref{sec:udregning_af_parabel}.
+
+Set ovenfra bevæger målet sig som illustreret på figur \ref{fig:para_in_xy_plane}. Punktet D er High House (affyringsstedet), Shooting Boundary (SB) og nedslagspunktet G er hhv. 40,3 [m] og 52 [m] fra High-House. PTS' er placeret i punktet B.\\
 \begin{figure}[h!]
 \centering
 \subfloat[Lerduens højde som funktion af afstanden til D.\label{fig:HH2D_para}]{%
@@ -40,23 +45,23 @@ Set ovenfra bevæger målet sig som illustreret på figur \ref{fig:HH2D_para}, G
 }
 \caption[Lerduens parabel i 2D]{Viser parablen af lerduens bane i 2D.}
 \end{figure}
-
-Det anslås, at man kan nå at affyre de to skud mellem tidspunktet,
-hvor lerduen når toppunktet og nedslagstidspunktet (punkt G), se \ref{eq:ks:nedslagstid}.
+\todo[inline, color = pink,author = Mikkel]{Er det ikke ligegyldigt at vi kan affyre to skud, hvis kun ét er tilladt?}
+Det anslås, at man kan nå at affyre to skud mellem tidspunktet,
+hvor lerduen når toppunktet og SB, ligning \ref{eq:ks:nedslagstid}.
 I dette tidsrum skal Pan \& Tilt-systemet sigte på lerduen så geværet kan ramme.
 Der er altså et tidsmæssigt krav til reguleringen om en Settling Time for systemet,
-der er lavere end tiden \(t_{s}\) angivet i \ref{eq:ks:settlingtime}.
+der er lavere end tiden \(t_{s}\) angivet i ligning, \ref{eq:ks:settlingtime}.
 \begin{align}
   t_{s} &= 0,557 [s] &\text{(Settling Time)}
   \label{eq:ks:settlingtime}
-\end{align}
-\begin{align}
-  t_{n} &= 1,523 [s] &\text{(Nedslagstid)}
+\\
+  t_{n} &= 1,18 [s] &\text{(Shooting Boundary Limit)}
   \label{eq:ks:nedslagstid}
 \end{align}
 
 Haglene fra et 12 gauge haglgevær med Skeet Choke spredes så de dækker et område
-med en diameter på 1,32 [m] på en afstand på 37 [m], \todo[inline,author=Mikael]{Kilde: wikipedia}. %http://en.wikipedia.org/wiki/Shotgun#Pattern_and_choke
+med en diameter på 1,32 [m] på en afstand på 37 [m], \citep[Pattern and choke]{patternandchoke}.
+\todo[inline, color = pink,author = Mikkel]{ Ligning 2.4 gælder vel kun ved antagelse af lineær spredning?}
 Spredningsvinklen er dermed givet ved ligning \ref{eq:ks:spredning}.
 \begin{align}
   Spredning &= \tan \left(\frac{1,32}{2} / 37 \right) \\
@@ -66,6 +71,8 @@ Spredningsvinklen er dermed givet ved ligning \ref{eq:ks:spredning}.
 Der er altså et krav om at geværet peger på lerduen med en præcision på \(\pm 1,02 \degree\).
 Dette krav gælder for både pan-rammens vinkel (\(\phi\)) og tilt-rammens vinkel (\(\theta\)).
 For en 1-radian reference giver dette altså en maksimal steady state tracking error (SSE) på 1,78 \%.
+\todo[inline, author=Michael]{Den virkelige sammenhænge er mere kompleks: Hvis både pan \& tilt rammen peger 1\degree ved siden af, er den samlede afvigelse vel over 1,02\degree}
+\todo[inline, color = pink, author = Mikkel]{Hvad mening giver det at kigge på 1 radian reference og kan man virkelig kalde det SSE?}
 
 Tilt-rammen kan bevæge sig frit,
 men pan-rammen kan pga. en stopklods kun rotere \(154 \degree\)\footnote{Målt eksperimentielt.}.
@@ -74,4 +81,6 @@ som afhænger af reguleringen
 - et for højt overshoot på pan-positionen kan give udsving, der ikke holder sig inden for grænserne.
 Hvis det antages, at vinklen \(0 \degree\) er lige midt imellem pan-rammens rotationsgrænser,
 så den kan rotere \(77 \degree\) til hver side, så er det maksimale overshoot for et 1-radians step-input
-givet ved \(134 \%\).
+givet ved \(34 \%\).
+\todo[inline, color = pink, author = Mikkel]{Hvad mening giver den 1 radian reference?}
+\todo[inline, author=Michael]{Indsæt evt. figur med overshoot begrænsninger?}
