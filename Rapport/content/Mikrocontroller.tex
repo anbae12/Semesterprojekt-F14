@@ -182,6 +182,47 @@ Freescale formatet blev udelukket da opsætningen af denne var mere kompliceret 
 
 \todo[author=Åse,inline]{Skriv en figur tekst senere} 
 
+\todo[inline, author=Michael]{Alternativ version. Please vote :)}
+
+\begin{figure}[h!]
+\centering
+\subfloat[Mikrocontroller til FPGA.\label{fig:spi_to_fpga}]{%
+\begin{tabular}{|c|}
+    \hline
+    Motor (1 bit) \\
+    \hline
+    Retning (1 bit) \\
+    \hline
+    Set PWM (1 bit) \\
+    \hline
+    N/A (2 bit) \\
+     \\
+    \hline
+     \\ \\ \\ \\
+    PWM duty cycle \\
+    (11 bits) \\ \\ \\ \\ \\ \\
+    \hline
+  \end{tabular}
+}
+\qquad
+\subfloat[FPGA til Mikrocontroller.\label{fig:spi_from_fpga}]{%
+\begin{tabular}{|c|}
+    \hline
+    Motor (1 bit) \\
+    \hline \\
+    N/A (4 bit) \\
+     \\ \\
+    \hline
+     \\ \\ \\ \\
+    PWM duty cycle \\
+    (11 bits) \\ \\ \\ \\ \\ \\
+    \hline
+  \end{tabular}
+}
+\caption[Lerduens parabel i 2D]{Viser parablen af lerduens bane i 2D.}
+\end{figure}
+
+
 Størrelse af data framen blev valgt til 16 bit ($2^4$), da det giver mulighed for at sende motorens hastighed og deres position (begge 11 bit) samt kontroldata. Opbygningen af de to datawords kan ses på figur\ref{tb:protokol1}.
 På 
 Det er en enkel protokol som bliver brugt uden tjeksum eller nogen anden form for administration. Frame størrelse er på 16 bit. På figur \ref{fig:signal_SPI} kan man se opbygningen af både framen der bliver sendt til FPGA’en og til Mikrocontrolleren. Til FPGA’en bliver der sendt den PWM, der skal sættes på den bestemte motor i den bestemte retning. Det er det motor- og retningsbittene bestemmer. Da SPI er full duplex skal der sendes data fra både Mikrocontrolleren og FPGA’en, FPGA’en kan ikke sende data uden at Mikrocontrolleren også gør det. På Mikrocontrolleren ville man gerne kunne få en position uden, at den sætter en ny PWM. Derfor skal der bruges en bit, hvor FGPA’en kan se om den skal sætte PWM’en, eller om den kun skal sende information tilbage. Der er det PWMset bruges til. Hvis den er høj bliver framen kasseret, men hvis den er lav bliver PWM’en sat. Framen der bliver sendt til mikrocontrolleren er positionen på den bestemte motor. Framen ses i nedenstående figur \ref{tb:protokol1}. Øverst ses framestrukturen fra mikrocontrolleren til FPGA'en og nederst ses framestrukturen fra FPGA'en til mikrocontrolleren.
