@@ -11,7 +11,7 @@ Til bestemmelsen af controller-koefficienterne bruges den analytiske fremgangsm�
 Metoden tager udgangspunkt i systemets "close loop" responds. 
 
 
-Nedenstående tabel \ref{tb:ZieglerNichols} viser hvordan controller-koefficienterne bestemmes.
+Tabel \ref{tb:ZieglerNichols} beskriver hvordan controller-koefficienterne bestemmes.
 
 \begin{figure}[th!]
 \centering
@@ -29,15 +29,16 @@ Nedenstående tabel \ref{tb:ZieglerNichols} viser hvordan controller-koefficient
 hvor \(K_U\) er forstærkningen og \(T_U\) er den tilhørende oscillations periode hvorved CL-systemet opnår instabilitet.
 
 \subsubsection{Pan- og tilt controller-keofficienter}
-\(K_u\) og \(T_u\) er bestemt ud fra hhv. pans og tilts diskretiserende transferfunktioner, ligning \ref{eq:pantiltdiskretiserendetf} og med et \textbf{lækkert MATLAB script.}\todo[author=Anders]{Skriv noget bedre.}
+\(K_u\) og \(T_u\) er bestemt ud fra hhv. pan og tilts diskretiserende transferfunktioner, ligning \ref{eq:pantiltdiskretiserendetf}. Der blev lavet et loop i MATLAB, som løb forstærkningsintervallet igennem for de to transferfunktioner.
 \begin{itemize}
-\item \(K_{u=tilt} = 37,24\)
+\itemsep1pt
+\item \(K_{u-tilt} = 37,24\)
 \item \(T_{u-tilt} = 29,917 \cdot 10^{-3}\) [s] 
 \item \(K_{u-pan} = 37,12\)
 \item \(T_{u-pan} = 34,207\cdot 10^{-3}\) [s] 
 \end{itemize}
 
-
+Controller-koefficienterne bestemt ud fra den ultimative forstærkning og tilhørende periode, ses i tabel \ref{tb:ZieglerNichols1}.
 
 \begin{figure}[th!]
 \centering
@@ -48,11 +49,10 @@ PI&\(1675,8\) & \( 672,1797\) &-&\(1670,4\) & \( 585,9853  \) &-\\
 PID&\(22,3440 \) &  \( 1493,7 \) & \(0,0836  \)&\(22,2720 \) &  \( 1302,2 \) & \(0,0952  \)
 \end{tabular}
 \captionsetup{type=table}
-\caption[Controller-koefficienter, Ziegler-Nichols Tuning Methode]{Controller-koefficienter for pan og tilt.}\label{tb:ZieglerNichols}
+\caption[Controller-koefficienter, Ziegler-Nichols Tuning Methode]{Controller-koefficienter for pan og tilt.}\label{tb:ZieglerNichols1}
 \end{figure}
 
 
+\todo[inline,author=Anders]{De fundet koefficienter kan ikke bruges, systemet står og oscillere.. Derfor skal der bruges endnu en ilteration.}
 
-
-\subsection{Manuel optimering af controller-koefficienter}
-\todo[inline,author=ALLE]{Idet Ziegler-Nichols giver P.O. på cirka 60 \%, skal keofficienterne optimeres manuelt.}
+\subsection{Optimering af controller/koefficienter}
