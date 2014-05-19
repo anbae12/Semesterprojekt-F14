@@ -10,11 +10,11 @@
  \node[task] (ctrl)     [right of=ctrl_bit]            {Control};
  
  \node[memory_sem] (log_file)     [below of=interface]            {log file};
- \node[task] (log)     [right of=log_file,yshift=-1.6cm]            {log updater};
- \node[buffer_sem] (status)     [right of=log,yshift=1.6cm]            {status};
+ \node[task] (log)     [right of=log_file]            {logger};
+ \node[buffer_sem] (status)     [right of=log]            {status};
  \path[->] (log_file)        edge (interface);
- \path[->] (log)        edge[bend right=30] (log_file);
- \path[->] (status)        edge[bend right=30] (log);
+ \path[->] (log)        edge (log_file);
+ \path[->] (status)        edge (log);
  \path[->] (ctrl)        edge (status);
 
  \node[semaphore] (sem_tx) [above of=uart_tx_buff,yshift=-1.5cm] {};

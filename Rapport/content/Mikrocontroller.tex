@@ -119,12 +119,41 @@ i EMP kurset &   &   &   &   \\
 % 
 % beskrivelse af interfacet
 % 
+\todo[inline, author=Michael]{Venter på at kodens struktur er helt færdig - inden da giver det ikke mening at skrive dette afsnit færdigt. }
+
+Valget af freeRTOS som operativsystem gjorde det muligt at opdele programmet i seperate tasks. Taskdiagrammet er vist på figur \ref{fig:task_diagram}. 
+
+% TASK DIAGRAM
+\begin{figure}[!h]
+\centering
+\begin{tikzpicture}[node distance = 3.2cm]
+	\include*{./graphics/uc_task_diagram}
+\end{tikzpicture}
+\caption[Task diagram]{Taskdiagrammet viser programmets opdeling i tasks.}
+\label{fig:task_diagram}
+\end{figure}
+
+\subsubsection{Beskrivelse af de enkelte tasks}
+\begin{description}
+\itemsep-3pt
+	\item[UART] Grundet UART hw. bufferen kun indeholder 16 pladser \citep[Side. 430]{lm3s6965}. Sørger en Send og Recieve task for at sende data videre. Ekstra Semaphore til at sikre kun en task kan skrive til Uart af gangen er implementeret.
+	\item[Interface] Tolker på brugerinputs og sender relevante kommandoer til Control tasken.
+	\item[Control] Afvikler regulatorerne. Se mere indgående beskrivelse i sektion \ref{sec:control_task}. Denne task afvikles i realtid, med en frekvens på 600 Hz. 
+	Denne task sørger for at SPI Kommunikationen med FPGA'en bliver afviklet på de rigtige tidspunkter.
+	\item[Logger] Denne task opdaterer logfilen med data fra "status" køen.
+\end{description}
+
+\subsubsection{Interface task}
+\label{sec:interface}
 Bruger Interfacet gør det overskueligt at styre og skifte mellem de forskellige tilstande som systemet kan køres i.
 Der er lavet funktioner som bruges til test af specifikke funktioner og funktioner som starter en større test.
 Formålet er at gøre det simpelt for gruppen, det er altså ikke tænkt til en kunde som ikke ved noget om systemet.
 Fjernelse af implementerede funktioner for at gøre det simpelt har ikke været en prioritet. 
 De primære funktioner er at sætte en position eller starte tracking af lerduen.
 Hvis det indtastede ikke bliver gendkendt bliver en liste over gyldige funktioner udskrevet.
+
+\subsubsection{Control task}
+\label{sec:control_task}
 
 Control tasken henter et koordinat, transformerer koordinatet udregner en PWM med PID controlleren og opdaterer loggen.
 hver gang control tasken bliver kørt bliver der hentet en position ind over SPI og sendt ny PWM. 
@@ -148,42 +177,7 @@ Control tasken ved hvilke ting som er relevant at gemme i loggen, så ved start 
         lastline=186,
         caption={ af ctrl\_task.c.\label{ctrl_task}}
         ]{codeexample/ctrl_task.c}
-    
-
-\todo[inline, author=Michael]{Venter på at kodens struktur er helt færdig - inden da giver det ikke mening at skrive dette afsnit færdigt. }
-
-Valget af freeRTOS som operativsystem gjorde det muligt at opdele programmet i seperate tasks. Taskdiagrammet er vist på figur \ref{fig:task_diagram}. 
-
-\todo[inline, author=Michael]{I figuren burde vi bruge rette linjer istedet for de afrundede. Desuden skal kommunikationen med SPI indtegnes på en eller anden måde. Irrelevante semaphorer over de fleste køer skal også fjernes. }
-% TASK DIAGRAM
-\begin{figure}[!h]
-\centering
-\begin{tikzpicture}[node distance = 3.2cm]
-	\include*{./graphics/uc_task_diagram}
-\end{tikzpicture}
-\caption[Task diagram]{Taskdiagrammet viser programmets opdeling i tasks.}
-\label{fig:task_diagram}
-\end{figure}
-
-\subsubsection{Beskrivelse af de enkelte tasks}
-\begin{description}
-	\item[Uart send] Tager indholdet fra uart\_ out\_ buffer og ligger dem ind i UART-modulets hardware FIFO buffer. Dette er nødvendigt fordi hw. bufferen kun indeholder 16 pladser. \citep[Side. 430]{lm3s6965}
-	\item[Uart receive] Læser UART-modulets hardware buffer og lægger de modtagne data over i uart\_ in \_ buffer. 
-	\item[Interface] Tolker på brugerinputs og sender relevante kommandoer til Control- og read\_ pos-tasken.
-% 	\item[read pos] Opdaterer target\_ pos med målets nuværende koordinater 60 gange i sekundet. I vores projekt læser den blot værdierne fra et array, men den kan sagtens udskiftes med en anden task der f.eks. tolker på input fra et kamera.
-	\item[Control] Afvikler regulatorerne. Se mere indgående beskrivelse i sektion \ref{sec:control_task}. Denne task afvikles i realtid, med en frekvens på 600 Hz. 
-	Denne task sørger for at SPI Kommunikationen med FPGA'en bliver afviklet på de rigtige tidspunkter.
-	\item[log updater] Denne task opdaterer logfilen  med data fra "status" køen.
-\end{description}
-
-
-%Semaphorer på target_pos. 
-%Ingen semaphorer på køer, undtagen uart out buffer
-
-
-\subsubsection{Control task}
-\label{sec:control_task}
-
+        
 \subsubsection{SPI}
 \label{sec:spi-implementering}
 Det blev vedtaget at mikrocontrolleren var masteren og FPGA'en blev slaven, da FPGA'en helst skulle være så enkel som mulig.
