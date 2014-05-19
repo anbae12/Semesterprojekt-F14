@@ -63,26 +63,31 @@ De fire mulige skeduleringer er beskrevet i tabel \ref{tb:os_comparison}.
 %\end{itemize}
 
 Til valget er der lagt vægt på om skeduleringen opfylder kravet til realtidsafvikling af regulatorerne, samt muligheden for at genanvende elementer fra EMP-kurset.
-
-\begin{table}[h!]
-\begin{tabular}{|l|l|l|l|l|}
-\hline 
- & coOS & freeRTOS & RTCS & Super loop \\ 
-\hline 
+\begin{figure}[th!]
+\centering
+\begin{tabular}{l|l|l|l|l}
+ & coOS & freeRTOS & RTCS & Super loop \\ \hline 
 Skedulering & Preemptive priority  & Preemptive priority  & Non-preemptive & Non-preemptive  \\ 
-			& /round robin		&	/round robin & &	\\
-\hline 
-Queues & Ja & Ja & Nej & Nej \\ 
-\hline 
-Semaphore & Counting og Binære  & Counting og Binære & Binære  & Nej  \\ 
-\hline 
+	           & /round robin		& /round robin              & &	\\\hline 
+Queues & Ja & Ja & Nej & Nej \\ \hline 
+Semaphore & Counting og Binære  & Counting og Binære & Binære  & Nej  \\\hline 
 Introduceret & Nej & Ja & Ja & Ja \\ 
 i EMP kurset &   &   &   &   \\
-\hline 
-\end{tabular} 
+\end{tabular}
+%\begin{tabular}{|l|l|l|l|l|}\hline 
+% & coOS & freeRTOS & RTCS & Super loop \\ \hline 
+%Skedulering & Preemptive priority  & Preemptive priority  & Non-preemptive & Non-preemptive  \\ 
+%			& /round robin		&	/round robin & &	\\\hline 
+%Queues & Ja & Ja & Nej & Nej \\ \hline 
+%Semaphore & Counting og Binære  & Counting og Binære & Binære  & Nej  \\\hline 
+%Introduceret & Nej & Ja & Ja & Ja \\ 
+%i EMP kurset &   &   &   &   \\\hline 
+%\end{tabular}
+\captionsetup{type=table}
 \caption{Specifikationer for de undersøgte systemer}
 \label{tb:os_comparison}
-\end{table}
+\end{figure}
+
 
 
 \todo[inline, author=Michael]{Jeg kan ikke finde ud af at skrive følgende afsnit. HELP MEAY!}
@@ -135,33 +140,38 @@ Fjernelse af implementerede funktioner for at gøre det simpelt har ikke været 
 De primære funktioner er at sætte en position eller starte tracking af lerduen.
 Hvis det indtastede ikke bliver genkendt bliver en liste over gyldige funktioner udskrevet.
 
-\begin{table}[h!]
-\begin{tabular}{|l|l|l|}
-\hline 
-Kommando: & Funktion: & Parametre: \\ 
-\hline 
-read & Slå log til eller fra.  &   \\ 
-\hline 
-start & Start tracking af lerdue &   \\ 
-\hline 
-stop & Stop systemet &   \\ 
-\hline 
-open & Start åben sløjfe test &   \\ 
-\hline 
-reset & Gå til udgangsposition &   \\ 
-\hline 
-C xxx.yyy.zzz & Gå til  kartesisk koord. (x,y,z) & x,y,z = Koordinaterne i meter \\ 
-\hline 
-A aaaa.bbbb & Gå til sfærisk koord.  & a = Tilt, b = Pan, begge i ticks. \\ 
-\hline 
+\begin{figure}[th!]
+\centering
+\begin{tabular}{l|l|l}
+Kommando: & Funktion: & Parametre: \\\hline 
+read & Slå log til eller fra.  &   \\\hline 
+start & Start tracking af lerdue &   \\\hline 
+stop & Stop systemet &   \\\hline 
+open & Start åben sløjfe test &  \\\hline  
+reset & Gå til udgangsposition &   \\\hline 
+C xxx.yyy.zzz & Gå til  kartesisk koord. (x,y,z) & x,y,z = Koordinaterne i meter \\\hline 
+A aaaa.bbbb & Gå til sfærisk koord.  & a = Tilt, b = Pan, begge i ticks. \\\hline  
 Pmfxx & Sæt dutycycle for motor m & m = Motor ("A" ell. "B"), \\ 
-  & & f = fortegn ($+$ ell. $-$),  \\
-  & & xx = PWM dutycycle i \%\\
-\hline 
+& & f = fortegn ($+$ ell. $-$),  \\
+& & xx = PWM dutycycle i \%
 \end{tabular} 
+%\begin{tabular}{|l|l|l|}\hline 
+%Kommando: & Funktion: & Parametre: \\ \hline 
+%read & Slå log til eller fra.  &   \\ \hline 
+%start & Start tracking af lerdue &   \\ \hline 
+%stop & Stop systemet &   \\ \hline 
+%open & Start åben sløjfe test &   \\ \hline 
+%reset & Gå til udgangsposition &   \\ \hline 
+%C xxx.yyy.zzz & Gå til  kartesisk koord. (x,y,z) & x,y,z = Koordinaterne i meter \\ \hline 
+%A aaaa.bbbb & Gå til sfærisk koord.  & a = Tilt, b = Pan, begge i ticks. \\ \hline 
+%Pmfxx & Sæt dutycycle for motor m & m = Motor ("A" ell. "B"), \\ 
+%  & & f = fortegn ($+$ ell. $-$),  \\
+%  & & xx = PWM dutycycle i \%\\\hline 
+%\end{tabular} 
+\captionsetup{type=table}
 \caption{Viser UART-interfacets kommandoer.}
 \label{tb:uart_interface}
-\end{table}
+\end{figure}
 
 
 
@@ -204,63 +214,58 @@ Mikrocontrollerens SPI modul har indbygget tre forskellige standarder: TI Synchr
 Microwire blev udelukket da den ikke er full-duplex og dermed ikke en SPI standard. 
 Freescale formatet blev udelukket da opsætningen af denne var mere kompliceret end for SSFT, uden at tilføje ekstra muligheder.
 
-
-%\begin{figure}[th!]
-%\centering
-%\begin{tabular}{c|c|c|c|c}
-%1 motorbit &1 retningsbit & 1 set PWMbit & 2 ignored bits & 11 PWM dutycyclebits\\
-%\end{tabular}
-% \begin{tabular}{c|c|c}
-% 1 motorbit & 4 ignored bits & 11 decoderbits
-% \end{tabular}
-%\captionsetup{type=figure}
-%\caption[SPI framestruktur]{Øverst ses framestrukturen fra mikrocontrolleren til FPGA'en. Nederst ses framestrukturen fra FPGA'en til mikrocontrolleren.}
-%\label{tb:protokol1}
-%\end{figure}
-
-Størrelse af data framen blev valgt til 16 bit ($2^4$), da det giver mulighed for at sende motorens hastighed og deres position (begge 11 bit) samt kontroldata. Opbygningen af de to datawords kan ses på figur \ref{fig:protokol1}.
-
+Størrelse af data framen blev valgt til 16 bit, hvilket giver mulighed for at sende motorens hastighed og deres position (begge 11 bit) samt kontroldata. Opbygningen af de to datawords kan ses på figur \ref{fig:protokol1}.
 
 \begin{figure}[h!]
 \centering
 \subfloat[Mikrocontroller til FPGA.\label{fig:spi_to_fpga}]{%
-\begin{tabular}{|c|}
-    \hline
-    Motor (1 bit) \\
-    \hline
-    Retning (1 bit) \\
-    \hline
-    Ignore PWM (1 bit) \\
-    \hline
-    N/A (2 bit) \\
-     \\
-    \hline
-     \\ \\ \\ \\
-    PWM duty cycle \\
-    (11 bits) \\ \\ \\ \\ \\
-    \hline
-  \end{tabular}
+\begin{tabular}{c|c|c|c|c}
+Motor (1 bit) &Retning (1 bit) & Ignore PWM (1 bit)& N/A (2 bit) & PWM duty cycle (11 bit)
+\end{tabular}
 }
 \qquad
 \subfloat[FPGA til Mikrocontroller. Der skiftes mellem at sende position for pan og tilt hver gang.
 \label{fig:spi_from_fpga}]{%
-\begin{tabular}{|c|}
-    \hline
-    Motor (1 bit) \\
-    \hline \\
-    N/A (4 bit) \\
-     \\ \\
-    \hline
-     \\ \\ \\ \\
-    Position (ticks) \\
-    (11 bits) \\ \\ \\ \\ \\
-    \hline
-  \end{tabular}
+ \begin{tabular}{c|c|c}
+ Motor (1 bit) & N/A (4 bit)  & PWM duty cycle (11 bit)
+ \end{tabular}
 }
 \caption[Indholdet af SPI datawords]{Viser indholdet af SPI datawords. }
 \label{fig:protokol1}
 \end{figure}
-\todo[inline, author=Michael]{Mangler hjælp fra LaTeX guru her: tabellerne skal gerne have samme bredde}
+
+
+%\begin{figure}[h!]
+%\centering
+%\subfloat[Mikrocontroller til FPGA.\label{fig:spi_to_fpga}]{%
+%\begin{tabular}{|p{4cm}|}   \hline
+ %   Motor (1 bit) \\   \hline
+ %   Retning (1 bit) \\   \hline
+%    Ignore PWM (1 bit) \\    \hline
+%    N/A (2 bit) \\
+ %    \\\hline
+ %    \\ \\ \\ \\
+ %   PWM duty cycle \\
+ %   (11 bits) \\ \\ \\ \\ \\   \hline
+%  \end{tabular}}
+%\qquad
+%\subfloat[FPGA til Mikrocontroller. Der skiftes mellem at sende position for pan og tilt hver gang.
+%\label{fig:spi_from_fpga}]{%
+%\begin{tabular}{|p{4cm}|} \hline
+  %  Motor (1 bit) \\    \hline \\
+%    N/A (4 bit) \\
+%     \\ \\    \hline
+%     \\ \\ \\ \\
+%    Position (ticks) \\
+%    (11 bits) \\ \\ \\ \\ \\    \hline
+%  \end{tabular}}
+%\caption[Indholdet af SPI datawords]{Viser indholdet af SPI datawords. }
+%\label{fig:protokol1}
+%\end{figure}
+\todo[inline, author=Anders]{Todo er rettet, men jeg synes personligt den anden noteringsformat er pænere. Det sere "lettere" ud og fylder mindre.}
+\todo[inline, author=Michael]{Var sådan set blevet enige med Mikkel, Åse og Nikolaj om at bruge de høje figurer... GRR! }
+\todo[inline, color=pink,author=Mikkel]{Husk nu det gode humør ;)}
+\todo[inline, color=yellow,author=Anders]{Vi tager den i morgen ;)}
 
 
 Figur \ref{fig:spi_to_fpga} viser indholdet af datawords der bliver sendt fra Mikrocontrolleren. 
@@ -281,7 +286,6 @@ Hvis "Ignore PWM" flaget er sat ignoreres den modtagne besked, mens den aktuelle
 % Test af SPI overførsel
 % Test af realtidsafvikling af reguleringssløjferne, 
 % lever vi op til kravene?
-% 
 
 Deadband er testet ved at øge PWM med 6 hz til en motor hvor der blev målt position med 600 hz.
 Ved at se hvornår der sker den første bevægelse er er målt at deadband målt til 141 for tilt og 221 for pan motoren.
