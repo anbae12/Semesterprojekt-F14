@@ -155,7 +155,32 @@ Valget af freeRTOS som operativsystem gjorde det muligt at opdele programmet i s
 
 \subsubsection{SPI}
 \label{sec:spi-implementering}
-\todo[inline, author=Michael]{Att. Åse: Her kunne vi skrive om implementeringen af SPI, den behøver ikke en sektion for sig selv.}
+Det blev vedtaget at mikrocontrolleren var masteren og FPGA'en blev slaven, da FPGA'en helst skulle være så enkel som mulig.
+
+Mikrocontrolleren har indbygget tre forskellige versioner af SPI. De tre typer er TI Synchronous Serial Frame Format (SSFT), Freescale og Microwire. 
+%Til at overfører data mellem Mikrocontrolleren og FPGA’en skal der bruges en enkel protokol med full duplex. \todo[author=Anders]{Hovedgrundene til valget af SPI protokol.}
+%Hovedgrundene for at protokollen skal være enkel, er at der ikke sendes meget data, dataene er enkel, og afstanden, den sendes, er kort. 
+%Microwire er ikke full duplex. Så det er enten SSFt eller Freescale, der skulle bruges. Da SSFT havde færre opsætningsmuligheder, blev den valgt som protokol. 
+%I SSFT ligger svaret på nogle af overvejelserne. Overvejelserne har været om MOSI skal trigger på rising eller falling edge, og hvordan Slave Select skulle opføre sig.
+Microwire blev udelukket da den ikke er full-duplex og dermed ikke en ren SPI standard. 
+Freescale formatet blev udelukket da opsætningen af denne var mere kompliceret end for SSFT, uden at tilføje ekstra muligheder.
+
+\todo[author=Åse,inline]{kan omfomulere Microwire blev...}
+
+\begin{figure}[th!]
+\centering
+\begin{tabular}{c|c|c|c|c}
+1 motorbit &1 retningsbit & 1 set PWMbit & 2 ignored bits & 11 PWM dutycyclebits\\
+\end{tabular}
+ \begin{tabular}{c|c|c}
+ 1 motorbit & 4 ignored bits & 11 decoderbits
+ \end{tabular}
+\captionsetup{type=figure}
+\caption[SPI framestruktur]{Øverst ses framestrukturen fra mikrocontrolleren til FPGA'en. Nederst ses framestrukturen fra FPGA'en til mikrocontrolleren.}
+\label{tb:protokol1}
+\end{figure}
+
+\todo[author=Åse,inline]{Skriv en figur tekst senere} 
 
 \subsection{Test} 
 % Test af SPI overførsel
