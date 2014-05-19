@@ -1,23 +1,5 @@
 \section{Kommunikation mellem mikrocontroller og FPGA}
 
-
-
-Kommunikationen mellem mikrocontolleren og FPGA’en foregår med SPI (Serial Peripheral Interface). SPI understøtter full-duplex kommunikation mellem en master og en eller flere slaver
-%Det er en standard hvor der bliver overført data mellem en master og en eller flere slaver. 
-%Overførelsen sker med full duplex, så der bliver sendt data både fra masteren og slaven på samme tid. 
-Opstillingen med en master og en slave kan ses på figur \ref{fig:SPImasterslave}.
-\begin{figure}[!th]
-\centering
-\begin{tikzpicture}[scale=0.8]
-\include*{./graphics/MISOMOSI}
-\end{tikzpicture}
-\caption[SPI protokol]{Skitse af SPI-kommunikation mellem mikrokontroller og FPGA.}
-\label{fig:SPImasterslave}
-\end{figure}
-
-Der er fire ledninger mellem masteren og slaven: Slave Select (SS), Serial Clock (SCLK), Master Output Slave Input (MOSI) og Master Input Slave Output (MISO). SS bruges til at vælge hvilken slave der skal overføres data til/fra. Den kan også sammenlignes med en chip select. SCLK generes af masteren; SS, MOSI og MISO kører synkront med dette signal. MOSI er det data master sender til slaven, ligeså er MISO er det data som master modtager fra slaven.
- \todo[inline, author=Michael]{Sidste sætning nok overflødig; det er logisk udfra nanvne samt vist på fig. \ref{fig:SPImasterslave}.}
-
 \subsection{Overvejelser og valg}
 %%%%% FYLDTEKST:
 %Der er gået mange overvejelser i hvordan SPI'en mellem mikrocontrolleren og FPGA'en skal opbygges.
@@ -43,20 +25,22 @@ Størrelse af data framen blev valgt til 16 bit ($2^4$), da det giver mulighed f
 
 \subsection{Brugen af SPI}
 
+
+
 \todo[author=Åse, inline]{Det tekniske om Mikrocontroller er meget kort. Men det er noget der bare kan læses i databladet. Skal der henvises til databladet.}
 
 På mikrocontrolleren bruges SPI verion SSFT. Den er sat til at være master, derfor er det den, som initialiserer overførelsen mellem mikrocontrolleren og FPGA'en, \citep[Kap. 13]{lm3s6965}.
 
 På FPGA'en er SPI'en tp shift registre, der konverterer signalet fra seriel til parallel og vice versa. Efter konverteringen sendes det videre ind i systemmet. 
 
-%\begin{figure}[!th]
-%\centering
-%\begin{tikzpicture}[scale=1]
-%\include*{./graphics/SPIfigur}
-%\end{tikzpicture}
-%\caption[tekst i indholdsfortegnelsen]{figurtekst}
-%\label{fig:signal_SPI}
-%\end{figure}
+\begin{figure}[!th]
+\centering
+\begin{tikzpicture}[scale=1]
+\include*{./graphics/SPIfigur}
+\end{tikzpicture}
+\caption[tekst i indholdsfortegnelsen]{figurtekst}
+\label{fig:signal_SPI}
+\end{figure}
 
 Det er en enkel protokol som bliver brugt uden tjeksum eller nogen anden form for administration. Frame størrelse er på 16 bit. På figur \ref{fig:signal_SPI} kan man se opbygningen af både framen der bliver sendt til FPGA’en og til Mikrocontrolleren. Til FPGA’en bliver der sendt den PWM, der skal sættes på den bestemte motor i den bestemte retning. Det er det motor- og retningsbittene bestemmer. Da SPI er full duplex skal der sendes data fra både Mikrocontrolleren og FPGA’en, FPGA’en kan ikke sende data uden at Mikrocontrolleren også gør det. På Mikrocontrolleren ville man gerne kunne få en position uden, at den sætter en ny PWM. Derfor skal der bruges en bit, hvor FGPA’en kan se om den skal sætte PWM’en, eller om den kun skal sende information tilbage. Der er det PWMset bruges til. Hvis den er høj bliver framen kasseret, men hvis den er lav bliver PWM’en sat. Framen der bliver sendt til mikrocontrolleren er positionen på den bestemte motor. Framen ses i nedenstående figur \ref{tb:protokol1}. Øverst ses framestrukturen fra mikrocontrolleren til FPGA'en og nederst ses framestrukturen fra FPGA'en til mikrocontrolleren. 
 
