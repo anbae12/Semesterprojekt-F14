@@ -161,6 +161,8 @@ Agerer som SPI slave i kommunikation med mikrocontrolleren.
 Modtager SPI data udefra. Sørger samtidigt for at sende de 16 bit data fra output decoder.
 
 
+\subsection{SPI}
+På FPGA'en er SPI'en to shift registre. SPI'en konvertere det serielle signal fra MOSI til at parallel signal. Det signal sendes videre til Input decoder, som deler det op i komposanter. Fra Output decoder får SPI signalet, den skal sende til mikrocontrolleren.
 
 
 
