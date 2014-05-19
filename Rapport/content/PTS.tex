@@ -8,6 +8,7 @@ for på den måde at sammenstykke en model af hele systemet.
 Det vælges hovedsageligt at benytte den sidstnævnte metode til bestemmelsen af en simplificeret
 model af Pan \& Tilt-systemet af følgende årsager:
 \begin{itemize}
+\itemsep1pt
 \item Matematiske modeller for systemets enkelte elementer findes i litteraturen.
 \item Flere af de matematiske modeller er lineære og simple.
 \item De matematiske modeller giver indsigt i den involverede fysik og giver mulighed
@@ -167,14 +168,16 @@ står i ligningerne \ref{eq:transpantilt0}, og de er illustreret i figur \ref{fi
 	&=12\cdot{}\frac{1}
 			{\left(\frac{L_m\cdot{}\left(J_{pan}+J_m\right)}{K_t}\right)\cdot{}s^3
 			+\left(\frac{R_m\cdot{}\left(J_{pan}+J_m\right)+L_m\cdot{}B}{K_t}\right)\cdot{}s^2
-			+\left(K_b+\frac{R_m\cdot{}B}{K_t}\right)\cdot{}s}
+			+\left(K_b+\frac{R_m\cdot{}B}{K_t}\right)\cdot{}s}\\
+	&\approx\frac{2,24\cdot{}10^6}{s^3 + 2,43\cdot{}10^3 \cdot{} s^2 + 1,03\cdot{}10^5\cdot{}s}
 	\\
 	\\
 	G_{tilt}\left(s\right)&=PWM\left(s\right)\cdot{}G_{m,t}\left(s\right)\\
 	&=12\cdot{}\frac{1}
 			{\left(\frac{L_m\cdot{}\left(J_{tilt}+J_m\right)}{K_t}\right)\cdot{}s^3
 			+\left(\frac{R_m\cdot{}\left(J_{tilt}+J_m\right)+L_m\cdot{}B}{K_t}\right)\cdot{}s^2
-			+\left(K_b+\frac{R_m\cdot{}B}{K_t}\right)\cdot{}s}
+			+\left(K_b+\frac{R_m\cdot{}B}{K_t}\right)\cdot{}s}\\
+	&\approx\frac{2,93\cdot{}10^6}{s^3 + 2,43\cdot{}10^3 \cdot{} s^2 + 1,34\cdot{}10^5\cdot{}s}
 \end{split}
 \end{align}
 \begin{figure}[!th]
