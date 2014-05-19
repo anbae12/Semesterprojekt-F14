@@ -137,29 +137,32 @@ De primære funktioner er at sætte en position eller starte tracking af lerduen
 Hvis det indtastede ikke bliver genkendt bliver en liste over gyldige funktioner udskrevet.
 
 \begin{table}[h!]
-\begin{tabular}{|l|l|l|}
-\hline 
-Kommando: & Funktion: & Parametre: \\ 
-\hline 
-read & Slå log til eller fra.  &   \\ 
-\hline 
-start & Start tracking af lerdue &   \\ 
-\hline 
-stop & Stop systemet &   \\ 
-\hline 
-open & Start åben sløjfe test &   \\ 
-\hline 
-reset & Gå til udgangsposition &   \\ 
-\hline 
-C xxx.yyy.zzz & Gå til  kartesisk koord. (x,y,z) & x,y,z = Koordinaterne i meter \\ 
-\hline 
-A aaaa.bbbb & Gå til sfærisk koord.  & a = Tilt, b = Pan, begge i ticks. \\ 
-\hline 
+\begin{tabular}{l|l|l}
+Kommando: & Funktion: & Parametre: \\\hline 
+read & Slå log til eller fra.  &   \\\hline 
+start & Start tracking af lerdue &   \\\hline 
+stop & Stop systemet &   \\\hline 
+open & Start åben sløjfe test &  \\\hline  
+reset & Gå til udgangsposition &   \\\hline 
+C xxx.yyy.zzz & Gå til  kartesisk koord. (x,y,z) & x,y,z = Koordinaterne i meter \\\hline 
+A aaaa.bbbb & Gå til sfærisk koord.  & a = Tilt, b = Pan, begge i ticks. \\\hline  
 Pmfxx & Sæt dutycycle for motor m & m = Motor ("A" ell. "B"), \\ 
-  & & f = fortegn ($+$ ell. $-$),  \\
-  & & xx = PWM dutycycle i \%\\
-\hline 
+& & f = fortegn ($+$ ell. $-$),  \\
+& & xx = PWM dutycycle i \%
 \end{tabular} 
+%\begin{tabular}{|l|l|l|}\hline 
+%Kommando: & Funktion: & Parametre: \\ \hline 
+%read & Slå log til eller fra.  &   \\ \hline 
+%start & Start tracking af lerdue &   \\ \hline 
+%stop & Stop systemet &   \\ \hline 
+%open & Start åben sløjfe test &   \\ \hline 
+%reset & Gå til udgangsposition &   \\ \hline 
+%C xxx.yyy.zzz & Gå til  kartesisk koord. (x,y,z) & x,y,z = Koordinaterne i meter \\ \hline 
+%A aaaa.bbbb & Gå til sfærisk koord.  & a = Tilt, b = Pan, begge i ticks. \\ \hline 
+%Pmfxx & Sæt dutycycle for motor m & m = Motor ("A" ell. "B"), \\ 
+%  & & f = fortegn ($+$ ell. $-$),  \\
+%  & & xx = PWM dutycycle i \%\\\hline 
+%\end{tabular} 
 \caption{Viser UART-interfacets kommandoer.}
 \label{tb:uart_interface}
 \end{table}
