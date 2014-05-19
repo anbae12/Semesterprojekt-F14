@@ -1,6 +1,6 @@
 \section{Mikrocontroller}
 
-\todo[author=Åse,inline]{Der er et afsnit om SPI. Skal det, der står om SPI i dette afsnit, være i det afsnit?} 
+%\todo[author=Åse,inline]{Der er et afsnit om SPI. Skal det, der står om SPI i dette afsnit, være i det afsnit?} 
 
 \label{sec:mikrocontroller}
 \subsection{Krav til mikrocontrolleren}
@@ -62,8 +62,8 @@ Den udleverede mikrocontroller er en 32 bit Stellaris LM3S6965, baseret på en A
 
 SPI er indbygget som et hardwaremodul, med seperate FIFO buffere til afsendelse og modtagelse. Hardwaren sender data fra den ene den buffer og lægger modtaget data i den anden. Derfor er det ikke nødvendigt for programmøren at holde styr på timingen. Størrelsen af hvert dataframe kan være 4 - 16 bits. 
 
-UART er også implementeret som et hardwaremodul. Modulet indeholder seperate FIFO buffere til afsendelse og modtagelse af data, hver med plads til 16 datawords (max 8 bit). 
-\todo[inline, color = pink, author = Mikkel]{Max 8 bit?}
+UART er også implementeret som et hardwaremodul. Modulet indeholder seperate FIFO buffere til afsendelse og modtagelse af data, hver med plads til 16 datawords (med 8 bit som max. størrelse). 
+
 
 
 %%%%%%% Den næste sætning er vist bare fyldtekst
@@ -167,6 +167,8 @@ Freescale formatet blev udelukket da opsætningen af denne var mere kompliceret 
 
 \todo[author=Åse,inline]{kan omfomulere Microwire blev...}
 
+Størrelse af data framen blev valgt til 16 bit ($2^4$), da det giver mulighed for at sende motorens hastighed og deres position (begge 11 bit) samt kontroldata. Indholdet af de enkelte pakker/datawords kan ses på figur \label{uc:protokol1}.
+
 \begin{figure}[th!]
 \centering
 \begin{tabular}{c|c|c|c|c}
@@ -177,10 +179,54 @@ Freescale formatet blev udelukket da opsætningen af denne var mere kompliceret 
  \end{tabular}
 \captionsetup{type=figure}
 \caption[SPI framestruktur]{Øverst ses framestrukturen fra mikrocontrolleren til FPGA'en. Nederst ses framestrukturen fra FPGA'en til mikrocontrolleren.}
-\label{tb:protokol1}
+\label{uc:protokol1}
 \end{figure}
 
 \todo[author=Åse,inline]{Skriv en figur tekst senere} 
+
+\todo[inline, author=Michael]{Alternativ version. Please vote :)}
+
+\begin{figure}[h!]
+\centering
+\subfloat[Mikrocontroller til FPGA.\label{fig:spi_to_fpga}]{%
+	\begin{tabular}{|c|}
+    \hline 
+    Motor (1 bit) \\ 
+    \hline 
+    Retning (1 bit) \\ 
+    \hline 
+    Set PWM (1 bit) \\ 
+    \hline 
+    N/A (2 bit) \\ 
+     \\ 
+    \hline 
+     \\ \\ \\ \\ 
+    PWM duty cycle \\ 
+    (11 bits) \\ \\ \\ \\ \\ \\ 
+    \hline 
+  \end{tabular} 
+}
+\qquad
+\subfloat[FPGA til Mikrocontroller.\label{fig:spi_from_fpga}]{%
+	\begin{tabular}{|c|}
+    \hline 
+    Motor (1 bit) \\ 
+    \hline \\
+    N/A (4 bit) \\ 
+     \\ \\
+    \hline 
+     \\ \\ \\ \\ 
+    PWM duty cycle \\ 
+    (11 bits) \\ \\ \\ \\ \\ \\ 
+    \hline 
+  \end{tabular} 
+}
+\caption[Lerduens parabel i 2D]{Viser parablen af lerduens bane i 2D.}
+\end{figure}
+
+
+
+
 
 \subsection{Test} 
 % Test af SPI overførsel
