@@ -1,6 +1,5 @@
 \section{FPGA}
 \label{sec:FPGA}
-\todo[inline, color = pink]{Mikkel: Er nogenlunde færdigt, så må hjertens gerne læses igennem :) }
 FPGA'en er leddet mellem mikrokontrolleren og motorene på PTS.
 Følgende opgaver til FPGA'en er fastsat af projektbeskrivelsen:
 
@@ -8,15 +7,15 @@ Følgende opgaver til FPGA'en er fastsat af projektbeskrivelsen:
 \itemsep1pt
 	\item Kommunikation med mikrocontrolleren vha. SPI.
 	\item Producering af PWM signal til motorerne på PTS.
-	\item Optælling af  motorernes rotationer vha. encoders på PTS.
+	\item Optælling af motorernes rotationer vha. encoders på PTS.
 \end{itemize}
 
 FPGA'en er i projeket et BASYS board\footnote{DIGILENT BASYS 2}, der programmeres ved brug af VHDL\footnote{VHSIC Hardware Description Language}.
 \todo[inline, author=Michael]{Bør vi have en kort beskrivelse af boardet? Hvilken FPGA der sidder på, antallet af gates/LUTs osv?}
-
+\todo[inline,color=pink, author= Mikkel]{Synes jeg ikke er nødvendigt, da vi ikke aktivt har valgt den eller har nogle specielle krav til den.}
 \subsection{Foretagede valg i opbygning af FPGA funktionalitet}
-Eftersom de fleste krav til FPGAen er givet af projektbeskrivelsen, er der ikke 
-lavet noget større analysearbejde af FPGAens funktionalitet. Undervejs i 
+Eftersom de fleste krav til FPGAeFPGA'enn er givet af projektbeskrivelsen, er der ikke 
+lavet noget større analysearbejde af FPGA'ens funktionalitet. Undervejs i 
 udviklingen af funktionaliteten er der dog taget nogle valg.
 
 \textbf{Generiske komponenter}\\
@@ -27,15 +26,12 @@ komponenter.
 Dette sikrer, at koden er let at udbygge og genbruge.
 
 \textbf{PWM}\\
-Der skal fra FPGAen genereres PWM signaler til at styre motorerne på PTS.
+Der skal fra FPGA'en genereres PWM signaler til at styre motorerne på PTS.
 Det ønskes at have en PWM frekvens, der ikke ligger i det hørbare område, hvilket ca. går op til 20 [kHz]\footnote{\citep{Hearingrange}}. 
 Det ønskes at have en opløsning på PWM, der er mindst ligeså høj, som 
 opløsningen på PTS rotation, for ikke at forringe opløsningen på reguleringen. 
 Det er derfor valgt at repræsentere PWM dutycycle ved 11 bit. 
 Ved 11 bits opløsning på PWM og brug af BASYS boardets interne clock på 50 [MHz] bliver PWM frekvensen passende høj:
-\todo[inline, author=Michael]{Find et argument for den valgte opløsning.}
-\todo[inline, color = pink, author = Mikkel]{Er ovenstående godt nok? :) }
-\todo[inline, author=Michael]{Ja! }
 
 \begin{equation}
   \frac{50 \text{ [MHz]}}{2^{11}} = 24.41 \text{ [kHz]}
@@ -50,120 +46,57 @@ Det blev besluttet at placere ansvaret for at dreje rammerne hen til hall
 sensorerne hos mikrocontrolleren. Det blev besluttet, da det giver mulighed for 
 en simplere protokol mellem FPGA og mikrokontroller. Det sikrer samtidigt at mikrocontrolleren 
 altid har kontrol over hvordan PTS bevæger sig.
-Funktionaliteten der skal være på FPGAen er således at opfange outputtet fra 
+Funktionaliteten der skal være på FPGA'en er således at opfange outputtet fra 
 hall sensorerne og nulstille den tilhørende position.
 Dog viste det sig, at hall sensorernes output ikke kun er højt på ét encodertick, 
-men derimod adskillige. Det er nødvendigt at FPGAen tager højde for 
+men derimod adskillige. Det er nødvendigt at FPGA'en tager højde for 
 dette.
 \todo[inline, color = pink]{Mikkel: Er ovenstående en for lang smøre om ingenting? Det er bare svært at forklare det på mindre plads.}
 
 \subsection{Opbygningen på FPGA}
-På figur \ref{fig:FPGA_blok} ses et simplificeret diagram over komponenterne på FPGAen. 
-De grønne bokse angiver komponenter på FPGAen, mens de grå cirkler angiver hvad, der ikke ligger på 
-FPGAens chip. Pilene imellem FPGAens komponenter angiver retningen på 
+På figur \ref{fig:FPGA_blok} ses et simplificeret diagram over komponenterne på FPGA'en. 
+De grønne bokse angiver komponenter på FPGA'en, mens de grå cirkler angiver hvad, der ikke ligger på 
+FPGA'ens chip. Pilene imellem FPGA'ens komponenter angiver retningen på 
 datastrømme. Diagrammet er simplificeret ved at vise to ens komponenter som én. 
-F.eks. er der ikke én tic counter komponent på FPGAen, men derimod to.
-Herunder følger en forklaring på komponenterne.
+F.eks. er der ikke én tic counter komponent på FPGA'en, men derimod to.
+Herunder følger en forklaring på hvordan de tre krav til FPGA'en er opnået. For 
+yderligere forklaring af komponenterne henvises til appendix 
+\ref{sec:fpgaappendix}.
+
+
 
 \begin{figure}[!th]
 \centering
 \begin{tikzpicture}[node distance = 5 cm,scale=1]
 \include*{./graphics/FPGA_blok}
 \end{tikzpicture}
-\caption[Diagram over FPGA komponenter]{Simplificeret diagram over komponenterne på FPGAen}
+\caption[Diagram over FPGA komponenter]{Simplificeret diagram over komponenterne på FPGA'en}
 \label{fig:FPGA_blok}
 \end{figure}
 
-\todo[inline, color = pink]{Mikkel: Måske ender meget af nedenstående i appendix?}
+%\todo[author=Åse,inline]{Teksten over figuren kan uddybes, med at beskrive de vigtigeste komponenter. Mens kan teksten nedenunder komme i appendix.}
+%\subsection{SPI}
+%På FPGA'en er SPI'en to shift registre. SPI'en konvertere det serielle signal fra MOSI til at parallel signal. Det signal sendes videre til Input decoder, som deler det op i komposanter. Fra Output decoder får SPI signalet, den skal sende til mikrocontrolleren.
 
-\todo[author=Åse,inline]{Teksten over figuren kan uddybes, med at beskrive de vigtigeste komponenter. Mens kan teksten nedenunder komme i appendix.}
+\subsection{Kommunikation med mikrocontrolleren vha. SPI.}
+På FPGA'en er implementeret en SPI slave der modtager data fra 
+mikrocontrolleren. Data føres, i komponenten SPI, fra MISO ind i FPGA'en og fra FPGA'en ud på 
+MOSI. Til mikrocontrolleren sendes skiftevis motorposition fra pan og tilt.
 
-\textbf{Tic counter}\\
-\textbf{Input:}
-Signaler fra encoder på PTS. Reset signal fra tic reset.
+\subsection{Producering af PWM signal til motorerne på PTS.}
+I PWM komponenten produceres PWM på baggrund af dutycycle værdier modtaget vha. SPI. 
+PWM bliver produceret ved at tælle en tæller op fra 0 til 2047 med 50 MHz.
+PWM udgangen sættes høj indtil tælleren når dutycycle værdien og sættes lav 
+ellers. Hermed er der produceret et PWM med en frekvens på ca. 24 kHz.
 
-\textbf{Output:} Positionen på hver af motorerne angivet i antal tics mellem 0 
-og 1079. Retningen, som motorerne roterer i. 
+\subsection{Optælling af motorernes rotationer vha. encoders på PTS.}
+Da encoderne på PTS er quadrature encodere er det muligt at bestemme både retning og tælle rotationer på motoren. 
+Dette sker i komponenten tic counter der afhængigt af inputtet fra encoderne tæller positionen op eller 
+ned.
+Der tælles ned fra 0 til 1079 og op  fra 1079 til 0.
+Resetsignal modtages fra komponenten tic reset, når pan eller tilts magnet bevæger 
+sig over hallsensorerne.
 
-Da encoderne på PTS er quadrature encodere er det muligt at bestemme både retning og 
-tælle rotationer på motoren.
-Tæller positionen op eller ned afhængigt af inputtet fra encoderne. 
-Tæller ned fra 0 til 1079.
-For at kalibrere positionen er det nødvendigt for tic counter komponenten at få 
-et reset signal fra tic reset komponenten. 
-Når dette reset signal modtages nulstilles positionen og er herved kalibreret.
-
-\textbf{Tic reset}\\
-\textbf{Input:} Signaler fra hall sensorer på PTS. Rotationsretning.\\
-\textbf{Output:} Reset signal.
-
-\begin{figure}[!th]
-\centering
-\include*{./graphics/hall_sensor_signal}
-\caption[Signal fra hall sensor]{Signalet fra hall sensor, når magneten på PTS køres hen over. Ved pilene udsendes reset signalet.}
-\label{fig:hall_sensor_signal}
-\end{figure}
-
-Som beskrevet tidligere er der behov for et reset signal til positionen. 
-Dette skal gøres ved hjælp af hall sensorer på PTS. 
-Det viser sig dog, at hall sensorernes output ikke kun er højt på ét encodertick. 
-Derfor kan signalet fra hall sensorerne ikke i sig selv bruges som reset signal.
-PTS rotationsretningen tages derfor med i betragtning.
-Hvis PTS roterer i én retning sættes reset signalet højt på opadgående 
-flanke på hall sensor outputtet, mens reset signalet sættes højt på nedadgående 
-flanke i den anden retning. Reset signalet udsendes derved på samme sted, som vist på figur \ref{fig:hall_sensor_signal}.
-Hermed fås det smallest mulige område, hvor reset signalet er højt.
-Det er testet at dette område svarer til ca. 1-2 ticks.
-\todo[inline, author=Michael]{Mere præcis måling af hall sensor området mangler. F.eks. $2 \pm 3$}
-
-\textbf{Display}\\
-\textbf{Input:} Motorposition fra tic counter. Skaleret clock signal fra clock 
-scaler.
-
-\textbf{Output:} Signal der styrer displayet.
-
-Modtager motorpositionen fra tic counter komponenten og viser det på de fire 8-digit-displays 
-på BASYS boardet. Bruger det skalerede clock signal til at multiplexe mellem de 
-fire displays.
-
-\textbf{Clock scaler}\\
-\textbf{Input:} BASYS boardets interne clock.\\
-\textbf{Output:} Skaleret clock signal
-
-Skalerer clock signalet.
-
-\textbf{Input decoder}\\
-\textbf{Input:} 16 bit data fra SPI.\\
-\textbf{Output:} PWM kanal og tilhørende PWM dutycycle (11 bit).
-
-Hvis PWM set bittet er højt skal opdateres PWM kanal og tilhørende PWM dutycycle.
-Opdateringen sker ved at tage 2 MSB og lave dem til et PWM kanal output. De 11 
-LSB sendes som PWM dutycycle output.
-
-\textbf{PWM}\\
-\textbf{Input:} PWM kanal og tilhørende PWM dutycycle (11 bit).\\
-\textbf{Output:} PWM til PTS.
-
-Sørger for at levere PWM til PTS ud fra PWM kanal og dutycycle.
-
-%\subsection*{Output decoder}
-\textbf{Output decoder}\\
-\textbf{Input:} Motorposition fra tic counter.\\
-\textbf{Output:} 16 bit data.
-
-Sørger for skiftevis at sætte motorposition for de to motorer som LSB.
-MSB bruges til at angive, hvilken motor positionen er til.
-
-\textbf{SPI}\\
-\textbf{Input:} 16 bit data fra output decoder. 16 bit data udefra.\\
-\textbf{Output:} 16 bit SPI data ud.
-
-Agerer som SPI slave i kommunikation med mikrocontrolleren.
-Modtager SPI data udefra. Sørger samtidigt for at sende de 16 bit data fra output decoder.
-
-
-\subsection{SPI}
-På FPGA'en er SPI'en to shift registre. SPI'en konvertere det serielle signal fra MOSI til at parallel signal. Det signal sendes videre til Input decoder, som deler det op i komposanter. Fra Output decoder får SPI signalet, den skal sende til mikrocontrolleren.
-
-
-
+\subsection{Delkonklusion}
+FPGA'en fungerer som simpel slave i en SPI overførsel med mikrocontrollere, holder styr på pan og tilts motorpositon samt producerer PWM 
+med en frekvens på ca. 24 [kHz] og en opløsning på 2048.
