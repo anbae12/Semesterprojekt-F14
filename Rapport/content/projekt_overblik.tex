@@ -9,9 +9,11 @@
 %FPGA'en og mikrocontrolleren kommunikere sammen vha. SPI. FPGA'en genererer to PWM-signaler, som driver hhv. H-broen og motor for pan og H-broen og motor for tilt. DC motorene sender deres encoder feedback til FPGA'en.
 
 %Mikkels:
-Af projektoplægget er givet at projektet overordnet skal opdeles som vist på 
-figur \ref{sec:projektoverblik}. 
-Ydermere stiller den følgende krav til implementeringen:
+
+Af projektoplægget er givet, at projektet skal opdeles som vist på 
+figur \ref{fig:overview_openloop_PTS}. 
+Det ligger altså udenfor dette projekt at bestemme den overordnede opdeling.
+Projektoplægget stiller ydermere følgende krav til implementeringen:
 \begin{itemize}
   \item Regulatorerne skal implementeres på én microprocessor.
   \item Der skal benyttes SPI kommunikationen imellem microprocessoren og FPGA’en.
