@@ -2,14 +2,13 @@
 \label{sec:dcmotor}
 Dette appendix beskæftiger sig med den matematiske model af DC-motoren og bestemmelsen af motorparametrene.
 \subsection{DC Motor karakteristik}
-DC Motoren kan modelleres efter diagrammet på figur \ref{fig:DCmotor}. \todo[]{Kredsløbsdiagram skal tegnes i tikz}
+DC Motoren kan modelleres efter diagrammet på figur \ref{fig:DCmotor}. 
 
 \begin{figure}[!th]
 \centering
-\includegraphics[width=0.7\textwidth]{./graphics/Mangleratblivetegnet}
-%\begin{tikzpicture}[scale=2]
-%\include*{./graphics/}
-%\end{tikzpicture}
+\begin{circuitikz}
+\input{graphics/Mangleratblivetegnet.tex}  
+\end{circuitikz}
 \caption[DC motor]{Diagram over fysiske komponenter i DC motoren.}
 \label{fig:DCmotor}
 \end{figure}
@@ -158,11 +157,14 @@ Forbindes en modstand \(R_s\) i serie med DC-motoren som vist på figur \ref{fig
 
 \begin{figure}[!th]
 \centering
-\includegraphics[width=0.1\textwidth]{./graphics/Mangleratblivetegnet2}
+\begin{circuitikz}
+\input{graphics/Mangleratblivetegnet2.tex}  
+\end{circuitikz}
+% \includegraphics[width=0.1\textwidth]{./graphics/Mangleratblivetegnet2}
 %\begin{tikzpicture}[scale=2]
 %\include*{./graphics/}
 %\end{tikzpicture}
-\caption[]{MANGLER AT BLIVE TENGET}
+\caption[]{FIGUR TEKST MANGLER}
 \label{fig:eksperiment2metode1}
 \end{figure}
 
@@ -189,7 +191,10 @@ vil impedansen \(\mathbf{Z_m}\) af DC-motoren være givet ved ligning \ref{eq:zm
 
 \begin{figure}[!th]
 \centering
-\includegraphics[width=0.1\textwidth]{./graphics/Mangleratblivetegnet3}
+\begin{circuitikz}
+\input{graphics/Mangleratblivetegnet3.tex}  
+\end{circuitikz}
+% \includegraphics[width=0.1\textwidth]{./graphics/Mangleratblivetegnet3}
 %\begin{tikzpicture}[scale=2]
 %\include*{./graphics/}
 %\end{tikzpicture}
