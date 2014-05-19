@@ -24,7 +24,7 @@ Regulatorerne skal afvikles i hård realtid\footnote{Dvs. at tasken skal afvikle
 
 SPI\footnote{Serial Peripheral Interface, også kaldet SSI} bruges til at overføre PTS's position fra FPGA til mikrocontroller. Desuden overføres beregnet duty-cycle fra mikrocontroller til FPGA. Kommunikationen skal være tilpas hurtig, så regulatorerne ikke beregner på forældet data. Forsinkelsen for overførsel af data fra begge motorer må ikke overstige 5\% af sampletiden. Ved $T_s = \frac{1}{600}$ er det: 
 \begin{equation}
-	T_{spi delay} = \frac{1}{600} \times 0.05 = 8,33 \times 10^{-5}[s]
+	T_{spi delay} = \frac{1}{600} \cdot 0.05 = 8,33 \cdot 10^{-5}[s]
 \end{equation}
 
 
@@ -76,8 +76,8 @@ Der er undersøgt 4 forskellige muligheder for skedulering:
 
 \begin{itemize}
 \itemsep1pt
-	\item CoOS\footnote{\url{www.coocox.com/CoOS.htm}} 
-	\item freeRTOS\footnote{\url{freertos.org}}
+	\item CoOS\footnote{\citep{www.coocox.com/CoOS.htm}} 
+	\item freeRTOS\footnote{\citep{freertos.org}}
 	\item Run-To-Complete-Scheduler\footnote{Introduceret i EMP-kurset}
 	\item Super-loop
 \end{itemize}
