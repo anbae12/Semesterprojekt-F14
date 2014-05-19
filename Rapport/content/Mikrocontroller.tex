@@ -99,7 +99,7 @@ Skedulering & Preemptive priority  & Preemptive priority  & Non-preemptive & Non
 \hline 
 Queues & Ja & Ja & Nej & Nej \\ 
 \hline 
-Semaphore & ?  & Counting + binære & Binære  & Nej  \\ 
+Semaphore & Counting og Binære  & Counting og Binære & Binære  & Nej  \\ 
 \hline 
 Introduceret & Nej & Ja & Ja & Ja \\ 
 i EMP kurset &   &   &   &   \\
@@ -119,7 +119,39 @@ i EMP kurset &   &   &   &   \\
 % 
 % beskrivelse af interfacet
 % 
+Bruger Interfacet gør det overskueligt at styre og skifte mellem de forskellige tilstande som systemet kan køres i.
+Der er lavet funktioner som bruges til test af specifikke funktioner og funktioner som starter en større test.
+Formålet er at gøre det simpelt for gruppen, det er altså ikke tænkt til en kunde som ikke ved noget om systemet.
+Fjernelse af implementerede funktioner for at gøre det simpelt har ikke været en prioritet. 
+De primære funktioner er at sætte en position eller starte tracking af lerduen.
+Hvis det indtastede ikke bliver gendkendt bliver en liste over gyldige funktioner udskrevet.
+
+Control tasken henter et koordinat, transformerer koordinatet udregner en PWM med PID controlleren og opdaterer loggen.
+hver gang control tasken bliver kørt bliver der hentet en position ind over SPI og sendt ny PWM. 
+Control tasken ved hvilke ting som er relevant at gemme i loggen, så ved start af tracking bliver positioner og pwm gemt i loggen.
+
+\lstinputlisting[language=c, 
+        firstnumber=120,
+        firstline=120, 
+        lastline=122,
+        ]{codeexample/ctrl_task.c}
+\(\vdots\)
+\lstinputlisting[language=c, 
+        firstnumber=155,
+        firstline=155, 
+        lastline=163,
+        ]{codeexample/ctrl_task.c}
+\(\vdots\)
+\lstinputlisting[language=c, 
+        firstnumber=180,
+        firstline=180, 
+        lastline=186,
+        caption={ af ctrl\_task.c.\label{ctrl_task}}
+        ]{codeexample/ctrl_task.c}
+    
+
 \todo[inline, author=Michael]{Venter på at kodens struktur er helt færdig - inden da giver det ikke mening at skrive dette afsnit færdigt. }
+
 Valget af freeRTOS som operativsystem gjorde det muligt at opdele programmet i seperate tasks. Taskdiagrammet er vist på figur \ref{fig:task_diagram}. 
 
 \todo[inline, author=Michael]{I figuren burde vi bruge rette linjer istedet for de afrundede. Desuden skal kommunikationen med SPI indtegnes på en eller anden måde. Irrelevante semaphorer over de fleste køer skal også fjernes. }
@@ -138,8 +170,9 @@ Valget af freeRTOS som operativsystem gjorde det muligt at opdele programmet i s
 	\item[Uart send] Tager indholdet fra uart\_ out\_ buffer og ligger dem ind i UART-modulets hardware FIFO buffer. Dette er nødvendigt fordi hw. bufferen kun indeholder 16 pladser. \citep[Side. 430]{lm3s6965}
 	\item[Uart receive] Læser UART-modulets hardware buffer og lægger de modtagne data over i uart\_ in \_ buffer. 
 	\item[Interface] Tolker på brugerinputs og sender relevante kommandoer til Control- og read\_ pos-tasken.
-	\item[read pos] Opdaterer target\_ pos med målets nuværende koordinater 60 gange i sekundet. I vores projekt læser den blot værdierne fra et array, men den kan sagtens udskiftes med en anden task der f.eks. tolker på input fra et kamera.
+% 	\item[read pos] Opdaterer target\_ pos med målets nuværende koordinater 60 gange i sekundet. I vores projekt læser den blot værdierne fra et array, men den kan sagtens udskiftes med en anden task der f.eks. tolker på input fra et kamera.
 	\item[Control] Afvikler regulatorerne. Se mere indgående beskrivelse i sektion \ref{sec:control_task}. Denne task afvikles i realtid, med en frekvens på 600 Hz. 
+	Denne task sørger for at SPI Kommunikationen med FPGA'en bliver afviklet på de rigtige tidspunkter.
 	\item[log updater] Denne task opdaterer logfilen  med data fra "status" køen.
 \end{description}
 
