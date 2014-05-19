@@ -150,7 +150,7 @@ Der er lavet funktioner som bruges til test af specifikke funktioner og funktion
 Formålet er at gøre det simpelt for gruppen, det er altså ikke tænkt til en kunde som ikke ved noget om systemet.
 Fjernelse af implementerede funktioner for at gøre det simpelt har ikke været en prioritet. 
 De primære funktioner er at sætte en position eller starte tracking af lerduen.
-Hvis det indtastede ikke bliver gendkendt bliver en liste over gyldige funktioner udskrevet.
+Hvis det indtastede ikke bliver genkendt bliver en liste over gyldige funktioner udskrevet.
 
 \subsubsection{Control task}
 \label{sec:control_task}
@@ -158,6 +158,7 @@ Hvis det indtastede ikke bliver gendkendt bliver en liste over gyldige funktione
 Control tasken henter et koordinat, transformerer koordinatet udregner en PWM med PID controlleren og opdaterer loggen.
 hver gang control tasken bliver kørt bliver der hentet en position ind over SPI og sendt ny PWM. 
 Control tasken ved hvilke ting som er relevant at gemme i loggen, så ved start af tracking bliver positioner og pwm gemt i loggen.
+I kodeudsnittet \ref{ctrl_task} ses der tasken som den bliver kørt hvis den er i tracking stadiet.
 
 \lstinputlisting[language=c, 
         firstnumber=120,
