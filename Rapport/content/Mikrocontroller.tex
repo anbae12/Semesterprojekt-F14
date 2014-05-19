@@ -52,10 +52,10 @@ UART er også implementeret som et hardwaremodul. Modulet indeholder seperate FI
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Valg af skedulering/operativsystem}
-Der er undersøgt 4 forskellige muligheder for skedulering. CoOS\footnote{\citep{www.coocox.com/CoOS.htm}} og freeRTOS\footnote{\citep{freertos.org}} er komplette real-tids operativsystemer. 
+\subsection{Valg af schedulering/operativsystem}
+Der er undersøgt 4 forskellige muligheder for schedulering. CoOS\footnote{\citep{www.coocox.com/CoOS.htm}} og freeRTOS\footnote{\citep{freertos.org}} er komplette real-tids operativsystemer. 
 Run-To-Complete-Scheduler er en simpel scheduler introduceret i EMP kurset. Ved brug af Super-loop metoden afvikles al koden i main-loopet vha. ticks.
-De fire mulige skeduleringer er beskrevet i tabel \ref{tb:os_comparison}.
+De fire mulige scheduleringer er beskrevet i tabel \ref{tb:os_comparison}.
 
 %\begin{itemize}
 %\itemsep-2pt
@@ -68,7 +68,7 @@ De fire mulige skeduleringer er beskrevet i tabel \ref{tb:os_comparison}.
 \hline 
  & coOS & freeRTOS & RTCS & Super loop \\ 
 \hline 
-Skedulering & Preemptive priority  & Preemptive priority  & Non-preemptive & Non-preemptive  \\ 
+Schedulering & Preemptive priority  & Preemptive priority  & Non-preemptive & Non-preemptive  \\ 
 			& /round robin		&	/round robin & &	\\
 \hline 
 Queues & Ja & Ja & Nej & Nej \\ 
@@ -83,7 +83,7 @@ i EMP kurset &   &   &   &   \\
 \label{tb:os_comparison}
 \end{table}
 
-Til valget er der lagt vægt på om skeduleringen opfylder kravet til realtidsafvikling af regulatorerne, samt muligheden for at genanvende elementer fra EMP-kurset.
+Til valget er der lagt vægt på om scheduleringen opfylder kravet til realtidsafvikling af regulatorerne, samt muligheden for at genanvende elementer fra EMP-kurset.
 
 \todo[inline, author=Michael]{Ikke færdig - tilføj noget om hvor lang tid et context switch tager. Dispatch latency.}
 %
