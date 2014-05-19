@@ -198,63 +198,67 @@ Mikrocontrollerens SPI modul har indbygget tre forskellige standarder: TI Synchr
 Microwire blev udelukket da den ikke er full-duplex og dermed ikke en SPI standard. 
 Freescale formatet blev udelukket da opsætningen af denne var mere kompliceret end for SSFT, uden at tilføje ekstra muligheder.
 
-
-%\begin{figure}[th!]
-%\centering
-%\begin{tabular}{c|c|c|c|c}
-%1 motorbit &1 retningsbit & 1 set PWMbit & 2 ignored bits & 11 PWM dutycyclebits\\
-%\end{tabular}
-% \begin{tabular}{c|c|c}
-% 1 motorbit & 4 ignored bits & 11 decoderbits
-% \end{tabular}
-%\captionsetup{type=figure}
-%\caption[SPI framestruktur]{Øverst ses framestrukturen fra mikrocontrolleren til FPGA'en. Nederst ses framestrukturen fra FPGA'en til mikrocontrolleren.}
-%\label{tb:protokol1}
-%\end{figure}
-
-Størrelse af data framen blev valgt til 16 bit ($2^4$), da det giver mulighed for at sende motorens hastighed og deres position (begge 11 bit) samt kontroldata. Opbygningen af de to datawords kan ses på figur \ref{fig:protokol1}.
-
+Størrelse af data framen blev valgt til 16 bit, hvilket giver mulighed for at sende motorens hastighed og deres position (begge 11 bit) samt kontroldata. Opbygningen af de to datawords kan ses på figur \ref{fig:protokol1}.
 
 \begin{figure}[h!]
 \centering
 \subfloat[Mikrocontroller til FPGA.\label{fig:spi_to_fpga}]{%
-\begin{tabular}{|c|}
-    \hline
-    Motor (1 bit) \\
-    \hline
-    Retning (1 bit) \\
-    \hline
-    Ignore PWM (1 bit) \\
-    \hline
-    N/A (2 bit) \\
-     \\
-    \hline
-     \\ \\ \\ \\
-    PWM duty cycle \\
-    (11 bits) \\ \\ \\ \\ \\
-    \hline
-  \end{tabular}
+\begin{tabular}{c|c|c|c|c}
+Motor (1 bit) &Retning (1 bit) & Ignore PWM (1 bit)& N/A (2 bit) & PWM duty cycle (11 bit)
+\end{tabular}
 }
 \qquad
 \subfloat[FPGA til Mikrocontroller. Der skiftes mellem at sende position for pan og tilt hver gang.
 \label{fig:spi_from_fpga}]{%
-\begin{tabular}{|c|}
-    \hline
-    Motor (1 bit) \\
-    \hline \\
-    N/A (4 bit) \\
-     \\ \\
-    \hline
-     \\ \\ \\ \\
-    Position (ticks) \\
-    (11 bits) \\ \\ \\ \\ \\
-    \hline
-  \end{tabular}
+ \begin{tabular}{c|c|c}
+ Motor (1 bit) & N/A (4 bit)  & PWM duty cycle (11 bit)
+ \end{tabular}
 }
 \caption[Indholdet af SPI datawords]{Viser indholdet af SPI datawords. }
 \label{fig:protokol1}
 \end{figure}
-\todo[inline, author=Michael]{Mangler hjælp fra LaTeX guru her: tabellerne skal gerne have samme bredde}
+
+
+%\begin{figure}[h!]
+%\centering
+%\subfloat[Mikrocontroller til FPGA.\label{fig:spi_to_fpga}]{%
+%\begin{tabular}{|p{4cm}|}
+ %   \hline
+ %   Motor (1 bit) \\
+ %   \hline
+ %   Retning (1 bit) \\
+ %   \hline
+%    Ignore PWM (1 bit) \\
+%    \hline
+%    N/A (2 bit) \\
+ %    \\
+  %  \hline
+ %    \\ \\ \\ \\
+ %   PWM duty cycle \\
+ %   (11 bits) \\ \\ \\ \\ \\
+ %   \hline
+%  \end{tabular}
+%}
+%\qquad
+%\subfloat[FPGA til Mikrocontroller. Der skiftes mellem at sende position for pan og tilt hver gang.
+%\label{fig:spi_from_fpga}]{%
+%\begin{tabular}{|p{4cm}|}
+ %   \hline
+  %  Motor (1 bit) \\
+%    \hline \\
+%    N/A (4 bit) \\
+%     \\ \\
+%    \hline
+%     \\ \\ \\ \\
+%    Position (ticks) \\
+%    (11 bits) \\ \\ \\ \\ \\
+%    \hline
+%  \end{tabular}
+%}
+%\caption[Indholdet af SPI datawords]{Viser indholdet af SPI datawords. }
+%\label{fig:protokol1}
+%\end{figure}
+\todo[inline, author=Anders]{Todo er rettet, men jeg synes personligt den anden noteringsformat er pænere. Det sere "lettere" ud og fylder mindre.}
 
 
 Figur \ref{fig:spi_to_fpga} viser indholdet af datawords der bliver sendt fra Mikrocontrolleren. 
