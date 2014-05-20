@@ -125,12 +125,42 @@ Valget af freeRTOS som operativsystem gjorde det muligt at opdele programmet i s
 \begin{description}
 \itemsep-3pt
 	\item[UART] Grundet UART hw. bufferen kun indeholder 16 pladser \citep[Side. 430]{lm3s6965}. Sørger en Send og Recieve task for at sende data videre. Ekstra Semaphore til at sikre kun en task kan skrive til Uart af gangen er implementeret.
-	\item[Interface] Tolker på brugerinputs og sender relevante kommandoer til Control tasken.
 	\item[Control] Afvikler regulatorerne. Se mere indgående beskrivelse i sektion \ref{sec:control_task}. Denne task afvikles i realtid, med en frekvens på 600 Hz. 
 	Denne task sørger for at SPI Kommunikationen med FPGA'en bliver afviklet på de rigtige tidspunkter.
 	\item[Logger] Denne task opdaterer logfilen med data fra "status" køen.
+	\item[Interface] Tolker på brugerinputs og sender relevante kommandoer til Control tasken.
 \end{description}
 
+
+\subsubsection{Control task}
+\label{sec:control_task}
+
+Control tasken henter et koordinat, transformerer koordinatet udregner en PWM med PID controlleren og opdaterer loggen.
+hver gang control tasken bliver kørt bliver der hentet en position ind over SPI og sendt ny PWM. 
+Control tasken ved hvilke ting som er relevant at gemme i loggen, så ved start af tracking bliver positioner og pwm gemt i loggen.
+I kodeudsnittet \ref{ctrl_task} ses der tasken som den bliver kørt hvis den er i tracking stadiet.
+
+\lstinputlisting[language=c, 
+        firstnumber=120,
+        firstline=120, 
+        lastline=122,
+        ]{codeexample/ctrl_task.c}
+\(\vdots\)
+\lstinputlisting[language=c, 
+        firstnumber=155,
+        firstline=155, 
+        lastline=163,
+        ]{codeexample/ctrl_task.c}
+\(\vdots\)
+\lstinputlisting[language=c, 
+        firstnumber=180,
+        firstline=180, 
+        lastline=186,
+        caption={ af ctrl\_task.c.\label{ctrl_task}}
+        ]{codeexample/ctrl_task.c}
+
+        
+        
 \subsubsection{Interface task}
 \label{sec:interface}
 Bruger Interfacet gør det overskueligt at styre og skifte mellem de forskellige tilstande som systemet kan køres i.
@@ -175,34 +205,6 @@ Pmfxx & Sæt dutycycle for motor m & m = Motor ("A" ell. "B"), \\
 \end{figure}
 
 
-
-\subsubsection{Control task}
-\label{sec:control_task}
-
-Control tasken henter et koordinat, transformerer koordinatet udregner en PWM med PID controlleren og opdaterer loggen.
-hver gang control tasken bliver kørt bliver der hentet en position ind over SPI og sendt ny PWM. 
-Control tasken ved hvilke ting som er relevant at gemme i loggen, så ved start af tracking bliver positioner og pwm gemt i loggen.
-I kodeudsnittet \ref{ctrl_task} ses der tasken som den bliver kørt hvis den er i tracking stadiet.
-
-\lstinputlisting[language=c, 
-        firstnumber=120,
-        firstline=120, 
-        lastline=122,
-        ]{codeexample/ctrl_task.c}
-\(\vdots\)
-\lstinputlisting[language=c, 
-        firstnumber=155,
-        firstline=155, 
-        lastline=163,
-        ]{codeexample/ctrl_task.c}
-\(\vdots\)
-\lstinputlisting[language=c, 
-        firstnumber=180,
-        firstline=180, 
-        lastline=186,
-        caption={ af ctrl\_task.c.\label{ctrl_task}}
-        ]{codeexample/ctrl_task.c}
-        
 \subsubsection{SPI}
 \label{sec:spi-implementering}
 Det blev vedtaget at mikrocontrolleren var masteren og FPGA'en blev slaven, da FPGA'en helst skulle være så enkel som mulig.
