@@ -156,10 +156,10 @@ som beregnet i appendix \ref{sec:inertimomentberegning}.
 \(J_{pan}\) er beregnet ud fra et konstant bidrag fra tilt-rammen under antagelsen om,
 at denne står tilnærmelsesvis lodret under hele bevægelsen.
 
-\subsection{Pan- og tilt-systemernes åbensløjfeoverførselsfunktioner}
+\subsection{Pan- og tilt-systemernes åbensløjfeoverføringsfunktioner}
 Hvert SISO-undersystem består af én PWM-blok på FPGA'en og en DC-motor med belastning.
-To overførselsfunktioner \(G_{pan}\) og \(G_{tilt}\) for pan- og tilt-systemet kan opskrives
-som produktet af ligning \ref{eq:transPWM} og \ref{eq:transTheta}. De to overførselsfunktioner
+To overføringsfunktioner \(G_{pan}\) og \(G_{tilt}\) for pan- og tilt-systemet kan opskrives
+som produktet af ligning \ref{eq:transPWM} og \ref{eq:transTheta}. De to overføringsfunktioner
 står i ligningerne \ref{eq:transpantilt0}, og de er illustreret i figur \ref{fig:openloop1}.
 \begin{align}
 \label{eq:transpantilt0}
@@ -185,10 +185,27 @@ står i ligningerne \ref{eq:transpantilt0}, og de er illustreret i figur \ref{fi
 \begin{tikzpicture}[auto, node distance=2.6cm,>=latex']
 \include*{./graphics/openloop1}
 \end{tikzpicture}
-\caption[Åbensløjfeoverførselsfunktioner]{Åbensløjfeoverførselsfunktionerne \(G_{pan}\left(s\right)\) og \(G_{tilt}\left(s\right)\).
+\caption[Åbensløjfeoverføringsfunktioner]{Åbensløjfeoverføringsfunktionerne \(G_{pan}\left(s\right)\) og \(G_{tilt}\left(s\right)\).
 	Signalet \(d.c.\left(t\right)\) er en duty cycle mellem -100 \% og +100 \%.}
 \label{fig:openloop1}
 \end{figure}
 
-Åbensløjfeoverførselsfunktionerne \(G_{pan}\) og \(G_{tilt}\) danner udgangspunktet
+Åbensløjfeoverføringsfunktionerne \(G_{pan}\) og \(G_{tilt}\) danner udgangspunktet
 for analysen der hører til designet af reguleringssløjferne.
+\todo[inline,author=Mikael]{Gør de nu også det?}
+
+\subsubsection{Verifikation}
+Åbensløjferesponsen af Tilt-systemet er blevet målt og sammenlignet med den teoretiske respons
+som forudsagt af den fundne overføringsfunktion \(G_{tilt}\).
+Grunden til, åbensløjferesponsen kun er blevet målt for Tilt er, at rammen kan rotere frit,
+mens pan blokeres af en stopklods.
+Sammenligningen er nødvendig for at verificere modellen, og for evt. at kunne justere modellen,
+så udgangspunktet for analysen der hører til designet af reguleringssløjferne er så godt som muligt.
+
+Der blev som input givet et rampesignal, der gik fra 0 \% duty cycle til næsten 100 \% duty cycle
+i løbet af ca. 12 sekunder. Tilt-vinklen blev målt med FPGA'en og sammenlignet med den teoretiske
+respons for samme input-signal.
+Forsøget blev udført syv gange.
+
+Figur \ref{fig:openloop2} viser de syv målte åbensløjferesponser (markeret med rødt)
+og de syv teoretiske åbensløjferesponser (markeret med blåt).
