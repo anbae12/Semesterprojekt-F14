@@ -349,16 +349,6 @@ Den højeste afvigelse på 9 \micro s er lav nok til at kravene opfyldes.
 
 \todo[inline, author=Michael]{Udfør test af ctrl-taskens afviklingstid.}
 
-
-Reguleringssløjferne er testet ved at plotte loggen og se den maksimale fejl.
-Systemet blev altid sat i samme start position ved funktionen ``reset'' som pegede ind på 18 ticks for tilt og 163 ticks for pan.
-Dette er også det første koordinat i testen, hvilket sikrer at systemet skal lede mindst muligt efter første koordinat.
-Der er foretaget mange test af systemet under fintuning af PID konstanterne.
-for de færdige værdier er der plottet figur XXX i appendix XXX.
-
-\todo[inline, color = green, author = Nikolaj]{Vi har måledata, men vi skal have beregnet nogle bedre PID især til pan systemet før jeg kan henvise til noget.}
-
-
 \subsection{Delkonklusion}
 FreeRTOS er brugbar til tidskritiske operationer.
 Reguleringsstasken kan afvikles med 600Hz. 
