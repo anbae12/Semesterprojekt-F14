@@ -13,21 +13,21 @@
    
    
 
-\draw [draw,->] (input) -- node {\footnotesize $Pos\left(t\right)$} (AD);
+\draw [draw,->] (input) -- node[above] {\footnotesize $Pos\left(t\right)$} (AD);
 \draw [dashed,draw,->] (freq60) -- (AD);
-\draw [draw,->] (AD) -- node {\footnotesize $x\left(k\right)$} (DD);
-\draw [draw,->] (DD) -- node {\footnotesize $x_1\left(k\right)$} (Koordinattransformation);
-\draw [draw,->] (Koordinattransformation) -- node[pos=0.8] {\footnotesize +} (sum1);%node [near end] (sum1);
-\draw [draw,->] (sum1) -- node {\footnotesize $e\left(k\right)$} (Dz);
-\draw [draw,->] (Dz) -- node {\footnotesize $u\left(k\right)$} (Dahold);
-\draw [draw,->] (Dahold) -- node {\footnotesize $U\left(t\right)$} (Hs);
-\draw [->] (Hs) -- node [name=y] {\footnotesize $\Theta\left(t\right)$}(output);
+\draw [draw,->] (AD) -- node[above] {\footnotesize $x\left(k\right)$} (DD);
+\draw [draw,->] (DD) -- node[above] {\footnotesize $x_1\left(k\right)$} (Koordinattransformation);
+\draw [draw,->] (Koordinattransformation) -- node[pos=0.8,above] {\footnotesize +} (sum1);%node [near end] (sum1);
+\draw [draw,->] (sum1) -- node[above] {\footnotesize $e\left(k\right)$} (Dz);
+\draw [draw,->] (Dz) -- node[above] {\footnotesize $u\left(k\right)$} (Dahold);
+\draw [draw,->] (Dahold) -- node[above] {\footnotesize $U\left(t\right)$} (Hs);
+\draw [->] (Hs) -- node [name=y,above] {\footnotesize $\Theta\left(t\right)$}(output);
 \draw [dashed,draw,->] (freq600) -| (Dz);
 \draw [dashed,draw,->] (freq600) -| (Dahold);
 \draw [dashed,draw,->] (freq600) -| (AD2);
 \draw [dashed,draw,->] (freq600) -| (DD);
-\draw [draw,->] (y) |- node [near end] {\footnotesize $\Theta\left(t\right)$} (AD2);
-\draw [->] (AD2) -| node[pos=0.97] {\footnotesize -} node [near end] {\footnotesize $\theta\left(k\right)$} (sum1);
+\draw [draw,->] (y) |- node [near end,above] {\footnotesize $\Theta\left(t\right)$} (AD2);
+\draw [->] (AD2) -| node[pos=0.97] {\footnotesize -} node [near end,left] {\footnotesize $\theta\left(k\right)$} (sum1);
 
 \coordinate[left of=Dahold,xshift=1cm,yshift=1.5cm](UL);
 \coordinate[left of=Dahold,xshift=1cm,yshift=-4.25cm](BL);
