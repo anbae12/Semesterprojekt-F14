@@ -2,5 +2,50 @@
 \setcounter{page}{1}
 \section*{Abstract}
 
-\todo[inline,author=ALLE]{Mangler at blive skrevet}
+This paper describes the development of a pan \& tilt system tracking a clay 
+pigeon moving in the air. 
+The tracking of the clay pigeon to cartesian coordinates is not included in this 
+project. This paper concentrates on making the pan \& tilt system track inputs 
+given to the system with a rate of 120 [Hz] of a parabola.
+The project (and this paper) is divided into subparts: 
+ 
+\begin{itemize}
+  \item \textbf{Application}
+  % - Defining the application, the requirements for 
+  %the system and the goals of the project.
+  \item \textbf{System identification} 
+  %- Identification of the system and it's 
+  %corresponding transferfunction. Analysis of the controller needed and the 
+  %requirements needed for good performance. Coordinate transformation from
+  %cartesian to spherical coordinates.
+  \item \textbf{Implementation}
+  % - Description of the implementation on the 
+  %microcontroller and the FPGA.
+  \item \textbf{Tuning of the controller} 
+  %- Tuning of the controller to get the 
+  %wanted performance.
+  \item \textbf{Tests} 
+  %- Test of the performance of the pan \& tilt system with 
+  %the controller.
+  \item \textbf{Discussion} 
+  %- Discussion of the project and the performance of 
+  % the system.
+\end{itemize}
 
+The pan \& tilt system will be uptimized for shooting in English Skeet. For a 1 
+radian reference the settling time should be less than 0.557 [s] and steady 
+state error less than 1,78\%.
+
+The systems transferfunctions were obtained by describing the system with a 
+mathematical model based on tests of a DC motor. The model was...... It was 
+found that a PID controller was needed....
+
+Implementation of the needed functionality was made on a microcontroller and a 
+FGPA. The microcontroller in charge of the both the controlling and 
+communication with the FPGA using SPI. 
+On the microcontroller FreeRTOS, an operating system using preemptive scheduling, was used 
+to ensure hard realtime perfomance.
+The FPGA was programmed to keep count of the motorrotations, to produce PWM 
+signals to the motors and to communicate with the microcontroller as a SPI slave.
+
+\todo[inline,color=pink,author=Mikkel]{Bør skrives færdig når konklusion osv. er skrevet.}

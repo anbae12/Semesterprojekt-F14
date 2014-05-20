@@ -17,8 +17,8 @@ model af Pan \& Tilt-systemet af følgende årsager:
 Ulempen ved at bruge teoretiske \textit{lineære} matematiske modeller er,
 at de altid vil være tilnærmelser, og ikke beskriver ulineariteter som dødbånd og tidsforsinkelser.
 
-En skitse af Pan \& Tilt-systemet findes i figur \ref{fig:overview_openloop_PTS}.
-
+%En skitse af Pan \& Tilt-systemet findes i figur \ref{fig:overview_openloop_PTS}.
+%
 \subsection{Afkobling af pan og tilt}
 Når den ene af de to rammer roterer vil en kraftmoment-induceret præcession påvirke den anden ramme.
 Samtidig vil tilt-rammens vinkel påvirke inertimomentet omkring pan-aksen, og dermed
@@ -30,9 +30,11 @@ for dette fysiske system, samt at tilt-rammens inertimoment er tilnærmelsesvis 
 Afkoblingen af de to systemer, og opdelingen i hhv. pan og tilt gør, at der kan udvikles en separat regulator
 til hvert system, og at der skal findes en overførselsfunktion for hvert system.
 De følgende beregninger tager altså udgangspunkt i det simplificerede afkoblede system.
+Det er dog stadig vigtigt iht. kravspecifikationen at betragte tracking fejlen som en størrelse der samlet
+ikke må overstige 1,02 \degree, og på dette punkt betragtes systemet stadig som en helhed.
 
 \subsection{DC-Motor}
-To DC-motorer af typen EMG30, \citep{emgmotor}, er forbundet til systemet.
+To DC-motorer af typen EMG30 \citep{emgmotor}, er forbundet til systemet.
 Det antages, at motorerne kan beskrives ved samme matematiske model.
 Den matematiske model af DC-motoren er beskrevet i appendix \ref{sec:dcmotor},
 der også beskæftiger sig med den eksperimentelle bestemmelse af parametrene for en EMG30-motor
@@ -66,36 +68,36 @@ mens \(B\) er den viskøse friktionskoefficient.
 De eksperimentelt bestemte motorparametre står i tabel \ref{tb:matmotorparametre}.
 Det er vigtigt at bemærke, at de to motorer adskiller sig fra hinanden ved parameteren \(J_L\), som er belastningens
 inertimoment. Dette er ikke en egentlig motorparameter, men en parameter der udelukkende afhænger
-af pan- og tilt-rammernes dimensioner og vinkel.
+af pan- og tilt-rammernes masser, dimensioner og vinkel.
 Desuden er det værd at bemærke, at denne model ikke tager højde for statisk friktion og Coulomb-friktion,
-fordi de ikke, som den viskøse friktion, er lineære. Ikke desto mindre giver Coulomb-friktionen under
-bevægelse en konstant dæmpning, der kan kompenseres for med en højere forstærkning.\todo[inline]{Skal vi bruge en kilde ang. Coulomb-friktion?}
+fordi de ikke, som den viskøse friktion, er lineære. Ikke desto mindre antages det, at Coulomb-friktionen under
+bevægelse giver en konstant dæmpning, der kan kompenseres for med en højere forstærkning.\todo[inline]{Skal vi bruge en kilde ang. Coulomb-friktion?}
 
-Vi er interesserede i en overførselsfunktion for DC-motoren. Med antagelse om at \(\omega\) (vinkelhastigheden) og dens tidsafledte er 0
-Laplace-transformeres ligning \ref{eq:matVm_transient3}, og den resulterende overførselsfunktion findes
+Vi er interesserede i en overføringsfunktion for DC-motoren. Med antagelse om at \(\omega\) (vinkelhastigheden) og dens tidsafledte er 0
+Laplace-transformeres ligning \ref{eq:matVm_transient3}, og den resulterende overføringsfunktion findes
 i ligning \ref{eq:transOmega}.
 \begin{equation}
 	\frac{\Omega\left(s\right)}{V_m\left(s\right)}=\frac{1}{k_1\cdot{}s^2+k_2\cdot{}s+k_3}
 	\label{eq:transOmega}
  \end{equation}
 Ligning \ref{eq:transOmega} beskriver motorens rotors vinkelhastighed \(\Omega\left(s\right)\) som funktion af spændingsfaldet
-\(V_m\left(s\right)\) over motoren. Bemærk at reduktionsgearingen i motoren gør at vinkelhastigheden set fra Pan \& Tilt rammerne
+\(V_m\left(s\right)\) over motoren. Bemærk at reduktionsgearingen i motoren gør at vinkelhastigheden af Pan \& Tilt rammerne
 er lavere.
 Vinkelhastigheden \(\omega\) er den tidsafledte af vinklen \(\theta\),
-og hvis det antages at motorens startvinkel er 0, så kan motorens overførselsfunktion
-findes blot ved tilføjelse af en integrator \(\frac{1}{s}\) til ligning \ref{eq:transOmega}.
-Motorens overførselsfunktion \(G_m\left(s\right)\) fra input spændingsfald til output vinkel (inden reduktionsgearing) findes
+og hvis det antages at motorens startvinkel er 0, så kan motorens overføringsfunktion
+findes ved tilføjelse af en integrator \(\frac{1}{s}\) til ligning \ref{eq:transOmega}.
+Motorens overføringsfunktion \(G_m\left(s\right)\) fra input spændingsfald til output vinkel (inden reduktionsgearing) findes
 i ligning \ref{eq:transTheta}.
 \begin{equation}
 	G_m\left(s\right)=\frac{\Omega\left(s\right)}{V_m\left(s\right)}\cdot{}\frac{1}{s}=\frac{1}{k_1\cdot{}s^3+k_2\cdot{}s^2+k_3\cdot{}s}
 	\label{eq:transTheta}
 \end{equation}
-DC-motorens overførselsfunktion afhænger af dens belastning,
+DC-motorens overføringsfunktion afhænger af dens belastning,
 og belastningen (inertimomentet \(J_L\) der skal roteres) er indeholdt i konstanterne \(k_1\) og \(k_2\).
-Der er altså en separat overførselsfunktion \(G_m\left(s\right)\) for Pan og for Tilt,
+Der er altså en separat overføringsfunktion \(G_m\left(s\right)\) for Pan og for Tilt,
 da rammerne har forskelligt inertimoment.
 De to belastningsinertimomenter benævnes hhv. \(J_{pan}\) og \(J_{tilt}\),
-og de to forskellige overførselsfunktioner benævnes hhv. \(G_{m,p}\) og \(G_{m,t}\).
+og de to forskellige overføringsfunktioner benævnes hhv. \(G_{m,p}\) og \(G_{m,t}\).
 Bestemmelsen af inertimomenterne findes i afsnit \ref{sec:inertimoment}.
 
 \subsection{FPGA-modulerne}
@@ -103,24 +105,23 @@ Bestemmelsen af inertimomenterne findes i afsnit \ref{sec:inertimoment}.
 FPGA'ens positionsencoders læser motorens vinkel inden reduktionsgearingen,
 altså outputtet af \(G_m\left(s\right)\).
 Der er altså tale om en kvantisering af output-vinklen.
-Gearingen til rammerne er i forholdet 1:3, og da der er 360 encoder-ticks pr. rotation, \citep{emgmotor},
+Gearingen til rammerne er i forholdet 1:3, og da der er 360 encoder-ticks pr. rotation \citep{emgmotor},
 er kvantiseringsintervallet \(\frac{1}{1080}\).
 
 På FPGA'en genereres et PWM-signal til hver motors H-bro ud fra en
 duty cycle som mikrocontrolleren leverer.
 PWM-signalet forstærkes af H-broen til et firkantsignal med en amplitude på 12 [V],
 som leveres til motoren.
-En overførselsfunktion for denne duty cycle - motorspændingsfald konvertering ønskes
+En overføringsfunktion for denne duty cycle - motorspændingsfald konvertering ønskes
 til reguleringen.
 Det vælges at modellere konverteringen som en simpel lineær forstærkning af en duty cycle mellem -100 \% og +100 \%
 til en DC-spænding mellem -12 [V] og +12 [V]. Med denne simple model ændres systemets orden ikke,
 og det vurderes, at tidsforsinkelsen fra input duty cycle til motorbevægelse er negligerbar.
-Overførselsfunktionen fra duty cycle til DC-spænding står i ligning \ref{eq:transPWM}.
+Overføringsfunktionen fra duty cycle til DC-spænding står i ligning \ref{eq:transPWM}.
 \begin{equation}
 	PWM\left(s\right)=PWM=12
 	\label{eq:transPWM}
 \end{equation}
-\todo[inline,author=Mikael,color=red]{Er det bedre at modellere konverteringen som et analogt lavpasfilter?????}
 \todo[inline,author=Mikael]{Dedikér et underafsnit til diskussion af tidsforsinkelser, digitale såvel som analoge.}
 
 \subsection{Pan \& Tilt-rammernes inertimoment}
@@ -192,9 +193,12 @@ står i ligningerne \ref{eq:transpantilt0}, og de er illustreret i figur \ref{fi
 
 Åbensløjfeoverføringsfunktionerne \(G_{pan}\) og \(G_{tilt}\) danner udgangspunktet
 for analysen der hører til designet af reguleringssløjferne.
-\todo[inline,author=Mikael]{Gør de nu også det?}
+I afsnit \ref{subsec:verifikation} nedenfor diskuteres overføringsfunktionernes nøjagtighed,
+og der gives forslag til forbedring af modellen ift. det fysiske system som det fungerer
+i praksis.
 
 \subsubsection{Verifikation}
+\label{subsec:verifikation}
 Åbensløjferesponsen af Tilt-systemet er blevet målt og sammenlignet med den teoretiske respons
 som forudsagt af den fundne overføringsfunktion \(G_{tilt}\).
 Grunden til, åbensløjferesponsen kun er blevet målt for Tilt er, at rammen kan rotere frit,
@@ -218,3 +222,31 @@ og de syv teoretiske åbensløjferesponser (markeret med blåt).
 		mens den teoretiske respons for de samme syv inputs er markeret med blåt.}
 	\label{fig:openloop2}
 \end{figure}
+
+Figur \ref{fig:openloop2} viser, at den teoretiske respons er større, samt at den målte
+respons er forsinket i forhold til den teoretiske.
+At den teoretiske respons er større kan forklares ud fra antagelsen om,
+at den eneste friktion i systemet er viskøs friktion. I praksis er der en større dæmpning
+end den teoretiske model forudsiger.
+At den målte respons er forsinket skyldes, at visse PWM-duty cycles ikke kan bevæge systemet.
+Dødbåndet af PWM-duty cycles, der ikke kan accelerere Tilt-systemet er målt til at befinde sig inden for
+ca. \(\pm\) 12 \%, og for Pan-systemet til ca. \(\pm\) 10 \%.
+Hvis man i den teoretiske model indsætter et dødbånd på 12 \% og en forstærkning
+på 0,84, så passer den bedre på de målte data, som illustreret i figur \ref{fig:openloop3}.
+\begin{figure}[th!]
+	\centering
+	\includegraphics[width=1\textwidth]{./graphics/openloop3.eps}
+	\caption[Tilt åbensløjferespons, målt vs. justeret teoretisk]
+		{Tilt åbensløjferespons, målt vs. justeret teoretisk.
+		Markeret med rødt er den målte respons for alle syv målinger.
+		Markeret med blåt er den teoretiske respons forudsagt af \(G_{tilt}\), hvis
+		man indsætter et dødbånd af duty cycles på \(\pm\) 12 \% samt en forstærkning på 0,84.}
+	\label{fig:openloop3}
+\end{figure}
+
+Hvis man ønsker en mere nøjagtig matematisk model af Pan \& Tilt-systemet
+er det altså en mulighed at indsætte dødbåndet og den ekstra dæmpning
+i modellen.
+Som vælges det dog at benytte åbensløjfeoverføringsfunktionerne \(G_{pan}\) og \(G_{tilt}\)
+som udgangspunkt for regulatordesignet, og udvide modellen hvis regulatoren ikke lever op til
+kravene.
