@@ -46,7 +46,25 @@ PID&\(22,3440 \) &  \( 1493,7 \) & \(0,0836  \)&\(22,2720 \) &  \( 1302,2 \) & \
 \caption[Controller-koefficienter, Ziegler-Nichols Tuning Methode]{Controller-koefficienter for pan og tilt.}\label{tb:ZieglerNichols1}
 \end{figure}
 
+Disse koefficienter ville skabe meget overshoot som vil skade systemet. Systemet er ikke testet med disse koefficienter. 
+Istedet er der ved brug af PID tool og simulink i matlab fundet frem til nogle koefficienter.
+Disse koefficienter er testet og plottet i Figur \ref{PID_test14_plot} 
+\begin{figure}
+\centering
+  \begin{tabular}{lccc}
+      & P & I & D\\
+tilt  & 74.4933 & 435.0662 & 0.248960\\
+pan   & 37.1740 &  33.3610 & 0.215658
+  \end{tabular}
+\captionsetup{type=table}
+\caption[Regulator koefficienter brugt i test]{Regulator koefficienter brugt til test af system.}
+\label{PID_test14} 
+\end{figure}
 
-\todo[inline,author=Anders]{De fundet koefficienter kan ikke bruges, systemet står og oscillere.. Derfor skal der bruges endnu en ilteration.}
+\begin{figure}
+\includegraphics[width=1\textwidth]{./graphics/error_pan.eps}
+\includegraphics[width=1\textwidth]{./graphics/error_tilt.eps}
+\caption{fejl målt i grader for PID controller med coefficienterne beskrevet i Tabel \ref{PID_test14} \label{PID_test14_plot} }
+\end{figure}
 
 \subsection{Optimering af controller/koefficienter}
