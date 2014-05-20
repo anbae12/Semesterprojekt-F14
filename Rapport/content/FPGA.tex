@@ -41,16 +41,15 @@ PTS skal kunne tændes i en tilfældig position og derefter kalibreres.
 Kalibreringen af motorpositionen kan laves ved at sørge for at PTS drejer forbi 
 de to hall sensorer, der er placeret på systemet. Dette vil give et signal, da 
 der på PTS er placeret en magnet på hver af rammerne.
-Det blev besluttet at placere ansvaret for at dreje rammerne hen til hall 
-sensorerne hos mikrocontrolleren. Det blev besluttet, da det giver mulighed for 
-en simplere protokol mellem FPGA og mikrokontroller. Det sikrer samtidigt at mikrocontrolleren 
-altid har kontrol over hvordan PTS bevæger sig.
-Funktionaliteten der skal være på FPGA'en er således at opfange outputtet fra 
+%Det blev besluttet at placere ansvaret for at dreje rammerne hen til hall 
+%sensorerne hos mikrocontrolleren. Det blev besluttet, da det giver mulighed for 
+%en simplere protokol mellem FPGA og mikrokontroller. Det sikrer samtidigt at mikrocontrolleren 
+%altid har kontrol over hvordan PTS bevæger sig.
+Funktionaliteten der skal være på FPGA'en er at opfange outputtet fra 
 hall sensorerne og nulstille den tilhørende position.
 Dog viste det sig, at hall sensorernes output ikke kun er højt på ét encodertick, 
 men derimod adskillige. Det er nødvendigt at FPGA'en tager højde for 
 dette.
-\todo[inline, color = pink]{Mikkel: Er ovenstående en for lang smøre om ingenting? Det er bare svært at forklare det på mindre plads.}
 
 \subsection{Opbygningen på FPGA}
 På figur \ref{fig:FPGA_blok} ses et simplificeret diagram over komponenterne på FPGA'en. 
