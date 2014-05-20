@@ -37,11 +37,15 @@ radian reference the settling time should be less than 0.557 [s] and steady
 state error less than 1,78\%.
 
 The systems transferfunctions were obtained by describing the system with a 
-mathematical model based on tests of a DC motor. The model was......
+mathematical model based on tests of a DC motor. The model was...... It was 
+found that a PID controller was needed....
 
 Implementation of the needed functionality was made on a microcontroller and a 
 FGPA. The microcontroller in charge of the both the controlling and 
 communication with the FPGA using SPI. 
 On the microcontroller FreeRTOS, an operating system using preemptive scheduling, was used 
 to ensure hard realtime perfomance.
+The FPGA was programmed to keep count of the motorrotations, to produce PWM 
+signals to the motors and to communicate with the microcontroler as a SPI slave.
+
 \todo[inline,color=pink,author=Mikkel]{Bør skrives færdig når konklusion osv. er skrevet.}
