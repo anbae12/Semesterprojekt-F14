@@ -192,7 +192,6 @@ står i ligningerne \ref{eq:transpantilt0}, og de er illustreret i figur \ref{fi
 
 Åbensløjfeoverføringsfunktionerne \(G_{pan}\) og \(G_{tilt}\) danner udgangspunktet
 for analysen der hører til designet af reguleringssløjferne.
-\todo[inline,author=Mikael]{Gør de nu også det?}
 
 \subsubsection{Verifikation}
 Åbensløjferesponsen af Tilt-systemet er blevet målt og sammenlignet med den teoretiske respons
@@ -218,3 +217,31 @@ og de syv teoretiske åbensløjferesponser (markeret med blåt).
 		mens den teoretiske respons for de samme syv inputs er markeret med blåt.}
 	\label{fig:openloop2}
 \end{figure}
+
+Figur \ref{fig:openloop2} viser, at den teoretiske respons er større, samt at den målte
+respons er forsinket i forhold til den teoretiske.
+At den teoretiske respons er større kan forklares ud fra antagelsen om,
+at den eneste friktion i systemet er viskøs friktion. I praksis er der en større dæmpning
+end den teoretiske model forudsiger.
+At den målte respons er forsinket skyldes, at visse PWM-duty cycles ikke kan bevæge systemet.
+Dødbåndet af PWM-duty cycles, der ikke kan accelerere Tilt-systemet er målt til at befinde sig inden for
+ca. \(\pm\) 12 \%, og for Pan-systemet til ca. \(\pm\) 10 \%.
+Hvis man i den teoretiske model indsætter et dødbånd på 12 \% og en forstærkning
+på 0,84, så passer den bedre på de målte data, som illustreret i figur \ref{fig:openloop3}.
+\begin{figure}[th!]
+	\centering
+	\includegraphics[width=1\textwidth]{./graphics/openloop3.eps}
+	\caption[Tilt åbensløjferespons, målt vs. justeret teoretisk]
+		{Tilt åbensløjferespons, målt vs. justeret teoretisk.
+		Markeret med rødt er den målte respons for alle syv målinger.
+		Markeret med blåt er den teoretiske respons forudsagt af \(G_{tilt}\), hvis
+		man indsætter et dødbånd af duty cycles på \(\pm\) 12 \% samt en forstærkning på 0,84.}
+	\label{fig:openloop3}
+\end{figure}
+
+Hvis man ønsker en mere nøjagtig matematisk model af Pan \& Tilt-systemet
+er det altså en mulighed at indsætte dødbåndet og den ekstra dæmpning
+i modellen.
+Som vælges det dog at benytte åbensløjfeoverføringsfunktionerne \(G_{pan}\) og \(G_{tilt}\)
+som udgangspunkt for regulatordesignet, og udvide modellen hvis regulatoren ikke lever op til
+kravene.
