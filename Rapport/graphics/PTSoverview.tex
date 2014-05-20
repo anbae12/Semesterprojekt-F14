@@ -21,12 +21,12 @@
 
 \draw [->] (FPGA.61) -- node {\footnotesize PWM} (H-bro-a);
 \draw [->] (H-bro-a) -- node {\footnotesize PWM} (DCmotorA);
-\draw [->] (DCmotorA) -- node {\footnotesize \(\phi\)} (output1);
+\draw [->] (DCmotorA) -- node {\footnotesize \(\theta\)} (output1);
 \draw [draw,<-] (FPGA.28) -| node [pos=0.2] {\footnotesize Encoder feedback} (DCmotorA);
 
 
 
 \draw [->] (FPGA.299) -- node {\footnotesize PWM} (H-bro-b);
 \draw [->] (H-bro-b) -- node {\footnotesize PWM} (DCmotorB);
-\draw [->] (DCmotorB) -- node {\footnotesize \(\theta\)} (output2);
+\draw [->] (DCmotorB) -- node {\footnotesize \(\phi\)} (output2);
 \draw [draw,<-] (FPGA.332) -| node [pos=0.2] {\footnotesize Encoder feedback} (DCmotorB);
