@@ -254,8 +254,10 @@ mens fejlen på fasen er lille ved lave frekvenser og stiger ved høje frekvense
 \subsection{Upsampling}
 Da reguleringssløjfen, som beskrevet i afsnit \ref{subsec:choosefs}, køres med en frekvens på 600 [Hz],
 som er 5 gange højere end input-samplingfrekvensen, skal der altså foretages en upsampling.
-Upsamplingen indsætter mellem hvert input-sample 4 samples med værdien 0, så hvert input-sample
-kun samples én gang. Dette gør, at input-signalets frekvensspektrum bevares.
+Upsamplingen foretages med Zero Order Hold, hvorved ét sample ved 120 Hz indsættes 
+som 5 samples ved 600 Hz.
+%Upsamplingen indsætter mellem hvert input-sample 4 samples med værdien 0, så hvert input-sample
+%kun samples én gang. Dette gør, at input-signalets frekvensspektrum bevares.
 Da input-signalet er samplet ved 120 [Hz] vil det oprindelige spektrum, centreret omkring 0 [Hz],
 spejles ved heltalsmultipla af 120 [Hz]. Disse spejlbilleder af det oprindelige spektrum vil være
 indeholdt i det upsamplede signal, hvis det ikke filtreres. 
