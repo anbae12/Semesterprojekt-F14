@@ -38,10 +38,11 @@ og at mikrocontrolleren skal regulere begge SISO-undersystemer.
 \include*{./graphics/digitalkontroller1}
 \end{tikzpicture}
 \caption[Systemkonfiguration]{Systemkonfiguration (blokdiagram).
-	Området markeret med stiplet linje udgør den digitale regulator.
+	Området markeret med rød stiplet linje udgør den digitale regulator.
 	De grønne ovaler angiver "clocksignaler", som leverer pulser til de digitale dele af systemet.}
 \label{fig:digitalkontroller1}
 \end{figure}
+\todo[inline,author=Mikael,color=green]{Nikolaj! Fiks figur \ref{fig:digitalkontroller1}! Den er for stor! Tak}
 Som beskrevet i afsnit \ref{sec:problemformulering},
 så er input-samplingen fastlagt til at foregå med en frekvens på 120 [Hz].
 Men som illustreret på figur \ref{fig:digitalkontroller1}, så skal reguleringssløjfen
@@ -82,14 +83,15 @@ er markeret på figur \ref{fig:digitalkontroller2}.
 \include*{./graphics/digitalkontroller2}
 \end{tikzpicture}
 \caption[Diskretisering af åbensløjfeoverføringsfunktion]{Diskretisering af åbensløjfdeoverføringsfunktion.
-	Den kontinuerte del af systemet (markeret med stiplet linje) ønskes diskretiseret.
+	Den kontinuerte del af systemet (markeret med rød stiplet linje) ønskes diskretiseret.
 	De grønne ovaler angiver "clocksignaler", som leverer pulser til de digitale dele af systemet.}
 \label{fig:digitalkontroller2}
 \end{figure}
+\todo[inline,author=Mikael,color=green]{Nikolaj! Fiks figur \ref{fig:digitalkontroller2}! Den er for stor! Tak}
 
 Den diskretiserede åbensløjfeoverføringsfunktion fra duty cycle til output vinkel
-benævnes \(G_{zoh}\left(s\right)\). Dette er fordi D/A-konverteringen modelleres som et Zero-Order Hold kredsløb,
-der fastholder en analog værdi proportional med duty cyclen. Dette stemmer overens med den simplificerede
+benævnes \(G_{zoh}\left(s\right)\). Dette er fordi D/A-konverteringen modelleres som et Zero Order Hold kredsløb,
+der fastholder en analog spænding proportional med duty cyclen. Dette stemmer overens med den simplificerede
 model for PWM-signalet beskrevet i afsnit \ref{subsec:matFPGA}.
 Den diskrete overføringsfunktions plads i blokdiagrammet for systemet
 er indtegnet i figur \ref{fig:digitalkontroller3}.
@@ -98,9 +100,12 @@ er indtegnet i figur \ref{fig:digitalkontroller3}.
 \begin{tikzpicture}[auto, node distance=2.6cm,>=latex']
 \include*{./graphics/digitalkontroller3}
 \end{tikzpicture}
-\caption[tekst i indholdsfortegnelsen]{figurtekst}
+\caption[Diskretiseret åbensløjfeoverføringsfunktion]
+		{Diskretiseret åbensløjfeoverføringsfunktion.
+		\(G_{zoh}\left(z\right)\) erstatter den kontinuerte del af systemet.}
 \label{fig:digitalkontroller3}
 \end{figure}
+\todo[inline,author=Mikael,color=blue]{Nikolaj! Fiks figur \ref{fig:digitalkontroller3}! Den er lidt for stor! Tak}
 De to overføringsfunktioner hhv. \(G_{pan}\left(s\right)\) og \(G_{tilt}\left(s\right)\)
 har hver en diskretiseret overføringsfunktion hhv. \(G_{zoh,pan}\left(z\right)\) og \(G_{zoh,tilt}\left(z\right)\).
 
@@ -108,8 +113,7 @@ Kravet til \(G_{zoh,pan}\left(z\right)\) og \(G_{zoh,tilt}\left(z\right)\) er, a
 med god tilnærmelse opfører sig som \(G_{pan}\left(s\right)\) og \(G_{tilt}\left(s\right)\),
 og dette krav kan skrives som et mindstekrav til samplingfrekvensen \(f_s\).
 
-\subsubsection{Valg af samplingfrekvens}
-\label{subsec:choosefs}
+\subsubsection{Valg af samplingfrekvens}\label{subsec:choosefs}
 Reguleringssløjfen skal køre periodisk på mikroprocessoren
 med samplingfrekvensen \(f_s\). Denne skal vælges
 ud fra systemets dynamik (til diskretiseringen), som beskrevet ovenfor,
@@ -260,10 +264,11 @@ som 5 samples ved 600 Hz.
 %kun samples én gang. Dette gør, at input-signalets frekvensspektrum bevares.
 Da input-signalet er samplet ved 120 [Hz] vil det oprindelige spektrum, centreret omkring 0 [Hz],
 spejles ved heltalsmultipla af 120 [Hz]. Disse spejlbilleder af det oprindelige spektrum vil være
-indeholdt i det upsamplede signal, hvis det ikke filtreres. 
-En filtrering vil dog give signalet en forsinkelse før det når regulatoren,
-og dette bidrager til fejlen. Det vælges derfor ikke at anvende et 
-upsampling-filter.
+indeholdt i det upsamplede signal, hvis det ikke lavpasfiltreres. 
+Det vælges at filtrere det upsamplede signal med et Zero Order Hold,
+således at de indsatte samples med værdien 0 erstattes med værdien af sidste sample
+med en værdi forskellig fra 0. Dette fjerner ikke de førnævnte spejlbilleder, men forøger
+til gengæld heller ikke forsinkelsen af input-signalet.
 
 \subsection{Valg af regulatortype}
 Pga. de simplificerende antagler som er indeholdt i den matematiske model for systemet,
@@ -271,13 +276,13 @@ vil en åbensløjferegulering være et dårligt valg: den ville være følsom ov
 matematiske model. Desuden er der fra projektoplægget krav om en lukketsløjferegulering.
 Den simpleste regulering ville være en konstant forstærkning af fejlsignalet.
 En integrering af fejlsignalet ville gøre, at fejlsignalet ville blive tvunget mod 0,
-og dette er ønsket ift. kravet om en tracking fejl på under 1,02 \degree.\todo[inline,author=Mikael]{Pythagoras! Come on guys!}
+og dette er ønsket ift. kravet om en tracking fejl på under 1,02 \degree.
 De største krav stilles til systemets responstid og ikke så meget til udsvinget af responsen,
 og som udgangspunkt vælges derfor en PI-regulator, som gruppen er bekendt med fra
 undervisningen i reguleringsteknik.
 
 For at integratoren hurtigst muligt kan levere den nødvendige PWM-duty cycle til minimering af fejlsignalet,
 vælges det desuden at implementere et "bias", der tager højde for dødbåndet.
-Enhver PWM-duty cycle til Pan under 10 \% og til Tilt under 12 \%, og forskellig fra 0, bliver sat til hhv. 10 \% og 12 \%,
+Enhver PWM-duty cycle til Pan med en størrelse på under 10 \% og til Tilt under 12 \%, og forskellig fra 0, bliver sat til hhv. 10 \% og 12 \%,
 så Pan \& Tilt-systemet bevæger sig. For at undgå vedblivende svingninger vælges det desuden at nulstille
-PWM-duty cycles under 1 \%.\todo[inline,author=Mikael]{Hvorfor 1 \%???}
+PWM-duty cycles med en størrelse på under 1 \%.\todo[inline,author=Mikael]{Hvorfor 1 \%???}

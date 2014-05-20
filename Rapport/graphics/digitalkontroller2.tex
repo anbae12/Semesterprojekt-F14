@@ -1,26 +1,31 @@
 \node [input, name=input] {};
 \node [block, right of=input] (AD) {A/D};
 \node[freq,below of=AD,yshift=1cm](freq60){120 [Hz]};
-\node [block, right of=AD,xshift=0cm] (Koordinattransformation) {Koor.trans};
-\node[sum,right of= Koordinattransformation,xshift=1cm](sum1){Sum};
+\node [block, right of=AD,xshift=0cm] (DD) {D/D};
+\node [block, right of=DD,xshift=0cm] (Koordinattransformation) {Koor.trans};
+\node[sum,right of=Koordinattransformation,xshift=1cm](sum1){Sum};
 \node [block, right of=sum1,xshift=-0.5cm] (Dz) {\(D\left(z\right)\)};
 \node [block, right of=Dz] (Dahold) {D/A \& hold};
 \node [block, right of=Dahold] (Hs) {\(G_m\left(s\right)\)};
 \node [output, right of=Hs] (output){};
 \node[freq,below of=Dz,xshift=1.3cm,yshift=1cm](freq600){\(f_s\)};
 \node [block, below of=freq600,xshift=-1.75cm,yshift=1cm] (AD2) {A/D};
+   
+   
 
 \draw [draw,->] (input) -- node {\footnotesize $Pos\left(t\right)$} (AD);
-\draw [draw,->] (freq60) -- (AD);
-\draw [draw,->] (AD) -- node {\footnotesize $x\left(k\right)$} (Koordinattransformation);
+\draw [dashed,draw,->] (freq60) -- (AD);
+\draw [draw,->] (AD) -- node {\footnotesize $x\left(k\right)$} (DD);
+\draw [draw,->] (DD) -- node {\footnotesize $x_1\left(k\right)$} (Koordinattransformation);
 \draw [draw,->] (Koordinattransformation) -- node[pos=0.8] {\footnotesize +} (sum1);%node [near end] (sum1);
 \draw [draw,->] (sum1) -- node {\footnotesize $e\left(k\right)$} (Dz);
 \draw [draw,->] (Dz) -- node {\footnotesize $u\left(k\right)$} (Dahold);
 \draw [draw,->] (Dahold) -- node {\footnotesize $U\left(t\right)$} (Hs);
 \draw [->] (Hs) -- node [name=y] {\footnotesize $\Theta\left(t\right)$}(output);
-\draw [draw,->] (freq600) -| (Dz);
-\draw [draw,->] (freq600) -| (Dahold);
-\draw [draw,->] (freq600) -| (AD2);
+\draw [dashed,draw,->] (freq600) -| (Dz);
+\draw [dashed,draw,->] (freq600) -| (Dahold);
+\draw [dashed,draw,->] (freq600) -| (AD2);
+\draw [dashed,draw,->] (freq600) -| (DD);
 \draw [draw,->] (y) |- node [near end] {\footnotesize $\Theta\left(t\right)$} (AD2);
 \draw [->] (AD2) -| node[pos=0.97] {\footnotesize -} node [near end] {\footnotesize $\theta\left(k\right)$} (sum1);
 
@@ -33,7 +38,7 @@
 \coordinate[left of= Dahold,xshift=-1.75cm,yshift=-1cm](Mid2);
 \coordinate[left of= Dahold,xshift=-1.75cm,yshift=-4.25cm](Mid3);
 
-\draw[dashed](UL)--(Mid1)--(Mid2)--(Mid3)--(BL)--(BR)--(UR)--(UL);
+\draw[color=red,dashed](UL)--(Mid1)--(Mid2)--(Mid3)--(BL)--(BR)--(UR)--(UL);
 
 \node [right of= UL,xshift=-1.75cm,yshift=-0.25cm] (bla){$H_{zoh}\left(z\right)$};
 \node [below of= AD2,xshift=0cm,yshift=1.8cm] (bla1){\scriptsize FPGA Encoder};
