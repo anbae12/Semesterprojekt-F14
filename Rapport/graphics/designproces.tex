@@ -3,16 +3,16 @@
 \tikzstyle{block} = [ rounded corners,draw, fill=blue!20, rectangle,minimum height=1cm, minimum width=5cm]
 
 \begin{tikzpicture}[auto, node distance=1.5cm,>=latex']
-      \node [block] (block1) {Find reguleringskrav};
-      \node [block] (block2)[yshift = -0.5 cm,below of= block1] {Find variable i reguleringskrav};
+      \node [block] (block1) 							 {Find reguleringskrav};
+      \node [block, align=center] (block2)[yshift = -0.5 cm,below of= block1] {Identificér variablene \\ der skal reguleres};
       \node [block] (block3)[yshift = -0.5 cm,below of= block2] {Opstil specifikationerne};
       \node [block] (block4)[yshift = -0.5 cm,below of= block3] {Find system konfigurationer};  
-      \node [block] (block5)[yshift = -0.5 cm,below of= block4] {Opstil systemmodel};       
+      \node [block] (block5)[yshift = -0.5 cm,below of= block4] {Opstil model af systemet};       
       \node [block] (block6)[yshift = -0.5 cm,below of= block5] {Beskriv regulator};  
-      \node [block] (block7)[yshift = -0.5 cm,below of= block6] {Optimering af regulatoren};    
+      \node [block, align=center] (block7)[yshift = -0.5 cm,below of= block6] {Optimér regulatoren \\ og analysér ydeevnen};    
       
       \node [] (point1)[xshift = - 4 cm, below of= block7] {};    
-      \node [] (point2)[xshift = +1.387 cm, below of= block7] {};  
+      \node [] (point2)[xshift = +1.499 cm, below of= block7] {};  
       
        \draw[->,thick](block1) to (block2);
        \draw[->,thick](block2) to (block3);
@@ -27,7 +27,7 @@
        \path[->,thick](block7.340) edge[bend left = 0] (point2.center);   
        
        \draw [decorate,decoration={brace,amplitude=25pt}](block1.0) -- node[pos=0.5,xshift=1cm]{Find reguleringskrav}(block3.0);
-       \draw [decorate,decoration={brace,amplitude=15pt}](block4.0) -- node[pos=0.5,xshift=1cm]{System definition og moddelering}(block5.0);
+       \draw [decorate,decoration={brace,amplitude=15pt}](block4.0) -- node[pos=0.5,xshift=1cm]{Systemdefinition og -modellering}(block5.0);
        \draw [decorate,decoration={brace,amplitude=15pt}](block6.0) -- node[pos=0.5,xshift=1cm]{Design og optimering af regulator}(block7.0);
        
 \end{tikzpicture}

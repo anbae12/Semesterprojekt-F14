@@ -33,12 +33,15 @@ The project (and this paper) is divided into subparts:
 \end{itemize}
 
 The pan \& tilt system will be uptimized for shooting in English Skeet. For a 1 
-radian reference the settling time should be less than 0.557 [s] and a steady 
+radian reference the settling time should be less than 0.557 [s] and steady 
 state error less than 1,78\%.
 
 The systems transferfunctions were obtained by describing the system with a 
-mathematical model based on test of a DC motor. The model was......
+mathematical model based on tests of a DC motor. The model was......
 
-
-
+Implementation of the needed functionality was made on a microcontroller and a 
+FGPA. The microcontroller in charge of the both the controlling and 
+communication with the FPGA using SPI. 
+On the microcontroller FreeRTOS, an operating system using preemptive scheduling, was used 
+to ensure hard realtime perfomance.
 \todo[inline,color=pink,author=Mikkel]{Bør skrives færdig når konklusion osv. er skrevet.}
