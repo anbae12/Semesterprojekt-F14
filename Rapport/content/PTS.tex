@@ -17,8 +17,8 @@ model af Pan \& Tilt-systemet af følgende årsager:
 Ulempen ved at bruge teoretiske \textit{lineære} matematiske modeller er,
 at de altid vil være tilnærmelser, og ikke beskriver ulineariteter som dødbånd og tidsforsinkelser.
 
-En skitse af Pan \& Tilt-systemet findes i figur \ref{fig:overview_openloop_PTS}.
-
+%En skitse af Pan \& Tilt-systemet findes i figur \ref{fig:overview_openloop_PTS}.
+%
 \subsection{Afkobling af pan og tilt}
 Når den ene af de to rammer roterer vil en kraftmoment-induceret præcession påvirke den anden ramme.
 Samtidig vil tilt-rammens vinkel påvirke inertimomentet omkring pan-aksen, og dermed
@@ -30,9 +30,11 @@ for dette fysiske system, samt at tilt-rammens inertimoment er tilnærmelsesvis 
 Afkoblingen af de to systemer, og opdelingen i hhv. pan og tilt gør, at der kan udvikles en separat regulator
 til hvert system, og at der skal findes en overførselsfunktion for hvert system.
 De følgende beregninger tager altså udgangspunkt i det simplificerede afkoblede system.
+Det er dog stadig vigtigt iht. kravspecifikationen at betragte tracking fejlen som en størrelse der samlet
+ikke må overstige 1,02 \degree, og på dette punkt betragtes systemet stadig som en helhed.
 
 \subsection{DC-Motor}
-To DC-motorer af typen EMG30, \citep{emgmotor}, er forbundet til systemet.
+To DC-motorer af typen EMG30 \citep{emgmotor}, er forbundet til systemet.
 Det antages, at motorerne kan beskrives ved samme matematiske model.
 Den matematiske model af DC-motoren er beskrevet i appendix \ref{sec:dcmotor},
 der også beskæftiger sig med den eksperimentelle bestemmelse af parametrene for en EMG30-motor
@@ -66,36 +68,36 @@ mens \(B\) er den viskøse friktionskoefficient.
 De eksperimentelt bestemte motorparametre står i tabel \ref{tb:matmotorparametre}.
 Det er vigtigt at bemærke, at de to motorer adskiller sig fra hinanden ved parameteren \(J_L\), som er belastningens
 inertimoment. Dette er ikke en egentlig motorparameter, men en parameter der udelukkende afhænger
-af pan- og tilt-rammernes dimensioner og vinkel.
+af pan- og tilt-rammernes masser, dimensioner og vinkel.
 Desuden er det værd at bemærke, at denne model ikke tager højde for statisk friktion og Coulomb-friktion,
-fordi de ikke, som den viskøse friktion, er lineære. Ikke desto mindre giver Coulomb-friktionen under
-bevægelse en konstant dæmpning, der kan kompenseres for med en højere forstærkning.\todo[inline]{Skal vi bruge en kilde ang. Coulomb-friktion?}
+fordi de ikke, som den viskøse friktion, er lineære. Ikke desto mindre antages det, at Coulomb-friktionen under
+bevægelse giver en konstant dæmpning, der kan kompenseres for med en højere forstærkning.\todo[inline]{Skal vi bruge en kilde ang. Coulomb-friktion?}
 
-Vi er interesserede i en overførselsfunktion for DC-motoren. Med antagelse om at \(\omega\) (vinkelhastigheden) og dens tidsafledte er 0
-Laplace-transformeres ligning \ref{eq:matVm_transient3}, og den resulterende overførselsfunktion findes
+Vi er interesserede i en overføringsfunktion for DC-motoren. Med antagelse om at \(\omega\) (vinkelhastigheden) og dens tidsafledte er 0
+Laplace-transformeres ligning \ref{eq:matVm_transient3}, og den resulterende overføringsfunktion findes
 i ligning \ref{eq:transOmega}.
 \begin{equation}
 	\frac{\Omega\left(s\right)}{V_m\left(s\right)}=\frac{1}{k_1\cdot{}s^2+k_2\cdot{}s+k_3}
 	\label{eq:transOmega}
  \end{equation}
 Ligning \ref{eq:transOmega} beskriver motorens rotors vinkelhastighed \(\Omega\left(s\right)\) som funktion af spændingsfaldet
-\(V_m\left(s\right)\) over motoren. Bemærk at reduktionsgearingen i motoren gør at vinkelhastigheden set fra Pan \& Tilt rammerne
+\(V_m\left(s\right)\) over motoren. Bemærk at reduktionsgearingen i motoren gør at vinkelhastigheden af Pan \& Tilt rammerne
 er lavere.
 Vinkelhastigheden \(\omega\) er den tidsafledte af vinklen \(\theta\),
-og hvis det antages at motorens startvinkel er 0, så kan motorens overførselsfunktion
-findes blot ved tilføjelse af en integrator \(\frac{1}{s}\) til ligning \ref{eq:transOmega}.
-Motorens overførselsfunktion \(G_m\left(s\right)\) fra input spændingsfald til output vinkel (inden reduktionsgearing) findes
+og hvis det antages at motorens startvinkel er 0, så kan motorens overføringsfunktion
+findes ved tilføjelse af en integrator \(\frac{1}{s}\) til ligning \ref{eq:transOmega}.
+Motorens overføringsfunktion \(G_m\left(s\right)\) fra input spændingsfald til output vinkel (inden reduktionsgearing) findes
 i ligning \ref{eq:transTheta}.
 \begin{equation}
 	G_m\left(s\right)=\frac{\Omega\left(s\right)}{V_m\left(s\right)}\cdot{}\frac{1}{s}=\frac{1}{k_1\cdot{}s^3+k_2\cdot{}s^2+k_3\cdot{}s}
 	\label{eq:transTheta}
 \end{equation}
-DC-motorens overførselsfunktion afhænger af dens belastning,
+DC-motorens overføringsfunktion afhænger af dens belastning,
 og belastningen (inertimomentet \(J_L\) der skal roteres) er indeholdt i konstanterne \(k_1\) og \(k_2\).
-Der er altså en separat overførselsfunktion \(G_m\left(s\right)\) for Pan og for Tilt,
+Der er altså en separat overføringsfunktion \(G_m\left(s\right)\) for Pan og for Tilt,
 da rammerne har forskelligt inertimoment.
 De to belastningsinertimomenter benævnes hhv. \(J_{pan}\) og \(J_{tilt}\),
-og de to forskellige overførselsfunktioner benævnes hhv. \(G_{m,p}\) og \(G_{m,t}\).
+og de to forskellige overføringsfunktioner benævnes hhv. \(G_{m,p}\) og \(G_{m,t}\).
 Bestemmelsen af inertimomenterne findes i afsnit \ref{sec:inertimoment}.
 
 \subsection{FPGA-modulerne}
@@ -103,24 +105,23 @@ Bestemmelsen af inertimomenterne findes i afsnit \ref{sec:inertimoment}.
 FPGA'ens positionsencoders læser motorens vinkel inden reduktionsgearingen,
 altså outputtet af \(G_m\left(s\right)\).
 Der er altså tale om en kvantisering af output-vinklen.
-Gearingen til rammerne er i forholdet 1:3, og da der er 360 encoder-ticks pr. rotation, \citep{emgmotor},
+Gearingen til rammerne er i forholdet 1:3, og da der er 360 encoder-ticks pr. rotation \citep{emgmotor},
 er kvantiseringsintervallet \(\frac{1}{1080}\).
 
 På FPGA'en genereres et PWM-signal til hver motors H-bro ud fra en
 duty cycle som mikrocontrolleren leverer.
 PWM-signalet forstærkes af H-broen til et firkantsignal med en amplitude på 12 [V],
 som leveres til motoren.
-En overførselsfunktion for denne duty cycle - motorspændingsfald konvertering ønskes
+En overføringsfunktion for denne duty cycle - motorspændingsfald konvertering ønskes
 til reguleringen.
 Det vælges at modellere konverteringen som en simpel lineær forstærkning af en duty cycle mellem -100 \% og +100 \%
 til en DC-spænding mellem -12 [V] og +12 [V]. Med denne simple model ændres systemets orden ikke,
 og det vurderes, at tidsforsinkelsen fra input duty cycle til motorbevægelse er negligerbar.
-Overførselsfunktionen fra duty cycle til DC-spænding står i ligning \ref{eq:transPWM}.
+Overføringsfunktionen fra duty cycle til DC-spænding står i ligning \ref{eq:transPWM}.
 \begin{equation}
 	PWM\left(s\right)=PWM=12
 	\label{eq:transPWM}
 \end{equation}
-\todo[inline,author=Mikael,color=red]{Er det bedre at modellere konverteringen som et analogt lavpasfilter?????}
 \todo[inline,author=Mikael]{Dedikér et underafsnit til diskussion af tidsforsinkelser, digitale såvel som analoge.}
 
 \subsection{Pan \& Tilt-rammernes inertimoment}
