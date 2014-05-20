@@ -8,7 +8,6 @@ Mikrocontrolleren har følgende opgaver:
 %\todo[inline, author=Michael]{Denne sektion mangler generelt at blive forkortet. }
 %\todo[inline, author=Michael]{Anders, kan vi ændre layouttet så listerne ikke tager så meget plads? }
 
-
 \begin{itemize}
 \itemsep1pt
 	\item Afvikling af regulatorerne.
@@ -17,46 +16,49 @@ Mikrocontrolleren har følgende opgaver:
 	\item Sende relevant data til brugeren via UART.
 \end{itemize}
 
-Regulatorerne skal afvikles i hård realtid\footnote{Dvs. at tasken skal afvikles, inden dens deadline - inden for en periode.}, da det ellers er vanskelligt at modellere forsinkelsen matematisk.
+Regulatorerne skal afvikles i hård realtid\footnote{Dvs. at task'en skal afvikles, inden dens deadline - inden for en samplingperiode.},
+da det ellers er vanskelligt at modellere de digitale regulatorer matematisk.
 
-
-SPI\footnote{Serial Peripheral Interface, også kaldet SSI} bruges til at overføre PTS's position fra FPGA til mikrocontroller. Desuden overføres beregnet duty-cycle fra mikrocontroller til FPGA. Kommunikationen skal være tilpas hurtig, så regulatorerne ikke beregner på forældet data. Forsinkelsen for overførsel af data fra begge motorer må ikke overstige 5\% af sampletiden. Ved $T_s = \frac{1}{600}$ er det: 
+SPI\footnote{Serial Peripheral Interface, også kaldet SSI} bruges til at overføre PTS's position fra FPGA til mikrocontroller.
+Desuden overføres beregnet duty cycle fra mikrocontroller til FPGA.
+Kommunikationen skal være tilpas hurtig, så regulatorerne ikke regner på forældet data.
+Forsinkelsen for overførsel af data for begge motorer vurderes til ikke at måtte overstige 5\% af samplingperioden.
+Ved $T_s = \frac{1}{600}$ er det: 
 \begin{equation}
-	T_{spi delay} = \frac{1}{600} \cdot 0.05 = 8,33 \cdot 10^{-5}[s]
+	T_{spi delay} = \frac{1}{600} \cdot 5 \% = 8,33 \cdot 10^{-5}[s]
 	\label{eq:uc:spi-krav}
 \end{equation}
 
-
-Systemet skal kunne modtage brugerinput gennem et terminalprogram. Brugerinterfacet er ikke tidskritisk. Der skal være mulighed for at udlæse væsentlige systemparametre såsom: PTS' position, ønsket position, aktuel PWM duty cycle osv.
-
+Systemet skal kunne modtage brugerinput gennem et terminalprogram.
+Brugerinterfacet er ikke tidskritisk.
+Der skal være mulighed for at udlæse væsentlige systemparametre såsom:
+PTS' position, ønsket position, aktuel PWM duty cycle osv.
 \todo[inline, author=Michael]{Måske skal disse systemparametre defineres mere fast.}
-
 %\begin{itemize}
 %\itemsep1pt
 %	\item PTS' position. 
 %	\item Ønsket position. 
 %	\item Afvigelse fra ønsket position. 
 %\end{itemize}
-
-Desuden skal systemet gemme disse informationer i en log-fil, som kan udlæses efter systemet er færdig med at tracke målet. 
+Desuden skal systemet gemme disse informationer i en log-fil,
+som kan udlæses efter systemet er færdig med at tracke målet.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Beskrivelse af valgt(?) mikrocontroller.}
-Den udleverede mikrocontroller er en 32 bit Stellaris LM3S6965, baseret på en ARM Cortex M3 kerne. Den opererer ved 50 [MHz] og bruger Thump 2 instruktionssættet. Den indeholder 256 [kB] flash hukommelse samt 64 [kB] SRAM. 
-\citep{lm3s6965}
+\subsection{Beskrivelse af mikrocontroller.}
+Den udleverede mikrocontroller er en 32 bit Stellaris LM3S6965, baseret på en ARM Cortex M3 kerne. Den opererer ved 50 [MHz] og bruger Thump 2 instruktionssættet. Den indeholder 256 [kB] flash hukommelse samt 64 [kB] SRAM \citep{lm3s6965}.
 
 SPI er indbygget som et hardwaremodul, med seperate FIFO buffere til afsendelse og modtagelse. Hardwaren sender data fra den ene den buffer og lægger modtaget data i den anden. Derfor er det ikke nødvendigt for programmøren at holde styr på timingen. Størrelsen af hvert dataframe kan være 4 - 16 bits. 
 
 UART er også implementeret som et hardwaremodul. Modulet indeholder seperate FIFO buffere til afsendelse og modtagelse af data, hver med plads til 16 datawords (på max. 8 bit). 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \subsection{Valg af skedulering/operativsystem}
-Der er undersøgt 4 forskellige muligheder for skedulering. CoOS\footnote{\citep{www.coocox.com/CoOS.htm}} og freeRTOS\footnote{\citep{freertos.org}} er komplette real-tids operativsystemer. 
-Run-To-Complete-Scheduler er en simpel scheduler introduceret i EMP kurset. Ved brug af Super-loop metoden afvikles al koden i main-loopet vha. ticks.
-De fire mulige skeduleringer er beskrevet i tabel \ref{tb:os_comparison}.
-
+Der er undersøgt fire forskellige muligheder for skedulering.
+CooCox CoOS\footnote{\citep{www.coocox.com/CoOS.htm}} og FreeRTOS\footnote{\citep{freertos.org}}
+er komplette realtids-operativsystemer. 
+Run-To-Complete-Scheduler (RTCS) er en simpel scheduler introduceret i semesterets programmeringskursus.
+Ved Super loop metoden afvikles al koden i main-loopet vha. ticks.
+De fire skeduleringer er beskrevet i tabel \ref{tb:os_comparison}.
 %\begin{itemize}
 %\itemsep-2pt
 %	\item Opfylder kravene til realtidsafvikling af regulatorerne. 
@@ -67,13 +69,13 @@ Til valget er der lagt vægt på om skeduleringen opfylder kravet til realtidsaf
 \begin{figure}[th!]
 \centering
 \begin{tabu}{l|[2pt]l|l|l|l}
- & coOS & freeRTOS & RTCS & Super loop \\ \tabucline[2pt]{-}
+ & CoOS & FreeRTOS & RTCS & Super loop \\ \tabucline[2pt]{-}
 Skedulering & Preemptive priority  & Preemptive priority  & Non-preemptive & Non-preemptive  \\ 
 	           & /round robin		& /round robin              & &	\\\hline 
-Queues & Ja & Ja & Nej & Nej \\ \hline 
-Semaphore & Counting og Binære  & Counting og Binære & Binære  & Nej  \\\hline 
+Køer & Ja & Ja & Nej & Nej \\ \hline 
+Semaforer & Tællende og Binære  & Tællende og Binære & Binære  & Nej  \\\hline 
 Introduceret & Nej & Ja & Ja & Ja \\ 
-i EMP kurset &   &   &   &   \\
+i programmeringskurset &   &   &   &   \\
 \end{tabu}
 %\begin{tabu}{|l|[2pt]l|l|l|l|}\hline
 % & coOS & freeRTOS & RTCS & Super loop \\ \tabucline[2pt]{-}
@@ -88,15 +90,10 @@ i EMP kurset &   &   &   &   \\
 \caption{Specifikationer for de undersøgte systemer}
 \label{tb:os_comparison}
 \end{figure}
-
-
-
-\todo[inline, author=Michael]{Jeg kan ikke finde ud af at skrive følgende afsnit. HELP MEAY!}
-
-På baggrund af disse krav blev det valgt at bruge freeRTOS. FreeRTOS opfylder med sin preemptive-priorty skedulering kravene til afvikling i realtid. 
-Desuden har hele gruppen erfaring med systemet ifb. kurset i EMbedded Programmering. 
-
-
+Med kravet om hård realtid og for at lette programmeringsarbejdet valgtes det at
+benytte FreeRTOS, fordi det tilbyder tvungen skedulering (preemptive priority), hvor det er muligt
+at prioritere regulerings-task'en højere end resten af programmet. Desuden lettes programmeringsarbejdet
+fordi gruppen er bekendt med operativsystemet fra programmeringskurset.
 
 %
 \subsection{Implementering}
@@ -110,7 +107,8 @@ Desuden har hele gruppen erfaring med systemet ifb. kurset i EMbedded Programmer
 % 
 \todo[inline, author=Michael]{Venter på at kodens struktur er helt færdig - inden da giver det ikke mening at skrive dette afsnit færdigt. }
 
-Valget af freeRTOS som operativsystem gjorde det muligt at opdele programmet i seperate tasks. Taskdiagrammet er vist på figur \ref{fig:task_diagram}. 
+Systemet er opdelt i separate tasks.
+Taskdiagrammet er vist på figur \ref{fig:task_diagram}. 
 
 % TASK DIAGRAM
 \begin{figure}[!h]
@@ -118,15 +116,19 @@ Valget af freeRTOS som operativsystem gjorde det muligt at opdele programmet i s
 \begin{tikzpicture}[node distance = 3.2cm]
 	\include*{./graphics/uc_task_diagram}
 \end{tikzpicture}
-\caption[Task diagram]{Taskdiagrammet viser programmets opdeling i tasks.}
+\caption[Taskdiagram]{Taskdiagrammet viser programmets opdeling i tasks.}
 \label{fig:task_diagram}
 \end{figure}
 
 \subsubsection{Beskrivelse af de enkelte tasks}
 \begin{description}
 \itemsep-3pt
-	\item[UART] Grundet UART hw. bufferen kun indeholder 16 pladser \citep[Side. 430]{lm3s6965}. Sørger en Send og Recieve task for at sende data videre. Ekstra Semaphore til at sikre kun en task kan skrive til Uart af gangen er implementeret.
-	\item[Control] Afvikler regulatorerne. Se mere indgående beskrivelse i sektion \ref{sec:control_task}. Denne task afvikles i realtid, med en frekvens på 600 Hz. 
+	\item[UART send og -receive] Fordi UART hw.-bufferen kun indeholder 16 pladser \citep[Side. 430]{lm3s6965}
+	sørger en Send og en Recieve task for at sende data videre til og fra resten af programmet.
+	De to ekstra semaforer, som Interface tilgår er til at reservere de to buffers så indtastede og
+	printede tekststrenge ikke kan afbrydes (kun én task kan skrive til eller læse fra UART ad gangen).
+	\item[Control] Afvikler regulatorerne. Se mere indgående beskrivelse i sektion \ref{sec:control_task}.
+	Denne task afvikles i realtid, med en frekvens på 600 [Hz]. 
 	Denne task sørger for at SPI Kommunikationen med FPGA'en bliver afviklet på de rigtige tidspunkter.
 	\item[Logger] Denne task opdaterer logfilen med data fra "status" køen.
 	\item[Interface] Tolker på brugerinputs og sender relevante kommandoer til Control tasken.
@@ -135,11 +137,11 @@ Valget af freeRTOS som operativsystem gjorde det muligt at opdele programmet i s
 
 \subsubsection{Control task}
 \label{sec:control_task}
-
-Control tasken henter et koordinat, transformerer koordinatet udregner en PWM med PID controlleren og opdaterer loggen.
-hver gang control tasken bliver kørt bliver der hentet en position ind over SPI og sendt ny PWM. 
-Control tasken ved hvilke ting som er relevant at gemme i loggen, så ved start af tracking bliver positioner og pwm gemt i loggen.
-I kodeudsnittet \ref{ctrl_task} ses der tasken som den bliver kørt hvis den er i tracking stadiet.
+Control task'en henter et koordinat, transformerer koordinatet, udregner en PWM for hver regulator og opdaterer loggen.
+Hver gang control task'en bliver kørt bliver der hentet to positioner ind via SPI mens de to nye PWM duty cycles sendes.
+Control tasken ved hvilke ting der er relevant at gemme i loggen,
+så ved start af tracking bliver positioner og PWM duty cycles gemt i loggen.
+I kodeudsnittet \ref{ctrl_task} ses task'en som den bliver kørt hvis den er i tracking stadiet.
 
 \lstinputlisting[language=c, 
         firstnumber=120,
@@ -160,14 +162,14 @@ I kodeudsnittet \ref{ctrl_task} ses der tasken som den bliver kørt hvis den er 
         caption={ af ctrl\_task.c.\label{ctrl_task}}
         ]{codeexample/ctrl_task.c}
 
-        
-        
 \subsubsection{Interface task}
 \label{sec:interface}
-Bruger Interfacet gør det overskueligt at styre og skifte mellem de forskellige tilstande som systemet kan køres i.
-Der er lavet funktioner som bruges til test af specifikke funktioner og funktioner som starter en større test.
-Formålet er at gøre det simpelt for gruppen, det er altså ikke tænkt til en kunde som ikke ved noget om systemet.
-Fjernelse af implementerede funktioner for at gøre det simpelt har ikke været en prioritet. 
+Brugerinterfacet gør det overskueligt at styre og skifte mellem de forskellige tilstande som systemet kan køres i.
+Der er lavet funktioner som bruges til test af specifikke funktioner (fx at sætte en bestemt PWM duty cycle)
+og funktioner som starter en større test (fx tracking af lerdueparablen).
+Formålet er at gøre det simpelt for gruppen at udvikle regulatoren -
+det er altså ikke tænkt til en kunde som ikke ved noget om systemet.
+%Fjernelse af implementerede funktioner for at gøre det simpelt har ikke været en prioritet. 
 De primære funktioner er at sætte en position eller starte tracking af lerduen.
 Hvis det indtastede ikke bliver genkendt bliver en liste over gyldige funktioner udskrevet.
 
@@ -201,36 +203,37 @@ Pmfxx & Sæt dutycycle for motor m & m = Motor ("A" ell. "B"), \\
 %& & xx = PWM dutycycle i \%\\\hline
 %\end{tabu} 
 \captionsetup{type=table}
-\caption{Viser UART-interfacets kommandoer.}
+\caption{Brugerinterfacets kommandoer.}
 \label{tb:uart_interface}
 \end{figure}
-
 
 \subsubsection{SPI}
 \label{sec:spi-implementering}
 Det blev vedtaget at mikrocontrolleren var masteren og FPGA'en blev slaven, da FPGA'en helst skulle være så enkel som mulig.
 
-Mikrocontrollerens SPI modul har indbygget tre forskellige standarder: TI Synchronous Serial Frame Format (SSFT), Freescale og Microwire. 
+Mikrocontrollerens SPI-modul har indbygget tre forskellige standarder: TI Synchronous Serial Frame Format (SSFT), Freescale og Microwire. 
 %Til at overfører data mellem Mikrocontrolleren og FPGA’en skal der bruges en enkel protokol med full duplex. \todo[author=Anders]{Hovedgrundene til valget af SPI protokol.}
 %Hovedgrundene for at protokollen skal være enkel, er at der ikke sendes meget data, dataene er enkel, og afstanden, den sendes, er kort. 
 %Microwire er ikke full duplex. Så det er enten SSFt eller Freescale, der skulle bruges. Da SSFT havde færre opsætningsmuligheder, blev den valgt som protokol. 
 %I SSFT ligger svaret på nogle af overvejelserne. Overvejelserne har været om MOSI skal trigger på rising eller falling edge, og hvordan Slave Select skulle opføre sig.
 Microwire blev udelukket da den ikke er full-duplex og dermed ikke en SPI standard. 
-Freescale formatet blev udelukket da opsætningen af denne var mere kompliceret end for SSFT, uden at tilføje ekstra muligheder.
+Freescale formatet blev udelukket da opsætningen af denne vurderedes mere kompliceret end for SSFT,
+uden at tilføje ekstra muligheder.
+Valget faldt derfor på SSFT.
 
-Størrelse af data framen blev valgt til 16 bit, hvilket giver mulighed for at sende motorens hastighed og deres position (begge 11 bit) samt kontroldata. Opbygningen af de to datawords kan ses på figur \ref{fig:protokol1}.
-
-
+Størrelse af data framen blev valgt til 16 bit, hvilket giver mulighed for at sende
+motorens hastighed og deres position (begge 11 bit) samt kontroldata.
+Opbygningen af de to datawords kan ses på figur \ref{fig:protokol1}.
 
 \begin{figure}[h!]
 \centering
-\subfloat[Mikrocontroller til FPGA.\label{fig:spi_to_fpga}]{%
+\subfloat[Kommando fra mikrocontroller til FPGA.\label{fig:spi_to_fpga}]{%
 \begin{tikzpicture}[scale=1]
 \include*{./graphics/SPImasterslave}
 \end{tikzpicture}
 }
 \qquad
-\subfloat[FPGA til Mikrocontroller. Der skiftes mellem at sende position for pan og tilt hver gang.
+\subfloat[Svar fra FPGA til Mikrocontroller. Der skiftes mellem at sende position for pan og tilt hver gang.
 \label{fig:spi_from_fpga}]{%
 \begin{tikzpicture}[scale=1]
 \include*{./graphics/SPIslavemaster}
@@ -239,8 +242,7 @@ Størrelse af data framen blev valgt til 16 bit, hvilket giver mulighed for at s
 \caption[Indholdet af SPI datawords]{Viser indholdet af SPI datawords. }
 \label{fig:protokol1}
 \end{figure}
-
-\todo[inline, author=Michael]{flot figur, i like :)}
+%\todo[inline, author=Michael]{flot figur, i like :)}
 
 %\begin{figure}[h!]
 %\centering
@@ -269,44 +271,38 @@ Størrelse af data framen blev valgt til 16 bit, hvilket giver mulighed for at s
 %\caption[Indholdet af SPI datawords]{Viser indholdet af SPI datawords. }
 %\label{fig:protokol1}
 %\end{figure}
-
-
 Figur \ref{fig:spi_to_fpga} viser indholdet af datawords der bliver sendt fra Mikrocontrolleren. 
-Motorbittet vælger aktuel motor, retningsbittet vælger hvilken retning denne skal dreje og PWM duty cycle indeholder den ønskede PWM. 
-Hvis "Ignore PWM" flaget er sat ignoreres den modtagne besked, mens den aktuelle motorposition returneres stadig som vist på fig.  \ref{fig:spi_from_fpga}. 
+Motorbitten vælger aktuel motor, retningsbitten vælger hvilken retning
+denne skal dreje og PWM duty cycle indeholder den ønskede PWM. 
+Hvis "Ignore"-bitten er sat ignoreres den modtagne besked, mens den aktuelle motorposition stadig returneressom vist på fig.  \ref{fig:spi_from_fpga}. 
 %Da SPI er full duplex sendes data fra  Mikrocontrolleren og FPGA’en synkront - FPGA’en sender et dataword samtidig med mikrocontrolleren
-
  %Mikrocontrolleren sender den  PWM, der skal sættes på den bestemte motor i den bestemte retning. Det er det motor- og retningsbittene bestemmer.
-
-
 %På Mikrocontrolleren ville man gerne kunne få en position uden, at den sætter en ny PWM. 
 %Derfor skal der bruges en bit, hvor FGPA’en kan se om den skal sætte PWM’en, eller om den kun skal sende information tilbage. Der er det PWMset bruges til.
-
 %På figur \ref{fig:spi_from_fpga} ses dataword'et som FPGA'en sender. FPGA'en sender positionen på den bestemte motor. 
-
 
 \subsection{Test} 
 % Test af SPI overførsel
 % Test af realtidsafvikling af reguleringssløjferne, 
 % lever vi op til kravene?
-
-%Deadband er testet ved at øge PWM med 6 hz til en motor hvor der blev målt position med 600 hz.
+%
+%Deadband er testet ved at øge PWM med 6 [Hz] til en motor hvor der blev målt position med 600 [Hz].
 %Ved at se hvornår der sker den første bevægelse er er målt at deadband målt til 141 for tilt og 221 for pan motoren.
 %Dette er indsat i en langsom regulator som bliver brugt til at sætte en enkelt position. Her kan error signalet være %størst og der er ikke de samme tidskrav til systemet. 
-
+%
 %Den matematiske model er sammenlignet med plotdata fra open loop sløjfen på tilt systemet.
 %Pan systemet kan ikke bevæge sig hele vejen rundt, så der er ikke foretaget en open loop test af denne motor.
-%Testen består i at gå fra 0 til 2047 PWM i trin af 1. PWM bliver forøget med 60Hz og der bliver målt position med 600Hz.
+%Testen består i at gå fra 0 til 2047 PWM i trin af 1. PWM bliver forøget med 60[Hz] og der bliver målt position med 600[Hz].
 %Sammenligningen er plottet i appendix XXX og den største fejlmargen var XXX.
-
-
+%
+%
 %Realtidsafviklingen af systemet er målt ved at sætte en pin på mikrocontroller boardet og måle resultatet med et oscilloscop.
 %Afviklingen af en enkelt control loop i tracking stadiet er målt til XXX \(\micro\) sekunder
-%Det kan også aflæses at der er en fast afstand på 1666.667 \(\micro\) sekunder fra start til start, så freeRTOS kan godt følge med til at skedulere med 600 Hz.
+%Det kan også aflæses at der er en fast afstand på 1666.667 \(\micro\) sekunder fra start til start, så freeRTOS kan godt følge med til at skedulere med 600 [Hz].
 %I appendix XXX kan der ses en måling hvor der både bliver målt længden af en task og SPI kommunikationen.
-
-
-SPI blev testet ved at toggle en digital pin før og efter SPI-funktion blev kaldet. 
+%
+%
+SPI blev testet ved at skifte en digital pin før og efter SPI-funktion blev kaldt. 
 Funktionen blev testet XXX gange, og resultat kan ses i tabel \ref{tb:spi-tests}. 
 \todo[inline, author=Michael]{Udfør forsøget igen, vi mangler et større datasæt..}
 
@@ -326,7 +322,7 @@ Max:  & Min: & Median: & Gennemsnit: \\
 Med en maks. afviklingstid på 41,12 \micro s, overholder implementeringen kravet på afvikling indenfor 83,3 \micro s, som opstillet i ligning \ref{eq:uc:spi-krav}.
 
 Samme fremgangsmåde blev brugt til at tjekke timingen for controltask'en, som indeholder reguleringssløjfen. 
-Kravet til afviklingen var: Reguleringsløjfen kører med 600 Hz, samt at tasken afvikles inden næste periode. 
+Kravet til afviklingen var: Reguleringsløjfen kører med 600 [Hz], samt at tasken afvikles inden næste periode. 
 Dvs. en maks afviklingstid på 1/600 [s], da kravet på 600 [Hz] ellers ikke kunne opfyldes. 
 Intervallet mellem hver afvikling af blev målt for 240 afvikling, og resultaterne er vist i tabel \ref{tb:ctrl-task-timing-test}.
 
@@ -346,20 +342,18 @@ Afvigelse: & 6,933 [\micro s] & 9,067 [\micro s] & 0,533 [\micro s] & 0,005 [\mi
 \end{table}
 
 Den højeste afvigelse på 9 \micro s er lav nok til at kravene opfyldes.
-
 \todo[inline, author=Michael]{Udfør test af ctrl-taskens afviklingstid.}
-
-
-Reguleringssløjferne er testet ved at plotte loggen og se den maksimale fejl.
-Systemet blev altid sat i samme start position ved funktionen ``reset'' som pegede ind på 18 ticks for tilt og 163 ticks for pan.
-Dette er også det første koordinat i testen, hvilket sikrer at systemet skal lede mindst muligt efter første koordinat.
-Der er foretaget mange test af systemet under fintuning af PID konstanterne.
-for de færdige værdier er der plottet figur XXX i appendix XXX.
-
-\todo[inline, color = green, author = Nikolaj]{Vi har måledata, men vi skal have beregnet nogle bedre PID især til pan systemet før jeg kan henvise til noget.}
-
+%
+%Reguleringssløjferne er testet ved at plotte loggen og heri aflæse den maksimale fejl.
+%Systemet blev altid sat i samme startposition ved funktionen "reset'' som pegede ind på 18 ticks for tilt og 163 ticks for pan.
+%Dette er også det første koordinat i testen, hvilket sikrer at systemet skal lede mindst muligt efter første koordinat.
+%Der er foretaget mange test af systemet under fintuning af PID konstanterne.
+%for de færdige værdier er der plottet figur XXX i appendix XXX.
+%
+%\todo[inline, color = green, author = Nikolaj]{Vi har måledata, men vi skal have beregnet nogle bedre PID især til pan systemet før jeg kan henvise til noget.}
+%
 
 \subsection{Delkonklusion}
 FreeRTOS er brugbar til tidskritiske operationer.
-Reguleringsstasken kan afvikles med 600Hz. 
-Reguleringssløjferne kan ramme inden for kravene i kravspecifikationen.
+Reguleringsstasken kan afvikles med 600 [Hz]. 
+%Reguleringssløjferne kan ramme inden for kravene i kravspecifikationen.

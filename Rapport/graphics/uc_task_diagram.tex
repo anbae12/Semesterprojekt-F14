@@ -1,8 +1,8 @@
 %nodes
  \node[task_title] (pc)                                               {PC};
- \node[task] (uart_rx) [right of=pc,yshift=-1.6cm,xshift=-1cm]                                               {Uart receive};
+ \node[task] (uart_rx) [right of=pc,yshift=-1.6cm,xshift=-1cm]                                               {UART receive};
  \node[buffer_sem] (uart_rx_buff)  [right of=uart_rx]                      {uart in buffer};
- \node[task] (uart_tx)       [above of=uart_rx]                      {Uart send};
+ \node[task] (uart_tx)       [above of=uart_rx]                      {UART send};
  \node[buffer_sem] (uart_tx_buff)  [right of=uart_tx]                           {uart out buffer};
  \node[task] (interface)     [right of=uart_rx_buff,yshift=1.6cm]            {Interface};
  
@@ -10,7 +10,7 @@
  \node[task] (ctrl)     [right of=ctrl_bit]            {Control};
  
  \node[memory_sem] (log_file)     [below of=interface]            {log file};
- \node[task] (log)     [right of=log_file]            {logger};
+ \node[task] (log)     [right of=log_file]            {Logger};
  \node[buffer_sem] (status)     [right of=log]            {status};
  \path[->] (log_file)        edge (interface);
  \path[->] (log)        edge (log_file);
