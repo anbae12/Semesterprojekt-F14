@@ -23,6 +23,7 @@ Regulatorerne skal afvikles i hård realtid\footnote{Dvs. at tasken skal afvikle
 SPI\footnote{Serial Peripheral Interface, også kaldet SSI} bruges til at overføre PTS's position fra FPGA til mikrocontroller. Desuden overføres beregnet duty-cycle fra mikrocontroller til FPGA. Kommunikationen skal være tilpas hurtig, så regulatorerne ikke beregner på forældet data. Forsinkelsen for overførsel af data fra begge motorer må ikke overstige 5\% af sampletiden. Ved $T_s = \frac{1}{600}$ er det: 
 \begin{equation}
 	T_{spi delay} = \frac{1}{600} \cdot 0.05 = 8,33 \cdot 10^{-5}[s]
+	\label{eq:uc:spi-krav}
 \end{equation}
 
 
@@ -239,6 +240,7 @@ Størrelse af data framen blev valgt til 16 bit, hvilket giver mulighed for at s
 \label{fig:protokol1}
 \end{figure}
 
+\todo[inline, author=Michael]{flot figur, i like :)}
 
 %\begin{figure}[h!]
 %\centering
@@ -288,23 +290,65 @@ Hvis "Ignore PWM" flaget er sat ignoreres den modtagne besked, mens den aktuelle
 % Test af realtidsafvikling af reguleringssløjferne, 
 % lever vi op til kravene?
 
-Deadband er testet ved at øge PWM med 6 hz til en motor hvor der blev målt position med 600 hz.
-Ved at se hvornår der sker den første bevægelse er er målt at deadband målt til 141 for tilt og 221 for pan motoren.
-Dette er indsat i en langsom regulator som bliver brugt til at sætte en enkelt position. Her kan error signalet være størst og der er ikke de samme tidskrav til systemet. 
+%Deadband er testet ved at øge PWM med 6 hz til en motor hvor der blev målt position med 600 hz.
+%Ved at se hvornår der sker den første bevægelse er er målt at deadband målt til 141 for tilt og 221 for pan motoren.
+%Dette er indsat i en langsom regulator som bliver brugt til at sætte en enkelt position. Her kan error signalet være %størst og der er ikke de samme tidskrav til systemet. 
 
-Den matematiske model er sammenlignet med plotdata fra open loop sløjfen på tilt systemet.
-Pan systemet kan ikke bevæge sig hele vejen rundt, så der er ikke foretaget en open loop test af denne motor.
-Testen består i at gå fra 0 til 2047 PWM i trin af 1. PWM bliver forøget med 60Hz og der bliver målt position med 600Hz.
-Sammenligningen er plottet i appendix XXX og den største fejlmargen var XXX.
+%Den matematiske model er sammenlignet med plotdata fra open loop sløjfen på tilt systemet.
+%Pan systemet kan ikke bevæge sig hele vejen rundt, så der er ikke foretaget en open loop test af denne motor.
+%Testen består i at gå fra 0 til 2047 PWM i trin af 1. PWM bliver forøget med 60Hz og der bliver målt position med 600Hz.
+%Sammenligningen er plottet i appendix XXX og den største fejlmargen var XXX.
 
-\todo[inline, color = green, author = Nikolaj]{Jeg har set at dette er plottet, skal det overhovedet med eller var det bare for sjov?}
 
-Realtidsafviklingen af systemet er målt ved at sætte en pin på mikrocontroller boardet og måle resultatet med et oscilloscop.
-Afviklingen af en enkelt control loop i tracking stadiet er målt til XXX \(\micro\) sekunder
-Det kan også aflæses at der er en fast afstand på 1666.667 \(\micro\) sekunder fra start til start, så freeRTOS kan godt følge med til at skedulere med 600 Hz.
-I appendix XXX kan der ses en måling hvor der både bliver målt længden af en task og SPI kommunikationen.
+%Realtidsafviklingen af systemet er målt ved at sætte en pin på mikrocontroller boardet og måle resultatet med et oscilloscop.
+%Afviklingen af en enkelt control loop i tracking stadiet er målt til XXX \(\micro\) sekunder
+%Det kan også aflæses at der er en fast afstand på 1666.667 \(\micro\) sekunder fra start til start, så freeRTOS kan godt følge med til at skedulere med 600 Hz.
+%I appendix XXX kan der ses en måling hvor der både bliver målt længden af en task og SPI kommunikationen.
 
-\todo[inline, color = green, author = Nikolaj]{Realtidsafviklingen skal også måles... Men er det ca det her vi vil have til at stå eller skal der mere om dette?}
+
+SPI blev testet ved at toggle en digital pin før og efter SPI-funktion blev kaldet. 
+Funktionen blev testet XXX gange, og resultat kan ses i tabel \ref{tb:spi-tests}. 
+\todo[inline, author=Michael]{Udfør forsøget igen, vi mangler et større datasæt..}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline 
+Max:  & Min: & Median: & Gennemsnit: \\ 
+\hline 
+41,12 [\micro s] & 40,16 \micro s & 40,56 \micro s & 40,59 \micro s \\ 
+\hline 
+\end{tabular} 
+\label{tb:spi-tests}
+\caption{Data fra tests af SPI.}
+\end{table}
+
+Med en maks. afviklingstid på 41,12 \micro s, overholder implementeringen kravet på afvikling indenfor 83,3 \micro s, som opstillet i ligning \ref{eq:uc:spi-krav}.
+
+Samme fremgangsmåde blev brugt til at tjekke timingen for controltask'en, som indeholder reguleringssløjfen. 
+Kravet til afviklingen var: Reguleringsløjfen kører med 600 Hz, samt at tasken afvikles inden næste periode. 
+Dvs. en maks afviklingstid på 1/600 [s], da kravet på 600 [Hz] ellers ikke kunne opfyldes. 
+Intervallet mellem hver afvikling af blev målt for 240 afvikling, og resultaterne er vist i tabel \ref{tb:ctrl-task-timing-test}.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline 
+ & Max:  & Min: & Median: & Gennemsnit: \\ 
+\hline 
+Målt interval: & 1,674 [ms] & 1,657 [ms] & 1,667 [ms] & 1,667 [ms] \\ 
+\hline 
+Afvigelse: & 6,933 [\micro s] & 9,067 [\micro s] & 0,533 [\micro s] & 0,005 [\micro s] \\ 
+\hline 
+\end{tabular} 
+\label{tb:ctrl-task-timing-test}
+\caption{Interval mellem hver afvikling af ctrl-task.}
+\end{table}
+
+Den højeste afvigelse på 9 \micro s er lav nok til at kravene opfyldes.
+
+\todo[inline, author=Michael]{Udfør test af ctrl-taskens afviklingstid.}
+
 
 Reguleringssløjferne er testet ved at plotte loggen og se den maksimale fejl.
 Systemet blev altid sat i samme start position ved funktionen ``reset'' som pegede ind på 18 ticks for tilt og 163 ticks for pan.
