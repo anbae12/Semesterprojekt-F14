@@ -263,6 +263,19 @@ En filtrering vil dog give signalet en forsinkelse før det når regulatoren,
 og dette bidrager til fejlen. Det vælges derfor ikke at anvende et 
 upsampling-filter.
 
-\section{Valg af regulatortype}
+\subsection{Valg af regulatortype}
+Pga. de simplificerende antagler som er indeholdt i den matematiske model for systemet,
+vil en åbensløjferegulering være et dårligt valg: den ville være følsom overfor afvigelser fra den
+matematiske model. Desuden er der fra projektoplægget krav om en lukketsløjferegulering.
+Den simpleste regulering ville være en konstant forstærkning af fejlsignalet.
+En integrering af fejlsignalet ville gøre, at fejlsignalet ville blive tvunget mod 0,
+og dette er ønsket ift. kravet om en tracking fejl på under 1,02 \degree.\todo[inline,author=Mikael]{Pythagoras! Come on guys!}
+De største krav stilles til systemets responstid og ikke så meget til udsvinget af responsen,
+og som udgangspunkt vælges derfor en PI-regulator, som gruppen er bekendt med fra
+undervisningen i reguleringsteknik.
 
-\todo[inline,author=ALLE]{Grunden for valg af PID-controller.}
+For at integratoren hurtigst muligt kan levere den nødvendige PWM-duty cycle til minimering af fejlsignalet,
+vælges det desuden at implementere et "bias", der tager højde for dødbåndet.
+Enhver PWM-duty cycle til Pan under 10 \% og til Tilt under 12 \%, og forskellig fra 0, bliver sat til hhv. 10 \% og 12 \%,
+så Pan \& Tilt-systemet bevæger sig. For at undgå vedblivende svingninger vælges det desuden at nulstille
+PWM-duty cycles under 1 \%.\todo[inline,author=Mikael]{Hvorfor 1 \%???}
