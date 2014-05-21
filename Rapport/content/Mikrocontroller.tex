@@ -25,7 +25,7 @@ Kommunikationen skal være tilpas hurtig, så regulatorerne ikke regner på for�
 Forsinkelsen for overførsel af data for begge motorer vurderes til ikke at måtte overstige 5\% af samplingperioden.
 Ved $T_s = \frac{1}{600}$ er det: 
 \begin{equation}
-	T_{spi delay} = \frac{1}{600} \cdot 5 \% = 8,33 \cdot 10^{-5}[s]
+	T_{\text{SPI delay}} = \frac{1}{600} \cdot 5 \% = 8,33 \cdot 10^{-5}[s]
 	\label{eq:uc:spi-krav}
 \end{equation}
 
@@ -47,9 +47,9 @@ som kan udlæses efter systemet er færdig med at tracke målet.
 \subsection{Beskrivelse af mikrocontroller.}
 Den udleverede mikrocontroller er en 32 bit Stellaris LM3S6965, baseret på en ARM Cortex M3 kerne. Den opererer ved 50 [MHz] og bruger Thump 2 instruktionssættet. Den indeholder 256 [kB] flash hukommelse samt 64 [kB] SRAM \citep{lm3s6965}.
 
-SPI er indbygget som et hardwaremodul, med seperate FIFO buffere til afsendelse og modtagelse. Hardwaren sender data fra den ene den buffer og lægger modtaget data i den anden. Derfor er det ikke nødvendigt for programmøren at holde styr på timingen. Størrelsen af hvert dataframe kan være 4 - 16 bits. 
+SPI er indbygget som et hardwaremodul, med seperate FIFO-buffere til afsendelse og modtagelse. Hardwaren sender data fra den ene den buffer og lægger modtaget data i den anden. Derfor er det ikke nødvendigt for programmøren at holde styr på timingen. Størrelsen af hvert dataframe kan være 4 - 16 bits. 
 
-UART er også implementeret som et hardwaremodul. Modulet indeholder seperate FIFO buffere til afsendelse og modtagelse af data, hver med plads til 16 datawords (på max. 8 bit). 
+UART er også implementeret som et hardwaremodul. Modulet indeholder seperate FIFO-buffere til afsendelse og modtagelse af data, hver med plads til 16 datawords (på max. 8 bit). 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Valg af skedulering/operativsystem}
@@ -60,17 +60,17 @@ Run-To-Complete-Scheduler (RTCS) er en simpel scheduler introduceret i semestere
 Ved Super loop metoden afvikles al koden i main-loopet vha. ticks.
 De fire skeduleringer er beskrevet i tabel \ref{tb:os_comparison}.
 %\begin{itemize}
-%\itemsep-2pt
+%\itemsep-1pt
 %	\item Opfylder kravene til realtidsafvikling af regulatorerne. 
 %	\item Muligheden for at (gen)bruge elementer fra EMP-kurset.
 %\end{itemize}
 
-Til valget er der lagt vægt på om skeduleringen opfylder kravet til realtidsafvikling af regulatorerne, samt muligheden for at genanvende elementer fra EMP-kurset.
+Til valget er der lagt vægt på om skeduleringen opfylder kravet til realtidsafvikling af regulatorerne, samt muligheden for at genanvende elementer fra programmeringskurset (EMP-kurset).
 \begin{figure}[th!]
 \centering
 
-\begin{tabu}{l|[2pt]l|l|l|l}
- & CoOS & FreeRTOS & RTCS & Super loop \\ \tabucline[2pt]{-}
+\begin{tabu}{l|[1.25pt]l|l|l|l}
+ & CoOS & FreeRTOS & RTCS & Super loop \\ \tabucline[1.25pt]{-}
 Skedulering & Preemptive priority  & Preemptive priority  & Non- & Non-  \\ 
 	           & /round robin		& /round robin              &preemptive &preemptive	\\\hline 
 Køer & Ja & Ja & Nej & Nej \\ \hline 
@@ -78,8 +78,8 @@ Semaforer & Tællende og Binære  & Tællende og Binære & Binære  & Nej  \\\hl
 Introduceret & Nej & Ja & Ja & Ja \\ 
 i EMP &   &   &   &   \\
 \end{tabu}
-%\begin{tabu}{l|[2pt]l|l|l|l}
- %& CoOS & FreeRTOS & RTCS & Super loop \\ \tabucline[2pt]{-}
+%\begin{tabu}{l|[1.25pt]l|l|l|l}
+ %& CoOS & FreeRTOS & RTCS & Super loop \\ \tabucline[1.25pt]{-}
 %Skedulering & Preemptive priority  & Preemptive priority  & Non-preemptive & Non-preemptive  \\ 
 %	           & /round robin		& /round robin              & &	\\\hline 
 %Køer & Ja & Ja & Nej & Nej \\ \hline 
@@ -87,8 +87,8 @@ i EMP &   &   &   &   \\
 %Introduceret & Nej & Ja & Ja & Ja \\ 
 %i programmeringskurset &   &   &   &   \\
 %\end{tabu}
-%\begin{tabu}{|l|[2pt]l|l|l|l|}\hline
-% & coOS & freeRTOS & RTCS & Super loop \\ \tabucline[2pt]{-}
+%\begin{tabu}{|l|[1.25pt]l|l|l|l|}\hline
+% & coOS & freeRTOS & RTCS & Super loop \\ \tabucline[1.25pt]{-}
 %Skedulering & Preemptive priority  & Preemptive priority  & Non-preemptive & Non-preemptive  \\ 
 %	           & /round robin		& /round robin              & &	\\\hline 
 %Queues & Ja & Ja & Nej & Nej \\ \hline 
@@ -185,8 +185,8 @@ Hvis det indtastede ikke bliver genkendt bliver en liste over gyldige funktioner
 
 \begin{figure}[th!]
 \centering
-\begin{tabu}{l|[2pt]l|l}
-Kommando: & Funktion: & Parametre: \\\tabucline[2pt]{-}
+\begin{tabu}{l|[1.25pt]l|l}
+Kommando: & Funktion: & Parametre: \\\tabucline[1.25pt]{-}
 read & Slå log til eller fra.  &   \\\hline 
 start & Start tracking af lerdue &   \\\hline 
 stop & Stop systemet &   \\\hline 
@@ -199,8 +199,8 @@ Pmfxx & Sæt dutycycle for motor m & m = Motor ("A" ell. "B"), \\
 & & xx = PWM dutycycle i \%
 \end{tabu} 
 
-%\begin{tabu}{|l|[2pt]l|l|}\hline
-%Kommando: & Funktion: & Parametre: \\\tabucline[2pt]{-}
+%\begin{tabu}{|l|[1.25pt]l|l|}\hline
+%Kommando: & Funktion: & Parametre: \\\tabucline[1.25pt]{-}
 %read & Slå log til eller fra.  &   \\\hline 
 %start & Start tracking af lerdue &   \\\hline 
 %stop & Stop systemet &   \\\hline 
@@ -318,15 +318,16 @@ Funktionen blev testet XXX gange, og resultat kan ses i tabel \ref{tb:spi-tests}
 
 \begin{table}[h!]
 \centering
-\begin{tabular}{|c|c|c|c|}
-\hline 
-Max:  & Min: & Median: & Gennemsnit: \\ 
-\hline 
-41,12 [\micro s] & 40,16 \micro s & 40,56 \micro s & 40,59 \micro s \\ 
-\hline 
-\end{tabular} 
-\label{tb:spi-tests}
+%\begin{tabular}{|c|c|c|c|}\hline 
+%Max:  & Min: & Median: & Gennemsnit: \\\hline 
+%41,12 [\micro s] & 40,16 \micro s & 40,56 \micro s & 40,59 \micro s \\\hline 
+%\end{tabular} 
+\begin{tabu}{c|c|c|c}%{c|[1.25pt]c|c|c}
+Max:  & Min: & Median: & Gennemsnit: \\\hline % \tabucline[1.25pt]{-}
+41,12 [\micro s] & 40,16 \micro s & 40,56 \micro s & 40,59 \micro s 
+\end{tabu} 
 \caption{Data fra tests af SPI.}
+\label{tb:spi-tests}
 \end{table}
 
 Med en maks. afviklingstid på 41,12 \micro s, overholder implementeringen kravet på afvikling indenfor 83,3 \micro s, som opstillet i ligning \ref{eq:uc:spi-krav}.
@@ -338,20 +339,21 @@ Intervallet mellem hver afvikling af blev målt for 240 afvikling, og resultater
 
 \begin{table}[h!]
 \centering
-\begin{tabular}{|c|c|c|c|c|}
-\hline 
- & Max:  & Min: & Median: & Gennemsnit: \\ 
-\hline 
-Målt interval: & 1,674 [ms] & 1,657 [ms] & 1,667 [ms] & 1,667 [ms] \\ 
-\hline 
-Afvigelse: & 6,933 [\micro s] & 9,067 [\micro s] & 0,533 [\micro s] & 0,005 [\micro s] \\ 
-\hline 
-\end{tabular} 
-\label{tb:ctrltasktimingtest}
+\begin{tabu}{c|[1.25pt]c|c|c|c}
+ & Max:  & Min: & Median: & Gennemsnit:  \\ \tabucline[1.25pt]{-}
+Målt interval: & 1,674 [ms] & 1,657 [ms] & 1,667 [ms] & 1,667 [ms] \\ \hline 
+Afvigelse: & 6,933 [\micro s] & 9,067 [\micro s] & 0,533 [\micro s] & 0,005 [\micro s] \\
+\end{tabu} 
+%\begin{tabular}{|c|c|c|c|c|}\hline 
+% & Max:  & Min: & Median: & Gennemsnit: \\ \hline 
+%Målt interval: & 1,674 [ms] & 1,657 [ms] & 1,667 [ms] & 1,667 [ms] \\ \hline 
+%Afvigelse: & 6,933 [\micro s] & 9,067 [\micro s] & 0,533 [\micro s] & 0,005 [\micro s] \\\hline 
+%\end{tabular} 
 \caption{Interval mellem hver afvikling af ctrl-task.}
+\label{tb:ctrltasktimingtest}
 \end{table}
 
-Den højeste afvigelse på 9 \micro s er lav nok til at kravene opfyldes.
+Den højeste afvigelse på 9 [\micro s] er lav nok til at kravene opfyldes.
 \todo[inline, author=Michael]{Udfør test af ctrl-taskens afviklingstid.}
 
 \subsection{Delkonklusion}

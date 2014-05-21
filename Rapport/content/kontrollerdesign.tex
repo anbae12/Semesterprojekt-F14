@@ -43,7 +43,6 @@ og at mikrocontrolleren skal regulere begge SISO-undersystemer.
 	De grønne ovaler angiver "clocksignaler", som leverer pulser til de digitale dele af systemet.}
 \label{fig:digitalkontroller1}
 \end{figure}
-\todo[inline,author=Mikael,color=green]{Nikolaj! Fiks figur \ref{fig:digitalkontroller1}! Den er for stor! Tak}
 Som beskrevet i afsnit \ref{sec:problemformulering},
 så er input-samplingen fastlagt til at foregå med en frekvens på 120 [Hz].
 Men som illustreret på figur \ref{fig:digitalkontroller1}, så skal reguleringssløjfen
@@ -89,7 +88,6 @@ er markeret på figur \ref{fig:digitalkontroller2}.
 	De grønne ovaler angiver "clocksignaler", som leverer pulser til de digitale dele af systemet.}
 \label{fig:digitalkontroller2}
 \end{figure}
-\todo[inline,author=Mikael,color=green]{Nikolaj! Fiks figur \ref{fig:digitalkontroller2}! Den er for stor! Tak}
 
 Den diskretiserede åbensløjfeoverføringsfunktion fra duty cycle til output vinkel
 benævnes \(G_{zoh}\left(s\right)\). Dette er fordi D/A-konverteringen modelleres som et Zero Order Hold kredsløb,
@@ -99,7 +97,8 @@ Den diskrete overføringsfunktions plads i blokdiagrammet for systemet
 er indtegnet i figur \ref{fig:digitalkontroller3}.
 \begin{figure}[!th]
 \centering
-\begin{tikzpicture}[node distance=2.6cm,>=latex',scale=0.9]
+% \begin{tikzpicture}[auto, node distance=2.6cm,>=latex']
+\begin{tikzpicture}[scale=0.9, every node/.style={scale=0.9}, node distance=2.6cm, =>latex']
 \include*{./graphics/digitalkontroller3}
 \end{tikzpicture}
 \caption[Diskretiseret åbensløjfeoverføringsfunktion]
@@ -107,7 +106,6 @@ er indtegnet i figur \ref{fig:digitalkontroller3}.
 		\(G_{zoh}\left(z\right)\) erstatter den kontinuerte del af systemet.}
 \label{fig:digitalkontroller3}
 \end{figure}
-\todo[inline,author=Mikael,color=blue]{Nikolaj! Fiks figur \ref{fig:digitalkontroller3}! Den er lidt for stor! Tak}
 De to overføringsfunktioner hhv. \(G_{pan}\left(s\right)\) og \(G_{tilt}\left(s\right)\)
 har hver en diskretiseret overføringsfunktion hhv. \(G_{zoh,pan}\left(z\right)\) og \(G_{zoh,tilt}\left(z\right)\).
 
