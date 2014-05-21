@@ -25,7 +25,7 @@ Kommunikationen skal være tilpas hurtig, så regulatorerne ikke regner på for�
 Forsinkelsen for overførsel af data for begge motorer vurderes til ikke at måtte overstige 5\% af samplingperioden.
 Ved $T_s = \frac{1}{600}$ er det: 
 \begin{equation}
-	T_{spi delay} = \frac{1}{600} \cdot 5 \% = 8,33 \cdot 10^{-5}[s]
+	T_{\text{SPI delay}} = \frac{1}{600} \cdot 5 \% = 8,33 \cdot 10^{-5}[s]
 	\label{eq:uc:spi-krav}
 \end{equation}
 
@@ -325,8 +325,8 @@ Max:  & Min: & Median: & Gennemsnit: \\
 41,12 [\micro s] & 40,16 \micro s & 40,56 \micro s & 40,59 \micro s \\ 
 \hline 
 \end{tabular} 
-\label{tb:spi-tests}
 \caption{Data fra tests af SPI.}
+\label{tb:spi-tests}
 \end{table}
 
 Med en maks. afviklingstid på 41,12 \micro s, overholder implementeringen kravet på afvikling indenfor 83,3 \micro s, som opstillet i ligning \ref{eq:uc:spi-krav}.
@@ -347,11 +347,11 @@ Målt interval: & 1,674 [ms] & 1,657 [ms] & 1,667 [ms] & 1,667 [ms] \\
 Afvigelse: & 6,933 [\micro s] & 9,067 [\micro s] & 0,533 [\micro s] & 0,005 [\micro s] \\ 
 \hline 
 \end{tabular} 
-\label{tb:ctrltasktimingtest}
 \caption{Interval mellem hver afvikling af ctrl-task.}
+\label{tb:ctrltasktimingtest}
 \end{table}
 
-Den højeste afvigelse på 9 \micro s er lav nok til at kravene opfyldes.
+Den højeste afvigelse på 9 [\micro s] er lav nok til at kravene opfyldes.
 \todo[inline, author=Michael]{Udfør test af ctrl-taskens afviklingstid.}
 
 \subsection{Delkonklusion}
