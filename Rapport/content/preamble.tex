@@ -33,6 +33,20 @@
 \counterwithin{table}{section}
 \counterwithin{equation}{section}
 
+
+
+
+\usepackage{paralist}
+  \let\itemize\compactitem
+  \let\enditemize\endcompactitem
+  \let\enumerate\compactenum
+  \let\endenumerate\endcompactenum
+  \let\description\compactdesc
+  \let\enddescription\endcompactdesc
+  \pltopsep=1pt
+  \plitemsep=1pt
+  \plparsep=1pt
+
 %%%%%%% FIGURES %%%%%%%
 \usetikzlibrary{positioning} % in the preamble
 \usetikzlibrary{decorations.pathreplacing}
