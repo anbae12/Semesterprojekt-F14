@@ -1,4 +1,5 @@
-\section{Matematisk model af Pan \& Tilt-systemet}
+%\section{Matematisk model af Pan \& Tilt-systemet}
+\section{Matematisk model af PTS}
 \label{sec:matPTS}
 Under designet af en regulator skal systemet identificeres. Der er forskellige metoder til systemidentifikation.
 Én metode ser som udgangspunkt systemet som en "black box", og identificerer systemet
@@ -123,8 +124,8 @@ Overføringsfunktionen fra duty cycle til DC-spænding står i ligning \ref{eq:t
 	\label{eq:transPWM}
 \end{equation}
 \todo[inline,author=Mikael]{Dedikér et underafsnit til diskussion af tidsforsinkelser, digitale såvel som analoge.}
-
-\subsection{Pan \& Tilt-rammernes inertimoment}
+%\subsection{Pan \& Tilt-rammernes inertimoment}
+\subsection{PTS's inertimoment}
 \label{sec:inertimoment}
 For at opnå den optimale respons, skal reguleringen tage højde for, at Pan \& Tilt-motorerne møder modstand i form af
 Pan \& Tilt-rammernes inertimoment. Inertimomentet kan bestemmes ved kendskab til rammernes
@@ -157,7 +158,8 @@ som beregnet i appendix \ref{sec:inertimomentberegning}.
 \(J_{pan}\) er beregnet ud fra et konstant bidrag fra tilt-rammen under antagelsen om,
 at denne står tilnærmelsesvis lodret under hele bevægelsen.
 
-\subsection{Pan- og tilt-systemernes åbensløjfeoverføringsfunktioner}
+%\subsection{Pan- og tilt-systemernes åbensløjfeoverføringsfunktioner}
+\subsection{PTS's åbensløjfeoverføringsfunktioner}
 Hvert SISO-undersystem består af én PWM-blok på FPGA'en og en DC-motor med belastning.
 To overføringsfunktioner \(G_{pan}\) og \(G_{tilt}\) for pan- og tilt-systemet kan opskrives
 som produktet af ligning \ref{eq:transPWM} og \ref{eq:transTheta}. De to overføringsfunktioner
