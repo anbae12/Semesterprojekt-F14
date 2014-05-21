@@ -47,9 +47,9 @@ som kan udlæses efter systemet er færdig med at tracke målet.
 \subsection{Beskrivelse af mikrocontroller.}
 Den udleverede mikrocontroller er en 32 bit Stellaris LM3S6965, baseret på en ARM Cortex M3 kerne. Den opererer ved 50 [MHz] og bruger Thump 2 instruktionssættet. Den indeholder 256 [kB] flash hukommelse samt 64 [kB] SRAM \citep{lm3s6965}.
 
-SPI er indbygget som et hardwaremodul, med seperate FIFO buffere til afsendelse og modtagelse. Hardwaren sender data fra den ene den buffer og lægger modtaget data i den anden. Derfor er det ikke nødvendigt for programmøren at holde styr på timingen. Størrelsen af hvert dataframe kan være 4 - 16 bits. 
+SPI er indbygget som et hardwaremodul, med seperate FIFO-buffere til afsendelse og modtagelse. Hardwaren sender data fra den ene den buffer og lægger modtaget data i den anden. Derfor er det ikke nødvendigt for programmøren at holde styr på timingen. Størrelsen af hvert dataframe kan være 4 - 16 bits. 
 
-UART er også implementeret som et hardwaremodul. Modulet indeholder seperate FIFO buffere til afsendelse og modtagelse af data, hver med plads til 16 datawords (på max. 8 bit). 
+UART er også implementeret som et hardwaremodul. Modulet indeholder seperate FIFO-buffere til afsendelse og modtagelse af data, hver med plads til 16 datawords (på max. 8 bit). 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Valg af skedulering/operativsystem}
@@ -65,7 +65,7 @@ De fire skeduleringer er beskrevet i tabel \ref{tb:os_comparison}.
 %	\item Muligheden for at (gen)bruge elementer fra EMP-kurset.
 %\end{itemize}
 
-Til valget er der lagt vægt på om skeduleringen opfylder kravet til realtidsafvikling af regulatorerne, samt muligheden for at genanvende elementer fra EMP-kurset.
+Til valget er der lagt vægt på om skeduleringen opfylder kravet til realtidsafvikling af regulatorerne, samt muligheden for at genanvende elementer fra programmeringskurset (EMP-kurset).
 \begin{figure}[th!]
 \centering
 
