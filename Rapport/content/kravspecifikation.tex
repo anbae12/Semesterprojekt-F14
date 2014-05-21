@@ -47,18 +47,6 @@ Punktet D er "high house" (affyringsstedet).
 }
 \caption[Lerduens parabel i 2D]{Viser parablen af lerduens bane i 2D.}
 \end{figure}
-Det anslås at man kan nå at affyre et skud mellem tidspunktet,
-hvor lerduen når toppunktet og SB, ligning \ref{eq:ks:nedslagstid}.
-I dette tidsrum skal Pan \& Tilt-systemet sigte på lerduen så geværet kan ramme.
-Der er altså et tidsmæssigt krav til reguleringen om en indsvingningstid (Settling Time) for systemet,
-der er lavere end tiden \(t_{s}\) angivet i ligning, \ref{eq:ks:settlingtime}.
-\begin{align}
-  t_{s} &= 0,557 [s] &\text{(Settling Time)}
-  \label{eq:ks:settlingtime}
-\\
-  t_{n} &= 1,18 [s] &\text{(Shooting Boundary Limit)}
-  \label{eq:ks:nedslagstid}
-\end{align}
 
 Haglene fra et 12 gauge haglgevær med Skeet Choke spredes så de dækker et område
 med en diameter på 1,32 [m] på en afstand på 37 [m] \citep[Pattern and choke]{patternandchoke}.
@@ -68,19 +56,61 @@ Spredningsvinklen er, med en antagelse om lineær spredning, givet ved ligning \
   &= 2,04 \degree
   \label{eq:ks:spredning}
 \end{align}
-Der er altså et krav om at geværet peger på lerduen med en præcision på \(\pm 1,02 \degree\).
+%Der er altså et krav om at geværet peger på lerduen med en præcision på \(\pm 1,02 \degree\).
+Når trackingfejlen defineres som i ligning \ref{eq:ks:trackingerror} rammes 
+lerduen når ligning \ref{eq:ks:trackingerrorsize} opfyldes.
+\begin{align}
+  TE &= \left | \begin{pmatrix}  Pan_{\text{pos wanted}}\\ Tilt_{\text{pos wanted}}\end{pmatrix} - \begin{pmatrix} Pan_{pos}\\ 
+  Tilt_{pos}\end{pmatrix} \right | \label{eq:ks:trackingerror}
+  \\
+  TE &\leq 1.02\degree
+  \label{eq:ks:trackingerrorsize}
+\end{align}
+
+Settling time defineres, som tiden der går før trackingfejlen forbliver $\leq 1.02 \degree$ 
+som skrevet i ligning \ref{eq:ks:settlingtime}.
+
+\begin{align}
+{\text{Settling time}\quad =\quad \left t\quad  \right|  }_{ TE\le 1.02 \degree }
+  \label{eq:ks:settlingtime}
+\end{align}
+
+Der skydes mellem tidspunktet, hvor lerduen når toppunktet og til SB.
+I dette tidsrum skal Pan \& Tilt-systemet sigte præcist på lerduen og dette 
+stiller et krav til settling time, som skrevet i ligning \ref{eq:ks:settlingtime1}
+%Tidspunktet, hvor lerduen når sit toppunkt er altså samtidigt tid er altså det højeste settling time må være, ligning \ref{eq:ks:settlingtime1}
+
+\begin{align}
+  t_{top} &= 0,557 [s] &\text{(Toppunktet af parablen)}
+  \label{eq:ks:toppunktstid}
+  \\
+   t_{SB} &= 1,18 [s] &\text{(Shooting boundary}
+  \label{eq:ks:toppunktstid}
+  \\
+  t_{s} & \leq 0,557 [s] &\text{(Settling Time)}
+  \label{eq:ks:settlingtime1}
+\end{align}
+
+%I dette tidsrum skal Pan \& Tilt-systemet sigte præcist på lerduen og kravet til 
+%tracking error i ligning \ref{eq:ks:trackingerrorsize} skal overholdes.
+%Der er altså et tidsmæssigt krav til reguleringen om en indsvingningstid (Settling Time) for systemet,
+%der er lavere end tiden \(t_{s}\) angivet i ligning, \ref{eq:ks:settlingtime}.
 %Dette krav gælder for både pan-rammens vinkel (\(\phi\)) og tilt-rammens vinkel (\(\theta\)).
-For en 1-radian reference giver dette altså en maksimal tracking error (SSE) på 1,78 \%.
+%For en 1-radian reference giver dette altså en maksimal tracking error (SSE) på 1,78 \%.
 %\todo[inline, author=Michael]{Den virkelige sammenhænge er mere kompleks: Hvis både pan \& tilt rammen peger 1\degree ved siden af, er den samlede afvigelse vel over 1,02\degree}
 %\todo[inline, color = pink, author = Mikkel]{Hvad mening giver det at kigge på 1 radian reference og kan man virkelig kalde det SSE?}
 
+Det eneste krav der stilles til systemet er altså et settling time krav.
+
+\todo[inline,color=pink,author=Mikkel]{Ved ikke hvor jeg skal placere nedenstående linjer :s}
 Tilt-rammen kan bevæge sig frit,
 men pan-rammen kan pga. en stopklods kun rotere \(154 \degree\)\footnote{Målt eksperimentielt.}.
-Dette giver altså en øvre og en nedre grænse for pan-rammens maksimale udsving,
-som afhænger af reguleringen
-- et for højt overshoot på pan-positionen kan give udsving, der ikke holder sig inden for grænserne.
-Hvis det antages, at vinklen \(0 \degree\) er lige midt imellem pan-rammens rotationsgrænser,
-så den kan rotere \(77 \degree\) til hver side, så er det maksimale overshoot for et 1-radians step-input
-givet ved \(34 \%\).
-\todo[inline, color = pink, author = Mikkel]{Hvad mening giver den 1 radian reference?}
-\todo[inline, author=Michael]{Indsæt evt. figur med overshoot begrænsninger?}
+
+%Dette giver altså en øvre og en nedre grænse for pan-rammens maksimale udsving,
+%som afhænger af reguleringen
+%- et for højt overshoot på pan-positionen kan give udsving, der ikke holder sig inden for grænserne.
+%Hvis det antages, at vinklen \(0 \degree\) er lige midt imellem pan-rammens rotationsgrænser,
+%så den kan rotere \(77 \degree\) til hver side, så er det maksimale overshoot for et 1-radians step-input
+%givet ved \(34 \%\).
+%\todo[inline, color = pink, author = Mikkel]{Hvad mening giver den 1 radian reference?}
+%\todo[inline, author=Michael]{Indsæt evt. figur med overshoot begrænsninger?}
