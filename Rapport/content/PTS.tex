@@ -199,8 +199,7 @@ i praksis.
 
 \subsubsection{Verifikation}
 \label{subsec:verifikation}
-Åbensløjferesponsen af Tilt-systemet er blevet målt og sammenlignet med den teoretiske respons
-som forudsagt af den fundne overføringsfunktion \(G_{tilt}\).
+Åbensløjferesponsen af Tilt-systemet er blevet målt og sammenlignet med den teoretiske respons.
 Grunden til, åbensløjferesponsen kun er blevet målt for Tilt er, at rammen kan rotere frit,
 mens pan blokeres af en stopklods.
 Sammenligningen er nødvendig for at verificere modellen, og for evt. at kunne justere modellen,
@@ -211,42 +210,34 @@ i løbet af ca. 12 sekunder. Tilt-vinklen blev målt med FPGA'en og sammenlignet
 respons for samme input-signal.
 Forsøget blev udført syv gange.
 
-Figur \ref{fig:openloop2} viser de syv målte åbensløjferesponser (markeret med rødt)
-og de syv teoretiske åbensløjferesponser (markeret med blåt).
+Den målte vinkel skal differentieres, således at integratoren i \(G_{tilt}\) ikke gør,
+at fejlen i forhold til de målte data akkumuleres over tid.
+Måden den målte vinkel er blevet differentieret på er ved først at fitte en parabel
+til vinklen som funktion af tiden vha. Least Squares metoden. Herefter differentieres
+parablen, og den resulterende rette linje er altså et mål for vinkelhastigheden som funktion af tiden.
+
 \begin{figure}[th!]
 	\centering
-	\includegraphics[width=1\textwidth]{./graphics/openloop2.eps}
+	\includegraphics[width=1\textwidth]{./graphics/openloopVelocity1.eps}
 	\caption[Tilt åbensløjferespons, målt vs. teoretisk]
 		{Tilt åbensløjferespons, målt vs. teoretisk.
 		Markeret med rødt er den målte respons for alle syv målinger,
 		mens den teoretiske respons for de samme syv inputs er markeret med blåt.}
-	\label{fig:openloop2}
+	\label{fig:openloopV1}
 \end{figure}
 
-Figur \ref{fig:openloop2} viser, at den teoretiske respons er større, samt at den målte
-respons er forsinket i forhold til den teoretiske.
-At den teoretiske respons er større kan forklares ud fra antagelsen om,
-at den eneste friktion i systemet er viskøs friktion. I praksis er der en større dæmpning
-end den teoretiske model forudsiger.
-At den målte respons er forsinket skyldes, at visse PWM-duty cycles ikke kan bevæge systemet.
-Dødbåndet af PWM-duty cycles, der ikke kan accelerere Tilt-systemet er målt til at befinde sig inden for
+Figur \ref{fig:openloopV1} viser den målte vinkelhastighed samt den teoretiske vinkelhastighed,
+som forudsagt af overføringsfunktionen \(s\cdot{}G_{tilt}\).
+Det ses på figur \ref{fig:openloopV1}, at den største afvigelse er en tidsforsinkelse.
+Dette skyldes, at visse PWM-duty cycles ikke kan bevæge systemet.
+Dødzonen af PWM-duty cycles, der ikke kan accelerere Tilt-systemet er målt til at befinde sig inden for
 ca. \(\pm\) 12 \%, og for Pan-systemet til ca. \(\pm\) 10 \%.
-Hvis man i den teoretiske model indsætter et dødbånd på 12 \% og en forstærkning
-på 0,84, så passer den bedre på de målte data, som illustreret i figur \ref{fig:openloop3}.
-\begin{figure}[th!]
-	\centering
-	\includegraphics[width=1\textwidth]{./graphics/openloop3.eps}
-	\caption[Tilt åbensløjferespons, målt vs. justeret teoretisk]
-		{Tilt åbensløjferespons, målt vs. justeret teoretisk.
-		Markeret med rødt er den målte respons for alle syv målinger.
-		Markeret med blåt er den teoretiske respons forudsagt af \(G_{tilt}\), hvis
-		man indsætter et dødbånd af duty cycles på \(\pm\) 12 \% samt en forstærkning på 0,84.}
-	\label{fig:openloop3}
-\end{figure}
+Udover forsinkelsen fra dødzonen kan man på figur \ref{fig:openloopV1} aflæse
+at den målte vinkelacceleration (hældningen af grafen) er marginalt mindre end den teoretiske.
+Det antages, at denne opførsel hovedsageligt skyldes Coulomb-friktion.
 
 Hvis man ønsker en mere nøjagtig matematisk model af Pan \& Tilt-systemet
-er det altså en mulighed at indsætte dødbåndet og den ekstra dæmpning
-i modellen.
-Som vælges det dog at benytte åbensløjfeoverføringsfunktionerne \(G_{pan}\) og \(G_{tilt}\)
-som udgangspunkt for regulatordesignet, og udvide modellen hvis regulatoren ikke lever op til
-kravene.
+er det altså en mulighed at indsætte dødzonen og evt. den ekstra dæmpning i modellen.
+Det vælges det dog at benytte åbensløjfeoverføringsfunktionerne \(G_{pan}\) og \(G_{tilt}\)
+som udgangspunkt for analysen der hører til regulatordesignet,
+og udvide modellen hvis regulatoren ikke lever op til kravene.
