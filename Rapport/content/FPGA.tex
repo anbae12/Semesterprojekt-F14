@@ -12,29 +12,30 @@ Følgende opgaver til FPGA'en er fastsat af projektbeskrivelsen:
 
 FPGA'en er i projeket et BASYS board\footnote{Datablad \citep{basys2}}, der programmeres ved brug af VHDL\footnote{VHSIC Hardware Description Language}.
 
-\subsection{Foretagede valg i opbygning af FPGA funktionalitet}
-Eftersom de fleste krav til FPGAeFPGA'enn er givet af projektbeskrivelsen, er der ikke 
+\subsection{Valg i opbygning af FPGA funktionalitet}
+Eftersom de fleste krav til FPGA'en er givet af projektbeskrivelsen, er der ikke 
 lavet noget større analysearbejde af FPGA'ens funktionalitet. Undervejs i 
-udviklingen af funktionaliteten er der dog taget nogle valg.
+udviklingen af funktionaliteten er der dog taget nogle valg, som beskrives nedenfor.
 
 \textbf{Generiske komponenter}\\
 For at lave et system med lav kobling er det forsøgt at lave 
 generiske komponenter til de funktionaliteter, der er af generel art. 
-Til at varetage den resterende funktionalitet, er der skrevet applikationsspecifikke 
+Til varetagelse af den resterende funktionalitet er der skrevet applikationsspecifikke 
 komponenter.
-Dette sikrer, at koden er let at udbygge og genbruge.
+Dette sikrer at koden er let at udbygge og genbruge.
 
 \textbf{PWM}\\
-Der skal fra FPGA'en genereres PWM signaler til at styre motorerne på PTS.
+Der skal fra FPGA'en genereres PWM-signaler til styring af motorerne på PTS.
 Det ønskes at have en PWM frekvens, der ikke ligger i det hørbare område, hvilket ca. går op til 20 [kHz]\footnote{\citep{Hearingrange}}. 
 Det ønskes at have en opløsning på PWM, der er mindst ligeså høj, som 
-opløsningen på PTS rotation, for ikke at forringe opløsningen på reguleringen. 
+opløsningen på PTS's positionsencoders, for ikke at forringe opløsningen på reguleringen. 
 Det er derfor valgt at repræsentere PWM dutycycle ved 11 bit. 
 Ved 11 bits opløsning på PWM og brug af BASYS boardets interne clock på 50 [MHz] bliver PWM frekvensen passende høj:
 
 \begin{equation}
-  \frac{50 \text{ [MHz]}}{2^{11}} = 24.41 \text{ [kHz]}
+  \frac{50 \text{ [MHz]}}{2^{11}} \approx 24.41 \text{ [kHz]}
 \end{equation}
+\todo[inline,author=Anders]{Det giver 24,414 kHz.. Så det er vel bedre med en = frem for en approx.}
 
 \textbf{Kalibrering af motorposition}\\
 PTS skal kunne tændes i en tilfældig position og derefter kalibreres.
@@ -61,8 +62,6 @@ Herunder følger en forklaring på hvordan de tre krav til FPGA'en er opnået. F
 yderligere forklaring af komponenterne henvises til appendix 
 \ref{sec:fpgaappendix}.
 
-
-
 \begin{figure}[!th]
 \centering
 \begin{tikzpicture}[node distance = 5 cm,scale=1]
@@ -71,7 +70,6 @@ yderligere forklaring af komponenterne henvises til appendix
 \caption[Diagram over FPGA komponenter]{Simplificeret diagram over komponenterne på FPGA'en}
 \label{fig:FPGA_blok}
 \end{figure}
-
 %\todo[author=Åse,inline]{Teksten over figuren kan uddybes, med at beskrive de vigtigeste komponenter. Mens kan teksten nedenunder komme i appendix.}
 %\subsection{SPI}
 %På FPGA'en er SPI'en to shift registre. SPI'en konvertere det serielle signal fra MOSI til at parallel signal. Det signal sendes videre til Input decoder, som deler det op i komposanter. Fra Output decoder får SPI signalet, den skal sende til mikrocontrolleren.
@@ -91,7 +89,7 @@ ellers. Hermed er der produceret et PWM med en frekvens på ca. 24 kHz.
 Da encoderne på PTS er quadrature encodere er det muligt at bestemme både retning og tælle rotationer på motoren. 
 Dette sker i komponenten tic counter der afhængigt af inputtet fra encoderne tæller positionen op eller 
 ned.
-Der tælles ned fra 0 til 1079 og op  fra 1079 til 0.
+Der tælles ned fra 0 til 1079 og op fra 1079 til 0.
 Resetsignal modtages fra komponenten tic reset, når pan eller tilts magnet bevæger 
 sig over hallsensorerne.
 

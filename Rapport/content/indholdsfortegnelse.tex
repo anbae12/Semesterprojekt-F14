@@ -1,17 +1,7 @@
 \newpage
 
-
-
-%\makeatletter
-%\makeatother
-\newlength\mylen
-\renewcommand\thepart{\Roman{part}}
-\renewcommand\cftpartpresnum{Part~}
-\settowidth\mylen{\bfseries\cftpartpresnum\cftpartaftersnum}
-\addtolength\cftpartnumwidth{\mylen}
-
-
 \tableofcontents
+\addtocontents{toc}{~\hfill\textbf{Page}\par}
 \listoffigures
 \listoftables  
 
@@ -26,17 +16,11 @@ Rapporten&/Master\_doc.pdf\\
 
 \end{tabular}
 \captionsetup{type=table}
-%\caption[Indhold på CDROM'en]{Ovenstående tabel beskriver indholdet på CDROM'en.}
+\caption*{Beskriver indholdet på CDROM'en.}
 \label{tb:CD}
 \end{figure}
 \todo[inline,author=Mikael]{Indhold på CD-ROM'en}
-\todo[inline, color=pink, author = Mikkel]{Ændr' Parts -  det er ikke dansk. Kunne ikke selv finde ud af det.}
-
-
-
-
 
 
 \newpage
-\subsection*{Tekst som mangler at blive skrevet}
 \listoftodos
