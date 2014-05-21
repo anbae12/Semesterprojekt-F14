@@ -17,7 +17,7 @@
 \draw [dashed,draw,->] (freq60) -- (AD);
 \draw [draw,->] (AD) -- node[above] {\footnotesize $x\left(k\right)$} (DD);
 \draw [draw,->] (DD) -- node[above] {\footnotesize $x_1\left(k\right)$} (Koordinattransformation);
-\draw [draw,->] (Koordinattransformation) -- node[pos=0.8] {\footnotesize +} (sum1);%node [near end] (sum1);
+\draw [draw,->] (Koordinattransformation) -- node[pos=0.8,above] {\footnotesize +} (sum1);%node [near end] (sum1);
 \draw [draw,->] (sum1) -- node[above] {\footnotesize $e\left(k\right)$} (Dz);
 \draw [draw,->] (Dz) -- node[above] {\footnotesize $u\left(k\right)$} (Dahold);
 \draw [draw,->] (Dahold) -- node[above] {\footnotesize $U\left(t\right)$} (Hs);
@@ -27,7 +27,7 @@
 \draw [dashed,draw,->] (freq600) -| (AD2);
 \draw [dashed,draw,->] (freq600) -| (DD);
 \draw [draw,->] (y) |- node [near end,above] {\footnotesize $\Theta\left(t\right)$} (AD2);
-\draw [->] (AD2) -| node[pos=0.97] {\footnotesize -} node [near end,left] {\footnotesize $\theta\left(k\right)$} (sum1);
+\draw [->] (AD2) -| node[pos=0.97,left] {\footnotesize -} node [near end,left] {\footnotesize $\theta\left(k\right)$} (sum1);
 
 
 \coordinate[right of=input,xshift=-1cm,yshift=1.5cm](UL);
