@@ -68,15 +68,25 @@ De fire skeduleringer er beskrevet i tabel \ref{tb:os_comparison}.
 Til valget er der lagt vægt på om skeduleringen opfylder kravet til realtidsafvikling af regulatorerne, samt muligheden for at genanvende elementer fra EMP-kurset.
 \begin{figure}[th!]
 \centering
+
 \begin{tabu}{l|[2pt]l|l|l|l}
  & CoOS & FreeRTOS & RTCS & Super loop \\ \tabucline[2pt]{-}
-Skedulering & Preemptive priority  & Preemptive priority  & Non-preemptive & Non-preemptive  \\ 
-	           & /round robin		& /round robin              & &	\\\hline 
+Skedulering & Preemptive priority  & Preemptive priority  & Non- & Non-  \\ 
+	           & /round robin		& /round robin              &preemptive &preemptive	\\\hline 
 Køer & Ja & Ja & Nej & Nej \\ \hline 
 Semaforer & Tællende og Binære  & Tællende og Binære & Binære  & Nej  \\\hline 
 Introduceret & Nej & Ja & Ja & Ja \\ 
-i programmeringskurset &   &   &   &   \\
+i EMP &   &   &   &   \\
 \end{tabu}
+%\begin{tabu}{l|[2pt]l|l|l|l}
+ %& CoOS & FreeRTOS & RTCS & Super loop \\ \tabucline[2pt]{-}
+%Skedulering & Preemptive priority  & Preemptive priority  & Non-preemptive & Non-preemptive  \\ 
+%	           & /round robin		& /round robin              & &	\\\hline 
+%Køer & Ja & Ja & Nej & Nej \\ \hline 
+%Semaforer & Tællende og Binære  & Tællende og Binære & Binære  & Nej  \\\hline 
+%Introduceret & Nej & Ja & Ja & Ja \\ 
+%i programmeringskurset &   &   &   &   \\
+%\end{tabu}
 %\begin{tabu}{|l|[2pt]l|l|l|l|}\hline
 % & coOS & freeRTOS & RTCS & Super loop \\ \tabucline[2pt]{-}
 %Skedulering & Preemptive priority  & Preemptive priority  & Non-preemptive & Non-preemptive  \\ 
@@ -324,7 +334,7 @@ Med en maks. afviklingstid på 41,12 \micro s, overholder implementeringen krave
 Samme fremgangsmåde blev brugt til at tjekke timingen for controltask'en, som indeholder reguleringssløjfen. 
 Kravet til afviklingen var: Reguleringsløjfen kører med 600 [Hz], samt at tasken afvikles inden næste periode. 
 Dvs. en maks afviklingstid på 1/600 [s], da kravet på 600 [Hz] ellers ikke kunne opfyldes. 
-Intervallet mellem hver afvikling af blev målt for 240 afvikling, og resultaterne er vist i tabel \ref{tb:ctrl-task-timing-test}.
+Intervallet mellem hver afvikling af blev målt for 240 afvikling, og resultaterne er vist i tabel \ref{tb:ctrltasktimingtest}.
 
 \begin{table}[h!]
 \centering
@@ -337,7 +347,7 @@ Målt interval: & 1,674 [ms] & 1,657 [ms] & 1,667 [ms] & 1,667 [ms] \\
 Afvigelse: & 6,933 [\micro s] & 9,067 [\micro s] & 0,533 [\micro s] & 0,005 [\micro s] \\ 
 \hline 
 \end{tabular} 
-\label{tb:ctrl-task-timing-test}
+\label{tb:ctrltasktimingtest}
 \caption{Interval mellem hver afvikling af ctrl-task.}
 \end{table}
 

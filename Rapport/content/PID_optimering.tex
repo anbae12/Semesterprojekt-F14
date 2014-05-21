@@ -59,11 +59,11 @@ Systemet blev altid sat i samme start position ved funktionen som peger det før
 
 \begin{figure}[h!]
 \centering
-  \begin{tabular}{lccc}
-      & P & I & D\\[5pt]
-tilt  & 74.4933 & 435.0662 & 0.248960\\
-pan   & 37.1740 &  33.3610 & 0.215658
-  \end{tabular}
+\begin{tabu}{l|[2pt]c|c|c}
+      & \(K_P\) & \(K_I\) & \(K_D\)\\\tabucline[2pt]{-}
+Tilt  & 74,4933 & 435,0662 & 0,248960\\\hline
+Pan   & 37,1740 &  33,3610 & 0,215658
+\end{tabu}
 \captionsetup{type=table}
 \caption[Regulator koefficienter brugt i test]{Regulator koefficienter brugt til test af system.}
 \label{PID_test14} 
@@ -72,7 +72,9 @@ pan   & 37.1740 &  33.3610 & 0.215658
 \begin{figure}
 \includegraphics[width=1\textwidth]{./graphics/error_pan.eps}
 \includegraphics[width=1\textwidth]{./graphics/error_tilt.eps}
-\caption{fejl målt i grader for PID controller med coefficienterne beskrevet i Tabel \ref{PID_test14} \label{PID_test14_plot} }
+\caption[PID controller koefficienter]{Fejl målt i grader for PID controller med koefficienterne beskrevet i tabel \ref{PID_test14}.} \label{PID_test14_plot}
 \end{figure}
+\todo[author=Anders,inline]{Shooting boundary sker ved 1,18 [s], så de skal plottes i et længere interval.}
+\todo[author=Anders,inline]{Pan-plottet ser "sjov" ud i starten i forhold til tilt. Det er ligesom den er plottet dobbelt med et offset.}
 
-% \subsection{Optimering af controller/koefficienter}
+\subsection{Optimering af controller/koefficienter}
