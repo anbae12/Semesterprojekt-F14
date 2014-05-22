@@ -65,27 +65,27 @@ Tilt-rammen kan bevæge sig frit,
 men pan-rammen kan pga. en stopklods kun rotere \(154 \degree\)\footnote{Målt eksperimentielt.}.
 
 Haglene fra et 12 gauge haglgevær med Skeet Choke spredes så de dækker et område
-med en diameter på 1,32 [m] på en afstand på 37 [m] \citep[Pattern and choke]{patternandchoke}.
+med en diameter på 1,32 [m] på en afstand til centrum af cirklen på 37 [m] \citep[Pattern and choke]{patternandchoke}.
 Spredningsvinklen er, med en antagelse om lineær spredning, givet ved ligning \ref{eq:ks:spredning}.
 \begin{align}
 \begin{split}
-  Spredning &= \tan \left(\frac{1,32}{2} / 37 \right) \\
+  Spredning &= \tan^{-1}\left(\frac{1,32}{37}\right) \\
   &= 2,04 \degree
   \end{split}
   \label{eq:ks:spredning}
 \end{align}
 %Der er altså et krav om at geværet peger på lerduen med en præcision på \(\pm 1,02 \degree\).
 Når tracking fejlen defineres som i ligning \ref{eq:ks:trackingerror} rammes 
-lerduen når ligning \ref{eq:ks:settlingtime1} opfyldes.
-\begin{align}
-\begin{split}
-  TE &= \left | \begin{pmatrix}  Pan_{\text{target}}\\ Tilt_{\text{target}}\end{pmatrix} - \begin{pmatrix} Pan_{current}\\ 
+lerduen ved afskydning af haglgeværet når ligning \ref{eq:trackingerrorkrav} opfyldes.
+\begin{equation}
+  TE = \left | \begin{pmatrix}  Pan_{\text{target}}\\ Tilt_{\text{target}}\end{pmatrix} - \begin{pmatrix} Pan_{current}\\ 
   Tilt_{current}\end{pmatrix} \right | 
-  \\
-  TE &\leq 1.02\degree
-\end{split}
 \label{eq:ks:trackingerror}
-\end{align}
+\end{equation}
+\begin{equation}
+	TE\leq1,02 \degree
+\label{eq:trackingerrorkrav}
+\end{equation}
 
 Settling time defineres, som tiden der går før tracking fejlen forbliver \(\leq 1.02 \degree\).
 %som skrevet i ligning \ref{eq:ks:settlingtime}.
@@ -94,9 +94,9 @@ Settling time defineres, som tiden der går før tracking fejlen forbliver \(\le
 %\label{eq:ks:settlingtime}
 %\end{align}
 
-Der skydes mellem tidspunktet, hvor lerduen når toppunktet og til SB.
-I dette tidsrum skal PTS sigte præcist på lerduen og dette 
-stiller et krav til settling time, som skrevet i ligning \ref{eq:ks:settlingtime1}
+Der skydes mellem tidspunktet, hvor lerduen når toppunktet og hvor den når SB.
+I dette tidsrum skal PTS sigte præcist på lerduen under opfyldelse af ligning \ref{eq:trackingerrorkrav} og dette 
+stiller et krav til indsvingningstiden (Settling Time) \(t_s\), som skrevet i ligning \ref{eq:ks:settlingtime1}
 %Tidspunktet, hvor lerduen når sit toppunkt er altså samtidigt tid er altså det højeste settling time må være, ligning \ref{eq:ks:settlingtime1}
 
 \begin{align}
@@ -106,7 +106,7 @@ stiller et krav til settling time, som skrevet i ligning \ref{eq:ks:settlingtime
    t_{SB} &= 1,18\text{ [s]} &\text{(Shooting Boundary)}
   \label{eq:ks:toppunktstid}
   \\
-  t_{s} & \leq 0,557\text{ [s]} &\text{(Settling Time)}
+  t_{s} & \leq 0,557\text{ [s]} &\text{(Krav til Settling Time)}
   \label{eq:ks:settlingtime1}
 \end{align}
 
@@ -118,9 +118,7 @@ stiller et krav til settling time, som skrevet i ligning \ref{eq:ks:settlingtime
 %For en 1-radian reference giver dette altså en maksimal tracking error (SSE) på 1,78 \%.
 %\todo[inline, author=Michael]{Den virkelige sammenhænge er mere kompleks: Hvis både pan \& tilt rammen peger 1\degree ved siden af, er den samlede afvigelse vel over 1,02\degree}
 %\todo[inline, color = pink, author = Mikkel]{Hvad mening giver det at kigge på 1 radian reference og kan man virkelig kalde det SSE?}
-
 Det eneste krav der stilles til systemet er altså et settling time krav.
-
 
 %Dette giver altså en øvre og en nedre grænse for pan-rammens maksimale udsving,
 %som afhænger af reguleringen
