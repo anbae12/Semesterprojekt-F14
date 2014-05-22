@@ -22,21 +22,20 @@ Når den ene af de to rammer roterer vil en kraftmoment-induceret præcession p�
 Samtidig vil tilt-rammens vinkel påvirke inertimomentet omkring pan-aksen, og dermed
 pan-motorens overførselsfunktion.
 Der er altså tale om et Multi-Input Multi-Output (MIMO) system med en kobling mellem pan og tilt.
-Det vælges at simplificere systemet til to Single-Input Single-Output (SISO) systemer, som gruppen er bekendt med.
+Det vælges at simplificere systemet til to Single-Input Single-Output (SISO) systemer.%, som gruppen er bekendt med.
 Retfærdiggørelsen heraf ligger i, at præcessionens størrelse afhænger af vinkelaccelerationen, som er stærkt begrænset
 for dette fysiske system, samt at tilt-rammens inertimoment er tilnærmelsesvis konstant, som yderligere beskrevet i afsnit \ref{sec:inertimoment}.
 Afkoblingen af de to systemer, og opdelingen i hhv. pan og tilt gør, at der kan udvikles en separat regulator
 til hvert system, og at der skal findes en overførselsfunktion for hvert system.
 De følgende beregninger tager altså udgangspunkt i det simplificerede afkoblede system.
 Det er dog stadig vigtigt iht. kravspecifikationen at betragte tracking fejlen som en størrelse der samlet
-ikke må overstige 1,02\degree, og på dette punkt betragtes systemet stadig som en helhed.
+ikke må overstige 1,02\degree\todo{2,04??}, hvilket gør systemet betragtes stadig som en helhed.
 
 \subsection{DC-Motor}
 To DC-motorer af typen EMG30 \citep{emgmotor}, er forbundet til systemet.
-Det antages, at motorerne kan beskrives ved samme matematiske model.
+Det antages, at motorerne kan beskrives ved samme matematiske model og samme parametre (set bort fra det ydre inertimoment).
 Den matematiske model af DC-motoren er beskrevet i appendix \ref{sec:dcmotor},
-der også beskæftiger sig med den eksperimentelle bestemmelse af parametrene for en EMG30-motor
-(det antages, at systemets to motorer har samme parametre).
+der også beskæftiger sig med den eksperimentelle bestemmelse af parametrene for en EMG30-motor.
 Motoren kan beskrives ved ligning \ref{eq:matVm_transient3}, hvor konstanterne \(k_1\), \(k_2\) og \(k_3\)
 er givet ved ligningerne \ref{eq:matkonstanter}. Der henvises til appendix \ref{sec:dcmotor}
 for yderligere forklaring af modellen.
@@ -73,16 +72,15 @@ bevægelse giver en konstant dæmpning, der kan kompenseres for med en højere f
 %Anders: Jeg tænker ikke denne er nødtvendig..
 %\todo[inline]{Skal vi bruge en kilde ang. Coulomb-friktion?}
 
-Vi er interesserede i en overføringsfunktion for DC-motoren. Med antagelse om at \(\omega\) (vinkelhastigheden) og dens tidsafledte er 0
+Overføringsfunktion for DC-motoren med antagelse om \(\omega\) (vinkelhastigheden) og dens tidsafledte er 0.
 Laplace-transformeres ligning \ref{eq:matVm_transient3}, og den resulterende overføringsfunktion findes
 i ligning \ref{eq:transOmega}.
 \begin{equation}
 	\frac{\Omega\left(s\right)}{V_m\left(s\right)}=\frac{1}{k_1\cdot{}s^2+k_2\cdot{}s+k_3}
 	\label{eq:transOmega}
  \end{equation}
-Ligning \ref{eq:transOmega} beskriver motorens rotors vinkelhastighed \(\Omega\left(s\right)\) som funktion af spændingsfaldet
-\(V_m\left(s\right)\) over motoren. Bemærk at reduktionsgearingen i motoren gør at vinkelhastigheden af Pan \& Tilt rammerne
-er lavere.
+Ligning \ref{eq:transOmega} beskriver motorakslens vinkelhastighed \(\Omega\left(s\right)\) som funktion af spændingsfaldet
+\(V_m\left(s\right)\) over motoren. Bemærk at reduktionsgearingen efter motoren gør at vinkelhastigheden af pan- og tilt-rammerne er lavere.
 Vinkelhastigheden \(\omega\) er den tidsafledte af vinklen \(\theta\),
 og hvis det antages at motorens startvinkel er 0, så kan motorens overføringsfunktion
 findes ved tilføjelse af en integrator \(\frac{1}{s}\) til ligning \ref{eq:transOmega}.
@@ -94,27 +92,24 @@ i ligning \ref{eq:transTheta}.
 \end{equation}
 DC-motorens overføringsfunktion afhænger af dens belastning,
 og belastningen (inertimomentet \(J_L\) der skal roteres) er indeholdt i konstanterne \(k_1\) og \(k_2\).
-Der er altså en separat overføringsfunktion \(G_m\left(s\right)\) for Pan og for Tilt,
+Der er altså en separat overføringsfunktion \(G_m\left(s\right)\),
 da rammerne har forskelligt inertimoment.
-De to belastningsinertimomenter benævnes hhv. \(J_{pan}\) og \(J_{tilt}\),
+De to ydre inertimomenter benævnes hhv. \(J_{pan}\) og \(J_{tilt}\),
 og de to forskellige overføringsfunktioner benævnes hhv. \(G_{m,p}\) og \(G_{m,t}\).
 Bestemmelsen af inertimomenterne findes i afsnit \ref{sec:inertimoment}.
 
 \subsection{FPGA-modulerne}
 \label{subsec:matFPGA}
-FPGA'ens positionsencoders læser motorens vinkel inden reduktionsgearingen,
-altså outputtet af \(G_m\left(s\right)\).
-Der er altså tale om en kvantisering af output-vinklen.
-Gearingen til rammerne er i forholdet 1:3, og da der er 360 encoder-ticks pr. rotation \citep{emgmotor},
+FPGA'ens positionsencoders læser motorakslens rotation inden reduktionsgearingen, \(G_m\left(s\right)\).
+Gearingen medfører en kvantisering af output-rotationen til rammerne, i forholdet 1:3 da encoderopløsningen er 360 ticks pr. rotation \citep{emgmotor},
 er kvantiseringsintervallet \(\frac{1}{1080}\).
 
-På FPGA'en genereres et PWM-signal til hver motors H-bro ud fra en
-duty cycle som mikrocontrolleren leverer.
-PWM-signalet forstærkes af H-broen til et firkantsignal med en amplitude på 12 [V],
-som leveres til motoren.
-En overføringsfunktion for denne duty cycle - motorspændingsfald konvertering ønskes
-til reguleringen.
-Det vælges at modellere konverteringen som en simpel lineær forstærkning af en duty cycle mellem -100 \% og +100 \%
+På FPGA'en genereres to PWM-signaler til den dobbelte H-bro ud fra to
+duty cycles som mikrocontrolleren leverer.
+PWM-signalerne forstærkes af H-broen til en amplitude på 12 [V],
+der driver motorerne.
+Overføringsfunktionen for disse duty cycles %- motorspændingsfald konvertering ønskes til reguleringen. Det 
+vælges at modellere konverteringen som en simpel lineær forstærkning af en duty cycle mellem -100 \% og +100 \%
 til en DC-spænding mellem -12 [V] og +12 [V]. Med denne simple model ændres systemets orden ikke,
 og det vurderes, at tidsforsinkelsen fra input duty cycle til motorbevægelse er negligerbar.
 Overføringsfunktionen fra duty cycle til DC-spænding står i ligning \ref{eq:transPWM}.
@@ -122,13 +117,14 @@ Overføringsfunktionen fra duty cycle til DC-spænding står i ligning \ref{eq:t
 	PWM\left(s\right)=PWM=12
 	\label{eq:transPWM}
 \end{equation}
-\todo[inline,author=Mikael]{Dedikér et underafsnit til diskussion af tidsforsinkelser, digitale såvel som analoge.}
-%\subsection{Pan \& Tilt-rammernes inertimoment}
+% Anders: Jeg ser todo ikke som værende nødvendig.
+% \todo[inline,author=Mikael]{Dedikér et underafsnit til diskussion af tidsforsinkelser, digitale såvel som analoge.}
+
 \subsection{PTS's inertimoment}
 \label{sec:inertimoment}
-For at opnå den optimale respons, skal reguleringen tage højde for, at Pan \& Tilt-motorerne møder modstand i form af
+For at opnå den optimale respons, skal reguleringen tage højde for, %at Pan \& Tilt-motorerne møder modstand i form af
 Pan \& Tilt-rammernes inertimoment. Inertimomentet kan bestemmes ved kendskab til rammernes
-masse og dimensioner. Beregningen tager udgangspunkt i den simplificerede model skitseret i figur \ref{fig:inerti_PTS}.
+masse og dimensioner. Beregningerne tager udgangspunkt i den simplificerede model skitseret i figur \ref{fig:inerti_PTS}.
 På figuren er rammernes enkelte længder markeret, og de er målt til \({L_{1}} =0,292\) [m],
 \({L_{2}} =0,280\) [m], \({L_{3}}= 0,42\) [m], \({L_{4}} =0,246\) [m], \({L_{pro}}=0,04\) [m].
 \begin{figure}[!th]
@@ -140,9 +136,9 @@ På figuren er rammernes enkelte længder markeret, og de er målt til \({L_{1}}
 \label{fig:inerti_PTS}
 \end{figure}
 
-I appendix \ref{sec:inertimomentberegning} beregnes Tilt-rammens inertimoment omkring tilt-aksen,
-Pan-rammens inertimoment omkring pan-aksen,
-og Tilt-rammens påvirkning på inertimomentet omkring pan-aksen diskuteres.
+I appendix \ref{sec:inertimomentberegning} beregnes tilt-rammens inertimoment omkring tilt-aksen,
+pan-rammens inertimoment omkring pan-aksen,
+og tilt-rammens påvirkning på inertimomentet omkring pan-aksen diskuteres.
 
 Inertimomenterne er givet ved ligningerne \ref{eq:matinerti_tilt_pan_fak},
 som beregnet i appendix \ref{sec:inertimomentberegning}.
@@ -200,14 +196,14 @@ i praksis.
 
 \subsubsection{Verifikation}
 \label{subsec:verifikation}
-Åbensløjferesponsen af Tilt-systemet er blevet målt og sammenlignet med den teoretiske respons.
-Grunden til, åbensløjferesponsen kun er blevet målt for Tilt er, at rammen kan rotere frit,
+Åbensløjferesponsen af tilt-systemet er blevet målt og sammenlignet med dens teoretiske respons.
+Grunden til, åbensløjferesponsen kun er blevet målt for tilt er, at rammen kan rotere frit,
 mens pan blokeres af en stopklods.
 Sammenligningen er nødvendig for at verificere modellen, og for evt. at kunne justere modellen,
 så udgangspunktet for analysen der hører til designet af reguleringssløjferne er så godt som muligt.
 
-Der blev som input givet et rampesignal, der gik fra 0 \% duty cycle til næsten 100 \% duty cycle
-i løbet af ca. 12 sekunder. Tilt-vinklen blev målt med FPGA'en og sammenlignet med den teoretiske
+Der blev som input givet et rampesignal, der gik fra 0 \% duty cycle til næsten\todo{næsten???} 100 \% duty cycle
+i løbet af ca. 12 sekunder. Tilt-vinklen blev målt med FPGA'en og sammenlignet med dens teoretiske
 respons for samme input-signal.
 Forsøget blev udført syv gange.
 
@@ -231,15 +227,15 @@ Figur \ref{fig:openloopV1} viser den målte vinkelhastighed samt den teoretiske 
 som forudsagt af overføringsfunktionen \(s\cdot{}G_{tilt}\).
 Det ses på figur \ref{fig:openloopV1}, at den største afvigelse er en tidsforsinkelse.
 Dette skyldes, at visse PWM-duty cycles ikke kan bevæge systemet.
-Dødzonen af PWM-duty cycles, der ikke kan accelerere Tilt-systemet er målt til at befinde sig inden for
-ca. \(\pm\) 12 \%, og for Pan-systemet til ca. \(\pm\) 10 \%.
+Dødzonen af PWM-duty cycles, der ikke kan accelerere tilt-systemet er målt til at befinde sig inden for
+ca. \(\pm\) 12 \%, og for pan-systemet til ca. \(\pm\) 10 \%.
 Udover forsinkelsen fra dødzonen kan man på figur \ref{fig:openloopV1} aflæse
 at den målte vinkelacceleration (hældningen af grafen) er marginalt mindre end den teoretiske.
 Det antages, at denne opførsel hovedsageligt skyldes Coulomb-friktion.
 
-Hvis man ønsker en mere nøjagtig matematisk model af PTS
+Ønskes en mere nøjagtig matematisk model af PTS
 er det altså en mulighed at indsætte dødzonen og evt. den ekstra dæmpning i modellen.
-Det vælges dog at benytte åbensløjfeoverføringsfunktionerne \(G_{pan}\) og \(G_{tilt}\)
+Det vælges dog at benytte åbensløjfe-overføringsfunktionerne \(G_{pan}\) og \(G_{tilt}\)
 som udgangspunkt for analysen der hører til regulatordesignet,
 og udvide modellen hvis regulatoren ikke lever op til kravene.
 
@@ -249,12 +245,12 @@ De kartesiske koordinater \(P_c=\left[x, y, z\right]\) skal transformeres til sf
 \(P_s=\left[\rho \text{ ; } \phi \text{ ; } \theta\right]\), hvor \(\phi\) og \(\theta\) bruges
 som vinkelbestemmelserne for hhv. tilt og pan og \(\rho\) er afstanden fra PTS til duen som funktion af tiden.
 Til trackingen er kun \(\phi\) og \(\theta\) nødvendige.
-Positionbestemmelsen som funktion af tiden for det kartesiske koordinatsæt er udredt i afsnit \ref{subsubsec:para}.
+Positionbestemmelsen som funktion af tiden for det kartesiske koordinatsæt er udredt i appendix \ref{subsubsec:para}.
 Idet vinklerne skal bestemmes i forhold til PTS's rotationscenter og ikke koordinatsystemets origo, skal PTS's rotationscenter trækkes fra:
 \(PTS=[\text{19,2 ; 0 ; 0,45}]\). 
 
 \subsubsection{Kartesiske koordinater}
-Koordinattransformationen tager udgangspunkt i den kartesiske stedvektor \(Pos\left(t\right) \), ligning \ref{eq:pf:vektorparabel3d} samt PTS's offset.
+Koordinattransformationen tager udgangspunkt i den kartesiske stedvektor \(Pos\left(t\right) \), ligning \ref{eq:ks:vektorparabel3d} samt PTS's offset.
 Origo flyttes, så kasteparablen kan beskrives ved stedvektor \(P_c\left(t\right)\), ligning \ref{eq:pf:stedvektorparabel}.
 \begin{align}
 \begin{split}
@@ -265,7 +261,7 @@ Origo flyttes, så kasteparablen kan beskrives ved stedvektor \(P_c\left(t\right
 \end{align}
 %Før koordinattransformationen fra kartesiske til sfæriske koordinater vises et grafisk overblik af \(\phi\) og \(\theta\) %samt \(\rho\), figur \ref{fig:thetaphi_degree}. 
 Sammenhængen mellem de kartesiske og de sfæriske koordinater kan ses på fig \ref{fig:thetaphi_degree}. 
-Med PTS's offset er origo for det sfæriske koordinatsystem PTS's rotationscenter (skæringspunktet mellem de to rotationsakser).
+Med PTS'ets offset er origo for det sfæriske koordinatsystem PTS'ets rotationscenter (skæringspunktet mellem de to rotationsakser).
 
 \begin{figure}[!th]
 \centering
@@ -277,17 +273,16 @@ Med PTS's offset er origo for det sfæriske koordinatsystem PTS's rotationscente
 \end{figure}
 
 \subsubsection{Sfæriske koordinater}
-Som det fremgår af problemformuleringen modtager PTS lerduens
+Som det fremgår af problemformuleringen modtager mikrocontrolleren lerduens
 position som kartetiske koordinationer med en frekvens på 120 [Hz].
-Dette bevirker at transformationen fra kartesiske koordinater til
+Transformationen fra kartesiske koordinater til
 sfæriske koordinater gøres ud fra nedenstående ligning \ref{eq:sv_koordi}.
 \begin{align}
-\begin{split}
-{ P }_{ s } =\left( \begin{matrix} \rho  \\ \phi  \\ \theta  \end{matrix} \right)
-	=\left( \begin{matrix} \sqrt { { { P }_{ c_{ x } } }^{ 2 }+{ { P }_{ c_{ y } } }^{ 2 }+{ { P }_{ c_{ z } } }^{ 2 } } 
-		\\ { tan }^{ -1 }\left( \frac { \sqrt { { { P }_{ c_{ x } } }^{ 2 }+{ { P }_{ c_{ y } } }^{ 2 } }  }{ { P }_{ c_{ z } } }  \right) 
-		\\ { tan }^{ -1 }\left( \frac { { P }_{ c_{ y } } }{ { P }_{ c_{ x } } }  \right)  \end{matrix} \right) 
+{ P }_{ s }=\left( \begin{matrix} \phi  \\ \theta  \end{matrix} \right) =\left( \begin{matrix} { tan }^{ -1 }\left( \frac { \sqrt { { { P }_{ c_{ x } } }^{ 2 }+{ { P }_{ c_{ y } } }^{ 2 } }  }{ { P }_{ c_{ z } } }  \right)  \\ { tan }^{ -1 }\left( \frac { { P }_{ c_{ y } } }{ { P }_{ c_{ x } } }  \right)  \end{matrix} \right) 
+%{ P }_{ s } =\left( \begin{matrix} \rho  \\ \phi  \\ \theta  \end{matrix} \right)
+%	=\left( \begin{matrix} \sqrt { { { P }_{ c_{ x } } }^{ 2 }+{ { P }_{ c_{ y } } }^{ 2 }+{ { P }_{ c_{ z } } }^{ 2 } } 
+%		\\ { tan }^{ -1 }\left( \frac { \sqrt { { { P }_{ c_{ x } } }^{ 2 }+{ { P }_{ c_{ y } } }^{ 2 } }  }{ { P }_{ c_{ z } } }  \right) 
+%		\\ { tan }^{ -1 }\left( \frac { { P }_{ c_{ y } } }{ { P }_{ c_{ x } } }  \right)  \end{matrix} \right) 
 \label{eq:sv_koordi}
-\end{split}
 \end{align}
-hvor \(\rho\) er afstanden i meter, \(\phi\) og \(\theta\) er angivet i grader, \citep[Kap. 10.6]{adam}.
+hvor \(\phi\) og \(\theta\) er angivet i grader, \citep[Kap. 10.6]{adam}.
