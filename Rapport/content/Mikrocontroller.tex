@@ -312,30 +312,31 @@ Hvis "Ignore"-bitten er sat ignoreres den modtagne besked, mens den aktuelle mot
 %I appendix XXX kan der ses en måling hvor der både bliver målt længden af en task og SPI kommunikationen.
 %
 %
-SPI blev testet ved at skifte en digital pin før og efter SPI-funktion blev kaldt. 
-Funktionen blev testet XXX gange, og resultat kan ses i tabel \ref{tb:spi-tests}. 
-\todo[inline, author=Michael]{Udfør forsøget igen, vi mangler et større datasæt..}
+SPI blev testet ved at skifte en digital pin før og efter SPI-funktion blev kaldt. Et oscilloskop af typen \textit{Agilent DSO-X 2024A} blev brugt til målingerne. 
 
-\begin{table}[h!]
-\centering
-%\begin{tabular}{|c|c|c|c|}\hline 
-%Max:  & Min: & Median: & Gennemsnit: \\\hline 
-%41,12 [\micro s] & 40,16 \micro s & 40,56 \micro s & 40,59 \micro s \\\hline 
-%\end{tabular} 
-\begin{tabu}{c|c|c|c}%{c|[1.25pt]c|c|c}
-Max:  & Min: & Median: & Gennemsnit: \\\hline % \tabucline[1.25pt]{-}
-41,12 [\micro s] & 40,16 \micro s & 40,56 \micro s & 40,59 \micro s 
-\end{tabu} 
-\caption{Data fra tests af SPI.}
-\label{tb:spi-tests}
-\end{table}
+SPI funktionens afviklingstid blev på scopet målt til 40,54 [ \micro s]. I løbet af 10 kast blev observeret en afvigelse på $\pm 2 [ ns]$, hvilket svarer til måleusikkerheden. 
+Altså overholder implementeringen kravet på afvikling indenfor 83,3 \micro s, som opstillet i ligning \ref{eq:uc:spi-krav}.
 
-Med en maks. afviklingstid på 41,12 \micro s, overholder implementeringen kravet på afvikling indenfor 83,3 \micro s, som opstillet i ligning \ref{eq:uc:spi-krav}.
+
+%\begin{table}[h!]
+%\centering
+%%\begin{tabular}{|c|c|c|c|}\hline 
+%%Max:  & Min: & Median: & Gennemsnit: \\\hline 
+%%41,12 [\micro s] & 40,16 \micro s & 40,56 \micro s & 40,59 \micro s \\\hline 
+%%\end{tabular} 
+%\begin{tabu}{c|c|c|c}%{c|[1.25pt]c|c|c}
+%Max:  & Min: & Median: & Gennemsnit: \\\hline % \tabucline[1.25pt]{-}
+%41,12 [\micro s] & 40,16 \micro s & 40,56 \micro s & 40,59 \micro s 
+%\end{tabu} 
+%\caption{Data fra tests af SPI.}
+%\label{tb:spi-tests}
+%\end{table}
+
 
 Samme fremgangsmåde blev brugt til at tjekke timingen for controltask'en, som indeholder reguleringssløjfen. 
 Kravet til afviklingen var: Reguleringsløjfen kører med 600 [Hz], samt at tasken afvikles inden næste periode. 
 Dvs. en maks afviklingstid på 1/600 [s], da kravet på 600 [Hz] ellers ikke kunne opfyldes. 
-Intervallet mellem hver afvikling af blev målt for 240 afvikling, og resultaterne er vist i tabel \ref{tb:ctrltasktimingtest}.
+Intervallet mellem hver afvikling af blev målt for 240 afviklinger, og resultaterne er vist i tabel \ref{tb:ctrltasktimingtest}.
 
 \begin{table}[h!]
 \centering
