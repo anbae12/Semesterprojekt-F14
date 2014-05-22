@@ -225,8 +225,8 @@ parablen, og den resulterende rette linje er altså et mål for vinkelhastighede
 	\includegraphics[width=1\textwidth]{./graphics/openloopVelocity1.eps}
 	\caption[Tilt åbensløjferespons, målt vs. teoretisk]
 		{Tilt åbensløjferespons, målt vs. teoretisk.
-		Markeret med rødt er den målte respons for alle syv målinger,
-		mens den teoretiske respons for de samme syv inputs er markeret med blåt.}
+		Den teoretiske respons for de syv rampe-inputs er markeret med blåt.
+		De andre kurver viser de målte responser.}
 	\label{fig:openloopV1}
 \end{figure}
 
@@ -251,7 +251,8 @@ og udvide modellen hvis regulatoren ikke lever op til kravene.
 De kartesiske koordinater \(P_c=\left[x, y, z\right]\) skal transformeres til sfæriske koordinater \(P_s=\left[\rho \text{ ; } \phi \text{ ; } \theta\right]\), hvor \(\phi\) og \(\theta\) bruges som vinkelbestemmelserne for hhv. tilt og pan og \(\rho\) er afstanden fra PTS til duen som funktion af tiden.
 Til trackingen er kun \(\phi\) og \(\theta\) nødvendige.
 Positionbestemmelsen som funktion af tiden for det kartesiske koordinatsæt er udredt i afsnit \ref{subsubsec:para}.
-Idet vinklerne skal bestemmes i forhold til PTS's rotationscenter og ikke koordinatsystemets origo, skal PTS's rotationscenter trækkes fra; \(PTS=[\text{19,2 ; 0 ; 0,45}]\). 
+Idet vinklerne skal bestemmes i forhold til PTS's rotationscenter og ikke koordinatsystemets origo, skal PTS's rotationscenter trækkes fra:
+\(PTS=[\text{19,2 ; 0 ; 0,45}]\). 
 
 \subsubsection{Kartesiske koordinater}
 Koordinattransformationen tager udgangspunkt i den kartesiske stedvektor \(Pos\left(t\right) \), ligning \ref{eq:pf:vektorparabel3d} samt PTS's offset, ligning \ref{eq:pf:stedvektorparabel}.

@@ -75,11 +75,11 @@ Spredningsvinklen er, med en antagelse om lineær spredning, givet ved ligning \
   \label{eq:ks:spredning}
 \end{align}
 %Der er altså et krav om at geværet peger på lerduen med en præcision på \(\pm 1,02 \degree\).
-Når tracking fejlen defineres ud fra pan- og tilt-vinklerne som i ligning \ref{eq:ks:trackingerror} rammes 
+Når tracking fejlen defineres ud fra pan-vinklen \(\theta\) og tilt-vinklen \(\phi\) som i ligning \ref{eq:ks:trackingerror} rammes 
 lerduen ved afskydning af haglgeværet når ligning \ref{eq:trackingerrorkrav} opfyldes.
 \begin{align}
-  TE = \left | \begin{pmatrix}  Pan_{\text{target}}\\ Tilt_{\text{target}}\end{pmatrix} - \begin{pmatrix} Pan_{current}\\ 
-  Tilt_{current}\end{pmatrix} \right | &&\text{(Tracking fejl)}
+  TE = \left | \begin{pmatrix}  \theta_{\text{target}}\\ \phi_{\text{target}}\end{pmatrix} - \begin{pmatrix} \theta_{current}\\ 
+  \phi_{current}\end{pmatrix} \right | &&\text{(Tracking fejl)}
 \label{eq:ks:trackingerror}
 \\
 	TE\leq 1,02 \degree && \text{(Lerduen rammes)}
