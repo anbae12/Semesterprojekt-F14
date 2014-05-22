@@ -1,4 +1,3 @@
-%\section{Matematisk model af Pan \& Tilt-systemet}
 \section{Matematisk model af PTS}
 \label{sec:matPTS}
 Under designet af en regulator skal systemet identificeres. Der er forskellige metoder til systemidentifikation.
@@ -7,7 +6,7 @@ på baggrund af sammenhørende værdier for input og output.
 En anden metode tager udgangspunkt i matematisk at beskrive de enkelte dele i systemet
 for på den måde at sammenstykke en model af hele systemet.
 Det vælges hovedsageligt at benytte den sidstnævnte metode til bestemmelsen af en simplificeret
-model af Pan \& Tilt-systemet af følgende årsager:
+model af PTS af følgende årsager:
 \begin{itemize}
 \itemsep1pt
 \item Matematiske modeller for systemets enkelte elementer findes i litteraturen.
@@ -18,8 +17,6 @@ model af Pan \& Tilt-systemet af følgende årsager:
 Ulempen ved at bruge teoretiske \textit{lineære} matematiske modeller er,
 at de altid vil være tilnærmelser, og ikke beskriver ulineariteter som dødbånd og tidsforsinkelser.
 
-%En skitse af Pan \& Tilt-systemet findes i figur \ref{fig:overview_openloop_PTS}.
-%
 \subsection{Afkobling af pan og tilt}
 Når den ene af de to rammer roterer vil en kraftmoment-induceret præcession påvirke den anden ramme.
 Samtidig vil tilt-rammens vinkel påvirke inertimomentet omkring pan-aksen, og dermed
@@ -240,7 +237,7 @@ Udover forsinkelsen fra dødzonen kan man på figur \ref{fig:openloopV1} aflæse
 at den målte vinkelacceleration (hældningen af grafen) er marginalt mindre end den teoretiske.
 Det antages, at denne opførsel hovedsageligt skyldes Coulomb-friktion.
 
-Hvis man ønsker en mere nøjagtig matematisk model af Pan \& Tilt-systemet
+Hvis man ønsker en mere nøjagtig matematisk model af PTS
 er det altså en mulighed at indsætte dødzonen og evt. den ekstra dæmpning i modellen.
 Det vælges dog at benytte åbensløjfeoverføringsfunktionerne \(G_{pan}\) og \(G_{tilt}\)
 som udgangspunkt for analysen der hører til regulatordesignet,
