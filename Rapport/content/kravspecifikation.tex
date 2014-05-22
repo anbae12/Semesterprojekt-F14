@@ -76,7 +76,7 @@ Spredningsvinklen er, med en antagelse om lineær spredning, givet ved ligning \
 \end{align}
 %Der er altså et krav om at geværet peger på lerduen med en præcision på \(\pm 1,02 \degree\).
 Når tracking fejlen defineres som i ligning \ref{eq:ks:trackingerror} rammes 
-lerduen når ligning \ref{eq:ks:trackingerrorsize} opfyldes.
+lerduen når ligning \ref{eq:ks:settlingtime1} opfyldes.
 \begin{align}
 \begin{split}
   TE &= \left | \begin{pmatrix}  Pan_{\text{target}}\\ Tilt_{\text{target}}\end{pmatrix} - \begin{pmatrix} Pan_{current}\\ 
@@ -84,7 +84,7 @@ lerduen når ligning \ref{eq:ks:trackingerrorsize} opfyldes.
   \\
   TE &\leq 1.02\degree
 \end{split}
-\label{eq:ss}
+\label{eq:ks:trackingerror}
 \end{align}
 
 Settling time defineres, som tiden der går før tracking fejlen forbliver \(\leq 1.02 \degree\).
@@ -103,7 +103,7 @@ stiller et krav til settling time, som skrevet i ligning \ref{eq:ks:settlingtime
   t_{top} &= 0,557\text{ [s]} &\text{(Toppunktet af parablen)}
   \label{eq:ks:toppunktstid}
   \\
-   t_{SB} &= 1,18\text{ [s]} &\text{(Shooting boundary)}
+   t_{SB} &= 1,18\text{ [s]} &\text{(Shooting Boundary)}
   \label{eq:ks:toppunktstid}
   \\
   t_{s} & \leq 0,557\text{ [s]} &\text{(Settling Time)}
