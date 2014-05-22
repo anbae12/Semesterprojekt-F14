@@ -32,7 +32,7 @@ Afkoblingen af de to systemer, og opdelingen i hhv. pan og tilt gør, at der kan
 til hvert system, og at der skal findes en overførselsfunktion for hvert system.
 De følgende beregninger tager altså udgangspunkt i det simplificerede afkoblede system.
 Det er dog stadig vigtigt iht. kravspecifikationen at betragte tracking fejlen som en størrelse der samlet
-ikke må overstige 1,02 \degree, og på dette punkt betragtes systemet stadig som en helhed.
+ikke må overstige 1,02\degree, og på dette punkt betragtes systemet stadig som en helhed.
 
 \subsection{DC-Motor}
 To DC-motorer af typen EMG30 \citep{emgmotor}, er forbundet til systemet.
@@ -72,7 +72,9 @@ inertimoment. Dette er ikke en egentlig motorparameter, men en parameter der ude
 af pan- og tilt-rammernes masser, dimensioner og vinkel.
 Desuden er det værd at bemærke, at denne model ikke tager højde for statisk friktion og Coulomb-friktion,
 fordi de ikke, som den viskøse friktion, er lineære. Ikke desto mindre antages det, at Coulomb-friktionen under
-bevægelse giver en konstant dæmpning, der kan kompenseres for med en højere forstærkning.\todo[inline]{Skal vi bruge en kilde ang. Coulomb-friktion?}
+bevægelse giver en konstant dæmpning, der kan kompenseres for med en højere forstærkning.
+%Anders: Jeg tænker ikke denne er nødtvendig..
+%\todo[inline]{Skal vi bruge en kilde ang. Coulomb-friktion?}
 
 Vi er interesserede i en overføringsfunktion for DC-motoren. Med antagelse om at \(\omega\) (vinkelhastigheden) og dens tidsafledte er 0
 Laplace-transformeres ligning \ref{eq:matVm_transient3}, og den resulterende overføringsfunktion findes
