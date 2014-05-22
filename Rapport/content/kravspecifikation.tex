@@ -77,15 +77,14 @@ Spredningsvinklen er, med en antagelse om lineær spredning, givet ved ligning \
 %Der er altså et krav om at geværet peger på lerduen med en præcision på \(\pm 1,02 \degree\).
 Når tracking fejlen defineres som i ligning \ref{eq:ks:trackingerror} rammes 
 lerduen ved afskydning af haglgeværet når ligning \ref{eq:trackingerrorkrav} opfyldes.
-\begin{equation}
+\begin{align}
   TE = \left | \begin{pmatrix}  Pan_{\text{target}}\\ Tilt_{\text{target}}\end{pmatrix} - \begin{pmatrix} Pan_{current}\\ 
-  Tilt_{current}\end{pmatrix} \right | 
+  Tilt_{current}\end{pmatrix} \right | &&\text{(Tracking fejl)}
 \label{eq:ks:trackingerror}
-\end{equation}
-\begin{equation}
-	TE\leq1,02 \degree
+\\
+	TE\leq 1,02 \degree && \text{(Lerduen rammes)}
 \label{eq:trackingerrorkrav}
-\end{equation}
+\end{align}
 
 Settling time defineres, som tiden der går før tracking fejlen forbliver \(\leq 1.02 \degree\).
 %som skrevet i ligning \ref{eq:ks:settlingtime}.
