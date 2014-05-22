@@ -2,7 +2,7 @@
 \label{sec:mikrocontroller}
 %
 \subsection{Krav til mikrocontrolleren}
-\todo[inline, author=Michael]{Husk at TEST sektionen skal se om vi opfylder disse krav. Hvis ikke vi tester tingene skal de slettes fra dette afsnit!!!}
+%\todo[inline, author=Michael]{Husk at TEST sektionen skal se om vi opfylder disse krav. Hvis ikke vi tester tingene skal de slettes fra dette afsnit!!!}
 Mikrocontrolleren har følgende opgaver: 
 %\todo[inline, author=Michael]{YOU CANT TOUCH THIS - lad mig lige skrive færdig!}
 %\todo[inline, author=Michael]{Denne sektion mangler generelt at blive forkortet. }
@@ -115,7 +115,7 @@ fordi gruppen er bekendt med operativsystemet fra programmeringskurset.
 % 
 % beskrivelse af interfacet
 % 
-\todo[inline, author=Michael]{Venter på at kodens struktur er helt færdig - inden da giver det ikke mening at skrive dette afsnit færdigt. }
+%\todo[inline, author=Michael]{Venter på at kodens struktur er helt færdig - inden da giver det ikke mening at skrive dette afsnit færdigt. }
 
 Systemet er opdelt i separate tasks.
 Taskdiagrammet er vist på figur \ref{fig:task_diagram}. 
@@ -342,16 +342,18 @@ Intervallet mellem hver afvikling af blev målt for 60 afviklinger, og resultate
 \centering
 \begin{tabu}{c|[1.25pt]c|c|c|c}
  & Max:  & Min: & Median: & Gennemsnit:  \\ \tabucline[1.25pt]{-}
-Målt interval: & 1,672 [ms] & 1,662 [ms] & 1,667 [ms] & 1,667 [ms] \\ \hline 
-Afvigelse: & 5 [\micro s] & 5 [\micro s] & 0 [\micro s] & 0 [\micro s] \\
+Målt interval: & 1,672 [ms] & 1,662 [ms] & 1,667 [ms] & 1,667 [coms] \\ 
+\hline 
+Afvigelse: & 5,33 [\micro s] & 4,66 [\micro s] & 0,66 [\micro s] & 0,13 [\micro s] \\
 \end{tabu} 
 \caption{Interval mellem hver afvikling af ctrl-task.}
 \label{tb:ctrltasktimingtest}
 \end{table}
 
-Den højeste afvigelse på 5 [\micro s] er lav nok til at kravene opfyldes.
+Afvigelserne for medianen og gennemsnittet ligger indenfor måleusikkerheden på $\pm 4  [\micro s] $. For max. og min. værdierne er afvigelsen på max 133 \% af måleusikkerheden, og det vurderes at disse kan negligeres. 
 
-Samme datasæt blev brugt til at beregne afviklingstiden for tasken, koordinattransformationen og selve reguleringssløjfen.
+Samme datasæt blev brugt til at beregne afviklingstiden for tasken, koordinattransformationen og selve reguleringssløjfen. 
+Disse data er vist i tabel \ref{tb:ctrl task runtime test}. Bemærk usikkerheden på $4  [\micro s]$.
 
 %500KSa/s
 \begin{table}[h!]
@@ -363,14 +365,29 @@ Koordinat transformation: & 228 [\micro s] & 202 [\micro s] & 206 [\micro s] & 2
 \hline 
 PID kontroller: & 40 [\micro s] & 30 [\micro s] & 32 [\micro s] & 34 [\micro s]\\
 \end{tabu} 
-\caption{Interval mellem hver afvikling af ctrl-task.}
+\caption{Afviklingstiden for Ctrl task, Koordinattransformation og PID kontrolleren. 
+Måleusikkerheden er $\pm$ 4 [\micro s].}
 \label{tb:ctrl task runtime test}
 \end{table}
 
-\todo[inline, author=Michael]{Jeg har en usikkerhed på $\pm$ 4 [\micro s] på tabellen ovenover, men ved ikke hvor den skal skrives? }
+%\todo[inline, author=Michael]{Jeg har en usikkerhed på $\pm$ 4 [\micro s] på tabellen ovenover, men ved ikke hvor den skal skrives? }
 
+På trods af at afviklingstiden varierer, afvikles tasken før sin deadline - med en margin på min. 1,2 [s]. 
+Variationen i afviklingstiden skyldes primært koordinattransformationen, der benytter \textbf{math.h} librariet. 
 
+\todo[inline, author=Michael]{Skal vi bruge plads på at teste interfacet også? }
 \subsection{Delkonklusion}
-FreeRTOS er brugbar til tidskritiske operationer.
-Reguleringsstasken kan afvikles med 600 [Hz]. 
+Det blev valgt at benytte den udleverede LM3S6965 microcontroller. Denne understøtter SPI og UART som hardware moduler. 
+
+Til scheduleringen blev valgt operativsystemet freeRTOS, da det blev vurderet at preemptive priority var tilstrækkeligt til at møde vores realtidskrav. 
+
+Programmet blev delt op i 5 tasks; \textit{UART send}, \textit{UART receive}, \textit{Interface}, \textit{Logger} og \textit{Control}. 
+Al realtidsfunktionalitet er implementeret i \textit{Control}-tasken. 
+
+Det var påkrævet at \textit{Control}-tasken kunne afvikles med en frekvens på $600 [Hz]$. 
+Taskens afviklingstid blev målt til max. $360 [\micro s]$, hvilket er væsentlig lavere end den max. tilladte tid på $\frac{1}{600}  [s]$. 
+SPI-kommunikationen kunne afvikles på 40,54 [ \micro s], hvilket opfyldt kravet på max. 5\% af \textit{Control}-taskens periodetid. 
+
+
+
 %Reguleringssløjferne kan ramme inden for kravene i kravspecifikationen.
