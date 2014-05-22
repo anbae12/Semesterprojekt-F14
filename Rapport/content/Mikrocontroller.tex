@@ -333,29 +333,42 @@ Altså overholder implementeringen kravet på afvikling indenfor 83,3 \micro s, 
 %\end{table}
 
 
-Samme fremgangsmåde blev brugt til at tjekke timingen for controltask'en, som indeholder reguleringssløjfen. 
+Samme fremgangsmåde blev brugt til at tjekke timingen for controltask'en, som indeholder reguleringssløjfen. Scopet blev indstillet til $ 500K Samples/Sek $.
 Kravet til afviklingen var: Reguleringsløjfen kører med 600 [Hz], samt at tasken afvikles inden næste periode. 
 Dvs. en maks afviklingstid på 1/600 [s], da kravet på 600 [Hz] ellers ikke kunne opfyldes. 
-Intervallet mellem hver afvikling af blev målt for 240 afviklinger, og resultaterne er vist i tabel \ref{tb:ctrltasktimingtest}.
+Intervallet mellem hver afvikling af blev målt for 60 afviklinger, og resultaterne er vist i tabel \ref{tb:ctrltasktimingtest}.
 
 \begin{table}[h!]
 \centering
 \begin{tabu}{c|[1.25pt]c|c|c|c}
  & Max:  & Min: & Median: & Gennemsnit:  \\ \tabucline[1.25pt]{-}
-Målt interval: & 1,674 [ms] & 1,657 [ms] & 1,667 [ms] & 1,667 [ms] \\ \hline 
-Afvigelse: & 6,933 [\micro s] & 9,067 [\micro s] & 0,533 [\micro s] & 0,005 [\micro s] \\
+Målt interval: & 1,672 [ms] & 1,662 [ms] & 1,667 [ms] & 1,667 [ms] \\ \hline 
+Afvigelse: & 5 [\micro s] & 5 [\micro s] & 0 [\micro s] & 0 [\micro s] \\
 \end{tabu} 
-%\begin{tabular}{|c|c|c|c|c|}\hline 
-% & Max:  & Min: & Median: & Gennemsnit: \\ \hline 
-%Målt interval: & 1,674 [ms] & 1,657 [ms] & 1,667 [ms] & 1,667 [ms] \\ \hline 
-%Afvigelse: & 6,933 [\micro s] & 9,067 [\micro s] & 0,533 [\micro s] & 0,005 [\micro s] \\\hline 
-%\end{tabular} 
 \caption{Interval mellem hver afvikling af ctrl-task.}
 \label{tb:ctrltasktimingtest}
 \end{table}
 
-Den højeste afvigelse på 9 [\micro s] er lav nok til at kravene opfyldes.
-\todo[inline, author=Michael]{Udfør test af ctrl-taskens afviklingstid.}
+Den højeste afvigelse på 5 [\micro s] er lav nok til at kravene opfyldes.
+
+Samme datasæt blev brugt til at beregne afviklingstiden for tasken, koordinattransformationen og selve reguleringssløjfen.
+
+%500KSa/s
+\begin{table}[h!]
+\centering
+\begin{tabu}{l|[1.25pt]r|r|r|r}
+Afviklingstid & Max:  & Min: & Median: & Gennemsnit:  \\ \tabucline[1.25pt]{-}
+Ctrl task: & 360 [\micro s] & 326 [\micro s] & 332 [\micro s] & 338 [\micro s] \\ \hline 
+Koordinat transformation: & 228 [\micro s] & 202 [\micro s] & 206 [\micro s] & 212 [\micro s] \\
+\hline 
+PID kontroller: & 40 [\micro s] & 30 [\micro s] & 32 [\micro s] & 34 [\micro s]\\
+\end{tabu} 
+\caption{Interval mellem hver afvikling af ctrl-task.}
+\label{tb:ctrl task runtime test}
+\end{table}
+
+\todo[inline, author=Michael]{Jeg har en usikkerhed på $\pm$ 4 [\micro s] på tabellen ovenover, men ved ikke hvor den skal skrives? }
+
 
 \subsection{Delkonklusion}
 FreeRTOS er brugbar til tidskritiske operationer.
