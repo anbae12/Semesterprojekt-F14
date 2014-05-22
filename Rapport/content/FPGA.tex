@@ -72,7 +72,7 @@ yderligere forklaring af komponenterne henvises til appendix
 %\subsection{SPI}
 %På FPGA'en er SPI'en to shift registre. SPI'en konvertere det serielle signal fra MOSI til at parallel signal. Det signal sendes videre til Input decoder, som deler det op i komposanter. Fra Output decoder får SPI signalet, den skal sende til mikrocontrolleren.
 
-\subsection{Kommunikation med mikrocontrolleren vha. SPI.}
+\subsection[Kommunikation]{Kommunikation med mikrocontrolleren vha. SPI.}
 På FPGA'en er implementeret en SPI slave der modtager data fra 
 mikrocontrolleren. Data føres, i komponenten SPI, fra MISO ind i FPGA'en og fra FPGA'en ud på 
 MOSI. Til mikrocontrolleren sendes skiftevis motorposition fra pan og tilt.
