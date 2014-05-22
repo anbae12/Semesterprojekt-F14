@@ -337,10 +337,9 @@ Samme fremgangsmåde blev brugt til at tjekke timingen for controltask'en, som i
 Kravet til afviklingen var: Reguleringsløjfen kører med 600 [Hz], samt at tasken afvikles inden næste periode. 
 Dvs. en maks afviklingstid på 1/600 [s], da kravet på 600 [Hz] ellers ikke kunne opfyldes. 
 Intervallet mellem hver afvikling af blev målt for 60 afviklinger, og resultaterne er vist i tabel \ref{tb:ctrltasktimingtest}.
-
 \begin{table}[h!]
 \centering
-\begin{tabu}{c|[1.25pt]c|c|c|c}
+\begin{tabu}{l|[1.25pt]r|r|r|r}
  & Max:  & Min: & Median: & Gennemsnit:  \\ \tabucline[1.25pt]{-}
 Målt interval: & 1,672 [ms] & 1,662 [ms] & 1,667 [ms] & 1,667 [coms] \\ 
 \hline 
@@ -359,7 +358,7 @@ Disse data er vist i tabel \ref{tb:ctrl task runtime test}. Bemærk usikkerheden
 \begin{table}[h!]
 \centering
 \begin{tabu}{l|[1.25pt]r|r|r|r}
-Afviklingstid & Max:  & Min: & Median: & Gennemsnit:  \\ \tabucline[1.25pt]{-}
+Afviklingstid & Max:  &  Min: & Median: & Gennemsnit:  \\ \tabucline[1.25pt]{-}
 Ctrl task: & 360 [\micro s] & 326 [\micro s] & 332 [\micro s] & 338 [\micro s] \\ \hline 
 Koordinat transformation: & 228 [\micro s] & 202 [\micro s] & 206 [\micro s] & 212 [\micro s] \\
 \hline 
