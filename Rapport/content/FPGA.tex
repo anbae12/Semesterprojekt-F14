@@ -1,12 +1,12 @@
 \section{FPGA}
 \label{sec:FPGA}
-FPGA'en er leddet mellem mikrokontrolleren og motorene på PTS.
+FPGA'en er leddet mellem mikrocontrolleren og motorene på PTS.
 Følgende opgaver til FPGA'en er fastsat af projektbeskrivelsen:
 
 \begin{itemize}
 \itemsep1pt
 	\item Kommunikation med mikrocontrolleren vha. SPI.
-	\item Producering af PWM-signal til motorerne på PTS.
+	\item Generering af PWM-signaler til motorerne på PTS.
 	\item Optælling af motorernes rotationer vha. encoderne på PTS.
 \end{itemize}
 FPGA'en er i projeket et BASYS board\footnote{Datablad \citep{basys2}}, der programmeres ved brug af VHDL\footnote{VHSIC Hardware Description Language}.
@@ -29,10 +29,12 @@ Det ønskes at have en PWM-frekvens, der ikke ligger i det hørbare område, hvi
 Det ønskes at have en opløsning på PWM, der er mindst ligeså høj, som 
 opløsningen på PTS's positionsencodere, for ikke at forringe opløsningen på reguleringen. 
 Det er derfor valgt at repræsentere PWM duty cycle med 11 bit. 
-Ved 11 bits opløsning på PWM og brug af BASYS boardets interne clock på 50 [MHz] bliver PWM-frekvensen over det hørbare frekvensområde.
+Ved 11 bits opløsning på PWM og brug af BASYS boardets interne clock på 50 [MHz] bliver PWM-frekvensen,
+ligning \ref{eq:pwmfreq}, over det hørbare frekvensområde.
 
 \begin{equation}
-  \frac{50 \text{ [MHz]}}{2^{11}} \approx 24,41 \text{ [kHz]}
+  f_{PWM}=\frac{50 \text{ [MHz]}}{2^{11}} = 24,41 \text{ [kHz]}
+	\label{eq:pwmfreq}
 \end{equation}
 
 \textbf{Kalibrering af motorposition}\\
