@@ -1,5 +1,7 @@
 \section{PI og PID koefficienter}
-Bestemmelsen tager udgangspunkt i en analytisk fremgangsmåde ved brug af \emph{pidtool()} og Simulink simuleringen\footnote{Findes på CDROM.} af PTS. "Start" koefficienterne, angivet i tabel \ref{tb:PID_test14}.
+Bestemmelsen tager udgangspunkt i en analytisk fremgangsmåde ved brug af \emph{pidtool()}
+ og Simulink simuleringen\footnote{Findes på CDROM.} af PTS. "Start" koefficienterne, angivet i 
+ tabel \ref{tb:PID_test14}.
 \begin{figure}[h!]
 \centering
 \begin{tabu}{l|[1.25pt]c|c|c}
@@ -13,7 +15,9 @@ Pan   & 27 &  6,83 & -
 \end{figure}
 
 Efter bestemmelsen af koefficienterne, blev de testet i controlleren. 
-For at finde ud af, hvorgodt PTS med nævnte koefficienter lever op kravene for PTS, eksporteres den ønsket og aktuelle værdi for hhv. pan og tilt. Herefter blev den samlet difference for pan og tilt plottet i figur \ref{fig:PID_test14_plot}.
+For at finde ud af, hvorgodt PTS med nævnte koefficienter lever op kravene for PTS, eksporteres 
+den ønsket og aktuelle værdi for hhv. pan og tilt. Herefter blev den samlet difference for pan og 
+tilt plottet i figur \ref{fig:PID_test14_plot}.
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1\textwidth]{./graphics/error_start.eps}
@@ -22,12 +26,17 @@ For at finde ud af, hvorgodt PTS med nævnte koefficienter lever op kravene for 
 \end{figure}
 
 \subsection{Optimering af controllerkoefficienter}
-Som det fremgår af figur \ref{fig:PID_test14_plot}, er den samlet tracking fejl XXXXXXXXXXXXXX i forhold til kravene for PTS. Grundet tracking fejlen skal optimeringen af controller koefficienterne foretages manuelt.
+Som det fremgår af figur \ref{fig:PID_test14_plot}, er den samlet tracking fejl XXXXXXXXXXXXXX i 
+forhold til kravene for PTS. Grundet tracking fejlen skal optimeringen af controller koefficienterne
+ foretages manuelt.
 
-Finjusteringen af controller koefficienterne udføres som en iterativ proces. Optimeringsprocessen er opdelt i to, således der kun foretages ændringer for enten pan eller tilt. 
-Optimerings iterationerne tager udgangspunkt i en grafisk afbildning af tracking fejlen, hvor efter det vurderes hvorledes hver controller koefficient skal øges eller mindskes for at få det ønsket resultat. 
+Finjusteringen af controller koefficienterne udføres som en iterativ proces. Optimeringsprocessen 
+er opdelt i to, således der kun foretages ændringer for enten pan eller tilt. 
+Optimerings iterationerne tager udgangspunkt i en grafisk afbildning af tracking fejlen, 
+hvor efter det vurderes hvorledes hver controller koefficient skal øges eller mindskes for at få det ønsket resultat. 
 
-Der blev foretaget XXXXXXXXXX ilterationer og det lykkes at få en samlet tracking fejl som opfylder kravet, angivet i ligning \ref{eq:ks:trackingerror}.
+Der blev foretaget XXXXXXXXXX ilterationer og det lykkes at få en samlet tracking fejl 
+som opfylder kravet, angivet i ligning \ref{eq:ks:trackingerror}.
 
 
 
@@ -35,7 +44,8 @@ Der blev foretaget XXXXXXXXXX ilterationer og det lykkes at få en samlet tracki
 
 
 
-For ilteration XXXXXXXXX med controller koefficienterne angivet i tabel \ref{tb:PID_final}, er det lykkedes at opfylde kravet om den samlede tracking fejl som stilles for PTS. 
+For ilteration XXXXXXXXX med controller koefficienterne angivet i tabel \ref{tb:PID_final}, er det 
+lykkedes at opfylde kravet om den samlede tracking fejl som stilles for PTS. 
 Figur \ref{fig:PID_final} viser tracking fejlen for hhv. pan og tilt samt den samlede tracking fejl. 
 \begin{figure}[h!]
 \centering
