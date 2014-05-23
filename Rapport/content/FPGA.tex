@@ -53,9 +53,10 @@ men derimod adskillige. Det er nødvendigt at FPGA'en tager højde for
 dette.
 
 \subsection{Opbygningen på FPGA}
+\todo[inline,author=Mikael]{Opbygning på FPGA... Det lyder lidt mærkeligt, gør det ikke? Foreslår vi finder en bedre overskrift.}
 På figur \ref{fig:FPGA_blok} ses et simplificeret diagram over komponenterne på FPGA'en. 
-De grønne bokse angiver komponenter på FPGA'en, mens de grå cirkler angiver hvad, der ikke ligger på 
-FPGA'ens chip. Pilene imellem FPGA'ens komponenter angiver retningen på 
+De grønne bokse angiver komponenter på FPGA'en, mens de grå cirkler angiver, hvad der ikke ligger på 
+FPGA'ens chip. Pilene imellem FPGA'ens komponenter angiver retningen af 
 datastrømme. Diagrammet er simplificeret ved at vise to ens komponenter som én. 
 F.eks. er der ikke én tick counter komponent på FPGA'en, men derimod to.
 Herunder følger en forklaring på hvordan de tre krav til FPGA'en er opnået. For 
@@ -79,20 +80,22 @@ På FPGA'en er implementeret en SPI slave der modtager data fra
 mikrocontrolleren. Data føres, i komponenten SPI, fra MISO ind i FPGA'en og fra FPGA'en ud på 
 MOSI. Til mikrocontrolleren sendes skiftevis motorposition fra pan og tilt.
 
-\subsection{Producering af PWM signal til motorerne på PTS.}
-I PWM komponenten produceres PWM-signalerne på baggrund af duty cycle værdier modtaget vha. SPI. 
+\subsection{Producering af PWM signal til motorerne på PTS}
+I PWM komponenten produceres PWM-signalerne på baggrund af duty cycle værdier modtaget via. SPI. 
 PWM bliver produceret ved at tælle en tæller op fra 0 til 2047 med 50 MHz.
 PWM udgangen sættes høj indtil tælleren når dutycycle værdien og sættes lav 
 ellers. Hermed er der produceret et PWM med en frekvens på ca. 24 kHz.
 
-\subsection{Optælling af motorernes rotationer vha. encoders på PTS.}
-Encoderne på PTS er quadrature, er det muligt at bestemme både retning og tælle rotationer på motoren. 
+\subsection{Optælling af motorernes rotationer vha. encoders på PTS}
+Da encoderne på motorerne er quadrature,
+er det muligt at bestemme både retning og tælle rotationer på motoren. 
 Dette sker i komponenten tick counter der afhængigt af inputtet fra encoderne tæller positionen op eller 
 ned.
 Der tælles ned fra 0 til 1079 og op fra 1079 til 0.
-Resetsignal modtages fra komponenten tick reset, første gang pan og eller tilts magnet bevæger 
+Reset-signal modtages fra komponenten tick reset, første gang pan og/eller tilts magnet bevæger 
 sig over hallsensorerne.
 
 \subsection{Delkonklusion}
-FPGA'en fungerer som simpel slave i SPI-overførselen med mikrocontrolleren. FPGA'en holder styr på pan og tilts motorpositon samt producerer PWM-signalerne 
+FPGA'en fungerer som simpel slave i SPI-overførselen med mikrocontrolleren.
+FPGA'en holder styr på pan og tilts motorpositon samt producerer PWM-signalerne 
 med en frekvens på ca. 24 [kHz] og en opløsning på 2048.
