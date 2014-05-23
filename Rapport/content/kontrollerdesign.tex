@@ -144,7 +144,7 @@ når Rise Time, Settling Time og Overshoot efter diskretiseringen
 Det vurderes, at Rise Time og Settling Time maks. må ændre sig med 5 \% i forhold
 til den kontinuerte respons, mens at Overshoot maks. må ændre sig med 25 \% i forhold til
 den kontinuerte respons.
-Dvs. det kan tolereres hvis overshoot
+Dvs. det ikke kan tolereres hvis overshoot
 ved diskretiseringen ændrer sig fra 2 \% til 3 \%.
 
 Hvis diskretiseringen kræver at reguleringssløjfen kører ved en frekvens \(f_s\),
@@ -257,10 +257,10 @@ mens fejlen på fasen er lille ved lave frekvenser og stiger ved høje frekvense
 \subsection{Upsampling}
 Da reguleringssløjfen, som beskrevet i afsnit \ref{subsec:choosefs}, køres med en frekvens på 600 [Hz],
 som er 5 gange højere end input-samplingfrekvensen, skal der altså foretages en upsampling.
-Upsamplingen foretages med Zero Order Hold, hvorved ét sample ved 120 Hz indsættes 
-som 5 samples ved 600 Hz.
-%Upsamplingen indsætter mellem hvert input-sample 4 samples med værdien 0, så hvert input-sample
-%kun samples én gang. Dette gør, at input-signalets frekvensspektrum bevares.
+%Upsamplingen foretages med Zero Order Hold, hvorved ét sample ved 120 Hz indsættes 
+%som 5 samples ved 600 Hz.
+Upsamplingen indsætter mellem hvert input-sample 4 samples med værdien 0, så hvert input-sample
+kun samples én gang. Dette gør, at input-signalets frekvensspektrum bevares.
 Da input-signalet er samplet ved 120 [Hz] vil det oprindelige spektrum, centreret omkring 0 [Hz],
 spejles ved heltalsmultipla af 120 [Hz]. Disse spejlbilleder af det oprindelige spektrum vil være
 indeholdt i det upsamplede signal, hvis det ikke lavpasfiltreres. 
@@ -271,7 +271,7 @@ til gengæld heller ikke forsinkelsen af input-signalet.
 
 \subsection{Valg af regulatortype}
 Pga. de simplificerende antagler som er indeholdt i den matematiske model for systemet,
-vil en åbensløjferegulering være et dårligt valg: den ville være følsom overfor afvigelser fra den
+vil en åbensløjferegulering være et dårligt valg: den vil være følsom overfor afvigelser fra den
 matematiske model. Desuden er der fra projektoplægget krav om en lukketsløjferegulering.
 Den simpleste regulering ville være en konstant forstærkning af fejlsignalet.
 En integrering af fejlsignalet ville gøre, at fejlsignalet ville blive tvunget mod 0,
