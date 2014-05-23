@@ -15,12 +15,11 @@ to DC-motorer. Spændingsfaldene styres af PWM-generatorer, og regulatoren
 kan derfor styre motorernes hastighed ved at vælge PWM-signalernes duty cycles.
 
 I afsnit \ref{sec:kravspecifikation} opstilles kravene til systemets respons.
-Disse er for en 1-radian reference opsummeret nedenfor.
+Disse er opsummeret nedenfor.
 \begin{itemize}
 \itemsep1pt
 \item \(t_{s} \leq 0,557 \mathrm{\left[s\right]}\) (Settling Time)
-\item \(SSE \leq 1,78 \%\) (Steady State Tracking Error)
-\item \(P.O. \leq 34 \%\) (Overshoot i procent)
+\item \(TE \leq 1,02 \degree\) (Tracking Error efter \(t_s\))
 \end{itemize}
 
 Det er fastlagt i projektoplægget, at regulatoren skal implementeres på mikrocontrolleren.
@@ -47,7 +46,7 @@ Som beskrevet i afsnit \ref{sec:problemformulering},
 så er input-samplingen fastlagt til at foregå med en frekvens på 120 [Hz].
 Men som illustreret på figur \ref{fig:digitalkontroller1}, så skal reguleringssløjfen
 "køres" (sample) med en frekvens \(f_s=\frac{1}{T_s}\), der ikke nødvendigvis er 120 [Hz].
-Dvs. A/D- og D/A-konverteringerne (ikke input-samplingen) skal foregå med frekvensen \(f_s\).
+Dvs. D/D- D/A- og A/D-konverteringerne (på nær input-samplingen) skal foregå med frekvensen \(f_s\).
 
 Der er overordnet to strategier til valg af samplingfrekvensen \(f_s\) hvormed
 reguleringssløjfen skal køre:
@@ -69,7 +68,7 @@ udvikle en regulator - denne er altså diskret fra starten.
 Da reguleringen foregår i en task på mikrocontrolleren, vælges det
 at udvikle en diskret regulator efter en diskretiseret model af systemet.
 Således kan perioden hvormed regulerings-task'en skal køre, fastlægges ud fra
-samplingperioden \(T_s\). Hvis man havde valgt at designe en kontinuert regulator
+samplingperioden \(T_s\) af diskretiseringen. Hvis man havde valgt at designe en kontinuert regulator
 ville perioden skulle vælges så lav som muligt, og dette ville stille højere krav
 til mikrocontrolleren.
 
