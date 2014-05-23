@@ -16,7 +16,7 @@ Mikrocontrolleren har følgende opgaver:
 	\item Sende relevant data til brugeren via UART.
 \end{itemize}
 
-Regulatorerne skal afvikles i hård realtid\footnote{Dvs. at task'en skal afvikles, inden dens deadline - inden for en samplingperiode.},
+Regulatorerne skal afvikles i hård realtid\footnote{Dvs. at task'en skal afvikles, inden dens deadline - inden for en samplingperiode. \citep{operating_systems_concepts_ed8}},
 da det ellers er vanskelligt at modellere de digitale regulatorer matematisk.
 
 SPI\footnote{Serial Peripheral Interface, også kaldet SSI.} bruges til at overføre PTS's position fra FPGA til mikrocontroller.
@@ -33,7 +33,7 @@ Systemet skal kunne modtage brugerinput gennem et terminalprogram.
 Brugerinterfacet er ikke tidskritisk.
 Der skal være mulighed for at udlæse væsentlige systemparametre såsom:
 PTS' position, ønsket position, aktuel PWM duty cycle osv.
-\todo[inline, author=Michael]{Måske skal disse systemparametre defineres mere fast.}
+
 %\begin{itemize}
 %\itemsep1pt
 %	\item PTS' position. 
@@ -152,7 +152,7 @@ ind via SPI mens de to nye PWM duty cycles sendes.
 Control tasken ved hvilke ting der er relevant at gemme i loggen,
 så ved start af tracking bliver positioner og PWM duty cycles gemt i loggen.
 I kodeudsnittet \ref{ctrl_task} ses task'en som den bliver kørt hvis den er i tracking stadiet.
-\todo[inline,author=Mikael]{Fix henvisning til kodeudsnit, som for resten ikke bør hedde Listing.}
+%\todo[inline,author=Mikael]{Fix henvisning til kodeudsnit, som for resten ikke bør hedde Listing.}
 \lstinputlisting[language=c, 
         firstnumber=120,
         firstline=120, 
@@ -340,6 +340,7 @@ Dvs. en maks afviklingstid på \(\frac{1}{600}\) [s], da kravet på 600 [Hz] ell
 Intervallet mellem hver afvikling af task'en blev målt for 60 afviklinger,
 og resultaterne er vist i tabel \ref{tb:ctrltasktimingtest}.
 \begin{table}[h!]
+% Prøv multicolummn
 \centering
 \begin{tabu}{l|[1.25pt]r|r|r|r}
  & Max:  & Min: & Median: & Gennemsnit:  \\ \tabucline[1.25pt]{-}
@@ -347,13 +348,13 @@ Målt interval: & 1,672 [ms] & 1,662 [ms] & 1,667 [ms] & 1,667 [ms] \\
 \hline 
 Afvigelse: & 5,33 [\micro s] & 4,66 [\micro s] & 0,66 [\micro s] & 0,13 [\micro s] \\
 \end{tabu} 
-\caption{Interval mellem hver afvikling af Control-task.}
+\caption{Interval mellem hver afvikling af Control-task. Måleusikkerheden er $\pm$ 4 [\micro s].}
 \label{tb:ctrltasktimingtest}
 \end{table}
-\todo[inline,author=Nikolaj, color=green]{Din afvigelse siger at du mangler et decimal...}
+%\todo[inline,author=Nikolaj, color=green]{Din afvigelse siger at du mangler et decimal...}
 
 Afvigelserne for medianen og gennemsnittet ligger indenfor måleusikkerheden på $\pm$ 4  [\micro s].
-For max. og min. værdierne er afvigelsen på max 133\% af måleusikkerheden,
+For max. og min. værdierne er afvigelsen på max. 133\% af måleusikkerheden,
 og det vurderes at disse kan negligeres. 
 
 Samme datasæt blev brugt til at beregne afviklingstiden for tasken, koordinattransformationen og selve reguleringssløjfen. 
@@ -367,19 +368,21 @@ Afviklingstid & Max:  &  Min: & Median: & Gennemsnit:  \\ \tabucline[1.25pt]{-}
 Ctrl task: & 360 [\micro s] & 326 [\micro s] & 332 [\micro s] & 338 [\micro s] \\ \hline 
 Koordinat transformation: & 228 [\micro s] & 202 [\micro s] & 206 [\micro s] & 212 [\micro s] \\
 \hline 
-PID kontroller: & 40 [\micro s] & 30 [\micro s] & 32 [\micro s] & 34 [\micro s]\\
+PID regulator: & 40 [\micro s] & 30 [\micro s] & 32 [\micro s] & 34 [\micro s]\\
 \end{tabu} 
 \caption{Afviklingstiden for Control task, Koordinattransformation og PID-regulatoren.\\
 Måleusikkerheden er $\pm$ 4 [\micro s].}
 \label{tb:ctrl task runtime test}
 \end{table}
 
-På trods af at afviklingstiden varierer, afvikles tasken før sin deadline - med en margin på min. 1,298 [ms] til næste task. 
-\todo[inline,author=Nikolaj, color=green]{Skal man ikke tænke mindste målte interval - måleusikkerheden - længste afviklingstid?}
-Variationen i afviklingstiden skyldes primært koordinattransformationen, der benytter \textbf{math.h} librariet. 
+På trods af at afviklingstiden varierer, afvikles tasken før sin deadline - med en margin på min. 1,294 [ms] til næste task. 
+%\todo[inline,author=Nikolaj, color=green]{Skal man ikke tænke mindste målte interval - måleusikkerheden - længste afviklingstid? - Indregn worst case}
+Variationen i afviklingstiden skyldes koordinattransformationen og PID-regulatoren. Den maksimale variation af afviklingstiden udgør $ \frac{360 - 326}{1667} = 2,04\% $ af periodetiden, hvilket kan toleres. 
+\todo[inline, author=Michael]{GRRR, kan ikke få ovenstående afsnit til at give mening..}
 
-\todo[inline, author=Michael]{Skal vi bruge plads på at teste interfacet også? }
-\todo[inline,author=Nikolaj, color=green]{text goes in, text comes out. You can't explain that}
+
+%\todo[inline, author=Michael]{Fjern math.h, SPI varierer ikke, afvigelsen kan tolereres. }
+%\todo[inline,author=Nikolaj, color=green]{text goes in, text comes out. You can't explain that}
 \subsection{Delkonklusion}
 Det blev valgt at benytte den udleverede LM3S6965 microcontroller.
 Denne understøtter SPI og UART som hardware moduler. 
@@ -388,10 +391,10 @@ Til scheduleringen blev valgt operativsystemet FreeRTOS,
 da det blev vurderet at preemptive priority var tilstrækkeligt til at møde vores realtidskrav. 
 
 Programmet blev delt op i 5 tasks; \textit{UART send}, \textit{UART receive}, \textit{Interface}, \textit{Logger} og \textit{Control}. 
-Al realtidsfunktionalitet er implementeret i \textit{Control}-tasken. 
+Al realtidsfunktionalitet blev implementeret i \textit{Control}-tasken. 
 
 Det var påkrævet at \textit{Control}-tasken kunne afvikles med en frekvens på $600 \mathrm{[Hz]}$. 
-Taskens afviklingstid blev målt til max. $360 \mathrm{[\micro s]}$, hvilket er væsentlig lavere end den max. tilladte tid på $\frac{1}{600}$ [s]. 
+Taskens afviklingstid blev målt til max. $360 \mathrm{[\micro s]}$, hvilket var væsentlig lavere end den max. tilladte tid på $\frac{1}{600}$ [s]. 
 SPI-kommunikationen kunne afvikles på 40,54 [\micro s], hvilket opfyldt kravet på max. 5 \% af \textit{Control}-taskens periodetid. 
 
 %Reguleringssløjferne kan ramme inden for kravene i kravspecifikationen.
