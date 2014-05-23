@@ -19,7 +19,7 @@ Mikrocontrolleren har følgende opgaver:
 Regulatorerne skal afvikles i hård realtid\footnote{Dvs. at task'en skal afvikles, inden dens deadline - inden for en samplingperiode.},
 da det ellers er vanskelligt at modellere de digitale regulatorer matematisk.
 
-SPI\footnote{Serial Peripheral Interface, også kaldet SSI} bruges til at overføre PTS's position fra FPGA til mikrocontroller.
+SPI\footnote{Serial Peripheral Interface, også kaldet SSI.} bruges til at overføre PTS's position fra FPGA til mikrocontroller.
 Desuden overføres beregnet duty cycle fra mikrocontroller til FPGA.
 Kommunikationen skal være tilpas hurtig, så regulatorerne ikke regner på forældet data.
 Forsinkelsen for overførsel af data for begge motorer vurderes til ikke at måtte overstige 5\% af samplingperioden.
@@ -44,7 +44,7 @@ Desuden skal systemet gemme disse informationer i en log-fil,
 som kan udlæses efter systemet er færdig med at tracke målet.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Beskrivelse af mikrocontroller.}
+\subsection{Beskrivelse af mikrocontroller}
 Den udleverede mikrocontroller er en 32 bit Stellaris LM3S6965, baseret på en ARM Cortex M3 kerne. Den opererer ved 50 [MHz] og bruger Thump 2 instruktionssættet. Den indeholder 256 [kB] flash hukommelse samt 64 [kB] SRAM \citep{lm3s6965}.
 
 SPI er indbygget som et hardwaremodul, med seperate FIFO-buffere til afsendelse og modtagelse. Hardwaren sender data fra den ene den buffer og lægger modtaget data i den anden. Derfor er det ikke nødvendigt for programmøren at holde styr på timingen. Størrelsen af hvert dataframe kan være 4 - 16 bits. 
@@ -56,7 +56,7 @@ UART er også implementeret som et hardwaremodul. Modulet indeholder seperate FI
 Der er undersøgt fire forskellige muligheder for scheduling.
 CooCox CoOS\footnote{\citep{www.coocox.com/CoOS.htm}} og FreeRTOS\footnote{\citep{freertos.org}}
 er komplette realtids-operativsystemer. 
-Run-To-Complete-Scheduler (RTCS) er en simpel scheduler introduceret i semesterets programmeringskursus.
+Run-To-Complete-Scheduler (RTCS) er en simpel scheduler med frivillig (non-preemtive) skedulering.
 Ved Super loop metoden afvikles al koden i main-loopet vha. ticks.
 De fire schedulings er beskrevet i tabel \ref{tb:os_comparison}.
 %\begin{itemize}
@@ -71,7 +71,7 @@ Til valget er der lagt vægt på om scheduleringen opfylder kravet til realtidsa
 
 \begin{tabu}{l|[1.25pt]l|l|l|l}
  & CoOS & FreeRTOS & RTCS & Super loop \\ \tabucline[1.25pt]{-}
-scheduling & Preemptive priority  & Preemptive priority  & Non- & Non-  \\ 
+Scheduling & Preemptive priority  & Preemptive priority  & Non- & Non-  \\ 
 	           & /round robin		& /round robin              &preemptive &preemptive	\\\hline 
 Køer & Ja & Ja & Nej & Nej \\ \hline 
 Semaforer & Tællende og Binære  & Tællende og Binære & Binære  & Nej  \\\hline 
@@ -100,10 +100,10 @@ i EMP &   &   &   &   \\
 \caption{Specifikationer for de undersøgte systemer}
 \label{tb:os_comparison}
 \end{figure}
+
 Med kravet om hård realtid og for at lette programmeringsarbejdet valgtes det at
 benytte FreeRTOS, fordi det tilbyder tvungen scheduling (preemptive priority), hvor det er muligt
-at prioritere regulerings-task'en højere end resten af programmet. Desuden lettes programmeringsarbejdet
-fordi gruppen er bekendt med operativsystemet fra programmeringskurset.
+at prioritere regulerings-task'en højere end resten af programmet.
 
 %
 \subsection{Implementering}
@@ -116,7 +116,6 @@ fordi gruppen er bekendt med operativsystemet fra programmeringskurset.
 % beskrivelse af interfacet
 % 
 %\todo[inline, author=Michael]{Venter på at kodens struktur er helt færdig - inden da giver det ikke mening at skrive dette afsnit færdigt. }
-
 Systemet er opdelt i separate tasks.
 Taskdiagrammet er vist på figur \ref{fig:task_diagram}. 
 
@@ -133,26 +132,27 @@ Taskdiagrammet er vist på figur \ref{fig:task_diagram}.
 \subsubsection{Beskrivelse af de enkelte tasks}
 \begin{description}
 \itemsep-3pt
-	\item[UART send og -receive] Fordi UART hw.-bufferen kun indeholder 16 pladser \citep[Side. 430]{lm3s6965}
+	\item[UART send og -receive] Fordi UART hw.-bufferen kun indeholder 16 pladser \citep[s. 430]{lm3s6965}
 	sørger en Send og en Recieve task for at sende data videre til og fra resten af programmet.
 	De to ekstra semaforer, som Interface tilgår er til at reservere de to buffers så indtastede og
 	printede tekststrenge ikke kan afbrydes (kun én task kan skrive til eller læse fra UART ad gangen).
 	\item[Control] Afvikler regulatorerne. Se mere indgående beskrivelse i sektion \ref{sec:control_task}.
 	Denne task afvikles i realtid, med en frekvens på 600 [Hz]. 
 	Denne task sørger for at SPI Kommunikationen med FPGA'en bliver afviklet på de rigtige tidspunkter.
-	\item[Logger] Denne task opdaterer logfilen med data fra "status" køen.
-	\item[Interface] Tolker på brugerinputs og sender relevante kommandoer til Control tasken.
+	\item[Logger] Denne task opdaterer logfilen med data fra "status"-køen.
+	\item[Interface] Tolker på brugerinputs og sender relevante kommandoer til Control task'en.
 \end{description}
-
 
 \subsubsection{Control task}
 \label{sec:control_task}
-Control task'en henter et koordinat, transformerer koordinatet, udregner en PWM for hver regulator og opdaterer loggen.
-Hver gang control task'en bliver kørt bliver der hentet to positioner ind via SPI mens de to nye PWM duty cycles sendes.
+Control task'en henter en koordinat, transformerer koordinaten,
+udregner en PWM duty cycle for hver regulator og opdaterer loggen.
+Hver gang control task'en bliver kørt bliver der hentet to positioner
+ind via SPI mens de to nye PWM duty cycles sendes.
 Control tasken ved hvilke ting der er relevant at gemme i loggen,
 så ved start af tracking bliver positioner og PWM duty cycles gemt i loggen.
 I kodeudsnittet \ref{ctrl_task} ses task'en som den bliver kørt hvis den er i tracking stadiet.
-
+\todo[inline,author=Mikael]{Fix henvisning til kodeudsnit, som for resten ikke bør hedde Listing.}
 \lstinputlisting[language=c, 
         firstnumber=120,
         firstline=120, 
