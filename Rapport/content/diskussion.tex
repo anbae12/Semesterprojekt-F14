@@ -1,21 +1,32 @@
 \section{Diskussion}
 \label{sec:diskussion}
+Den matematiske model for PTS fundet på baggrund af
+målinger af motorparametre og beregning af inertimomenter
+er til en vis grad blevet verificeret vha. en test af åbensløjferesponsen.
+Den største mangel ved den matematiske model er, at den ikke indeholder en dødzone
+af PWM-duty cycles, der ikke kan accelerere systemet. Det vurderes derfor,
+at simuleringen af systemet er nøjagtig, når der tages højde for dødzonen.
 
-Den matematisk model for PTS blev verificeret vha. en openloop test, figur \ref{fig:openloopV1}. Der blev valgt at tilføje dødbånd for hhv. pan og tilt. Under finjusteringen af controllerkoefficienterne for hhv. pan og tilt blev dødbåndet justeret endnu mere ind. 
+Reguleringssystemet er blevet simuleret i MATLAB Simulink, og på baggrund af denne simulering
+er to sæt af regulatorparametre \(K_p\) og \(K_i\) til to PI-regulatorer blevet fundet. Disse parametre vurderes til at skulle justeres
+i forhold til eksperimentelle målinger på det fysiske system, da simuleringen kun er en tilnærmelse.
 
-Koordinattransformationen 
+Regulatorernes parametre er med Trial-and-Error metoden blevet justeret,
+med udgangspunkt i simuleringsresultaterne.
+Justeringen viste, at det i praksis er nødvendigt at anvende to PID-regulatorer,
+og at de vha. simuleringen fundne regulatorparametre \(K_p\) og \(K_i\) skal forøges.
+Desuden blev det under justeringen fundet, at det kan forbedre regulatorernes ydeevne
+at justere dødzone-værdierne for Pan- og Tilt-systemerne.
 
+De to regulatorer opfylder kravene, men tillader ikke megen parametervariation,
+som fx slid i drivremmene,
+og det vurderes derfor, at mere avancerede regulatorer ville være mere velegnet til trackingen
+af parablen.
 
-Digkretisering af systemet
-
-
-
-mikrocontroller.. real tid 
-FPGA
-SPI
-
-
-
-
-Regulator og PTS verifikation
-- hvorfor PID PI eller P
+Reguleringssløjfernes real-time krav er blevet opfyldt af implementeringen på mikrocontrolleren,
+og det vurderes derfor at den anvendte software-struktur og valget af skedulering
+er passende til trackingen af lerdueparablen.
+FPGA'en genererer PWM-signalerne og leverer positionsfeedback med høj hastighed,
+og SPI-kommunikationens afviklingstid varierer meget lidt fra gang til gang.
+Det vurderes derfor, at den digitale controllers forsinkelser samlet set ikke forværrer
+reguleringens ydeevne betydeligt.
