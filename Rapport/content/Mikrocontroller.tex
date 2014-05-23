@@ -132,7 +132,7 @@ Taskdiagrammet er vist på figur \ref{fig:task_diagram}.
 \subsubsection{Beskrivelse af de enkelte tasks}
 \begin{description}
 \itemsep-3pt
-	\item[UART send og -receive] Fordi UART hw.-bufferen kun indeholder 16 pladser \citep[s. 430]{lm3s6965}
+	\item[UART send og -receive] Fordi UART hw.-bufferen kun indeholder 16 pladser \citep[Side. 430]{lm3s6965}
 	sørger en Send og en Recieve task for at sende data videre til og fra resten af programmet.
 	De to ekstra semaforer, som Interface tilgår er til at reservere de to buffers så indtastede og
 	printede tekststrenge ikke kan afbrydes (kun én task kan skrive til eller læse fra UART ad gangen).
@@ -334,7 +334,7 @@ Altså overholder implementeringen kravet på afvikling indenfor 83,3 [\micro s]
 %\end{table}
 
 Samme fremgangsmåde blev brugt til at undersøge timingen for Control-task'en,
-som indeholder reguleringssløjferne. Oscilloskopet blev indstillet til \(500.000\) Samples/s.
+som indeholder reguleringssløjferne. Oscilloskopet blev indstillet til \(500.000\) [Samples/s].
 Kravet til afviklingen var: Reguleringsløjferne kører med 600 [Hz], samt at task'en afvikles inden næste periode. 
 Dvs. en maks afviklingstid på \(\frac{1}{600}\) [s], da kravet på 600 [Hz] ellers ikke kunne opfyldes. 
 Intervallet mellem hver afvikling af task'en blev målt for 60 afviklinger,
@@ -352,8 +352,8 @@ Afvigelse: & 5,33 [\micro s] & 4,66 [\micro s] & 0,66 [\micro s] & 0,13 [\micro 
 \end{table}
 \todo[inline,author=Nikolaj, color=green]{Din afvigelse siger at du mangler et decimal...}
 
-Afvigelserne for medianen og gennemsnittet ligger indenfor måleusikkerheden på $\pm 4  [\micro s] $.
-For max. og min. værdierne er afvigelsen på max 133 \% af måleusikkerheden,
+Afvigelserne for medianen og gennemsnittet ligger indenfor måleusikkerheden på $\pm$ 4  [\micro s].
+For max. og min. værdierne er afvigelsen på max 133\% af måleusikkerheden,
 og det vurderes at disse kan negligeres. 
 
 Samme datasæt blev brugt til at beregne afviklingstiden for tasken, koordinattransformationen og selve reguleringssløjfen. 
