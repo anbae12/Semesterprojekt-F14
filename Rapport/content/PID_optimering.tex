@@ -1,6 +1,6 @@
 \section{PID regulator koefficienter}
-Ved brug af PID tool og simulink i matlab fundet frem til koefficienterne i \ref{PID_test14}.
-Disse koefficienter er testet og plottet i Figur \ref{PID_test14_plot}.
+Ved brug af PID tool og simulink i matlab fundet frem til koefficienterne i \ref{fig:PID_test14_plot}.
+Disse koefficienter er testet og plottet i figur \ref{PID_test14_plot}.
 Dette opfylder ikke de krav som der er sat i krav specifikationen.
 Ziegler-Nichols metoden viste sig at være for aggressiv og resulterede i en binær regulator.
 
@@ -19,11 +19,32 @@ Pan   & 37,1740 &  33,3610 & 0,215658
 \label{PID_test14} 
 \end{figure}
 
-\begin{figure}
-\includegraphics[width=1\textwidth]{./graphics/error_pan.eps}
-\includegraphics[width=1\textwidth]{./graphics/error_tilt.eps}
-\caption[PID controller koefficienter]{Fejl målt i grader for PID controller med koefficienterne beskrevet i tabel \ref{PID_test14}.} \label{PID_test14_plot}
+
+
+
+
+
+
+
+
+\begin{figure}[h!]
+\centering
+\subfloat[Lerduens højde som funktion af afstanden til D.\label{fig:PID_test14_plot_pan}]{%
+	\includegraphics[width=0.5\textwidth]{./graphics/error_pan.eps}
+}
+\subfloat[Lerduens bane projekteret på xy-planet.\label{fig:PID_test14_plot_tilt}]{%
+	\includegraphics[width=0.5\textwidth]{./graphics/error_tilt.eps}
+}
+\caption[PID controller koefficienter]{Fejl målt i grader for PID controller med koefficienterne beskrevet i tabel \ref{PID_test14}.} 
+\label{fig:PID_test14_plot}
 \end{figure}
 
 
-\subsection{Optimering af controller/koefficienter}
+
+
+
+
+\subsection{Optimering af controllerkoefficienter}
+\todo[author=Anders,inline,color=yellow]{Jeg tænker optimeringprocessen skal beskrives her.}
+\subsection{PTS verifikation}
+\todo[author=Anders,inline,color=yellow]{Jeg tænker verifikationen kan beskrives her, idet jeg synes det hænger sammen.}
