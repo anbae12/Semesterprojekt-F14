@@ -277,9 +277,17 @@ Den simpleste regulering ville være en konstant forstærkning af fejlsignalet.
 En integrering af fejlsignalet ville gøre, at fejlsignalet ville blive tvunget mod 0,
 og dette er ønsket ift. kravet om en tracking fejl på under 1,02\degree.
 De største krav stilles til systemets responstid og ikke så meget til udsvinget af responsen,
-og som udgangspunkt vælges derfor en PI-regulator, som gruppen er bekendt med fra
-undervisningen i reguleringsteknik.
+og som udgangspunkt vælges derfor en PI-regulator.
+Hvis det er nødvendigt at nedjustere udsvinget kan det være nødvendigt at anvende en PID-regulator,
+og derfor implementeres algoritmen til en PID-regulator på mikrocontrolleren.
+Hvis kun en PI-regulator er nødvendigt, kan man altså blot nulstille D-leddet.
 
 For at integratoren hurtigst muligt kan levere den nødvendige PWM-duty cycle til minimering af fejlsignalet,
 vælges det desuden at implementere et "bias", der tager højde for dødbåndet.
-Bias er implementeret med en nedre duty cycle grænse på 0.97\% for pan og tilt. Deres respektive øvre grænser er hhv. 11,72\% og 13,18\%. Hvis controlleren returnerer en duty cycle mellem den nedre og øvre grænse, sættes duty cycle til dens øvre grænse. Dette medfører at motoreren kan justere sig ind, selvom fejlen er marginal. Den nedre grænse er bestemt således positionen er indenfor ét encoder tick.
+\todo[inline,author=Mikael]{Opdatér bias når vi er helt færdige med PID-tuning!}
+Bias er implementeret med en nedre duty cycle grænse på 0.97\% for pan og tilt.
+Deres respektive øvre grænser er hhv. 11,72\% og 13,18\%.
+Disse værdier er fundet eksperimentelt ved Trial-and-Error metoden under PID-justeringen.
+Hvis controlleren returnerer en duty cycle mellem den nedre og øvre grænse, sættes duty cycle til dens øvre grænse.
+Dette medfører at motoreren kan justere sig ind, selvom fejlen er marginal.
+Den nedre grænse er bestemt således positionen er indenfor ét encoder tick.
