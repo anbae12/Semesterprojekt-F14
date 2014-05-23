@@ -1,6 +1,6 @@
 \section{Projektoverblik}
 \label{sec:projektoverblik}
-Som fremgår af projektoplægget skal projektet opdeles som vist på 
+Som det fremgår af projektoplægget skal projektet opdeles som vist på 
 figur \ref{fig:overview_openloop_PTS}. 
 Det ligger altså udenfor dette projekt at bestemme den overordnede opdeling.
 Projektoplægget stiller ydermere følgende krav til implementeringen:
@@ -22,6 +22,9 @@ Projektoplægget stiller ydermere følgende krav til implementeringen:
 \caption[Principskitse af PTS]{Principskitse af PTS med farvekoder.}
 \label{fig:overview_openloop_PTS}
 \end{figure}
-De grønne kasser på figur \ref{fig:overview_openloop_PTS} repræsenterer mikrocontrolleren som vha. UART kommunikerer med brugeren. \\
+De grønne kasser på figur \ref{fig:overview_openloop_PTS}
+repræsenterer mikrocontrolleren som vha. UART kommunikerer med brugeren. \\
 FPGA'en er repræsenteret vha. en lilla kasse som er bindeledet mellem mikrocontrolleren og de to DC motorer. 
-FPGA'en og mikrocontrolleren kommunikere sammen vha. SPI. FPGA'en genererer to PWM-signaler, som driver hhv. H-broen og motor for pan og H-broen og motor for tilt. DC motorene sender deres encoderfeedback til FPGA'en.
+FPGA'en og mikrocontrolleren kommunikerer sammen vha. SPI.
+FPGA'en genererer to PWM-signaler, som driver hhv. H-broen og motor for
+pan og H-broen og motor for tilt. DC-motorene sender deres encoder feedback til FPGA'en.

@@ -15,12 +15,11 @@ to DC-motorer. Spændingsfaldene styres af PWM-generatorer, og regulatoren
 kan derfor styre motorernes hastighed ved at vælge PWM-signalernes duty cycles.
 
 I afsnit \ref{sec:kravspecifikation} opstilles kravene til systemets respons.
-Disse er for en 1-radian reference opsummeret nedenfor.
+Disse er opsummeret nedenfor.
 \begin{itemize}
 \itemsep1pt
 \item \(t_{s} \leq 0,557 \mathrm{\left[s\right]}\) (Settling Time)
-\item \(SSE \leq 1,78 \%\) (Steady State Tracking Error)
-\item \(P.O. \leq 34 \%\) (Overshoot i procent)
+\item \(TE \leq 1,02 \degree\) (Tracking Error efter \(t_s\))
 \end{itemize}
 
 Det er fastlagt i projektoplægget, at regulatoren skal implementeres på mikrocontrolleren.
@@ -47,7 +46,7 @@ Som beskrevet i afsnit \ref{sec:problemformulering},
 så er input-samplingen fastlagt til at foregå med en frekvens på 120 [Hz].
 Men som illustreret på figur \ref{fig:digitalkontroller1}, så skal reguleringssløjfen
 "køres" (sample) med en frekvens \(f_s=\frac{1}{T_s}\), der ikke nødvendigvis er 120 [Hz].
-Dvs. A/D- og D/A-konverteringerne (ikke input-samplingen) skal foregå med frekvensen \(f_s\).
+Dvs. D/D- D/A- og A/D-konverteringerne (på nær input-samplingen) skal foregå med frekvensen \(f_s\).
 
 Der er overordnet to strategier til valg af samplingfrekvensen \(f_s\) hvormed
 reguleringssløjfen skal køre:
@@ -69,7 +68,7 @@ udvikle en regulator - denne er altså diskret fra starten.
 Da reguleringen foregår i en task på mikrocontrolleren, vælges det
 at udvikle en diskret regulator efter en diskretiseret model af systemet.
 Således kan perioden hvormed regulerings-task'en skal køre, fastlægges ud fra
-samplingperioden \(T_s\). Hvis man havde valgt at designe en kontinuert regulator
+samplingperioden \(T_s\) af diskretiseringen. Hvis man havde valgt at designe en kontinuert regulator
 ville perioden skulle vælges så lav som muligt, og dette ville stille højere krav
 til mikrocontrolleren.
 
@@ -145,7 +144,7 @@ når Rise Time, Settling Time og Overshoot efter diskretiseringen
 Det vurderes, at Rise Time og Settling Time maks. må ændre sig med 5 \% i forhold
 til den kontinuerte respons, mens at Overshoot maks. må ændre sig med 25 \% i forhold til
 den kontinuerte respons.
-Dvs. det kan tolereres hvis overshoot
+Dvs. det ikke kan tolereres hvis overshoot
 ved diskretiseringen ændrer sig fra 2 \% til 3 \%.
 
 Hvis diskretiseringen kræver at reguleringssløjfen kører ved en frekvens \(f_s\),
@@ -258,10 +257,10 @@ mens fejlen på fasen er lille ved lave frekvenser og stiger ved høje frekvense
 \subsection{Upsampling}
 Da reguleringssløjfen, som beskrevet i afsnit \ref{subsec:choosefs}, køres med en frekvens på 600 [Hz],
 som er 5 gange højere end input-samplingfrekvensen, skal der altså foretages en upsampling.
-Upsamplingen foretages med Zero Order Hold, hvorved ét sample ved 120 Hz indsættes 
-som 5 samples ved 600 Hz.
-%Upsamplingen indsætter mellem hvert input-sample 4 samples med værdien 0, så hvert input-sample
-%kun samples én gang. Dette gør, at input-signalets frekvensspektrum bevares.
+%Upsamplingen foretages med Zero Order Hold, hvorved ét sample ved 120 Hz indsættes 
+%som 5 samples ved 600 Hz.
+Upsamplingen indsætter mellem hvert input-sample 4 samples med værdien 0, så hvert input-sample
+kun samples én gang. Dette gør, at input-signalets frekvensspektrum bevares.
 Da input-signalet er samplet ved 120 [Hz] vil det oprindelige spektrum, centreret omkring 0 [Hz],
 spejles ved heltalsmultipla af 120 [Hz]. Disse spejlbilleder af det oprindelige spektrum vil være
 indeholdt i det upsamplede signal, hvis det ikke lavpasfiltreres. 
@@ -272,15 +271,23 @@ til gengæld heller ikke forsinkelsen af input-signalet.
 
 \subsection{Valg af regulatortype}
 Pga. de simplificerende antagler som er indeholdt i den matematiske model for systemet,
-vil en åbensløjferegulering være et dårligt valg: den ville være følsom overfor afvigelser fra den
+vil en åbensløjferegulering være et dårligt valg: den vil være følsom overfor afvigelser fra den
 matematiske model. Desuden er der fra projektoplægget krav om en lukketsløjferegulering.
 Den simpleste regulering ville være en konstant forstærkning af fejlsignalet.
 En integrering af fejlsignalet ville gøre, at fejlsignalet ville blive tvunget mod 0,
 og dette er ønsket ift. kravet om en tracking fejl på under 1,02\degree.
 De største krav stilles til systemets responstid og ikke så meget til udsvinget af responsen,
-og som udgangspunkt vælges derfor en PI-regulator, som gruppen er bekendt med fra
-undervisningen i reguleringsteknik.
+og som udgangspunkt vælges derfor en PI-regulator.
+Hvis det er nødvendigt at nedjustere udsvinget kan det være nødvendigt at anvende en PID-regulator,
+og derfor implementeres algoritmen til en PID-regulator på mikrocontrolleren.
+Hvis kun en PI-regulator er nødvendigt, kan man altså blot nulstille D-leddet.
 
 For at integratoren hurtigst muligt kan levere den nødvendige PWM-duty cycle til minimering af fejlsignalet,
 vælges det desuden at implementere et "bias", der tager højde for dødbåndet.
-Bias er implementeret med en nedre duty cycle grænse på 0.97\% for pan og tilt. Deres respektive øvre grænser er hhv. 11,72\% og 13,18\%. Hvis controlleren returnerer en duty cycle mellem den nedre og øvre grænse, sættes duty cycle til dens øvre grænse. Dette medfører at motoreren kan justere sig ind, selvom fejlen er marginal. Den nedre grænse er bestemt således positionen er indenfor ét encoder tick.
+\todo[inline,author=Mikael]{Opdatér bias når vi er helt færdige med PID-tuning!}
+Bias er implementeret med en nedre duty cycle grænse på 0.97\% for pan og tilt.
+Deres respektive øvre grænser er hhv. 11,72\% og 13,18\%.
+Disse værdier er fundet eksperimentelt ved Trial-and-Error metoden under PID-justeringen.
+Hvis controlleren returnerer en duty cycle mellem den nedre og øvre grænse, sættes duty cycle til dens øvre grænse.
+Dette medfører at motoreren kan justere sig ind, selvom fejlen er marginal.
+Den nedre grænse er bestemt således positionen er indenfor ét encoder tick.
