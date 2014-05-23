@@ -231,7 +231,7 @@ uden at tilføje ekstra muligheder.
 Valget faldt derfor på SSFT.
 
 Størrelse af data framen blev valgt til 16 bit, hvilket giver mulighed for at sende
-motorens hastighed og deres position (begge 11 bit) samt kontroldata.
+motorens PWM-duty cycle og deres position (begge 11 bit) samt kontroldata.
 Opbygningen af de to datawords kan ses på figur \ref{fig:protokol1}.
 
 \begin{figure}[h!]
@@ -282,8 +282,9 @@ Opbygningen af de to datawords kan ses på figur \ref{fig:protokol1}.
 %\end{figure}
 Figur \ref{fig:spi_to_fpga} viser indholdet af datawords der bliver sendt fra Mikrocontrolleren. 
 Motorbitten vælger aktuel motor, retningsbitten vælger hvilken retning
-denne skal dreje og PWM duty cycle indeholder den ønskede PWM. 
-Hvis "Ignore"-bitten er sat ignoreres den modtagne besked, mens den aktuelle motorposition stadig returneressom vist på fig.  \ref{fig:spi_from_fpga}. 
+denne skal dreje og PWM-duty cycle indeholder den ønskede PWM. 
+Hvis Ignore-bitten er sat ignoreres den modtagne besked,
+mens den aktuelle motorposition stadig returneres som vist på figur \ref{fig:spi_from_fpga}. 
 %Da SPI er full duplex sendes data fra  Mikrocontrolleren og FPGA’en synkront - FPGA’en sender et dataword samtidig med mikrocontrolleren
  %Mikrocontrolleren sender den  PWM, der skal sættes på den bestemte motor i den bestemte retning. Det er det motor- og retningsbittene bestemmer.
 %På Mikrocontrolleren ville man gerne kunne få en position uden, at den sætter en ny PWM. 
@@ -311,11 +312,12 @@ Hvis "Ignore"-bitten er sat ignoreres den modtagne besked, mens den aktuelle mot
 %I appendix XXX kan der ses en måling hvor der både bliver målt længden af en task og SPI kommunikationen.
 %
 %
-SPI blev testet ved at skifte en digital pin før og efter SPI-funktion blev kaldt. Et oscilloskop af typen \textit{Agilent DSO-X 2024A} blev brugt til målingerne. 
+SPI blev testet ved at skifte en digital pin før og efter SPI-funktion blev kaldt.
+Et oscilloskop af typen \textit{Agilent DSO-X 2024A} blev brugt til målingerne. 
 
-SPI funktionens afviklingstid blev på scopet målt til 40,54 [ \micro s]. I løbet af 10 kast blev observeret en afvigelse på $\pm 2 [ ns]$, hvilket svarer til måleusikkerheden. 
-Altså overholder implementeringen kravet på afvikling indenfor 83,3 \micro s, som opstillet i ligning \ref{eq:uc:spi-krav}.
-
+SPI funktionens afviklingstid blev på scopet målt til 40,54 [ \micro s].
+I løbet af 10 parabelbevægelser blev observeret en afvigelse på $\pm 2 [ ns]$, hvilket svarer til måleusikkerheden. 
+Altså overholder implementeringen kravet på afvikling indenfor 83,3 [\micro s], som opstillet i ligning \ref{eq:uc:spi-krav}.
 
 %\begin{table}[h!]
 %\centering
@@ -331,11 +333,12 @@ Altså overholder implementeringen kravet på afvikling indenfor 83,3 \micro s, 
 %\label{tb:spi-tests}
 %\end{table}
 
-
-Samme fremgangsmåde blev brugt til at tjekke timingen for controltask'en, som indeholder reguleringssløjfen. Scopet blev indstillet til \(500.000\) Samples/s.
-Kravet til afviklingen var: Reguleringsløjfen kører med 600 [Hz], samt at tasken afvikles inden næste periode. 
-Dvs. en maks afviklingstid på 1/600 [s], da kravet på 600 [Hz] ellers ikke kunne opfyldes. 
-Intervallet mellem hver afvikling af blev målt for 60 afviklinger, og resultaterne er vist i tabel \ref{tb:ctrltasktimingtest}.
+Samme fremgangsmåde blev brugt til at undersøge timingen for Control-task'en,
+som indeholder reguleringssløjferne. Oscilloskopet blev indstillet til \(500.000\) Samples/s.
+Kravet til afviklingen var: Reguleringsløjferne kører med 600 [Hz], samt at task'en afvikles inden næste periode. 
+Dvs. en maks afviklingstid på \(\frac{1}{600\) [s], da kravet på 600 [Hz] ellers ikke kunne opfyldes. 
+Intervallet mellem hver afvikling af task'en blev målt for 60 afviklinger,
+og resultaterne er vist i tabel \ref{tb:ctrltasktimingtest}.
 \begin{table}[h!]
 \centering
 \begin{tabu}{l|[1.25pt]r|r|r|r}
@@ -344,12 +347,14 @@ Målt interval: & 1,672 [ms] & 1,662 [ms] & 1,667 [ms] & 1,667 [ms] \\
 \hline 
 Afvigelse: & 5,33 [\micro s] & 4,66 [\micro s] & 0,66 [\micro s] & 0,13 [\micro s] \\
 \end{tabu} 
-\caption{Interval mellem hver afvikling af ctrl-task.}
+\caption{Interval mellem hver afvikling af Control-task.}
 \label{tb:ctrltasktimingtest}
 \end{table}
 \todo[inline,author=Nikolaj, color=green]{Din afvigelse siger at du mangler et decimal...}
 
-Afvigelserne for medianen og gennemsnittet ligger indenfor måleusikkerheden på $\pm 4  [\micro s] $. For max. og min. værdierne er afvigelsen på max 133 \% af måleusikkerheden, og det vurderes at disse kan negligeres. 
+Afvigelserne for medianen og gennemsnittet ligger indenfor måleusikkerheden på $\pm 4  [\micro s] $.
+For max. og min. værdierne er afvigelsen på max 133 \% af måleusikkerheden,
+og det vurderes at disse kan negligeres. 
 
 Samme datasæt blev brugt til at beregne afviklingstiden for tasken, koordinattransformationen og selve reguleringssløjfen. 
 Disse data er vist i tabel \ref{tb:ctrl task runtime test}. %Bemærk usikkerheden på $4  [\micro s]$.
