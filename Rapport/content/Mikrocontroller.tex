@@ -179,7 +179,6 @@ Der er lavet funktioner som bruges til test af specifikke funktioner (fx at sæt
 og funktioner som starter en større test (fx tracking af lerdueparablen).
 Formålet er at gøre det simpelt for gruppen at udvikle regulatoren -
 det er altså ikke tænkt til en kunde som ikke ved noget om systemet.
-%Fjernelse af implementerede funktioner for at gøre det simpelt har ikke været en prioritet. 
 De primære funktioner er at sætte en position eller starte tracking af lerduen.
 Hvis det indtastede ikke bliver genkendt bliver en liste over gyldige funktioner udskrevet.
 
@@ -187,12 +186,12 @@ Hvis det indtastede ikke bliver genkendt bliver en liste over gyldige funktioner
 \centering
 \begin{tabu}{l|[1.25pt]l|l}
 Kommando: & Funktion: & Parametre: \\\tabucline[1.25pt]{-}
-read & Slå log til eller fra.  &   \\\hline 
 start & Start tracking af lerdue &   \\\hline 
 stop & Stop systemet &   \\\hline 
 open & Start åben sløjfe test &  \\\hline  
 reset & Gå til udgangsposition &   \\\hline 
-C xxx.yyy.zzz & Gå til  kartesisk koord. (x,y,z) & x,y,z = Koordinaterne i meter \\\hline 
+C fxx.fyy.fzz & Gå til  kartesisk koord. (x,y,z) & x,y,z = Koordinaterne i meter, \\         
+            & &  f = fortegn ($+$ ell. $-$)\\\hline 
 A aaaa.bbbb & Gå til sfærisk koord.  & a = Tilt, b = Pan, begge i ticks. \\\hline  
 Pmfxx & Sæt dutycycle for motor m & m = Motor ("A" ell. "B"), \\ 
 & & f = fortegn ($+$ ell. $-$),  \\
@@ -333,7 +332,7 @@ Altså overholder implementeringen kravet på afvikling indenfor 83,3 \micro s, 
 %\end{table}
 
 
-Samme fremgangsmåde blev brugt til at tjekke timingen for controltask'en, som indeholder reguleringssløjfen. Scopet blev indstillet til $ 500K Samples/Sek $.
+Samme fremgangsmåde blev brugt til at tjekke timingen for controltask'en, som indeholder reguleringssløjfen. Scopet blev indstillet til \(500.000\) Samples/s.
 Kravet til afviklingen var: Reguleringsløjfen kører med 600 [Hz], samt at tasken afvikles inden næste periode. 
 Dvs. en maks afviklingstid på 1/600 [s], da kravet på 600 [Hz] ellers ikke kunne opfyldes. 
 Intervallet mellem hver afvikling af blev målt for 60 afviklinger, og resultaterne er vist i tabel \ref{tb:ctrltasktimingtest}.
@@ -341,18 +340,19 @@ Intervallet mellem hver afvikling af blev målt for 60 afviklinger, og resultate
 \centering
 \begin{tabu}{l|[1.25pt]r|r|r|r}
  & Max:  & Min: & Median: & Gennemsnit:  \\ \tabucline[1.25pt]{-}
-Målt interval: & 1,672 [ms] & 1,662 [ms] & 1,667 [ms] & 1,667 [coms] \\ 
+Målt interval: & 1,672 [ms] & 1,662 [ms] & 1,667 [ms] & 1,667 [ms] \\ 
 \hline 
 Afvigelse: & 5,33 [\micro s] & 4,66 [\micro s] & 0,66 [\micro s] & 0,13 [\micro s] \\
 \end{tabu} 
 \caption{Interval mellem hver afvikling af ctrl-task.}
 \label{tb:ctrltasktimingtest}
 \end{table}
+\todo[inline,author=Nikolaj, color=green]{Din afvigelse siger at du mangler et decimal...}
 
 Afvigelserne for medianen og gennemsnittet ligger indenfor måleusikkerheden på $\pm 4  [\micro s] $. For max. og min. værdierne er afvigelsen på max 133 \% af måleusikkerheden, og det vurderes at disse kan negligeres. 
 
 Samme datasæt blev brugt til at beregne afviklingstiden for tasken, koordinattransformationen og selve reguleringssløjfen. 
-Disse data er vist i tabel \ref{tb:ctrl task runtime test}. Bemærk usikkerheden på $4  [\micro s]$.
+Disse data er vist i tabel \ref{tb:ctrl task runtime test}. %Bemærk usikkerheden på $4  [\micro s]$.
 
 %500KSa/s
 \begin{table}[h!]
@@ -371,10 +371,12 @@ Måleusikkerheden er $\pm$ 4 [\micro s].}
 
 %\todo[inline, author=Michael]{Jeg har en usikkerhed på $\pm$ 4 [\micro s] på tabellen ovenover, men ved ikke hvor den skal skrives? }
 
-På trods af at afviklingstiden varierer, afvikles tasken før sin deadline - med en margin på min. 1,2 [s]. \todo[inline,author=Anders]{Enhed korrekt?} 
+På trods af at afviklingstiden varierer, afvikles tasken før sin deadline - med en margin på min. 1,298 [ms] til næste task. 
+\todo[inline,author=Nikolaj, color=green]{Skal man ikke tænke mindste målte interval - måleusikkerheden - længste afviklingstid?}
 Variationen i afviklingstiden skyldes primært koordinattransformationen, der benytter \textbf{math.h} librariet. 
 
 \todo[inline, author=Michael]{Skal vi bruge plads på at teste interfacet også? }
+\todo[inline,author=Nikolaj, color=green]{text goes in, text comes out. You can't explain that}
 \subsection{Delkonklusion}
 Det blev valgt at benytte den udleverede LM3S6965 microcontroller. Denne understøtter SPI og UART som hardware moduler. 
 
