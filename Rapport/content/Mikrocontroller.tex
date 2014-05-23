@@ -381,17 +381,17 @@ Variationen i afviklingstiden skyldes primært koordinattransformationen, der be
 \todo[inline, author=Michael]{Skal vi bruge plads på at teste interfacet også? }
 \todo[inline,author=Nikolaj, color=green]{text goes in, text comes out. You can't explain that}
 \subsection{Delkonklusion}
-Det blev valgt at benytte den udleverede LM3S6965 microcontroller. Denne understøtter SPI og UART som hardware moduler. 
+Det blev valgt at benytte den udleverede LM3S6965 microcontroller.
+Denne understøtter SPI og UART som hardware moduler. 
 
-Til scheduleringen blev valgt operativsystemet freeRTOS, da det blev vurderet at preemptive priority var tilstrækkeligt til at møde vores realtidskrav. 
+Til scheduleringen blev valgt operativsystemet FreeRTOS,
+da det blev vurderet at preemptive priority var tilstrækkeligt til at møde vores realtidskrav. 
 
 Programmet blev delt op i 5 tasks; \textit{UART send}, \textit{UART receive}, \textit{Interface}, \textit{Logger} og \textit{Control}. 
 Al realtidsfunktionalitet er implementeret i \textit{Control}-tasken. 
 
-Det var påkrævet at \textit{Control}-tasken kunne afvikles med en frekvens på $600 [Hz]$. 
-Taskens afviklingstid blev målt til max. $360 [\micro s]$, hvilket er væsentlig lavere end den max. tilladte tid på $\frac{1}{600}  [s]$. 
-SPI-kommunikationen kunne afvikles på 40,54 [ \micro s], hvilket opfyldt kravet på max. 5\% af \textit{Control}-taskens periodetid. 
-
-
+Det var påkrævet at \textit{Control}-tasken kunne afvikles med en frekvens på $600 \mathrm{[Hz]}$. 
+Taskens afviklingstid blev målt til max. $360 \mathrm{[\micro s]}$, hvilket er væsentlig lavere end den max. tilladte tid på $\frac{1}{600}$ [s]. 
+SPI-kommunikationen kunne afvikles på 40,54 [\micro s], hvilket opfyldt kravet på max. 5 \% af \textit{Control}-taskens periodetid. 
 
 %Reguleringssløjferne kan ramme inden for kravene i kravspecifikationen.
