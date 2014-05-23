@@ -52,26 +52,26 @@ SPI er indbygget som et hardwaremodul, med seperate FIFO-buffere til afsendelse 
 UART er også implementeret som et hardwaremodul. Modulet indeholder seperate FIFO-buffere til afsendelse og modtagelse af data, hver med plads til 16 datawords (på max. 8 bit). 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Valg af skedulering/operativsystem}
-Der er undersøgt fire forskellige muligheder for skedulering.
+\subsection{Valg af scheduling/operativsystem}
+Der er undersøgt fire forskellige muligheder for scheduling.
 CooCox CoOS\footnote{\citep{www.coocox.com/CoOS.htm}} og FreeRTOS\footnote{\citep{freertos.org}}
 er komplette realtids-operativsystemer. 
 Run-To-Complete-Scheduler (RTCS) er en simpel scheduler introduceret i semesterets programmeringskursus.
 Ved Super loop metoden afvikles al koden i main-loopet vha. ticks.
-De fire skeduleringer er beskrevet i tabel \ref{tb:os_comparison}.
+De fire schedulings er beskrevet i tabel \ref{tb:os_comparison}.
 %\begin{itemize}
 %\itemsep-1pt
 %	\item Opfylder kravene til realtidsafvikling af regulatorerne. 
 %	\item Muligheden for at (gen)bruge elementer fra EMP-kurset.
 %\end{itemize}
 
-Til valget er der lagt vægt på om skeduleringen opfylder kravet til realtidsafvikling af regulatorerne, samt muligheden for at genanvende elementer fra programmeringskurset (EMP-kurset).
+Til valget er der lagt vægt på om scheduleringen opfylder kravet til realtidsafvikling af regulatorerne, samt muligheden for at genanvende elementer fra programmeringskurset (EMP-kurset).
 \begin{figure}[th!]
 \centering
 
 \begin{tabu}{l|[1.25pt]l|l|l|l}
  & CoOS & FreeRTOS & RTCS & Super loop \\ \tabucline[1.25pt]{-}
-Skedulering & Preemptive priority  & Preemptive priority  & Non- & Non-  \\ 
+scheduling & Preemptive priority  & Preemptive priority  & Non- & Non-  \\ 
 	           & /round robin		& /round robin              &preemptive &preemptive	\\\hline 
 Køer & Ja & Ja & Nej & Nej \\ \hline 
 Semaforer & Tællende og Binære  & Tællende og Binære & Binære  & Nej  \\\hline 
@@ -101,7 +101,7 @@ i EMP &   &   &   &   \\
 \label{tb:os_comparison}
 \end{figure}
 Med kravet om hård realtid og for at lette programmeringsarbejdet valgtes det at
-benytte FreeRTOS, fordi det tilbyder tvungen skedulering (preemptive priority), hvor det er muligt
+benytte FreeRTOS, fordi det tilbyder tvungen scheduling (preemptive priority), hvor det er muligt
 at prioritere regulerings-task'en højere end resten af programmet. Desuden lettes programmeringsarbejdet
 fordi gruppen er bekendt med operativsystemet fra programmeringskurset.
 
