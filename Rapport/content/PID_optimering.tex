@@ -5,7 +5,8 @@
 Justeringen af PI-koefficienterne ift. den matematiske model sker ved "trial \& error" metoden. 
 I praksis udføres det ved brug af Matlabs grafiske "trial \& error" redskab \emph{pidtool()} og ved at kigge 
 på en 1-radian steprespons. 
-De bedste koefficienterne findes i første omgang til at være som i tabel \ref{tb:PID_test14}.
+De bedste koefficienterne findes i første omgang til at være som i tabel \ref{tb:PID_test14}. 
+\todo[inline, author=Michael]{Hvad får vi ud af at kigge på 1 radian step? Det fremgår ikke særlig klart. Måske kunne vi starte med Ziegler Nicholls istedet.}
 \begin{figure}[h!]
 \centering
 \begin{tabu}{l|[1.25pt]c|c|c}
@@ -37,7 +38,7 @@ Ved at ændre på koefficienterne og analysere fejlgraferne justeres performance
 hen mod det ønskede.
 
 Det ses at trackingfejlkravet kan opfyldes med en PI regulator på tilt.
-På pan er der derimod behov for hurtig reaktion, hvilket medfører et overshoot. 
+På pan er der behov for en hurtigere reaktion, hvilket medfører et større overshoot. 
 For at mindske overshootet vurderes det, at der på pan er behov for en PID 
 regulator.
 
