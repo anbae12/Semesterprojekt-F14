@@ -1,15 +1,13 @@
-
-
 \tikzstyle{block} = [ rounded corners,draw, fill=blue!20, rectangle,minimum height=1cm, minimum width=5cm]
 
 \begin{tikzpicture}[auto, node distance=1.5cm,>=latex']
       \node [block] (block1) 							 {Find reguleringskrav};
-      \node [block, align=center] (block2)[yshift = -0.5 cm,below of= block1] {Identificér variablene \\ der skal reguleres};
-      \node [block] (block3)[yshift = -0.5 cm,below of= block2] {Opstil specifikationerne};
-      \node [block] (block4)[yshift = -0.5 cm,below of= block3] {Find system konfigurationer};  
-      \node [block] (block5)[yshift = -0.5 cm,below of= block4] {Opstil model af systemet};       
-      \node [block] (block6)[yshift = -0.5 cm,below of= block5] {Beskriv regulator};  
-      \node [block, align=center] (block7)[yshift = -0.5 cm,below of= block6] {Optimér regulatoren \\ og analysér ydeevnen};    
+      \node [block, align=center] (block2)[yshift = -0.25 cm,below of= block1] {Identificér variablene \\ der skal reguleres};
+      \node [block] (block3)[yshift = -0.25 cm,below of= block2] {Opstil specifikationerne};
+      \node [block] (block4)[yshift = -0.25 cm,below of= block3] {Find systemkonfigurationer};  
+      \node [block] (block5)[yshift = -0.25 cm,below of= block4] {Opstil model af systemet};       
+      \node [block] (block6)[yshift = -0.25 cm,below of= block5] {Beskriv regulator};  
+      \node [block, align=center] (block7)[yshift = -0.25 cm,below of= block6] {Optimér regulatoren \\ og analysér ydeevnen};    
       
       \node [] (point1)[xshift = - 4 cm, below of= block7] {};    
       \node [] (point2)[xshift = +1.499 cm, below of= block7] {};  
