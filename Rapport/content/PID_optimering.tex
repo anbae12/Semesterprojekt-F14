@@ -1,6 +1,6 @@
 \section{PID regulator koefficienter}
-Ved brug af PID tool og simulink i matlab fundet frem til koefficienterne i \ref{fig:PID_test14_plot}.
-Disse koefficienter er testet og plottet i figur \ref{PID_test14_plot}.
+Ved brug af PID tool og simulink i matlab fundet frem til koefficienterne i tabel \ref{tb:PID_test14}.
+Disse koefficienter er testet og plottet i figur \ref{fig:PID_test14_plot}.
 Dette opfylder ikke de krav som der er sat i krav specifikationen.
 Ziegler-Nichols metoden viste sig at være for aggressiv og resulterede i en binær regulator.
 
@@ -16,7 +16,7 @@ Pan   & 37,1740 &  33,3610 & 0,215658
 \end{tabu}
 \captionsetup{type=table}
 \caption[Regulator koefficienter brugt i test]{Regulator koefficienter brugt til test af system.}
-\label{PID_test14} 
+\label{tb:PID_test14} 
 \end{figure}
 
 
@@ -29,12 +29,8 @@ Pan   & 37,1740 &  33,3610 & 0,215658
 
 \begin{figure}[h!]
 \centering
-\subfloat[Lerduens højde som funktion af afstanden til D.\label{fig:PID_test14_plot_pan}]{%
-	\includegraphics[width=0.5\textwidth]{./graphics/error_pan.eps}
-}
-\subfloat[Lerduens bane projekteret på xy-planet.\label{fig:PID_test14_plot_tilt}]{%
-	\includegraphics[width=0.5\textwidth]{./graphics/error_tilt.eps}
-}
+% Der mangler en figure, hvor systemets fejl, pan og tilt er vist i samme figur. Det skal laves ud fra de tal som der er kommet frem til i PID optimeringen.
+%\includegraphics[width=0.5\textwidth]{./graphics/error_pan.eps}
 \caption[PID controller koefficienter]{Fejl målt i grader for PID controller med koefficienterne beskrevet i tabel \ref{PID_test14}.} 
 \label{fig:PID_test14_plot}
 \end{figure}
