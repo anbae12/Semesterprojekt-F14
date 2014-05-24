@@ -57,8 +57,25 @@ overholdes.
 \todo[inline,color=Pink,author=Mikkel]{Måske for kvalitativt. Måske må man ikke bare lave sin egen ligning, men jeg har ikke nogne kilde.}
 
 \subsubsection{Tilføjelse af et D-filter}
-\todo[inline,color=Pink,author=Mikkel]{Michael skriver her ;)}
+Det vurderes at kravene for Pan rammen ikke kunne opnåes vha. en standard PID regulator. 
+Det vælges derfor at tilføje et filter til D-leddet. 
+Det betyder at D-leddet nu vægter tidligere ændringer i error signalet. 
+Filtret reducerer peaks i det differrencierede errorsignal, der skyldes ZoH i upsamplingen (se afsnit \ref{subsec:upsampling}).
 
+Der implementeres et 4. ordens FIR filter. Filtret er designet i fdatool med brug af at Kaiser vindue. Filtrets step og frekvensrespons kan ses på fig. \ref{fig:d_filter_step} hhv. \ref{fig:d_filter_bode}. 
+
+\begin{figure}[h!]
+\centering
+\subfloat[Steprespins for det implementerede filter.\label{fig:d_filter_step}]{%
+	\includegraphics[width=0.7\textwidth]{./graphics/d-filter-step}
+}
+\subfloat[Frekvensrespons for det implementerede filter.\label{fig:d_filter_bode}]{%
+	\includegraphics[width=0.7\textwidth]{./graphics/d-filter-bode}
+	
+}
+%\caption[Lerduens parabel i 2D]{Viser parablen af lerduens bane i 2D.}
+\label{fig:d_filter}
+\end{figure}
 
 
 %Som det fremgår af figur \ref{fig:PID_test14_plot}, er den samlet tracking fejl XXXXXXXXXXXXXX i 
