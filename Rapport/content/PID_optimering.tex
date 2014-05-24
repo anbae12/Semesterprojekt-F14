@@ -32,7 +32,7 @@ Det ses tydeligt, at den samlede trackingfejl er langt større end kravet om en
 maksimal trackingfejl på 1.02 \degree.
 Det vurderes derfor, at yderligere manuel justering af regulatoren er nødvendig.
 
-\subsection{Manuel justering ift. fysisk PTS}
+\section{Manuel justering ift. fysisk PTS}
 
 Ved at ændre på koefficienterne og analysere fejlgraferne justeres performance 
 hen mod det ønskede.
@@ -44,7 +44,7 @@ regulator.
 
 \todo[inline,color=Pink,author=Mikkel]{Ovenstående er meget kvalitativt -  men alternativet er at vi skal have en del grafer, som let kommer til at fylde mange sider.}
 
-\subsubsection{Valg af integratormætning}
+\subsection{Valg af integratormætning}
 Det vælges at sætte integratormætningen til 100 for begge regulatorer betyder, da det vurderes, at der drages
 fuld nytte af integratorleddet, da ligning \ref{eq:integratorsaturation} 
 overholdes.
@@ -56,12 +56,14 @@ overholdes.
 
 \todo[inline,color=Pink,author=Mikkel]{Måske for kvalitativt. Måske må man ikke bare lave sin egen ligning, men jeg har ikke nogne kilde.}
 
+
 \subsubsection{Tilføjelse af et D-filter}
 Det vurderes at kravene for Pan rammen ikke kunne opnåes vha. en standard PID regulator. 
 Det vælges derfor at tilføje et filter til D-leddet. 
 Det betyder at D-leddet nu vægter tidligere ændringer i error signalet. 
 Filtret reducerer peaks i det differrencierede errorsignal, der skyldes ZoH i upsamplingen (se afsnit \ref{subsec:upsampling}).
 
+\subsection{Tilføjelse af et D-filter}
 Der implementeres et 4. ordens FIR filter. Filtret er designet i fdatool med brug af at Kaiser vindue. Filtrets step og frekvensrespons kan ses på fig. \ref{fig:d_filter_step} hhv. \ref{fig:d_filter_bode}. 
 
 \begin{figure}[h!]
@@ -90,7 +92,7 @@ Der implementeres et 4. ordens FIR filter. Filtret er designet i fdatool med bru
 
 
 
-\subsubsection{Endelig performance}
+\section{Endelig performance}
 %For ilteration XXXXXXXXX med controller koefficienterne angivet i tabel \ref{tb:PID_final}, er det 
 %lykkedes at opfylde kravet om den samlede tracking fejl som stilles for PTS. 
 %Figur \ref{fig:PID_final} viser tracking fejlen for hhv. pan og tilt samt den samlede tracking fejl. 
@@ -121,7 +123,7 @@ Pan   & 80 & 160 & 3.55
 
 \todo[inline,color=Pink,author=Mikkel]{På begge fejlgrafen bør der stå trackingfejl i stedet for samlet fejl.}
 
-\subsection{Delkonlusion}
+\section{Delkonlusion}
 Ved trial \& error blev regulatorkoefficienterne justeret til at give den ønskede 
 steprespons. Disse koefficienter giver dårlige performance ved PTS. 
 Efter yderligere manuel justering med PI regulator og integratormætning på pan og tilt lykkedes 
