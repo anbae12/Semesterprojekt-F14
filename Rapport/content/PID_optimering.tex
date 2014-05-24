@@ -63,20 +63,23 @@ Det vælges derfor at tilføje et filter til D-leddet.
 Det betyder at D-leddet nu vægter tidligere ændringer i error signalet. 
 Filtret reducerer peaks i det differrencierede errorsignal, der skyldes ZoH i upsamplingen (se afsnit \ref{subsec:upsampling}).
 
-Der implementeres et 4. ordens FIR filter. Filtret er designet i fdatool med brug af at Kaiser vindue. Filtrets step og frekvensrespons kan ses på fig. \ref{fig:d_filter_step} hhv. \ref{fig:d_filter_bode}. 
+Der implementeres et 4. ordens FIR filter. Filtret er designet i fdatool med brug af at Kaiser vindue. Filtrets step og frekvensrespons kan ses på figur \ref{fig:d_filter_step} hhv. \ref{fig:d_filter_bode}. 
 
 \begin{figure}[h!]
 \centering
 \subfloat[Steprespons for det implementerede filter.\label{fig:d_filter_step}]{%
-	\includegraphics[width=0.5\textwidth]{./graphics/d-filter-step-small}
+	\hspace*{-0.6cm}\includegraphics[width=0.57\textwidth]{./graphics/d-filter-step-small}
 }
 \subfloat[Frekvensrespons for det implementerede filter.\label{fig:d_filter_bode}]{%
-	\includegraphics[width=0.5\textwidth]{./graphics/d-filter-bode-small}
+	\hspace*{-1.15cm}\includegraphics[width=0.57\textwidth]{./graphics/d-filter-bode-small}
 	
 }
 \caption[D-filterets respons]{Dette er ikke en figur tekst. }
 \label{fig:d_filter}
 \end{figure}
+
+
+%[.5\linewidth]{\includegraphics{{./graphics/d-filter-bode-small}}}
 
 
 %Som det fremgår af figur \ref{fig:PID_test14_plot}, er den samlet tracking fejl XXXXXXXXXXXXXX i 
@@ -99,14 +102,14 @@ Der implementeres et 4. ordens FIR filter. Filtret er designet i fdatool med bru
 Efter adskillige test og finjustering af regulatoren, vurderes det at 
 koefficienterne i tabel \ref{tb:PID_final} giver den bedst mulige performance 
 for PTS. Denne performance ses i \ref{fig:PID_final}. Det ses at trackingfejlen 
-holder sig inden for de 1.02$\degree$  pånær ved et par enkelte samples.
+holder sig inden for de 1,02$\degree$  pånær ved et par enkelte samples.
 
 \begin{figure}[h!]
 \centering
 \begin{tabu}{l|[1.25pt]c|c|c}
       & \(K_P\) & \(K_I\) & \(K_D\)\\\tabucline[1.25pt]{-}
-Tilt  & 49 & 32.5 & 0\\\hline
-Pan   & 80 & 160 & 3.55
+Tilt  & 49 & 32,5 & 0\\\hline
+Pan   & 80 & 160 & 3,55
 \end{tabu}
 \captionsetup{type=table}
 \caption[Endelige regulatorkoefficienter]{De endelige regulatorkoefficienter.}
@@ -119,8 +122,6 @@ Pan   & 80 & 160 & 3.55
 \caption[Endelig regulator koefficienter]{Tracking fejl målt i grader for hhv. pan og tilt samt den samlet tracking fejl. Testen tager udgangspunkt i koefficienterne fra  tabel \ref{tb:PID_final} og det ses at den samlet tracking fejl opfylder kravet til PTS.} 
 \label{fig:PID_final}
 \end{figure}
-
-\todo[inline,color=Pink,author=Mikkel]{På begge fejlgrafen bør der stå trackingfejl i stedet for samlet fejl.}
 
 \section{Delkonlusion}
 Ved trial \& error blev regulatorkoefficienterne justeret til at give den ønskede 
