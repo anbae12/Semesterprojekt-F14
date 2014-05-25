@@ -30,8 +30,6 @@ system.
 Test results are presented,
 verifying the mathematical model of the dynamics of the Pan & Tilt System
 and the real-time performance of the microcontroller.
-%Furthermore, the tracking performance of the Control System to an input signal
-%of the English Skeet competition is measured.
 Furthermore, the performance of the system tracking a clay target in a English Skeet competition is measured.
 
 The usefulness of the implemented digital controllers to the performance requirements
