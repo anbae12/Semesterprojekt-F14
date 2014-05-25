@@ -126,8 +126,8 @@ holder sig inden for de 1,02$\degree$  pånær ved et par enkelte samples.
 \centering
 \begin{tabu}{l|[1.25pt]c|c|c}
       & \(K_P\) & \(K_I\) & \(K_D\)\\\tabucline[1.25pt]{-}
-Tilt  & 49 & 32,5 & 0\\\hline
-Pan   & 80 & 160 & 3,55
+Tilt  & 240 & 85 & -\\\hline
+Pan   & 100 & 110 & 3,8
 \end{tabu}
 \captionsetup{type=table}
 \caption[Endelige regulatorkoefficienter]{De endelige regulatorkoefficienter.}
@@ -136,10 +136,30 @@ Pan   & 80 & 160 & 3,55
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=1\textwidth]{./graphics/error_slut.eps}
-\caption[Endelig regulator koefficienter]{Tracking fejl målt i grader for hhv. pan og tilt samt den samlet tracking fejl. Testen tager udgangspunkt i koefficienterne fra  tabel \ref{tb:PID_final} og det ses at den samlet tracking fejl opfylder kravet til PTS.} 
+\includegraphics[width=1\textwidth]{./graphics/pidPhys2.eps}
+\caption[Endelig performance]{Endelig performance. Fejlsignaler for Pan (krydser) og Tilt (prikker) øverst, Tracking fejl nederst.
+Testen er foretaget med koefficienterne fra tabel \ref{tb:PID_final}.} 
 \label{fig:PID_final}
 \end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\begin{tabu}{l|[1.25pt]c|c|c}
+%      & \(K_P\) & \(K_I\) & \(K_D\)\\\tabucline[1.25pt]{-}
+%Tilt  & 49 & 32,5 & 0\\\hline
+%Pan   & 80 & 160 & 3,55
+%\end{tabu}
+%\captionsetup{type=table}
+%\caption[Endelige regulatorkoefficienter]{De endelige regulatorkoefficienter.}
+%\label{tb:PID_final} 
+%\end{figure}
+%
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[width=1\textwidth]{./graphics/error_slut.eps}
+%\caption[Endelig regulator koefficienter]{Tracking fejl målt i grader for hhv. pan og tilt samt den samlet tracking fejl. Testen tager udgangspunkt i koefficienterne fra  tabel \ref{tb:PID_final} og det ses at den samlet tracking fejl opfylder kravet til PTS.} 
+%\label{fig:PID_final}
+%\end{figure}
 
 Det viste sig under justeringen at systemet er meget følsomt overfor slid i drivremmene mellem motorerne og Pan- og Tilt-rammerne.
 Systemet kræver derfor kalibrering for at kunne fungere i praksis.
