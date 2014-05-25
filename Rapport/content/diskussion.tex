@@ -4,26 +4,30 @@ Den matematiske model for PTS fundet på baggrund af
 målinger af motorparametre og beregning af inertimomenter
 er til en vis grad blevet verificeret vha. en test af åbensløjferesponsen.
 Den største mangel ved den matematiske model er, at den ikke indeholder en dødzone
-af PWM-duty cycles, der ikke kan accelerere systemet. Det vurderes derfor,
+af PWM-duty cycles, der ikke kan accelerere systemet. Det vurderes
 at simuleringen af systemet er nøjagtig, når der tages højde for dødzonen.
 
 Reguleringssystemet er blevet simuleret i MATLAB Simulink, og på baggrund af denne simulering
-er to sæt af regulatorparametre \(K_p\) og \(K_i\) til to PI-regulatorer blevet fundet. Disse parametre vurderes til at skulle justeres
+er to sæt af regulatorparametre \(K_p\) og \(K_i\) til to PI-regulatorer blevet fundet.
+Disse parametre vurderes til at skulle justeres
 i forhold til eksperimentelle målinger på det fysiske system, da simuleringen kun er en tilnærmelse.
 
 Regulatorernes parametre er med Trial-and-Error metoden blevet justeret,
 med udgangspunkt i simuleringsresultaterne.
-Justeringen viste, at det i praksis er nødvendigt at anvende to PID-regulatorer,
-og at de vha. simuleringen fundne regulatorparametre \(K_p\) og \(K_i\) skal forøges.
-Desuden blev det under justeringen fundet, at det kan forbedre regulatorernes ydeevne
-at justere dødzone-værdierne for Pan- og Tilt-systemerne.
+Justeringen viste, at det i praksis er nødvendigt at anvende en PID-regulator til Pan-systemet,
+og at de vha. simuleringen fundne regulatorparametre \(K_p\) og \(K_i\) for Tilt fungerer godt i praksis.
+%Desuden blev det under justeringen fundet, at det kan forbedre regulatorernes ydeevne
+%at justere dødzone-værdierne for Pan- og Tilt-systemerne.
 
-De to regulatorer opfylder kravene, men tillader ikke megen parametervariation,
-som fx slid i drivremmene,
+De to regulatorer overholder ikke altid kravspecifikationen.
+I nogle forsøg opfylde systemet dog kravene om en Tracking fejl på under 1,02 \degree{}
+efter 0,557 [s].
+Systemet tillader ikke megen parametervariation
+som slid i drivremmene,
 og det vurderes derfor, at mere avancerede regulatorer ville være mere velegnet til trackingen
 af parablen.
 
-Reguleringssløjfernes real-time krav er blevet opfyldt af implementeringen på mikrocontrolleren,
+Reguleringssløjfernes realtidskrav er blevet opfyldt af implementeringen på mikrocontrolleren,
 og det vurderes derfor at den anvendte software-struktur og valget af skedulering
 er passende til trackingen af lerdueparablen.
 FPGA'en genererer PWM-signalerne og leverer positionsfeedback med høj hastighed,
