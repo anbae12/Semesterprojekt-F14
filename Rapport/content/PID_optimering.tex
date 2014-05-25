@@ -1,37 +1,59 @@
 \section{Justering ift. matematisk model af PTS}
-%Bestemmelsen tager udgangspunkt i en analytisk fremgangsmåde ved brug af \emph{pidtool()}
-% og Simulink simuleringen\footnote{Findes på CDROM.} af PTS. "Start" koefficienterne, angivet i 
+Som beskrevet i afsnit \ref{ss:ValgReg} er det valgt at implementere to PI-regulatorer.
+Der tages udgangspunkt i den matematiske model af systemet, bestående af overføringsfunktionerne
+\(G_{tilt,zoh}\) og \(G_{pan,zoh}\), som er diskretiseringer af de kontinuerte overføringsfunktioner.
+Der skal findes to sæt koefficienter, \(K_P\) og \(K_I\), et sæt til hver regulator.
+For at medtage den væsentligste ulinearitet, dødzonen, i regulatordesignet,
+er det valgt at simulere systemet i Simulink.
+I Simulink er den diskretiserede overføringsfunktion indsat sammen med en model for dødzonen,
+målt eksperimentelt, samt PI-regulatoren.
+Da modellen indeholder ulineariteter er det valgt at starte med et simpelt gain \(K_P\) på 1,
+og med Trial-and-Error metoden prøve sig frem til koefficienterne.
+Begge regulatorer gives et parabelinput, og deres performance vurderes
+efter deres evne til at følge parablen. Dvs. det er forsøgt at minimere Tracking fejlen.
 
-Justeringen af PI-koefficienterne ift. den matematiske model sker ved "trial \& error" metoden. 
-I praksis udføres det ved brug af Matlabs grafiske "trial \& error" redskab \emph{pidtool()} og ved at kigge 
-på en 1-radian steprespons. 
-De bedste koefficienterne findes i første omgang til at være som i tabel \ref{tb:PID_test14}. 
-\todo[inline,color=Pink,author=Mikkel]{Grafen bør stoppe ved SB og mangler ø.}
+Med ovenstående metode blev koefficienterne i tabel \ref{tb:pidSimulink} fundet tilfredsstillende.
+Koefficienterne i tabel \ref{tb:pidSimulink} benævnes startkoefficienterne, da regulatorjusteringen
+ift. det fysiske system starter med disse værdier.
+Tracking fejlen er afbildet i figur \ref{fig:pidSim1}, og som det ses af grafen, når den maks. 0,5 \degree{} i simuleringen.
 
 \begin{figure}[h!]
 \centering
 \begin{tabu}{l|[1.25pt]c|c|c}
       & \(K_P\) & \(K_I\) & \(K_D\)\\\tabucline[1.25pt]{-}
-Tilt  & 38,5 & 20 & -\\\hline%0,248960\\\hline
-Pan   & 27 &  6,83 & -
+Tilt  & 240 & 85 & -\\\hline%0,248960\\\hline
+Pan   & 240 &  100 & -
 \end{tabu}
 \captionsetup{type=table}
-\caption[Regulator koefficienter]{Koefficienter fundet ud fra den matematiske model.}
-\label{tb:PID_test14} 
+\caption[Regulatorkoefficienter]{Koefficienter fundet vha. simulering.}
+\label{tb:pidSimulink} 
 \end{figure}
 
-Denne PI-regulator afprøves på PTS med henblik på at se den reelle performance 
-af systemet. Fejlen fra den ønskede position plottes i figur \ref{fig:PID_test14_plot}.
 \begin{figure}[h!]
 \centering
-\includegraphics[width=1\textwidth]{./graphics/error_start.eps}
-\caption[Regulator koefficienter brugt i test]{Tracking fejl målt i grader for hhv. pan og tilt samt den samlet tracking fejl. Testen tager udgangspunkt i koefficienterne fra  tabel \ref{tb:PID_test14}.} 
-\label{fig:PID_test14_plot}
+\includegraphics[width=1\textwidth]{./graphics/pidSim1.eps}
+\caption[Tracking fejl ved simulering]{Tracking fejl ved simulering af PTS med regulatorkoefficienterne fra tabel \ref{tb:pidSimulink}.} 
+\label{fig:pidSim1}
 \end{figure}
 
-Det ses tydeligt, at den samlede trackingfejl er langt større end kravet om en 
-maksimal trackingfejl på 1.02 \degree.
-Det vurderes derfor, at yderligere manuel justering af regulatoren er nødvendig.
+De to regulatorer er med startkoefficienterne blevet afprøvet i praksis.
+Figurer \ref{fig:pidPhys1} viser Pan-fejlsignalet (rød) og Tilt-fejlsignalet (blå)
+i forhold til den kontinuerte lerdueparabel fra applikationen.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=1\textwidth]{./graphics/pidPhys1.eps}
+\caption[Fejlsignaler m. startkoefficienter]{Fejlsignaler m. startkoefficienterne fra tabel \ref{tb:pidSimulink}.\\
+	De sorte lodrette streger angiver \(t_s=0,557 \text{ [s]}\).
+	De røde målepunkter er for Pan, og de blå målepunkter er for Tilt.} 
+\label{fig:pidPhys1}
+\end{figure}
+
+Som det ses på figur \ref{fig:pidPhys1} giver regulatoren til Tilt et fejlsignal,
+der maks. afviger 0,9 \degree{} fra 0.
+Pan-fejlen afviger derimod op til 1,8 \degree{} pga. et for højt overshoot.
+Tracking fejlen er altså langt større end kravet på maksimalt 1,02 \degree.
+En manuel justering af koefficienterne på især Pan-regulatoren er derfor nødvendig.
 
 \section{Manuel justering ift. fysisk PTS}
 
@@ -131,5 +153,5 @@ Efter yderligere manuel justering med PI regulator og integratormætning på pan
 det ikke at få den ønskede performance på pan. 
 Derfor laves en PID regulator med D-filter til pan. Med denne PID regulator til pan og 
 PI regulatoren til tilt opnås den ønskede performance. 
-Trackingfejlen holdes under kravet på 1.02 \degree pånær ved et par enkelte 
+Trackingfejlen holdes under kravet på 1.02 \degree{} pånær ved et par enkelte 
 samples.
