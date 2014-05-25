@@ -5,7 +5,6 @@ target. The system is designed for tracking the parabolic movement of
 a clay target in an English Skeet competition.
 
 A mathematical model of the physical dynamics of the Pan & Tilt is
-%developed and used as basis for the controller design.
 derived and used as basis for the controller design.
 
 Two digital PID-controllers are designed: one for the Pan system and one for the Tilt system.
