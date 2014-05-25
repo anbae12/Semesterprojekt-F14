@@ -6,11 +6,26 @@ Der skal findes to sæt koefficienter, \(K_P\) og \(K_I\), et sæt til hver regu
 For at medtage den væsentligste ulinearitet, dødzonen, i regulatordesignet,
 er det valgt at simulere systemet i Simulink.
 I Simulink er den diskretiserede overføringsfunktion indsat sammen med en model for dødzonen,
-målt eksperimentelt, samt PI-regulatoren.
+målt eksperimentelt, samt PI-regulatoren. Det simulerede systems blokdiagram er illustreret i figur \ref{fig:simulink1}.
 Da modellen indeholder ulineariteter er det valgt at starte med et simpelt gain \(K_P\) på 1,
 og med Trial-and-Error metoden prøve sig frem til koefficienterne.
 Begge regulatorer gives et parabelinput, og deres performance vurderes
 efter deres evne til at følge parablen. Dvs. det er forsøgt at minimere Tracking fejlen.
+
+
+\begin{figure}[!th]
+\centering
+\begin{tikzpicture}[auto, node distance=2.6cm,>=latex']
+%\begin{tikzpicture}[scale=0.9, every node/.style={scale=0.9}, node distance=2.6cm, =>latex']
+\include*{./graphics/simulink1}
+\end{tikzpicture}
+\caption[Simuleret system]
+		{Simuleret system. Tilbagekoblingsblokken angiver, at outputsignalet kvantiseres med et interval på \(q\mathrm{:} \frac{1}{1080}\),
+		for at simulere motorens encoder feedback.
+		\(D\left(z\right)\) er PI-regulatoren.}
+\label{fig:simulink1}
+\end{figure}
+
 
 Med ovenstående metode blev koefficienterne i tabel \ref{tb:pidSimulink} fundet tilfredsstillende.
 Koefficienterne i tabel \ref{tb:pidSimulink} benævnes startkoefficienterne, da regulatorjusteringen
