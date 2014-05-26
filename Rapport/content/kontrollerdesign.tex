@@ -273,7 +273,7 @@ Hvis kun en PI-regulator er nødvendigt, kan man altså blot nulstille D-leddet.
 \subsubsection{Dødzone}
 Da motorerne ikke kan rotere ved lave spændinger indeholder systemet dødzoner.
 Det er valgt at implementere "bias", der tager højde for dødzonerne.
-Bias er implementeret symmetrisk med en nedre duty cycle grænse på 0.97\% for pan og tilt.
+Bias er implementeret symmetrisk med en nedre duty cycle grænse på 0,98\% for pan og tilt.
 Deres respektive øvre grænser er hhv. 11,72\% og 14,65\%.
 Disse værdier er fundet eksperimentelt.
 Hvis regulatoren returnerer en duty cycle mellem den nedre og øvre grænse, sættes duty cycle til dens øvre grænse.

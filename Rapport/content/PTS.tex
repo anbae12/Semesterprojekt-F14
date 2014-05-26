@@ -24,7 +24,7 @@ pan-motorens overføringsfunktion.
 Der er altså tale om et Multi-Input Multi-Output (MIMO) system med en kobling mellem pan og tilt.
 Det vælges at simplificere systemet til to Single-Input Single-Output (SISO) systemer. %, som gruppen er bekendt med.
 Retfærdiggørelsen heraf ligger i at præcessionens størrelse afhænger af vinkelaccelerationen, som er stærkt begrænset
-for dette fysiske system, samt at tilt-rammens inertimoment er tilnærmelsesvis konstant, som yderligere beskrevet i afsnit \ref{sec:inertimoment}.
+for dette fysiske system, samt at tilt-rammens inertimoment er tilnærmelsesvis konstant, som beskrevet nedenfor.
 Afkoblingen af de to systemer, og opdelingen i hhv. pan og tilt gør, at der kan udvikles en separat regulator
 til hvert system, og at der skal findes en overføringsfunktion for hvert system.
 De følgende beregninger tager altså udgangspunkt i det simplificerede afkoblede system.
@@ -211,7 +211,7 @@ Figur \ref{fig:openloopV1} viser den målte samt teoretiske vinkelhastighed,
 som forudsagt af overføringsfunktionen \(s\cdot{}G_{tilt}\).
 Det ses på figur \ref{fig:openloopV1}, at den største afvigelse er en tidsforsinkelse.
 Dette skyldes, at lave spændinger ikke kan bevæge systemet.
-Dødzonen af PWM-duty cycles, der ikke kan accelerere tilt-systemet er målt til at befinde sig inden for 14,56\% og for pan-systemet til 11,72\%.
+Dødzonen af PWM-duty cycles, der ikke kan accelerere tilt-systemet er målt til at befinde sig inden for 14,65\% og for pan-systemet til 11,72\%.
 Udover forsinkelsen fra dødzonen kan man på figur \ref{fig:openloopV1} aflæse
 at den målte vinkelacceleration (hældningen af grafen) er marginalt mindre end den teoretiske.
 
