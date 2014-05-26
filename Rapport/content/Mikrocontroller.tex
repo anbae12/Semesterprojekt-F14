@@ -16,7 +16,7 @@ Mikrocontrolleren har følgende opgaver:
 	\item Sende relevant data til brugeren via UART.
 \end{itemize}
 
-Regulatorerne skal afvikles i hård realtid\footnote{Dvs. at task'en skal afvikles, inden dens deadline - inden for en samplingperiode. \citep{operating_systems_concepts_ed8}},
+Regulatorerne skal afvikles i hård realtid\footnote{Dvs. at task'en skal afvikles, inden dens deadline - inden for en samplingperiode \citep{operating_systems_concepts_ed8}.},
 da det ellers er vanskelligt at modellere de digitale regulatorer matematisk.
 
 SPI\footnote{Serial Peripheral Interface, også kaldet SSI.} bruges til at overføre PTS's position fra FPGA til mikrocontroller.
@@ -52,13 +52,13 @@ SPI er indbygget som et hardwaremodul, med seperate FIFO-buffere til afsendelse 
 UART er også implementeret som et hardwaremodul. Modulet indeholder seperate FIFO-buffere til afsendelse og modtagelse af data, hver med plads til 16 datawords (på max. 8 bit). 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Valg af scheduling/operativsystem}
-Der er undersøgt fire forskellige muligheder for scheduling.
+\subsection{Valg af schedulering/operativsystem}
+Der er undersøgt fire forskellige muligheder for schedulering.
 CooCox CoOS\footnote{\citep{www.coocox.com/CoOS.htm}} og FreeRTOS\footnote{\citep{freertos.org}}
 er komplette realtids-operativsystemer. 
 Run-To-Complete-Scheduler (RTCS) er en simpel scheduler med frivillig (non-preemtive) skedulering.
 Ved Super loop metoden afvikles al koden i main-loopet vha. ticks.
-De fire schedulings er beskrevet i tabel \ref{tb:os_comparison}.
+De fire schedulerings er beskrevet i tabel \ref{tb:os_comparison}.
 %\begin{itemize}
 %\itemsep-1pt
 %	\item Opfylder kravene til realtidsafvikling af regulatorerne. 
@@ -71,7 +71,7 @@ Til valget er der lagt vægt på om scheduleringen opfylder kravet til realtidsa
 
 \begin{tabu}{l|[1.25pt]l|l|l|l}
  & CoOS & FreeRTOS & RTCS & Super loop \\ \tabucline[1.25pt]{-}
-Scheduling & Preemptive priority  & Preemptive priority  & Non- & Non-  \\ 
+Schedulering & Preemptive priority  & Preemptive priority  & Non- & Non-  \\ 
 	           & /round robin		& /round robin              &preemptive &preemptive	\\\hline 
 Køer & Ja & Ja & Nej & Nej \\ \hline 
 Semaforer & Tællende og Binære  & Tællende og Binære & Binære  & Nej  \\\hline 
@@ -102,11 +102,11 @@ i EMP &   &   &   &   \\
 \end{figure}
 
 Med kravet om hård realtid og for at lette programmeringsarbejdet valgtes det at
-benytte FreeRTOS, fordi det tilbyder tvungen scheduling (preemptive priority), hvor det er muligt
+benytte FreeRTOS, fordi det tilbyder tvungen schedulering (preemptive priority), hvor det er muligt
 at prioritere regulerings-task'en højere end resten af programmet.
 
 %
-\subsection{Implementering}
+\subsection{Implementering på mikrocontroller}
 %disp: 
 % task diagram
 % beskrivelse af tasks
@@ -134,11 +134,11 @@ Taskdiagrammet er vist på figur \ref{fig:task_diagram}.
 \itemsep-3pt
 	\item[UART send og -receive] Fordi UART hw.-bufferen kun indeholder 16 pladser \citep[Side. 430]{lm3s6965}
 	sørger en Send og en Recieve task for at sende data videre til og fra resten af programmet.
-	De to ekstra semaforer, som Interface tilgår er til at reservere de to buffers så indtastede og
+	De to ekstra semaforer som Interface tilgår er til at reservere de to buffers så indtastede og
 	printede tekststrenge ikke kan afbrydes (kun én task kan skrive til eller læse fra UART ad gangen).
 	\item[Control] Afvikler regulatorerne. Se mere indgående beskrivelse i sektion \ref{sec:control_task}.
 	Denne task afvikles i realtid, med en frekvens på 600 [Hz]. 
-	Denne task sørger for at SPI Kommunikationen med FPGA'en bliver afviklet på de rigtige tidspunkter.
+	Denne task sørger for at SPI-kommunikationen med FPGA'en bliver afviklet på de rigtige tidspunkter.
 	\item[Logger] Denne task opdaterer logfilen med data fra "status"-køen.
 	\item[Interface] Tolker på brugerinputs og sender relevante kommandoer til Control task'en.
 \end{description}
@@ -149,9 +149,9 @@ Control task'en henter en koordinat, transformerer koordinaten,
 udregner en PWM duty cycle for hver regulator og opdaterer loggen.
 Hver gang control task'en bliver kørt bliver der hentet to positioner
 ind via SPI mens de to nye PWM duty cycles sendes.
-Control tasken ved hvilke ting der er relevant at gemme i loggen,
+Control task'en ved hvilke ting der er relevant at gemme i loggen,
 så ved start af tracking bliver positioner og PWM duty cycles gemt i loggen.
-I kodeudsnittet \ref{ctrl_task} ses task'en som den bliver kørt hvis den er i tracking stadiet.
+I kodeudsnit \ref{ctrl_task} ses task'en som den bliver kørt hvis den er i tracking stadiet.
 %\todo[inline,author=Mikael]{Fix henvisning til kodeudsnit, som for resten ikke bør hedde Listing.}
 \lstinputlisting[language=c, 
         firstnumber=120,
@@ -169,7 +169,8 @@ I kodeudsnittet \ref{ctrl_task} ses task'en som den bliver kørt hvis den er i t
         firstnumber=180,
         firstline=180, 
         lastline=186,
-        caption={ af ctrl\_task.c.\label{ctrl_task}}
+        caption={ af ctrl\_task.c.},
+	label={ctrl_task}
         ]{codeexample/ctrl_task.c}
 
 \subsubsection{Interface task}
@@ -354,7 +355,7 @@ Afvigelse: & 5,33 [\micro s] & 4,66 [\micro s] & 0,66 [\micro s] & 0,13 [\micro 
 %\todo[inline,author=Nikolaj, color=green]{Din afvigelse siger at du mangler et decimal...}
 
 Afvigelserne for medianen og gennemsnittet ligger indenfor måleusikkerheden på $\pm$ 4  [\micro s].
-For max. og min. værdierne er afvigelsen på max. 133\% af måleusikkerheden,
+For max. og min. værdierne er afvigelsen på max. 133 \% af måleusikkerheden,
 og det vurderes at disse kan negligeres. 
 
 Samme datasæt blev brugt til at beregne afviklingstiden for tasken, koordinattransformationen og selve reguleringssløjfen. 
@@ -366,9 +367,9 @@ Disse data er vist i tabel \ref{tb:ctrl task runtime test}. %Bemærk usikkerhede
 \begin{tabu}{l|[1.25pt]r|r|r|r}
 Afviklingstid & Max:  &  Min: & Median: & Gennemsnit:  \\ \tabucline[1.25pt]{-}
 Ctrl task: & 360 [\micro s] & 326 [\micro s] & 332 [\micro s] & 338 [\micro s] \\ \hline 
-Koordinat transformation: & 228 [\micro s] & 202 [\micro s] & 206 [\micro s] & 212 [\micro s] \\
+Koordinattransformation: & 228 [\micro s] & 202 [\micro s] & 206 [\micro s] & 212 [\micro s] \\
 \hline 
-PID regulator: & 40 [\micro s] & 30 [\micro s] & 32 [\micro s] & 34 [\micro s]\\
+PID-regulering: & 40 [\micro s] & 30 [\micro s] & 32 [\micro s] & 34 [\micro s]\\
 \end{tabu} 
 \caption{Afviklingstiden for Control task, Koordinattransformation og PID-regulatoren.\\
 Måleusikkerheden er $\pm$ 4 [\micro s].}
@@ -377,7 +378,8 @@ Måleusikkerheden er $\pm$ 4 [\micro s].}
 
 Dataene viser at \textit{Control} tasken blev afviklet før sin deadline - med en margin på min. 1,294 [ms].
 %\todo[inline,author=Nikolaj, color=green]{Skal man ikke tænke mindste målte interval - måleusikkerheden - længste afviklingstid? - Indregn worst case}
-Variationen i afviklingstiden skyldes koordinattransformationen og PID-regulatoren. Den maksimale variation af afviklingstiden udgør $ \frac{360 - 326}{1667} = 2,04\% $ af periodetiden, hvilket kan toleres. 
+Variationen i afviklingstiden skyldes koordinattransformationen og PID-reguleringen.
+Den maksimale variation af afviklingstiden udgør $ \frac{360 - 326}{1667} = 2,04 \% $ af periodetiden, hvilket kan toleres. 
 \todo[inline, author=Michael]{GRRR, kan ikke få ovenstående afsnit til at give mening..}
 
 
@@ -388,13 +390,13 @@ Det blev valgt at benytte den udleverede LM3S6965 microcontroller.
 Denne understøtter SPI og UART som hardware moduler. 
 
 Til scheduleringen blev valgt operativsystemet FreeRTOS,
-da det blev vurderet at preemptive priority var tilstrækkeligt til at møde vores realtidskrav. 
+da det blev vurderet at preemptive priority var tilstrækkeligt til at møde realtidskravene. 
 
 Programmet blev delt op i 5 tasks; \textit{UART send}, \textit{UART receive}, \textit{Interface}, \textit{Logger} og \textit{Control}. 
 Al realtidsfunktionalitet blev implementeret i \textit{Control}-tasken. 
 
 Det var påkrævet at \textit{Control}-tasken kunne afvikles med en frekvens på $600 \mathrm{[Hz]}$. 
-Taskens afviklingstid blev målt til max. $360 \mathrm{[\micro s]}$, hvilket var væsentlig lavere end den max. tilladte tid på $\frac{1}{600}$ [s]. 
-SPI-kommunikationen kunne afvikles på 40,54 [\micro s], hvilket opfyldt kravet på max. 5 \% af \textit{Control}-taskens periodetid. 
+Task'ens afviklingstid blev målt til max. 360 $\mathrm{[\micro s]}$, hvilket var væsentlig lavere end den max. tilladte tid på $\frac{1}{600}$ [s]. 
+SPI-kommunikationen kunne afvikles på 40,54 [\micro s], hvilket opfyldt kravet på max. 5 \% af \textit{Control}-task'ens periodetid. 
 
 %Reguleringssløjferne kan ramme inden for kravene i kravspecifikationen.

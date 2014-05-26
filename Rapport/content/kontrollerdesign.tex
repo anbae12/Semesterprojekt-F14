@@ -54,11 +54,11 @@ reguleringssløjfen skal køre:
 skal diskretiseringen af controlleren være så tæt på den kontinuerte regulator som muligt.
 Det vil sige, samplingfrekvensen skal vælges så høj som mulig.
 2) Hvis man derimod designer en diskret regulator til det diskrete domæne,
-så er diskretiseringen allerede foretaget inden designet af regulatoren.
+så er diskretiseringen foretaget allerede inden designet af regulatoren.
 Dvs. man finder en diskretiseret model af det fysiske system inden designet af regulatoren.
 Kravet til diskretiseringen af åbensløjfeoverføringsfunktionerne er, at den diskrete repræsentation
 skal være tilfredsstillende tæt på de kontinuerte overføringsfunktioner.
-Hvis den diskrete overføringsfunktion eksempelvis afviger 20 \% fra den kontinuerte, ville man
+Hvis den diskrete overføringsfunktion eksempelvis afviger 80 \% fra den kontinuerte, ville man
 sandsynligvis overveje at benytte en højere samplingfrekvens til diskretiseringen.
 Sammenligningen af den diskrete overførselsfunktion og den kontinuerte overføringsfunktion
 kan være både i tidsdomænet (fx steprespons) og i frekvensdomænet (frekvensrespons, fx. Bode-plots).
@@ -151,7 +151,7 @@ Hvis diskretiseringen kræver at reguleringssløjfen kører ved en frekvens \(f_
 der er højere end A/D-konverteringens 120 [Hz], skal det A/D-konverterede
 signal "upsamples" til \(f_s\).
 Upsamplingen har den simpleste implementering
-hvis \(f_s\) er et heltalsmultiplum af den første samplings frekvens (120 [Hz]) \citep[s. 562]{dsp}.
+hvis \(f_s\) er et heltalsmultiplum af den første samplingfrekvens (120 [Hz]) \citep[s. 562]{dsp}.
 Diskretiseringen af det fysiske systems åbensløjfeoverføringsfunktioner skal altså samples ved et heltalsmultiplum \(f_s\) af 120 [Hz].
 
 På figur \ref{fig:diskretTiltStep} er stepresponsen for lukketsløjfesystemet (med forstærkning 1)
@@ -251,13 +251,13 @@ Bemærk at figur \ref{fig:diskretBode} er en sammenligning af \textit{åben}slø
 frekvensrespons.
 
 Som det ses på grafen, følger det diskretiserede systems respons meget nøje det kontinuerte systems respons.
-Fejlen på størrelsen på responsen er meget lille i hele spektret,
+Fejlen på størrelsen af responsen er meget lille i hele spektret,
 mens fejlen på fasen er lille ved lave frekvenser og stiger ved høje frekvenser.
 
 \subsection{Upsampling}
 \label{subsec:upsampling}
 Da reguleringssløjfen, som beskrevet i afsnit \ref{subsec:choosefs}, køres med en frekvens på 600 [Hz],
-som er 5 gange højere end input-samplingfrekvensen, skal der altså foretages en upsampling.
+som er 5 gange højere end input-samplingfrekvensen, skal der foretages en upsampling.
 %Upsamplingen foretages med Zero Order Hold, hvorved ét sample ved 120 Hz indsættes 
 %som 5 samples ved 600 Hz.
 Upsamplingen indsætter mellem hvert input-sample 4 samples med værdien 0, så hvert input-sample
@@ -277,7 +277,7 @@ vil en åbensløjferegulering være et dårligt valg: den vil være følsom over
 matematiske model. Desuden er der fra projektoplægget krav om en lukketsløjferegulering.
 Den simpleste regulering ville være en konstant forstærkning af fejlsignalet.
 En integrering af fejlsignalet ville gøre, at fejlsignalet ville blive tvunget mod 0,
-og dette er ønsket ift. kravet om en tracking fejl på under 1,02\degree.
+og dette er ønsket ift. kravet om en tracking fejl på under 1,02 \degree{}.
 De største krav stilles til systemets responstid og ikke så meget til udsvinget af responsen,
 og som udgangspunkt vælges derfor en PI-regulator.
 Hvis det er nødvendigt at nedjustere udsvinget kan det være nødvendigt at anvende en PID-regulator,
@@ -287,23 +287,23 @@ Hvis kun en PI-regulator er nødvendigt, kan man altså blot nulstille D-leddet.
 \subsubsection{Dødzone}
 For at regulatoren hurtigst muligt kan levere den nødvendige PWM-duty cycle til minimering af fejlsignalet,
 vælges det desuden at implementere et "bias", der tager højde for dødzonen.
-Bias er implementeret med en nedre duty cycle grænse på 0.97\% for pan og tilt.
-Deres respektive øvre grænser er hhv. 11,72\% og 14,65\%.
-Disse værdier er fundet eksperimentelt ved Trial-and-Error metoden under PID-justeringen.
+Bias er implementeret symmetrisk med en nedre duty cycle grænse på 0.97 \% for pan og tilt.
+Deres respektive øvre grænser er hhv. 11,72 \% og 14,65 \%. \todo[inline,author=Mikael]{Opdatér bias ift. rigtige værdier}
+Disse værdier er fundet eksperimentelt ved Trial-\&-Error-metoden under PID-justeringen i del \ref{part:regulatorjustering}.
 Hvis regulatoren returnerer en duty cycle mellem den nedre og øvre grænse, sættes duty cycle til dens øvre grænse.
 Dette medfører at motoreren kan justere sig ind, selvom fejlen er marginal.
 Den nedre grænse er bestemt således positionen er indenfor ét encoder tick.
 
 \subsubsection{Integratormætning}
 Mætningen på PWM-duty cyclen gør, at systemet ikke er lineær i dette område. Med integratormætning 
-tages højde for denne ulinearitet. Uden integratormætning kan det numeriske integrale blive enormt når 
-PWM-mætningen nås. Dette vil fører til stort overshoot og derved dårlig 
+tages delvist højde for denne ulinearitet. Uden integratormætning kan det numeriske integrale blive enormt når 
+PWM-mætningen nås. Dette vil føre til stort overshoot og derved dårlig 
 performance. 
-Værdien for integratormætningen skal vælges med omhu, da valg af en for lille 
+Værdien for integratormætningen skal vælges med omhu, da en for lille 
 mætning vil mindske effekten af integratorleddet i PID, 
 hvilket i værste tilfælde vil sætte integratorleddet ud af funktion.
-Et for højt valg vil føre til at tilføjelse af integratormætningen ikke vil ændre 
-performance, som ønsket.
+En for høj værdi vil føre til at tilføjelse af integratormætningen ikke vil ændre 
+performance som ønsket.
 
 %Et passende valg af integratormætning vurderes til at være når ligning \ref{eq:integratorsaturation} 
 %overholdes.
@@ -313,4 +313,3 @@ performance, som ønsket.
 %\label{eq:integratorsaturation}
 %\end{equation}
 %\todo[inline,author=Mikkel,color=Pink]{Jeg mangler kilde for ovenstående, men kan ikke finde noget. Det er bare mit bedste bud.}
-

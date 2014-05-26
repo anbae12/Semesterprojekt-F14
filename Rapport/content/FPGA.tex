@@ -25,8 +25,8 @@ Dette sikrer at koden er let at udbygge og genbruge.
 
 \textbf{PWM}\\
 Der skal fra FPGA'en genereres PWM-signaler til styring af motorerne på PTS.
-Det ønskes at have en PWM-frekvens, der ikke ligger i det hørbare område, hvilket ca. går op til 20 [kHz]\citep{Hearingrange}. 
-Det ønskes at have en opløsning på PWM, der er mindst ligeså høj, som 
+Det ønskes at have en PWM-frekvens, der ikke ligger i det hørbare område, hvilket ca. går op til 20 [kHz] \citep{Hearingrange}. 
+Det ønskes at have en opløsning på PWM, der er mindst ligeså høj som 
 opløsningen på PTS's positionsencodere, for ikke at forringe opløsningen på reguleringen. 
 Det er derfor valgt at repræsentere PWM duty cycle med 11 bit. 
 Ved 11 bits opløsning på PWM og brug af BASYS boardets interne clock på 50 [MHz] bliver PWM-frekvensen,
@@ -40,15 +40,15 @@ ligning \ref{eq:pwmfreq}, over det hørbare frekvensområde.
 \textbf{Kalibrering af motorposition}\\
 PTS skal kunne tændes i en tilfældig position og derefter kalibreres.
 Kalibreringen af motorpositionen kan laves ved at sørge for at PTS drejer forbi 
-de to hall sensorer, der er placeret på systemet. Dette vil give et signal, da 
+de to Hall sensorer, der er placeret på systemet. Dette vil give et signal, da 
 der på PTS er placeret en magnet på hver af rammerne.
 %Det blev besluttet at placere ansvaret for at dreje rammerne hen til hall 
 %sensorerne hos mikrocontrolleren. Det blev besluttet, da det giver mulighed for 
 %en simplere protokol mellem FPGA og mikrokontroller. Det sikrer samtidigt at mikrocontrolleren 
 %altid har kontrol over hvordan PTS bevæger sig.
 Funktionaliteten der skal være på FPGA'en er at opfange outputtet fra 
-hall sensorerne og nulstille den tilhørende position.
-Dog viste det sig, at hall sensorernes output ikke kun er højt på ét encodertick, 
+Hall sensorerne og nulstille den tilhørende position.
+Dog viste det sig, at Hall sensorernes output ikke kun er højt på ét encodertick, 
 men derimod adskillige. Det er nødvendigt at FPGA'en tager højde for 
 dette.
 
@@ -63,6 +63,7 @@ Herunder følger en forklaring på hvordan de tre krav til FPGA'en er opnået. F
 yderligere forklaring af komponenterne henvises til appendix 
 \ref{sec:fpgaappendix}.
 
+\todo[inline,author=Mikael]{Hall sensor1 \& Hall sensor2 på figur \ref{fig:FPGA_blok}.}
 \begin{figure}[!th]
 \centering
 \begin{tikzpicture}[node distance = 5 cm,scale=1]
@@ -93,7 +94,7 @@ Dette sker i komponenten tick counter der afhængigt af inputtet fra encoderne t
 ned.
 Der tælles ned fra 0 til 1079 og op fra 1079 til 0.
 Reset-signal modtages fra komponenten tick reset, første gang pan og/eller tilts magnet bevæger 
-sig over hallsensorerne.
+sig over Hall sensorerne.
 
 \subsection{Delkonklusion}
 FPGA'en fungerer som simpel slave i SPI-overførselen med mikrocontrolleren.

@@ -4,22 +4,22 @@ Dette appendix forklarer alle komponenter på FPGA'en.
 Et forsimlet diagram over komponenterne på FPGA'en ses på figur \ref{fig:FPGA_blok}.
 
 
-\textbf{Tic counter}\\
+\textbf{Tick counter}\\
 \textbf{Input:}
-Signaler fra encoder på PTS. Reset signal fra tic reset.
+Signaler fra encoder på PTS. Reset signal fra tick reset.
 
-\textbf{Output:} Positionen på hver af motorerne angivet i antal tics mellem 0 
+\textbf{Output:} Positionen på hver af motorerne angivet i antal ticks mellem 0 
 og 1079. Retningen, som motorerne roterer i. 
 
 Da encoderne på PTS er quadrature encodere er det muligt at bestemme både retning og 
 tælle rotationer på motoren.
 Tæller positionen op eller ned afhængigt af inputtet fra encoderne. 
 Tæller ned fra 0 til 1079.
-For at kalibrere positionen er det nødvendigt for tic counter komponenten at få 
-et reset signal fra tic reset komponenten. 
+For at kalibrere positionen er det nødvendigt for tick counter komponenten at få 
+et reset signal fra tick reset komponenten. 
 Når dette reset signal modtages nulstilles positionen og er herved kalibreret.
 
-\textbf{Tic reset}\\
+\textbf{Tick reset}\\
 \textbf{Input:} Signaler fra hall sensorer på PTS. Rotationsretning.\\
 \textbf{Output:} Reset signal.
 
@@ -42,12 +42,12 @@ Hermed fås det smallest mulige område, hvor reset signalet er højt.
 Præcisionen på denne kalibrering er $\pm$ 1 tick.
 
 \textbf{Display}\\
-\textbf{Input:} Motorposition fra tic counter. Skaleret clock signal fra clock 
+\textbf{Input:} Motorposition fra tick counter. Skaleret clock signal fra clock 
 scaler.
 
 \textbf{Output:} Signal der styrer displayet.
 
-Modtager motorpositionen fra tic counter komponenten og viser det på de fire 8-digit-displays 
+Modtager motorpositionen fra tick counter komponenten og viser det på de fire 8-digit-displays 
 på BASYS boardet. Bruger det skalerede clock signal til at multiplexe mellem de 
 fire displays.
 
@@ -73,7 +73,7 @@ Sørger for at levere PWM til PTS ud fra PWM kanal og dutycycle.
 
 %\subsection*{Output decoder}
 \textbf{Output decoder}\\
-\textbf{Input:} Motorposition fra tic counter.\\
+\textbf{Input:} Motorposition fra tick counter.\\
 \textbf{Output:} 16 bit data.
 
 Sørger for skiftevis at sætte motorposition for de to motorer som LSB.

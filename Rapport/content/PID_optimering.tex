@@ -1,5 +1,5 @@
 \section{Justering ift. matematisk model af PTS}
-\label{ss:regulatorMat}
+\label{sec:regulatorMat}
 Som beskrevet i afsnit \ref{ss:ValgReg} er det valgt at implementere to PI-regulatorer.
 Der tages udgangspunkt i den matematiske model af systemet, bestående af overføringsfunktionerne
 \(G_{tilt,zoh}\) og \(G_{pan,zoh}\), som er diskretiseringer af de kontinuerte overføringsfunktioner.
@@ -9,7 +9,7 @@ er det valgt at simulere systemet i Simulink.
 I Simulink er den diskretiserede overføringsfunktion indsat sammen med en model for dødzonen,
 målt eksperimentelt, samt PI-regulatoren. Det simulerede systems blokdiagram er illustreret i figur \ref{fig:simulink1}.
 Da modellen indeholder ulineariteter er det valgt at starte med et simpelt gain \(K_P\) på 1,
-og med Trial-and-Error metoden prøve sig frem til koefficienterne.
+og med Trial-\&-Error metoden prøve sig frem til koefficienterne.
 Begge regulatorer gives et parabelinput, og deres performance vurderes
 efter deres evne til at følge parablen. Dvs. det er forsøgt at minimere Tracking fejlen.
 
@@ -60,7 +60,7 @@ i forhold til den kontinuerte lerdueparabel fra applikationen.
 \centering
 \includegraphics[width=1\textwidth]{./graphics/pidPhys1.eps}
 \caption[Fejlsignaler m. startkoefficienter]{Fejlsignaler m. startkoefficienterne fra tabel \ref{tb:pidSimulink}.
-	De sorte lodrette streger angiver \(t_s=0,557 \text{ [s]}\).\\
+	Den sorte lodrette streg angiver \(t_s=0,557 \text{ [s]}\).\\
 	Pan-fejlsignalet er markeret med prikker, og Tilt-fejlsignalet er markeret med krydser.} 
 \label{fig:pidPhys1}
 \end{figure}
@@ -75,16 +75,16 @@ En manuel justering af koefficienterne på især Pan-regulatoren er derfor nødv
 Ved at ændre på koefficienterne og analysere fejlgraferne justeres performance 
 hen mod det ønskede.
 
-Det vurderes på baggrund af det lave fejlsignal ved Tilt at den i afsnit \ref{ss:regulatorMat} fundne
+Det vurderes på baggrund af det lave fejlsignal ved Tilt at den i afsnit \ref{sec:regulatorMat} fundne
 PI-regulator for Tilt er anvendelig i praksis.
 
 På Pan er der behov for en hurtigere og mere dæmpet reaktion,
 og det vurderes derfor, at der på Pan er brug for en PID-regulator.
 
 \subsection{Valg af integratormætning}
-Det vælges at sætte integratormætningen til 100 for begge regulatorer, da det vurderes, at der drages
+Det vælges at sætte integratormætningen \(Integrator_{Max}\) til 100 for begge regulatorer, da det vurderes, at der drages
 fuld nytte af integratorleddet når ligning \ref{eq:integratorsaturation} 
-overholdes.
+overholdes\footnote{\(PWM_{Max}\) er 2047.}.
 
 \begin{equation}
 	K_I \cdot Integrator_{Max} > PWM_{Max}
@@ -98,9 +98,9 @@ Undervejs i den manuelle justering af PID-regulatoren til Pan blev det fundet, a
 og at kravene ikke kunne overholdes med PID-regulatoren som den var.
 Det valgtes derfor at tilføje et filter til D-leddet. 
 Det betyder at D-leddet nu vægter tidligere ændringer i fejlsignalet. 
-Filtret reducerer peaks i det differrentierede fejlsignal, der skyldes Zero Order Hold i upsamplingen (se afsnit \ref{subsec:upsampling}).
+Filtret reducerer peaks i det differrentierede fejlsignal, der skyldes Zero Order Hold-kredsløbet i upsamplingen (se afsnit \ref{subsec:upsampling}).
 
-Der implementeres et 4. ordens FIR filter. Filtret er designet i MATLAB's grafiske fdatool og gør brug af at Kaiser vindue.
+Der implementeres et 4. ordens FIR-filter. Filtret er designet i MATLAB's grafiske fdatool og gør brug af at Kaiser vindue.
 Filtrets step- og frekvensrespons kan ses på figur \ref{fig:d_filter_step} hhv. \ref{fig:d_filter_bode}. 
 
 \begin{figure}[h!]
@@ -119,8 +119,8 @@ Filtrets step- og frekvensrespons kan ses på figur \ref{fig:d_filter_step} hhv.
 \section{Endelig performance}
 Efter adskillige test og finjustering af regulatoren, vurderes det at 
 koefficienterne i tabel \ref{tb:PID_final} giver den bedst mulige performance 
-for PTS. Denne performance ses i \ref{fig:PID_final}. Det ses at trackingfejlen 
-holder sig inden for de 1,02$\degree$  pånær ved et par enkelte samples.
+for PTS med de valgte regulatortyper. Denne performance ses i \ref{fig:PID_final}.
+Det ses at trackingfejlen holder sig inden for de 1,02 \degree{} på nær ved et par enkelte samples.
 
 \begin{figure}[h!]
 \centering
@@ -168,9 +168,12 @@ Systemet kræver derfor kalibrering for at kunne fungere i praksis.
 \section{Delkonlusion}
 Ved Trial-\&-Error-metoden blev regulatorkoefficienterne i Simulink justeret til at give den ønskede 
 tracking performance ift. et parabelinput. Pan-koefficienterne giver dårlig performance i praksis.
+
 Ved manuel justering blev et sæt PID-regulatorkoefficienter fundet til Pan, som gav bedre performance.
+
 Det vurderedes nødvendigt at implementere et lavpasfilter til D-leddet.
 Med det implementerede filter gav de justerede regulatorkoefficienter en performance,
 der ikke ved alle forsøg levede op til kravspecifikationen. Ved nogle af forsøgene viste
 systemet sig at leve op til kravene om en Tracking fejl på under 1,02 \degree{} efter 0,557 [s].
+
 Systemet er følsomt overfor slid i drivremmene.

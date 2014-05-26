@@ -104,7 +104,7 @@ FPGA'ens positionsencoders læser motorakslens rotation inden reduktionsgearinge
 Da encoderopløsningen er 360 ticks pr. rotation \citep{emgmotor},
 vil gearingen i forholdet 1:3 gøre, at kvantiseringsintervallet af output-rotationen til rammerne,
 er \(\frac{1}{1080}\).
-Når der refereres til ticks, kan der altså konverteres til grader i det \(3 ticks = 1 \degree\).
+Når der refereres til ticks, kan der altså konverteres til grader i det 3 ticks \(= 1 \degree\).
 
 På FPGA'en genereres to PWM-signaler til den dobbelte H-bro ud fra to
 duty cycles som mikrocontrolleren leverer.
@@ -231,7 +231,7 @@ som forudsagt af overføringsfunktionen \(s\cdot{}G_{tilt}\).
 Det ses på figur \ref{fig:openloopV1}, at den største afvigelse er en tidsforsinkelse.
 Dette skyldes, at visse PWM-duty cycles ikke kan bevæge systemet.
 Dødzonen af PWM-duty cycles, der ikke kan accelerere tilt-systemet er målt til at befinde sig inden for
-ca. \(\pm\) 12 \%, og for pan-systemet til ca. \(\pm\) 10 \%.
+ca. \(\pm\) 12 \%, og for pan-systemet til ca. \(\pm\) 10 \%.\todo[inline,author=Mikael]{Opdatér dødzoner til de rigtige værdier!}
 Udover forsinkelsen fra dødzonen kan man på figur \ref{fig:openloopV1} aflæse
 at den målte vinkelacceleration (hældningen af grafen) er marginalt mindre end den teoretiske.
 Det antages, at denne opførsel hovedsageligt skyldes Coulomb-friktion.
@@ -246,7 +246,7 @@ og i simuleringer af systemet at indsætte de tilnærmede værdier for dødzonen
 \label{sec:koordinattransformation}
 De kartesiske koordinater \(P_c=\left[x, y, z\right]\) skal transformeres til sfæriske koordinater
 \(P_s=\left[\rho \text{ ; } \phi \text{ ; } \theta\right]\), hvor \(\phi\) og \(\theta\) bruges
-som vinkelbestemmelserne for hhv. tilt og pan og \(\rho\) er afstanden fra PTS til duen som funktion af tiden.
+som vinkelbestemmelserne for hhv. tilt og pan og \(\rho\) er afstanden fra PTS til lerduen.
 Til trackingen er kun \(\phi\) og \(\theta\) nødvendige.
 Positionbestemmelsen som funktion af tiden for det kartesiske koordinatsæt beskrives i appendix \ref{subsubsec:para}.
 Idet vinklerne skal bestemmes i forhold til PTS's rotationscenter og ikke koordinatsystemets origo,

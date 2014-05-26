@@ -1,8 +1,9 @@
 %\part{Regulator justering og PTS verifikation}
 \part{Regulatorjustering}
+\label{part:regulatorjustering}
 I denne del optimeres systemets performance ved at ændre på regulatorene for pan og tilt. 
 På mikrocontrolleren er regulatorerne implemeteret som diskrete PID-algoritmer,
-hvor D-leddet betragter forrige fejlsignal.
+hvor D-leddet betragter det forrige fejlsignal.
 Det vurderes om det er nødvendigt med yderligere tilføjelser til regulatorerne 
 for at opnå den ønskede performance, og det vælges at udvide PID-algoritmerne med et lavpasfilter til D-leddet.
 Herefter vurderes PTS's performance i forhold til kravspecifikationen.
