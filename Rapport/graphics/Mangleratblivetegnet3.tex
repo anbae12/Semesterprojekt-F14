@@ -1,6 +1,6 @@
 \draw
 (-2,0) to[sV, l^=\(10kHz\)]  ++(0,3)
-to[R, l^=\(R_1\)] ++(2,0)
+to[R, l^=\(R_{s1}\)] ++(2,0)
 to[R, l^=\(R_m\)] ++(2,0)
 to[L, l^=\(L_m\)] ++(2,0)
 to ++(0,-1.5) node[draw, rectangle, minimum height = 2cm, minimum width = 0.5cm, fill=black!10] (rotor_block) {}
@@ -16,7 +16,7 @@ node[below] at (rotor.225) {\(-\)}
 \draw (circ.270) ++(0.8,0) node {\( i \)};
 
 \draw
-(7,5) -- ++(-1,-1)
+(9,3) -- ++(-1,-1)
 to[L] ++(-1,1) 
 -- ++(1,1)
 ++(0,-1) node[text width=1cm, text centered] {fixed field}

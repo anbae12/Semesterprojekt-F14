@@ -1,6 +1,6 @@
 \node [input, name=input] {};
-\node [block, right of=input] (PWM) {\(PWM\left(s\right)\)};
-\node [block, right of=PWM,xshift=0cm] (Gm) {\(G_{m,t}\left(s\right)\)};
+\node [block, right of=input] (PWM) {\(\text{PWM}\left(s\right)\)};
+\node [block, right of=PWM,xshift=0cm] (Gm) {\(G_{m,tilt}\left(s\right)\)};
 \node [output, right of=Gm] (output){};
 
 \draw [draw,->] (input) -- node {\footnotesize $d.c.(t)$} (PWM);
@@ -19,8 +19,8 @@
 
 
 \node [input, name=input1, right of=output,xshift=-2.2cm]{};
-\node [block, right of=input1] (PWM1) {\(PWM\left(s\right)\)};
-\node [block, right of=PWM1,xshift=0cm] (Gm1) {\(G_{m,p}\left(s\right)\)};
+\node [block, right of=input1] (PWM1) {\(\text{PWM}\left(s\right)\)};
+\node [block, right of=PWM1,xshift=0cm] (Gm1) {\(G_{m,pan}\left(s\right)\)};
 \node [output, right of=Gm1] (output1){};
 
 \draw [draw,->] (input1) -- node {\footnotesize $d.c.(t)$} (PWM1);

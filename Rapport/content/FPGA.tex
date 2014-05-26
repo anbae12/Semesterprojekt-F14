@@ -9,14 +9,13 @@ Følgende opgaver til FPGA'en er fastsat af projektbeskrivelsen:
 	\item Generering af PWM-signaler til motorerne på PTS.
 	\item Optælling af motorernes rotationer vha. encoderne på PTS.
 \end{itemize}
-FPGA'en er i projeket et BASYS board\footnote{Datablad \citep{basys2}}, der programmeres ved brug af VHDL\footnote{VHSIC Hardware Description Language}.
+I projektet er der anvendt et BASYS2 board\footnote{Datablad \citep{basys2}}, der programmeres i VHDL\footnote{VHSIC Hardware Description Language}.
 
 \subsection{Valg i opbygning af FPGA funktionalitet}
 Eftersom de fleste krav til FPGA'en er givet af projektbeskrivelsen, er der ikke 
 lavet noget større analysearbejde af FPGA'ens funktionalitet. Undervejs i 
 udviklingen af funktionaliteten er der dog taget nogle valg, som beskrives nedenfor.
 
-\textbf{Generiske komponenter}\\
 For at lave et system med lav kobling er det forsøgt at lave 
 generiske komponenter til de funktionaliteter, der er af generel art. 
 Til varetagelse af den resterende funktionalitet er der skrevet applikationsspecifikke 
@@ -25,11 +24,11 @@ Dette sikrer at koden er let at udbygge og genbruge.
 
 \textbf{PWM}\\
 Der skal fra FPGA'en genereres PWM-signaler til styring af motorerne på PTS.
-Det ønskes at have en PWM-frekvens, der ikke ligger i det hørbare område, hvilket ca. går op til 20 [kHz]\citep{Hearingrange}. 
-Det ønskes at have en opløsning på PWM, der er mindst ligeså høj, som 
+Det ønskes at have en PWM-frekvens, der ikke ligger i det hørbare område, hvilket ca. går op til 20 [kHz] \citep{Hearingrange}. 
+Det ønskes at have en opløsning på PWM-duty cycle, der er mindst ligeså høj som 
 opløsningen på PTS's positionsencodere, for ikke at forringe opløsningen på reguleringen. 
-Det er derfor valgt at repræsentere PWM duty cycle med 11 bit. 
-Ved 11 bits opløsning på PWM og brug af BASYS boardets interne clock på 50 [MHz] bliver PWM-frekvensen,
+Det er derfor valgt at repræsentere PWM-duty cycle med 11 bit. 
+Ved 11 bits opløsning på PWM-duty cycle og brug af BASYS2 boardets interne clock på 50 [MHz] bliver PWM-frekvensen,
 ligning \ref{eq:pwmfreq}, over det hørbare frekvensområde.
 
 \begin{equation}
@@ -39,21 +38,16 @@ ligning \ref{eq:pwmfreq}, over det hørbare frekvensområde.
 
 \textbf{Kalibrering af motorposition}\\
 PTS skal kunne tændes i en tilfældig position og derefter kalibreres.
-Kalibreringen af motorpositionen kan laves ved at sørge for at PTS drejer forbi 
-de to hall sensorer, der er placeret på systemet. Dette vil give et signal, da 
-der på PTS er placeret en magnet på hver af rammerne.
-%Det blev besluttet at placere ansvaret for at dreje rammerne hen til hall 
-%sensorerne hos mikrocontrolleren. Det blev besluttet, da det giver mulighed for 
-%en simplere protokol mellem FPGA og mikrokontroller. Det sikrer samtidigt at mikrocontrolleren 
-%altid har kontrol over hvordan PTS bevæger sig.
+På PTS er placeret en magnet på hver af rammerne.
+Kalibreringen af motorpositionen kan laves ved at sørge for at magneterne drejer forbi 
+de to Hall sensorer, der er placeret på systemet. 
 Funktionaliteten der skal være på FPGA'en er at opfange outputtet fra 
-hall sensorerne og nulstille den tilhørende position.
-Dog viste det sig, at hall sensorernes output ikke kun er højt på ét encodertick, 
+Hall sensorerne og nulstille den tilhørende position.
+Dog viste det sig, at Hall sensorernes output ikke kun er højt på ét encodertick, 
 men derimod adskillige. Det er nødvendigt at FPGA'en tager højde for 
-dette.
+dette. Implementeringen er beskrevet i appendix \ref{sec:fpgaappendix}.
 
 \subsection{Implementering på FPGA}
-\todo[inline,author=Mikkel,color=pink]{Er overskriften god nok? (Mikael)}
 På figur \ref{fig:FPGA_blok} ses et simplificeret diagram over komponenterne på FPGA'en. 
 De grønne bokse angiver komponenter på FPGA'en, mens de grå cirkler angiver, hvad der ikke ligger på 
 FPGA'ens chip. Pilene imellem FPGA'ens komponenter angiver retningen af 
@@ -68,34 +62,32 @@ yderligere forklaring af komponenterne henvises til appendix
 \begin{tikzpicture}[node distance = 5 cm,scale=1]
 \include*{./graphics/FPGA_blok}
 \end{tikzpicture}
-\caption[Diagram over FPGA komponenter]{Simplificeret diagram over komponenterne på FPGA'en}
+\caption[Diagram over FPGA komponenter]{Simplificeret diagram over komponenterne på FPGA'en.}
 \label{fig:FPGA_blok}
 \end{figure}
-%\todo[author=Åse,inline]{Teksten over figuren kan uddybes, med at beskrive de vigtigeste komponenter. Mens kan teksten nedenunder komme i appendix.}
-%\subsection{SPI}
-%På FPGA'en er SPI'en to shift registre. SPI'en konvertere det serielle signal fra MOSI til at parallel signal. Det signal sendes videre til Input decoder, som deler det op i komposanter. Fra Output decoder får SPI signalet, den skal sende til mikrocontrolleren.
 
-\subsection[Kommunikation]{Kommunikation med mikrocontrolleren vha. SPI.}
+\subsection[Kommunikation]{Kommunikation med mikrocontrolleren vha. SPI}
 På FPGA'en er implementeret en SPI slave der modtager data fra 
 mikrocontrolleren. Data føres, i komponenten SPI, fra MISO ind i FPGA'en og fra FPGA'en ud på 
 MOSI. Til mikrocontrolleren sendes skiftevis motorposition fra pan og tilt.
 
-\subsection{Producering af PWM signal til motorerne på PTS}
-I PWM komponenten produceres PWM-signalerne på baggrund af duty cycle værdier modtaget via. SPI. 
-PWM bliver produceret ved at tælle en tæller op fra 0 til 2047 med 50 [MHz].
-PWM udgangen sættes høj indtil tælleren når dutycycle værdien og sættes lav 
-ellers. Hermed er der produceret et PWM med en frekvens på ca. 24 [kHz].
+\subsection{Generering af PWM-signal}
+I PWM komponenten genereres PWM-signalerne på baggrund af duty cycle-værdier modtaget via SPI. 
+PWM-signalet bliver genereret ved at tælle en tæller op fra 0 til 2047 med 50 [MHz].
+PWM udgangen sættes høj indtil tælleren når duty cycle-værdien og sættes lav 
+ellers. Hermed er der genereret et PWM-signal med en frekvens på 24,4 [kHz].
 
 \subsection{Optælling af motorernes rotationer vha. encoders på PTS}
 Da encoderne på motorerne er quadrature,
 er det muligt at bestemme både retning og tælle rotationer på motoren. 
 Dette sker i komponenten tick counter der afhængigt af inputtet fra encoderne tæller positionen op eller 
 ned.
-Der tælles ned fra 0 til 1079 og op fra 1079 til 0.
-Reset-signal modtages fra komponenten tick reset, første gang pan og/eller tilts magnet bevæger 
-sig over hallsensorerne.
+Når der tælles ned fra 0 bliver ticks sat til 1079 
+og når der tælles op fra 1079 bliver ticks sat til 0.
+Resetsignal modtages fra komponenten tick reset, første gang pan og/eller tilts magnet bevæger 
+sig over Hall sensorerne.
 
 \subsection{Delkonklusion}
 FPGA'en fungerer som simpel slave i SPI-overførselen med mikrocontrolleren.
 FPGA'en holder styr på pan og tilts motorpositon samt producerer PWM-signalerne 
-med en frekvens på ca. 24 [kHz] og en opløsning på 2048.
+med en frekvens på 24,4 [kHz] og en opløsning på 2048.

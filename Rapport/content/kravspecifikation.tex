@@ -1,12 +1,12 @@
 \section{Kravspecifikation}
 \label{sec:kravspecifikation}
-Kravene til systemet findes vha. reglerne for English Skeet \citep{ES_regler},
-samt det udleverede systems fysiske begrænsninger.
+Kravene til systemet findes vha. reglerne for ES \citep{ES_regler}.
 
-Lerduens bane beregnes vha. de i reglerne givne værdier for affyringspunkt (D), forventet nedslagspunkt (G)
-og "target crossing point" (TCS).
+% Lerduens bane beregnes vha. de i reglerne givne værdier for affyringspunkt (D), forventet nedslagspunkt (G) og "target crossing point" (TCS).
+
+I reglerne er givet et affyringspunkt (D), et forventet nedslagspunkt (G) og ``target crossing point'' (TCS).
 %Med antagelsen om negligerbar luftmodstand kan en kasteparabel således udregnes ved interpolation af disse tre punkter.
-Lerduens parabel findes ved interpolation af disse tre punkter. Det antages at luftmodstanden er neglibar.
+Lerduens parabelbevægelse findes ved interpolation af disse tre punkter. Det antages at luftmodstanden er neglibar.
 %Kasteparablen er givet ved ligning \ref{eq:ks:vektorparabel3d}, med origo som angivet på figur \ref{fig:ES}.
 %\begin{equation}
 %Pos\left( t \right) = 
@@ -25,7 +25,8 @@ Lerduens parabel findes ved interpolation af disse tre punkter. Det antages at l
 %Lerduens affyringshastighed og vinkel ift. xy planet kan lerduens flugt beregnes. 
 %
 Lerduens affyringshastighed og vinkel ift. xy planet blev beregnet vha. den fundne kasteparabel. 
-Lerduen affyres med en hastighed på 34,589 \([\frac{m}{s}]\) i en vinkel på \(9,103 \degree\) 
+% Lerduen affyres med en hastighed på 34,589 \([\frac{m}{s}]\) i en vinkel på \(9,103 \degree\) 
+Lerduen affyres med en hastighed på 34,6 \([\frac{m}{s}]\) i en vinkel på \(9,1 \degree\) 
 ift. xy-planet jf. figur \ref{fig:ES}\footnote{Beregningerne bag kasteparablen findes i appendix \ref{sec:udregning_af_parabel}.}. 
 
 Lerduens flugt er givet i ligning \ref{eq:ks:vektorparabel3d} med origo som angivet på figur \ref{fig:ES}. 
@@ -49,7 +50,7 @@ Punktet D er "high house".
 Punktet SB og punktet G er hhv. 40,3 [m] og 52 [m] fra "high house". \\
 \begin{figure}[h!]
 \centering
-\subfloat[Lerduens højde som funktion af afstanden til D.\label{fig:HH2D_para}]{%
+\subfloat[Lerduens højde som funktion af afstanden langs xy-planet.\label{fig:HH2D_para}]{%
 	\begin{tikzpicture}[scale=0.8]
 	\include*{./graphics/high_house_2D_parabola}
 	\end{tikzpicture}
@@ -59,12 +60,13 @@ Punktet SB og punktet G er hhv. 40,3 [m] og 52 [m] fra "high house". \\
 	\include*{./graphics/parabola_in_xy_plane}
 	\end{tikzpicture}
 }
-\caption[Lerduens parabel i 2D]{Viser parablen af lerduens bane i 2D.}
+\caption[Lerduens parabel i 2D]{Viser lerduens parabelbevægelse i 2D.}
 \label{fig:para_total}
 \end{figure}
 
 Tilt-rammen kan bevæge sig frit,
-men pan-rammen kan pga. en stopklods kun rotere \(154 \degree\)\footnote{Målt eksperimentielt.}.
+men pan-rammen kan pga. en stopklods ikke rotere frit.
+Bevægelsesområdet er målt til \(154 \degree\).
 
 Haglene fra et 12 gauge haglgevær med Skeet Choke spredes så de dækker et område
 %med en diameter på 1,32 [m] på en afstand til centrum af cirklen på 37 [m] 
@@ -79,25 +81,25 @@ Spredningsvinklen er, med en antagelse om lineær spredning, givet ved ligning \
   \label{eq:ks:spredning}
 \end{align}
 %Der er altså et krav om at geværet peger på lerduen med en præcision på \(\pm 1,02 \degree\).
-Når tracking fejlen defineres ud fra pan-vinklen \(\theta\) og tilt-vinklen \(\phi\) som i ligning \ref{eq:ks:trackingerror} rammes 
+Når trackingfejlen defineres ud fra pan-vinklen \(\theta\) og tilt-vinklen \(\phi\) som i ligning \ref{eq:ks:trackingerror} rammes 
 lerduen ved afskydning af haglgeværet når ligning \ref{eq:trackingerrorkrav} opfyldes.
 \begin{align}
   TE = \left | \begin{pmatrix}  \theta_{\text{target}}\\ \phi_{\text{target}}\end{pmatrix} - \begin{pmatrix} \theta_{current}\\ 
-  \phi_{current}\end{pmatrix} \right | &&\text{(Tracking fejl)}
+  \phi_{current}\end{pmatrix} \right | &&\text{(Trackingfejl)}
 \label{eq:ks:trackingerror}
 \\
 	TE\leq 1,02 \degree && \text{(Lerduen rammes)}
 \label{eq:trackingerrorkrav}
 \end{align}
 
-Settling Time defineres som tiden der går før tracking fejlen forbliver \(\leq 1.02 \degree\).
+Settling Time defineres som tiden der går før trackingfejlen forbliver \(\leq 1.02 \degree\).
 %som skrevet i ligning \ref{eq:ks:settlingtime}.
 %\begin{align}
 %{ { t }_{ s }\quad =\left t \right|  }_{ TE\leq 1,02 \degree }
 %\label{eq:ks:settlingtime}
 %\end{align}
 
-Der affyres mellem det tidspunkt lerduen når toppunktet og SB.
+Der skydes på lerduen mellem toppunktet og SB.
 I dette tidsrum skal PTS sigte præcist på lerduen under opfyldelse af ligning \ref{eq:trackingerrorkrav} og dette 
 stiller krav til Settling Time, \(t_s\), som skrevet i ligning \ref{eq:ks:settlingtime1}.
 %Tidspunktet, hvor lerduen når sit toppunkt er altså samtidigt tid er altså det højeste settling time må være, ligning \ref{eq:ks:settlingtime1}
@@ -106,11 +108,11 @@ stiller krav til Settling Time, \(t_s\), som skrevet i ligning \ref{eq:ks:settli
   t_{top} &= 0,557\text{ [s]} &\text{(Toppunktet af parablen)}
   \label{eq:ks:toppunktstid}
   \\
-   t_{SB} &= 1,18\text{ [s]} &\text{(SB)}
-  \label{eq:ks:toppunktstid}
-  \\
   t_{s} & \leq 0,557\text{ [s]} &\text{(Krav til Settling Time)}
   \label{eq:ks:settlingtime1}
+  \\
+   t_{SB} &= 1,180 \text{ [s]} &\text{(SB)}
+  \label{eq:ks:toppunktstid}
 \end{align}
 
 %I dette tidsrum skal Pan \& Tilt-systemet sigte præcist på lerduen og kravet til 
@@ -121,7 +123,7 @@ stiller krav til Settling Time, \(t_s\), som skrevet i ligning \ref{eq:ks:settli
 %For en 1-radian reference giver dette altså en maksimal tracking error (SSE) på 1,78 \%.
 %\todo[inline, author=Michael]{Den virkelige sammenhænge er mere kompleks: Hvis både pan \& tilt rammen peger 1\degree ved siden af, er den samlede afvigelse vel over 1,02\degree}
 %\todo[inline, color = pink, author = Mikkel]{Hvad mening giver det at kigge på 1 radian reference og kan man virkelig kalde det SSE?}
-Det eneste krav der stilles til systemet er altså et Settling Time krav.
+Det eneste krav der stilles til systemet er Settling Time kravet beskrevet i ligning \ref{eq:ks:settlingtime1}.
 
 %Dette giver altså en øvre og en nedre grænse for pan-rammens maksimale udsving,
 %som afhænger af reguleringen
