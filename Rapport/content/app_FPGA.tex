@@ -20,23 +20,23 @@ et reset signal fra tic reset komponenten.
 Når dette reset signal modtages nulstilles positionen og er herved kalibreret.
 
 \textbf{Tic reset}\\
-\textbf{Input:} Signaler fra hall sensorer på PTS. Rotationsretning.\\
+\textbf{Input:} Signaler fra Hall sensorer på PTS. Rotationsretning.\\
 \textbf{Output:} Reset signal.
 
 \begin{figure}[!th]
 \centering
 \include*{./graphics/hall_sensor_signal}
-\caption[Signal fra hall sensor]{Signalet fra hall sensor, når magneten på PTS køres hen over. Ved pilene udsendes reset signalet.}
+\caption[Signal fra Hall sensor]{Signalet fra Hall sensor, når magneten på PTS køres hen over. Ved pilene udsendes reset signalet.}
 \label{fig:hall_sensor_signal}
 \end{figure}
 
 Som beskrevet tidligere er der behov for et reset signal til positionen. 
-Dette skal gøres ved hjælp af hall sensorer på PTS. 
-Det viser sig dog, at hall sensorernes output ikke kun er højt på ét encodertick. 
-Derfor kan signalet fra hall sensorerne ikke i sig selv bruges som reset signal.
+Dette skal gøres ved hjælp af Hall sensorer på PTS. 
+Det viser sig dog, at Hall sensorernes output ikke kun er højt på ét encodertick. 
+Derfor kan signalet fra Hall sensorerne ikke i sig selv bruges som reset signal.
 PTS rotationsretningen tages derfor med i betragtning.
 Hvis PTS roterer i én retning sættes reset signalet højt på opadgående 
-flanke på hall sensor outputtet, mens reset signalet sættes højt på nedadgående 
+flanke på Hall sensor outputtet, mens reset signalet sættes højt på nedadgående 
 flanke i den anden retning. Reset signalet udsendes derved på samme sted, som vist på figur \ref{fig:hall_sensor_signal}.
 Hermed fås det smallest mulige område, hvor reset signalet er højt.
 Præcisionen på denne kalibrering er $\pm$ 1 tick.
