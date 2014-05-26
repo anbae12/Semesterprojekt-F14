@@ -2,7 +2,7 @@
 \label{ss:regulatorMat}
 Som beskrevet i afsnit \ref{ss:ValgReg} er det valgt at implementere to PI-regulatorer.
 Der tages udgangspunkt i den matematiske model af systemet, bestående af overføringsfunktionerne
-\(G_{tilt,zoh}\) og \(G_{pan,zoh}\), som er diskretiseringer af de kontinuerte overføringsfunktioner.
+\(G_{zoh,tilt}\) og \(G_{zoh,pan}\), som er diskretiseringer af de kontinuerte overføringsfunktioner.
 Der skal findes to sæt koefficienter, \(K_P\) og \(K_I\), et sæt til hver regulator.
 For at medtage den væsentligste ulinearitet, dødzonen, i regulatordesignet,
 er det valgt at simulere systemet i Simulink.
@@ -10,9 +10,11 @@ I Simulink er den diskretiserede overføringsfunktion indsat sammen med en model
 målt eksperimentelt, samt PI-regulatoren. Det simulerede systems blokdiagram er illustreret i figur \ref{fig:simulink1}.
 Da modellen indeholder ulineariteter er det valgt at starte med et simpelt gain \(K_P\) på 1,
 og med Trial-and-Error metoden prøve sig frem til koefficienterne.
-Begge regulatorer gives et parabelinput, og deres performance vurderes
-efter deres evne til at følge parablen. Dvs. det er forsøgt at minimere Tracking fejlen.
 
+\todo[inline, color=red!20]{Hvad menes der med dette?}
+
+Begge regulatorer gives et parabelinput, og deres performance vurderes
+efter deres evne til at følge parablen. Dvs. det er forsøgt at minimere Trackingfejlen.
 
 \begin{figure}[!th]
 \centering
@@ -26,12 +28,13 @@ efter deres evne til at følge parablen. Dvs. det er forsøgt at minimere Tracki
 		\(D\left(z\right)\) er PI-regulatoren.}
 \label{fig:simulink1}
 \end{figure}
+\todo[inline, color=red!20]{Vi skal snakke om figuren}
 
 
 Med ovenstående metode blev koefficienterne i tabel \ref{tb:pidSimulink} fundet tilfredsstillende.
-Koefficienterne i tabel \ref{tb:pidSimulink} benævnes startkoefficienterne, da regulatorjusteringen
-ift. det fysiske system starter med disse værdier.
-Tracking fejlen er afbildet i figur \ref{fig:pidSim1}, og som det ses af grafen, når den maks. 0,5 \degree{} i simuleringen.
+% Koefficienterne i tabel \ref{tb:pidSimulink} benævnes startkoefficienterne, da regulatorjusteringen
+% ift. det fysiske system starter med disse værdier.
+Trackingfejlen er afbildet i figur \ref{fig:pidSim1}, og som det ses af grafen, når den maks. 0,5\degree{} i simuleringen.
 
 \begin{figure}[h!]
 \centering
@@ -47,54 +50,50 @@ Pan   & 240 &  100 & -
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=1\textwidth]{./graphics/pidSim1.eps}
-\caption[Tracking fejl ved simulering]{Tracking fejl ved simulering af PTS med regulatorkoefficienterne fra tabel \ref{tb:pidSimulink}.} 
+\includegraphics[width=0.7\textwidth]{./graphics/pidSim1.eps}
+\captionsetup{width=0.6\textwidth}
+\caption[Trackingfejl ved simulering]{Trackingfejl ved simulering af PTS med regulatorkoefficienterne fra tabel \ref{tb:pidSimulink}.} 
 \label{fig:pidSim1}
 \end{figure}
-
-De to regulatorer er med startkoefficienterne blevet afprøvet i praksis.
-Figurer \ref{fig:pidPhys1} viser Pan-fejlsignalet (rød) og Tilt-fejlsignalet (blå)
-i forhold til den kontinuerte lerdueparabel fra applikationen.
+\todo[inline, color=red!20]{Denne test skal svare til en test vi laver på det rigtige system. Ellers er det ubrugeligt at se på en fejl og sammenligne den med en anden fejl i en anden situation}
+De to regulatorer er med koefficienterne i tabel \ref{tb:pidSimulink} blevet afprøvet i praksis.
+Figurer \ref{fig:pidPhys1} viser pan og tilt-fejlsignalet i forhold til den kontinuerte lerdueparabel fra applikationen.
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=1\textwidth]{./graphics/pidPhys1.eps}
+\includegraphics[width=0.7\textwidth]{./graphics/pidPhys1.eps}
+\captionsetup{width=0.6\textwidth}
 \caption[Fejlsignaler m. startkoefficienter]{Fejlsignaler m. startkoefficienterne fra tabel \ref{tb:pidSimulink}.
-	De sorte lodrette streger angiver \(t_s=0,557 \text{ [s]}\).\\
-	Pan-fejlsignalet er markeret med prikker, og Tilt-fejlsignalet er markeret med krydser.} 
+	De sorte lodrette streger angiver \(t_s=0,557 \text{ [s]}\).
+	Pan-fejlsignalet er markeret med krydser, og tilt-fejlsignalet er markeret med prikker.} 
 \label{fig:pidPhys1}
 \end{figure}
+\todo[inline, color=red!20]{En farve til tilt, en farve til pan. ingen kan se krydser eller prikker fra denne afstand.
+Der er en enkel måling som ødelægger vores forsøg. Vi kan ikke vurdere at en tilt fejl på 0,9 er godt nok}
 
-Som det ses på figur \ref{fig:pidPhys1} giver regulatoren til Tilt et fejlsignal,
-der maks. afviger 0,9 \degree{} fra 0.
-Pan-fejlen afviger derimod op til 1,8 \degree{}.
-Tracking fejlen er altså langt større end kravet på maksimalt 1,02 \degree.
-En manuel justering af koefficienterne på især Pan-regulatoren er derfor nødvendig.
+
+Som det ses på figur \ref{fig:pidPhys1} giver regulatoren til tilt et fejlsignal,
+der maks. afviger 0,9\degree{} efter \(t_s\).
+Pan-fejlen afviger derimod op til 1,8\degree{} efter \(t_s\).
+Trackingfejlen er altså langt større end kravet på maksimalt 1,02\degree.
+Det vurderes en yderligere manuel justering af koefficienterne på pan-regulatoren nødvendig.
+Det vurderes på baggrund af det lave fejlsignal ved tilt at den fundne
+PI-regulator for tilt er anvendelig i praksis.
+
 
 \section{Manuel justering ift. fysisk PTS}
 Ved at ændre på koefficienterne og analysere fejlgraferne justeres performance 
 hen mod det ønskede.
 
-Det vurderes på baggrund af det lave fejlsignal ved Tilt at den i afsnit \ref{ss:regulatorMat} fundne
-PI-regulator for Tilt er anvendelig i praksis.
-
-På Pan er der behov for en hurtigere og mere dæmpet reaktion,
-og det vurderes derfor, at der på Pan er brug for en PID-regulator.
+På pan er der behov for en hurtigere og mere dæmpet reaktion,
+og det vurderes derfor, at der på pan er brug for en PID-regulator.
 
 \subsection{Valg af integratormætning}
 Det vælges at sætte integratormætningen til 100 for begge regulatorer, da det vurderes, at der drages
-fuld nytte af integratorleddet når ligning \ref{eq:integratorsaturation} 
-overholdes.
-
-\begin{equation}
-	K_I \cdot Integrator_{Max} > PWM_{Max}
-\label{eq:integratorsaturation} 
-\end{equation}
-
-\todo[inline,color=Pink,author=Mikkel]{Måske for kvalitativt. Måske må man ikke bare lave sin egen ligning, men jeg har ikke nogne kilde.}
+fuld nytte af integratorleddet når \( K_I \cdot Integrator_{Max} > PWM_{Max} \).
 
 \subsection{Tilføjelse af et D-filter}
-Undervejs i den manuelle justering af PID-regulatoren til Pan blev det fundet, at D-leddet ikke udnyttedes til fulde,
+Undervejs i den manuelle justering af PID-regulatoren til pan blev det fundet, at D-leddet ikke udnyttedes til fulde,
 og at kravene ikke kunne overholdes med PID-regulatoren som den var.
 Det valgtes derfor at tilføje et filter til D-leddet. 
 Det betyder at D-leddet nu vægter tidligere ændringer i fejlsignalet. 
@@ -115,6 +114,8 @@ Filtrets step- og frekvensrespons kan ses på figur \ref{fig:d_filter_step} hhv.
 \caption[D-filterets respons]{D-filterets step- og frekvensrepons.}
 \label{fig:d_filter}
 \end{figure}
+
+\todo[inline, color=red!20]{større tidsakse så første og sidste spike kan ses}
 
 \section{Endelig performance}
 Efter adskillige test og finjustering af regulatoren, vurderes det at 
@@ -137,11 +138,14 @@ Pan   & 100 & 110 & 3,8
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1\textwidth]{./graphics/pidPhys2.eps}
-\caption[Endelig performance]{Endelig performance. Fejlsignaler for Pan (krydser) og Tilt (prikker) øverst, Tracking fejl nederst.
-Testen er foretaget med koefficienterne fra tabel \ref{tb:PID_final}.\\
-De sorte streger angiver kravene om Settling Time på under 0,557 [s] og Tracking fejl på under 1,02 \degree{}.} 
+\caption[Endelig performance]{Endelig performance. Fejlsignaler for Pan (krydser) og Tilt (prikker) øverst, Trackingfejl nederst.
+Testen er foretaget med koefficienterne fra tabel \ref{tb:PID_final}.
+De sorte streger angiver kravene om Settling Time på under 0,557 [s] og Trackingfejl på under 1,02\degree{}.} 
 \label{fig:PID_final}
 \end{figure}
+
+\todo[inline, color=red!20]{vi skal kigge på hvor meget vi er uden for og beskrive dette}
+
 %
 %\begin{figure}[h!]
 %\centering
@@ -172,5 +176,5 @@ Ved manuel justering blev et sæt PID-regulatorkoefficienter fundet til Pan, som
 Det vurderedes nødvendigt at implementere et lavpasfilter til D-leddet.
 Med det implementerede filter gav de justerede regulatorkoefficienter en performance,
 der ikke ved alle forsøg levede op til kravspecifikationen. Ved nogle af forsøgene viste
-systemet sig at leve op til kravene om en Tracking fejl på under 1,02 \degree{} efter 0,557 [s].
+systemet sig at leve op til kravene om en Trackingfejl på under 1,02 \degree{} efter 0,557 [s].
 Systemet er følsomt overfor slid i drivremmene.

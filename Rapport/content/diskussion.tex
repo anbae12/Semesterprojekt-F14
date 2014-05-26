@@ -19,13 +19,6 @@ og at de vha. simuleringen fundne regulatorparametre \(K_p\) og \(K_i\) for Tilt
 %Desuden blev det under justeringen fundet, at det kan forbedre regulatorernes ydeevne
 %at justere dødzone-værdierne for Pan- og Tilt-systemerne.
 
-De to regulatorer overholder ikke altid kravspecifikationen.
-I nogle forsøg opfylde systemet dog kravene om en Tracking fejl på under 1,02 \degree{}
-efter 0,557 [s].
-Systemet tillader ikke megen parametervariation
-som slid i drivremmene,
-og det vurderes derfor, at mere avancerede regulatorer ville være mere velegnet til trackingen
-af parablen.
 
 Reguleringssløjfernes realtidskrav er blevet opfyldt af implementeringen på mikrocontrolleren,
 og det vurderes derfor at den anvendte software-struktur og valget af skedulering
@@ -34,3 +27,11 @@ FPGA'en genererer PWM-signalerne og leverer positionsfeedback med høj hastighed
 og SPI-kommunikationens afviklingstid varierer meget lidt fra gang til gang.
 Det vurderes derfor, at den digitale controllers forsinkelser samlet set ikke forværrer
 reguleringens ydeevne betydeligt.
+
+De to regulatorer overholder ikke altid kravspecifikationen.
+I nogle forsøg opfylde systemet dog kravene om en Tracking fejl på under 1,02\degree{}
+efter 0,557 [s].
+Systemet tillader ikke megen parametervariation
+som slid i drivremmene,
+og det vurderes derfor, at mere avancerede regulatorer ville være mere velegnet til trackingen
+af parablen.
