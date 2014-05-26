@@ -59,17 +59,17 @@ Skalerer clock signalet.
 
 \textbf{Input decoder}\\
 \textbf{Input:} 16 bit data fra SPI.\\
-\textbf{Output:} PWM kanal og tilhørende PWM dutycycle (11 bit).
+\textbf{Output:} PWM kanal og tilhørende PWM duty cycle (11 bit).
 
-Hvis PWM set bittet er højt skal opdateres PWM kanal og tilhørende PWM dutycycle.
+Hvis PWM set bittet er højt skal opdateres PWM kanal og tilhørende PWM duty cycle.
 Opdateringen sker ved at tage 2 MSB og lave dem til et PWM kanal output. De 11 
-LSB sendes som PWM dutycycle output.
+LSB sendes som PWM duty cycle output.
 
 \textbf{PWM}\\
-\textbf{Input:} PWM kanal og tilhørende PWM dutycycle (11 bit).\\
+\textbf{Input:} PWM kanal og tilhørende PWM duty cycle (11 bit).\\
 \textbf{Output:} PWM til PTS.
 
-Sørger for at levere PWM til PTS ud fra PWM kanal og dutycycle.
+Sørger for at levere PWM til PTS ud fra PWM kanal og duty cycle.
 
 %\subsection*{Output decoder}
 \textbf{Output decoder}\\
