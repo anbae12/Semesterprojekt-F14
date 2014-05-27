@@ -1,18 +1,21 @@
 \part{Systemidentifikation}
-\todo[inline,author=Mikael]{Dette afsnit skal være bedre!}
-Denne del gennemgår den teoretiske beskrivelse af systemet.
-Der udvikles en matematisk model af PTS og med udgangspunkt i denne vælges regulatortype.
+Denne del gennemgås den teoretiske beskrivelse af systemet.
+Design af passende regulatorer tager udgangspunkt i teoretiske beskrivelse af PTS. Identifikationen af PTS udledes i sektion \ref{sec:matPTS} vha. målinger af motorerne samt systemets dynamik. 
+Modellen verificeres ved at sammenligne åbensløjferesponsen mellem det fysiske system og den teoretiske model.
+
+I sektion \ref{sec:kontrollerdeign} diskretiseres den teoretiske model for PTS mht. design af diskret regulator. Den diskrete model optimeres, bl.a. ved at tilføje dødzone. 
+På baggrund af de fundne diskrete overføringsfunktioner diskuteres valg af regulatortype. 
 Desuden gennemgås transformationen fra kartesiske koordinater til sfæriske koordinater.
-
-\todo[inline, author=Michael]{Nyt forsøg: (hvordan staves "diskretiseres"?)}
-For at kunne designe en passende regulator, er det nødvendigt at identificere systemet. 
-I sektion \ref{sec:matPTS} udledes en matematisk model af systemet vha. målinger af motorerne og systemets dynamik. 
-Modellen verificeres ved at sammenligne åbensløjferesponsen med denne for det fysiske system. 
-
-I \ref{sec:kontrollerdeign} diskretiseres den matematiske model. Den diskrete model optimeres, bl.a. ved at tilføje dødzone til modellen. På baggrund af de fundne diskrete overføringsfunktioner diskuteres valg af regulatortype. 
-
-
-
+%\todo[inline,author=Mikael]{Dette afsnit skal være bedre!}
+%Denne del gennemgår den teoretiske beskrivelse af systemet.
+%Der udvikles en matematisk model af PTS og med udgangspunkt i denne vælges regulatortype.
+%Desuden gennemgås transformationen fra kartesiske koordinater til sfæriske koordinater.
+%
+%\todo[inline, author=Michael]{Nyt forsøg: (hvordan staves "diskretiseres"?)}
+%For at kunne designe en passende regulator, er det nødvendigt at identificere systemet. 
+%I sektion \ref{sec:matPTS} udledes en matematisk model af systemet vha. målinger af motorerne og systemets dynamik. 
+%Modellen verificeres ved at sammenligne åbensløjferesponsen med denne for det fysiske system. 
+%
+%I sektion \ref{sec:kontrollerdeign} diskretiseres den matematiske model. Den diskrete model optimeres, bl.a. ved at tilføje dødzone til modellen. På baggrund af de fundne diskrete overføringsfunktioner diskuteres valg af regulatortype. 
 \input{./content/PTS}
 \include{./content/kontrollerdesign}
-%\include{./content/koordinattransformation}
