@@ -25,8 +25,7 @@ Lerduens parabelbevægelse findes ved interpolation af disse tre punkter. Det an
 %Lerduens affyringshastighed og vinkel ift. xy planet kan lerduens flugt beregnes. 
 %
 Lerduens affyringshastighed og vinkel ift. xy planet blev beregnet vha. den fundne kasteparabel. 
-% Lerduen affyres med en hastighed på 34,589 \([\frac{m}{s}]\) i en vinkel på \(9,103 \degree\) 
-Lerduen affyres med en hastighed på 34,6 \([\frac{m}{s}]\) i en vinkel på \(9,1 \degree\) 
+Lerduen affyres med en hastighed på 34,6 \([\frac{m}{s}]\) i en vinkel på \(9,1\degree\) 
 ift. xy-planet jf. figur \ref{fig:ES}\footnote{Beregningerne bag kasteparablen findes i appendix \ref{sec:udregning_af_parabel}.}. 
 
 Lerduens flugt er givet i ligning \ref{eq:ks:vektorparabel3d} med origo som angivet på figur \ref{fig:ES}. 
@@ -66,21 +65,19 @@ Punktet SB og punktet G er hhv. 40,3 [m] og 52 [m] fra "high house". \\
 
 Tilt-rammen kan bevæge sig frit,
 men pan-rammen kan pga. en stopklods ikke rotere frit.
-Bevægelsesområdet er målt til \(154 \degree\).
+Bevægelsesområdet er målt til \(154\degree\).
 
 Haglene fra et 12 gauge haglgevær med Skeet Choke spredes så de dækker et område
-%med en diameter på 1,32 [m] på en afstand til centrum af cirklen på 37 [m] 
 med en diameter på 1,32 [m] på 37 meters afstand
 \citep[Pattern and choke]{patternandchoke}.
 Spredningsvinklen er, med en antagelse om lineær spredning, givet ved ligning \ref{eq:ks:spredning}.
 \begin{align}
 \begin{split}
   Spredning &= 2\cdot{}\tan^{-1}\left(\frac{1,32/2}{37}\right) \\
-  &= 2,04 \degree
+  &= 2,04\degree
   \end{split}
   \label{eq:ks:spredning}
 \end{align}
-%Der er altså et krav om at geværet peger på lerduen med en præcision på \(\pm 1,02 \degree\).
 Når trackingfejlen defineres ud fra pan-vinklen \(\theta\) og tilt-vinklen \(\phi\) som i ligning \ref{eq:ks:trackingerror} rammes 
 lerduen ved afskydning af haglgeværet når ligning \ref{eq:trackingerrorkrav} opfyldes.
 \begin{align}
@@ -88,16 +85,11 @@ lerduen ved afskydning af haglgeværet når ligning \ref{eq:trackingerrorkrav} o
   \phi_{current}\end{pmatrix} \right | &&\text{(Trackingfejl)}
 \label{eq:ks:trackingerror}
 \\
-	TE\leq 1,02 \degree && \text{(Lerduen rammes)}
+	TE\leq 1,02\degree && \text{(Lerduen rammes)}
 \label{eq:trackingerrorkrav}
 \end{align}
 
-Settling Time defineres som tiden der går før trackingfejlen forbliver \(\leq 1.02 \degree\).
-%som skrevet i ligning \ref{eq:ks:settlingtime}.
-%\begin{align}
-%{ { t }_{ s }\quad =\left t \right|  }_{ TE\leq 1,02 \degree }
-%\label{eq:ks:settlingtime}
-%\end{align}
+Settling Time defineres som tiden der går før trackingfejlen forbliver \(\leq 1,02\degree\).
 
 Der skydes på lerduen mellem toppunktet og SB.
 I dette tidsrum skal PTS sigte præcist på lerduen under opfyldelse af ligning \ref{eq:trackingerrorkrav} og dette 
