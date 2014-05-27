@@ -1,7 +1,7 @@
-\node [draw, fill=green!40, rectangle, minimum height=4em, minimum width=2.5em] (mikrocontroller) {Mikrocontroller};
+\node [draw, fill=green!40, rectangle, minimum height=2.5em, minimum width=2.5em] (mikrocontroller) {Mikrocontroller};
 \node [draw, fill=blue!20, rectangle, minimum height=8em, minimum width=2.5em, right of=mikrocontroller, xshift=2cm] (FPGA) {FPGA};
-\node [blockgreen, below of=mikrocontroller,xshift=1.5cm, yshift=-2cm] (brugerinput) {Bruger input};
-\node [blockgreen, below of=mikrocontroller, xshift=-1.5cm, yshift=-2cm] (brugerfeedback) {Bruger feedback};
+\node [blockgreen, below of=mikrocontroller,xshift=1.5cm, yshift=-1.5cm] (brugerinput) {Bruger input};
+\node [blockgreen, below of=mikrocontroller, xshift=-1.5cm, yshift=-1.5cm] (brugerfeedback) {Bruger feedback};
 \node [blocknon, right of=FPGA, xshift=1.5cm, yshift=1.25cm] (H-bro-a) {H-bro};
 \node [blockorange, right of=H-bro-a, xshift=1.75cm] (DCmotorA) {DC motor};
 \node [output, right of=DCmotorA, xshift=1cm] (output1){};
