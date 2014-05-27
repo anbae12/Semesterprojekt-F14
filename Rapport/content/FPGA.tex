@@ -2,7 +2,6 @@
 \label{sec:FPGA}
 FPGA'en er leddet mellem mikrocontrolleren og motorene på PTS.
 Følgende opgaver til FPGA'en er fastsat af projektbeskrivelsen:
-
 \begin{itemize}
 \itemsep1pt
 	\item Kommunikation med mikrocontrolleren vha. SPI.
@@ -30,7 +29,6 @@ opløsningen på PTS's positionsencodere, for ikke at forringe opløsningen på 
 Det er derfor valgt at repræsentere PWM-duty cycle med 11 bit. 
 Ved 11 bits opløsning på PWM-duty cycle og brug af BASYS2 boardets interne clock på 50 [MHz] bliver PWM-frekvensen,
 ligning \ref{eq:pwmfreq}, over det hørbare frekvensområde.
-
 \begin{equation}
   f_{PWM}=\frac{50 \text{ [MHz]}}{2^{11}} = 24,41 \text{ [kHz]}
 	\label{eq:pwmfreq}
@@ -56,7 +54,6 @@ F.eks. er der ikke én tick counter komponent på FPGA'en, men derimod to.
 Herunder følger en forklaring på hvordan de tre krav til FPGA'en er opnået. For 
 yderligere forklaring af komponenterne henvises til appendix 
 \ref{sec:fpgaappendix}.
-
 \begin{figure}[!th]
 \centering
 \begin{tikzpicture}[node distance = 4 cm, scale=0.7, every node/.style={transform shape}]]

@@ -1,7 +1,7 @@
 \section{FPGA'ens komponenter}
 \label{sec:fpgaappendix}
 Dette appendix forklarer alle komponenter på FPGA'en.
-Et forsimlet diagram over komponenterne på FPGA'en ses på figur \ref{fig:FPGA_blok}.
+Et forsimplet diagram over komponenterne på FPGA'en ses på figur \ref{fig:FPGA_blok}.
 
 
 \textbf{Tic counter}\\
@@ -26,7 +26,7 @@ Når dette reset signal modtages nulstilles positionen og er herved kalibreret.
 \begin{figure}[!th]
 \centering
 \include*{./graphics/hall_sensor_signal}
-\caption[Signal fra Hall sensor]{Signalet fra Hall sensor, når magneten på PTS køres hen over. Ved pilene udsendes reset signalet.}
+\caption[Signal fra Hall sensor]{Signalet fra Hall sensor, når magneten på en af rammerne køres hen over. Nulstillingen sker første gang reset signalet udsendes.}
 \label{fig:hall_sensor_signal}
 \end{figure}
 
@@ -42,12 +42,12 @@ Hermed fås det smallest mulige område, hvor reset signalet er højt.
 Præcisionen på denne kalibrering er \(\pm1\) tick.
 
 \textbf{Display}\\
-\textbf{Input:} Motorposition fra tic counter. Skaleret clock signal fra clock 
+\textbf{Input:} Motorposition fra tick counter. Skaleret clock signal fra clock 
 scaler.
 
 \textbf{Output:} Signal der styrer displayet.
 
-Modtager motorpositionen fra tic counter komponenten og viser det på de fire 8-digit-displays 
+Modtager motorpositionen fra tick counter komponenten og viser det på de fire 8-digit-displays 
 på BASYS boardet. Bruger det skalerede clock signal til at multiplexe mellem de 
 fire displays.
 
@@ -69,7 +69,7 @@ LSB sendes som PWM-duty cycle output.
 \textbf{Input:} PWM-kanal og tilhørende PWM-duty cycle (11 bit).\\
 \textbf{Output:} PWM til PTS.
 
-Sørger for at generere PWM til PTS ud fra PWM-kanal og PWM-duty cycle.
+Sørger for at generere PWM-signaler til PTS ud fra PWM-kanaler og PWM-duty cycles.
 
 %\subsection*{Output decoder}
 \textbf{Output decoder}\\
@@ -80,7 +80,7 @@ Sørger for skiftevis at sætte motorposition for de to motorer som LSB.
 MSB bruges til at angive, hvilken motor positionen er til.
 
 \textbf{SPI}\\
-\textbf{Input:} 16 bit data fra output decoder. 16 bit data udefra.\\
+\textbf{Input:} 16 bit data fra output decoder. \\%16 bit data udefra.\\
 \textbf{Output:} 16 bit SPI data ud.
 
 Agerer som SPI slave i kommunikation med mikrocontrolleren.
