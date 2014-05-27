@@ -62,7 +62,7 @@ Taskdiagrammet er vist på figur \ref{fig:task_diagram}.
 % TASK DIAGRAM
 \begin{figure}[!h]
 \centering
-\begin{tikzpicture}[node distance = 3.2cm]
+\begin{tikzpicture}[node distance = 3.2cm,every node/.style={scale=0.9}]
 	\include*{./graphics/uc_task_diagram}
 \end{tikzpicture}
 \caption[Taskdiagram]{Taskdiagrammet viser programmets opdeling i tasks.
@@ -145,7 +145,7 @@ clockperioden  $T_C$ ses i ligning \ref{eq:uc:clock-krav}.
 
 Baudrate vælges til 1 [MHz], så ligning \ref{eq:uc:clock-krav} opfyldes. En 
 højere baudrate ville overholde kravet, men gør signalet mere følsomt overfor støj.
-
+\clearpage
 \subsection{Test} 
 Det testes hvorvidt SPI-overførslen og Control-task'en overholder timingkravene. 
 Testen udføres ved at sætte en digital udgang høj mens task'en afvikles, og samtidig måle denne udgang med et oscilloskop. 

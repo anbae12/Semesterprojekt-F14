@@ -1,6 +1,6 @@
 \section{Serial Peripheral Interface}
 \label{app:spi}
-Kommunikationen mellem mikrocontolleren og FPGA’en foregår med Serial Peripheral Interface (SPI). 
+Kommunikationen mellem mikrocontolleren og FPGA’en foregår med SPI. 
 SPI understøtter full-duplex kommunikation mellem en master og en eller flere slaver.
 
 Der er fire kanaler mellem masteren og slaven: Slave Select (SS), Serial Clock (SCLK), Master Output Slave Input.(MOSI) og Master Input Slave Output (MISO). SS bruges til at vælge hvilken slave der skal overføres data til/fra. Den kan også sammenlignes med en chip select. SCLK generes af masteren; SS, MOSI og MISO kører synkront med dette signal.
@@ -10,7 +10,7 @@ Her kan være SS overflødig, da der kun er en slave at vælge, tilgengædt kan 
 Når SS er sat højt, begynder overførelsen mellem master og slaven. Da overførelsen er fuld-duplex sender begge til hinanden 
 \begin{figure}[!th]
 \centering
-\begin{tikzpicture}[scale=0.8]
+\begin{tikzpicture}[scale=0.7]
 \include*{./graphics/MISOMOSI}
 \end{tikzpicture}
 \caption[SPI protokol]{Skitse af SPI-kommunikation mellem mikrocontroller og FPGA.}
