@@ -1,33 +1,32 @@
 \node[task_title](display) [] {Display};
-\node[task_description](Display_Debug) [right of= display] {Display};
-\node[task_description](Clock_scaler) [right of= Display_Debug] {Clock scaler};
-\node[task_description](Tic_counter) [yshift=2.5cm,below of= Display_Debug] {Tick counter};
+\node[fpga_component](Display_Debug) [right of= display] {Display};
+\node[fpga_component](Clock_scaler) [right of= Display_Debug] {Clock scaler};
+\node[fpga_component](Tic_counter) [yshift=2.5cm,below of= Display_Debug] {Tick counter};
 \node[task_title](encoder1) [yshift=0.5cm, left of= Tic_counter] {Encoder1};
 \node[task_title](encoder2) [yshift=-0.5cm, left of= Tic_counter] {Encoder2};
 
+
 %Mikkel
-\node[task_description](Tic_reset)[yshift=2.5cm,,below of= Tic_counter] {Tick reset};
-
-\node[task_title](Hall_sensor1) [yshift=0.5cm,left of= Tic_reset] {Hall sensor1};
-\node[task_title](Hall_sensor2) [yshift=-0.5cm,left of= Tic_reset] {Hall sensor2};
-
+<<<<<<< HEAD
+\node[fpga_component](Tic_reset)[yshift=1.5cm,,below of= Tic_counter] {Tick reset};
+\node[task_title](Hall_sensor1) [yshift=0.5cm, left of= Tic_reset] {Hall sensor1};
+\node[task_title](Hall_sensor2) [yshift=-0.5cm, left of= Tic_reset] {Hall sensor2};
 \path[->] (Hall_sensor1) edge[bend left=10] (Tic_reset);
 \path[->] (Hall_sensor2) edge[bend left=-10] (Tic_reset);
-
 
 \path[<->] (Tic_reset) edge[bend left=0] (Tic_counter);
 %Mikkel
 
-\node[task_description](PWM) [yshift=2.5cm,,below of= Tic_reset] {PWM};
+\node[fpga_component](PWM) [yshift=1.5cm,,below of= Tic_reset] {PWM};
 \node[task_title](PWM1) [yshift=0.5cm,left of= PWM] {PWM1};
 \node[task_title](PWM2) [yshift=-0.5cm,left of= PWM] {PWM2};
-\node[task_description](SPI) [yshift=2.5cm,,below of= PWM] {SPI};
+\node[fpga_component](SPI) [yshift=2.5cm,,below of= PWM] {SPI};
 \node[task_title](SPIcom) [left of= SPI] {SPI};
-\node[task_description](input_Decoder) [yshift=0.75cm,right of= SPI] {Input decoder};
-\node[task_description](output_Decoder) [yshift=-0.75cm,right of= SPI] {Output encoder};
+\node[fpga_component](input_Decoder) [yshift=0.75cm,right of= SPI] {Input decoder};
+\node[fpga_component](output_Decoder) [yshift=-0.75cm,right of= SPI] {Output encoder};
 
 
-\node[](child1)[xshift=3cm,right of=Tic_counter]{};
+\node[](child1)[xshift=2cm,right of=Tic_counter]{};
 \node[](child2)[xshift=-2cm,right of=output_Decoder]{};
 
 
@@ -49,8 +48,11 @@
 \path[<-] (SPI) edge[bend left=-10] (output_Decoder);
 
 % Mikkels shit
-\node[xshift=2cm,yshift=2.5cm] at (display) (seperator1) {};
-\node[xshift=2cm,yshift=-2.5cm] at (SPIcom) (seperator2) {};
+\node[xshift=2cm,yshift=1cm] at (display) (seperator1) {};
+\node[xshift=2cm,yshift=-1cm] at (SPIcom) (seperator2) {};
 \path[dashed] (seperator1) edge (seperator2);
+<<<<<<< HEAD
+=======
 
 \node[xshift=2cm,yshift=2cm] at (Display_Debug) (header_point) {\huge \textbf{FPGA}};
+>>>>>>> f938254cbc3567ebdca7560fdd07434b51bccf19
