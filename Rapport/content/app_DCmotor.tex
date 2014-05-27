@@ -103,7 +103,8 @@ Målinger af sammenhørende steady-state værdier for strøm \(i_m\) og spændin
 kan altså bruges til bestemmelse af den ækvivalente resistans \(R_m\).
 \subsubsection{Fremgangsmåde}
 Motoren låses fast vha. en skiftenøgle og påføres en lav spænding.
-Efter nogle sekunder, når transientresponsen er væk,
+%Efter nogle sekunder, når transientresponsen er væk,
+Når transientresponsen er væk,
 måles spændingen over og strømmen igennem motoren med multimetre.
 Værdierne noteres, og forsøget gentages ved andre spændinger.
 
@@ -150,7 +151,8 @@ Metode 1 tager udgangspunkt i tidskonstanten for et RL-kredsløb,
 mens metode 2 tager udgangspunkt i faseforskellen mellem forskellige komplekse impedanser i serie.
 Metode 3 benytter et LCR-meter, som er et måleapparat der kan måle en passiv komponents impedans, til bestemmelsen af induktansen.
 \subsubsection{Teori}
-\paragraph{Metode 1\\}
+%\paragraph{Metode 1\\}
+\textbf{Metode 1}\\
 Forhindres motoren i at rotere, vil vinkelhastigheden som beskrevet i afsnit \ref{ss:eksperiment1} være nul.
 Ved denne metode er vi interesseret i systemets transientrespons, hvor strømmen \(i_m\) ikke er konstant.
 Forbindes en modstand \(R_s\) i serie med DC-motoren som vist på figur \ref{fig:eksperiment2metode1} vil der være tale om et RL-kredsløb, med en tidskonstant \(\tau\) givet ved ligning \ref{eq:rltimeconstant}.
@@ -171,7 +173,7 @@ Transientresponsen for alle strømme og spændingsfald i kredsløbet har denne t
 	\tau=\frac{L_m}{R_m+R_s}
 	\label{eq:rltimeconstant} 
  \end{equation}
-Tidskonstanten er et mål for tiden det tager systemet at opnå ca. 63,2\% af slutværdien. For en (eksponentielt) aftagende kurve med tidskonstanten \(\tau\) kan tidskonstanten aflæses som
+Tidskonstanten er et mål for tiden det tager systemet at opnå ca. 63,2\% af slutværdien. For en eksponentielt aftagende kurve med tidskonstanten \(\tau\) kan tidskonstanten aflæses som
 tidsforskellen mellem to niveauer \(V_0\) og \(V_1\), hvor \(V_1\) er ca. 36,8\% af \(V_0\).
 
 Ved omskrivning af ligning \ref{eq:rltimeconstant} kan induktansen altså bestemmes vha. ligning \ref{eq:induktans0}.
@@ -179,21 +181,17 @@ Ved omskrivning af ligning \ref{eq:rltimeconstant} kan induktansen altså bestem
 	L_m=\tau\cdot(R_m+R_s)
 	\label{eq:induktans0} 
  \end{equation}
-\paragraph{Metode 2\\}
+%\paragraph{Metode 2\\}
+\textbf{Metode 2}\\
 Forhindres motoren i at rotere, vil vinkelhastigheden som beskrevet i afsnit \ref{ss:eksperiment1} være nul.
-Ved denne metode er vi interesseret i systemets steady-state respons.
+Denne metode er interesseret i systemets steady-state respons.
 Forbindes en modstand \(R_{s1}\) i serie med DC-motoren som vist på figur \ref{fig:eksperiment2metode2}
 vil impedansen \(\mathbf{Z_m}\) af DC-motoren være givet ved ligning \ref{eq:zm_0}.
-\todo[inline,author=Mikael]{Få figur \ref{fig:eksperiment2metode2} til at ligne ELE Øvelse 7 med V1 og V2 indtegnet!}
 \begin{figure}[!th]
 \centering
 \begin{circuitikz}
 \input{graphics/figE2metode2.tex}  
 \end{circuitikz}
-% \includegraphics[width=0.1\textwidth]{./graphics/Mangleratblivetegnet3}
-%\begin{tikzpicture}[scale=2]
-%\include*{./graphics/}
-%\end{tikzpicture}
 \caption[Rotationslåst motor med \(R_s1\)]{Rotationslåst motor, i serie med en modstand \(R_{s1}\) og en AC-forsyning.}
 \label{fig:eksperiment2metode2}
 \end{figure}
@@ -245,7 +243,9 @@ Effektafsættelsen \(P_{avg}\) i en modstand R, påført en vekselspænding med 
 \subsubsection{Fremgangsmåde}
 Alle metoderne involverer en måling på DC-motoren, og det er derfor vigtigt ved hvert forsøg at placere
 rotoren i forskellige positioner, da kullenes placering har en indflydelse på induktansen.
-\paragraph{Metode 1\\}
+
+%\paragraph{Metode 1\\}
+\textbf{Metode 1}\\
 En modstand \(R_s\) måles efter med et multimeter og fobindes i serie med DC-motoren
 som på figur \ref{fig:eksperiment2metode1}.
 Kredsløbet bestående af DC-motoren og \(R_s\) påføres en kendt spænding.
@@ -253,9 +253,10 @@ Strømmen gennem kredsløbet afbrydes på strømforsyningen og spændingsfaldet
 over \(R_s\) måles med et oscilloskop.
 Dataene eksporteres og tidskonstanten bestemmes herudfra.
 
-Det anvendte multimeter er af typen TTi 1604 og oscilloskopet er af typen Agilent Technologies DSO-X 2024A.
+Det anvendte multimeter er af typen TTi 1604 og oscilloskop af typen Agilent Technologies DSO-X 2024A.
 
-\paragraph{Metode 2\\}
+%\paragraph{Metode 2\\}
+\textbf{Metode 2}\\
 En modstand \(R_{s1}\) måles efter med et multimeter og forbindes i serie med DC-motoren
 som på figur \ref{fig:eksperiment2metode2}.
 Kredsløbet påføres en kendt AC-spænding fra en funktionsgenerator med et DC-offset så spændingen
@@ -265,12 +266,14 @@ AC-spændingens frekvens er 10 [kHz].
 Med et oscilloskop måles spændingsfaldene \(\mathbf{V_1}\) og \(\mathbf{V_2}\).
 Dataene eksporteres og faseforskellen samt forholdet mellem amplituderne \(A_1\) og \(A_2\) bestemmes herudfra.
 
-\paragraph{Metode 3\\}
+%\paragraph{Metode 3\\}
+\textbf{Metode 3}\\
 DC-motoren forbindes til LCR-meteret, som indstilles til "L" (induktansmåling).
 Ved forskellige testfrekvenser noteres resultatet.
 
 \subsubsection{Måleresultater}
-\paragraph{Metode 1\\}
+%\paragraph{Metode 1\\}
+\textbf{Metode 1}\\
 Seriemodstanden \(R_s\) er blevet målt til 61,77 \([\Omega]\).
 På figur \ref{fig:induktans0} er transientresponsen for spændingsfaldet over \(R_s\) indtegnet
 sammen med de to spændingsniveauer, hvorudfra tidskonstanten bestemmes.
@@ -285,7 +288,8 @@ sammen med de to spændingsniveauer, hvorudfra tidskonstanten bestemmes.
 \end{figure}
 Figur \ref{fig:induktans0} viser flere målingers transientrespons.
 
-\paragraph{Metode 2\\}
+\textbf{Metode 2}\\
+%\paragraph{Metode 2\\}
 Seriemodstanden \(R_{s1}\) er blevet målt til 473,3 \([\Omega]\).
 Spændingen har en amplitude på 2,4 [V] og et DC-offset på 2,5 [V].
 På figur \ref{fig:induktans1} er steady-state responsen for spændingsfaldene over DC-motoren og seriemodstanden indtegnet.
@@ -299,7 +303,8 @@ På figur \ref{fig:induktans1} er steady-state responsen for spændingsfaldene o
 	\label{fig:induktans1}
 \end{figure}
 
-\paragraph{Metode 3\\}
+%\paragraph{Metode 3\\}
+\textbf{Metode 3}\\
 På figur \ref{fig:induktans2} er induktansmålingerne fra LCR-meteret indtegnet.
 \begin{figure}[th!]
 	\centering
@@ -317,12 +322,14 @@ På figur \ref{fig:induktans2} er induktansmålingerne fra LCR-meteret indtegnet
 Det anvendte LCR-meter er af typen Agilent Techologies U1733C.
 
 \subsubsection{Databehandling}
-\paragraph{Metode 1\\}
+%\paragraph{Metode 1\\}
+\textbf{Metode 1}\\
 For hver måling af transientresponsen, vist i figur \ref{fig:induktans0} er induktansen blevet
 bestemt ved brug af ligning \ref{eq:induktans0}.
 Gennemsnitsinduktansen er ved denne metode blevet fundet til \(L_m=0,395\) [H].
 
-\paragraph{Metode 2\\}
+%\paragraph{Metode 2\\}
+\textbf{Metode 2}\\
 Vha. MATLAB's fit-funktion er to sinuskurver blevet tilpasset til de målte spændingsfald.
 Ud fra funktionsforskrifterne på de to sinuskurver er amplitudeforholdet \(\frac{A_1}{A_2}\)
 og faseforskellen \(\phi\) blevet beregnet,
@@ -331,7 +338,8 @@ og vha. ligningerne \ref{eq:Rm_0} og \ref{eq:Lm_0} er resistansen hhv. induktans
 Effektafsættelsen i motoren er med amplitudeforskellen på \(\mathbf{V_1}\) og \(\mathbf{V_2}\) samt
 de i forsøget fundne værdier \(R_{s1}\) og \(R_m\) ved brug af ligning \ref{eq:effekt} beregnet til 0,405 [mW].
 
-\paragraph{Metode 3\\}
+%\paragraph{Metode 3\\}
+\textbf{Metode 3}\\
 Som det fremstår af figur \ref{fig:induktans2} er den målte induktans forskellig for hver testfrekvens.
 Det blev fundet, at induktansmåling ved 100 [kHz] ikke var brugbar, da resultatet var negativt.
 Derfor blev der kun foretaget tre målinger ved 100 [kHz].
@@ -354,8 +362,8 @@ vurderes det derfor at den i afsnit \ref{ss:eksperiment1} fundne ækvivalente mo
 Induktansen er imidlertid sværere at bestemme, da effektafsættelsen i de udførte forsøg er lav.
 Resultatet fra metode 1 afviger meget fra resultaterne fra metode 2 og 3, og vurderes at være ubrugeligt
 til modelleringen af motoren til den praktiske applikation.
-I den praktiske applikation vil motoren blive udsat for en PWM-spænding med en PWM-frekvens på ca. 24 [kHz].
-Denne PWM-spænding er er et skift mellem to DC-niveauer, og har en grundfrekvens på 24 [kHz].
+I den praktiske applikation vil motoren blive udsat for en PWM-spænding med en PWM-frekvens på 24,41 [kHz].
+%Denne PWM-spænding er er et skift mellem to DC-niveauer, og har en grundfrekvens på 24 [kHz].
 Det vurderes derfor, at LCR-meterets resultater for 10 [kHz] danner det bedste grundlag for et
 estimat af induktansen. Bemærk at den meget store spredning på målingerne på tværs af testfrekvenserne
 gør, at estimatet kun er vejledende.
@@ -363,9 +371,9 @@ Der gives et vejledende estimat på 2,2 [mH].
 
 
 \subsubsection{Konklusion}
-Eksperiment 2 viser hvordan effektafsættelsen i DC motoren har betydning for dens resistans. Idet DC motorene i applikationen antages for at have en effektafsættelse over 48 [mW] medfører dette motorens har en resistans på \(R_m=5,215\) \([\Omega]\).\\
+Eksperiment 2 viser hvordan effektafsættelsen i DC motoren har betydning for dens resistans. Idet DC motorene i applikationen antages for at have en effektafsættelse over 48 [mW] medfører dette motorens har en resistans på \(R_m=5,215\) \([\Omega]\).
 
-Til modelleringen af DC motoren estimeres motorens induktans til \(L_m\approx2.2\) \([mH]\).
+Til modelleringen af DC motoren estimeres motorens induktans til \(L_m\approx2,2\) [mH].
 
 \subsection{Eksperiment 3}
 \label{ss:eksperiment3}
@@ -389,12 +397,13 @@ til ligning \ref{eq:KtimBw}.
  \end{equation}
 Hvis man kender motorens ækvivalente modstand \(R_m\), steady-state strømmen \(i_m\) ved en steady-state spænding \(V_m\),
 samt steady-state vinkelhastigheden \(\omega\), kan man altså vha. ligningerne \ref{eq:Vm_freerun0} og \ref{eq:KtimBw} bestemme
-proportionalitetskonstanterne \(K_t\) og \(K_b\) (fordi de har samme numeriske værdi i SI-enheder) og friktionskonstanten \(B\).
+proportionalitetskonstanterne \(K_t\) og \(K_b\)% (fordi de har samme numeriske værdi i SI-enheder) 
+og friktionskonstanten \(B\).
 \subsubsection{Fremgangsmåde}
 Den ubelastede motor påføres en kendt DC-spænding, og motoren opnår steady-state.
 Strømmen igennem motoren måles med et multimeter.
-Vinkelhastigheden måles ved at tælle antallet af encoder-ticks på ét minut og kan omregnes til SI-enheder, 
-idet det vides, at der er 360 ticks pr. omgang, \citep{emgmotor}.
+Vinkelhastigheden måles ved at tælle antallet af encoder-ticks på ét minut og omregnes til SI-enheder, 
+idet der er 360 ticks pr. omgang, \citep{emgmotor}.
 For hver måling beregnes \(K_b\) og \(K_t\) samt \(B\) vha. ligningerne \ref{eq:Vm_freerun0} og \ref{eq:KtimBw}.
 
 Det anvendte multimeter er af typen TTi 1604,
@@ -410,7 +419,7 @@ I tabel \ref{tb:steadystatenoload} findes målingerne af strøm, spænding og vi
 	\label{tb:steadystatenoload}
 \end{figure}
 \subsubsection{Databehandling}
-For hver måling er \(K_b\) og \(K_t\) samt \(B\) vha. ligningerne \ref{eq:Vm_freerun0} og \ref{eq:KtimBw} beregnet,
+For hver måling er \(K_b\) og \(K_t\) samt \(B\) vha. ligningerne \ref{eq:Vm_freerun0} og \ref{eq:KtimBw} beregnet
 i SI-enheder. Til beregningen er anvendt den i afsnit \ref{ss:eksperiment1} fundne værdi for \(R_m\).
 Gennemsnittet af hver parameter findes i tabel \ref{tb:kbktb}.
 \begin{figure}[th!]
@@ -488,7 +497,7 @@ jf. ligning \ref{eq:Tf0}.
  \end{equation}
 
 Inertimomentet \(J_{disk}\) for en disk (ring) med massen \(m_{disk}\), ydre radius \(r_{disk}\) og
-indre radius \(r_{hul}\) er givet ved ligning \ref{eq:Jdisk},\citep[Side. 255, tabel 10-2b]{fund_of_physics}.
+indre radius \(r_{hul}\) er givet ved ligning \ref{eq:Jdisk}, \citep[Side. 255, tabel 10-2b]{fund_of_physics}.
 \begin{equation}
 	J_{disk}=\frac{1}{2}\cdot{m_{disk}}\cdot\left(r_{hul}^2+r_{disk}^2\right)
 	\label{eq:Jdisk}
@@ -514,7 +523,7 @@ J_{ m }=m_{ lod }\cdot { r_{ disk } }\cdot \left| \frac { \alpha _{ op }\cdot { 
 En disk måles og vejes og monteres på rotorskaftet.
 Et vejet lod fastgøres til disken med en snor, og snoren vikles rundt om disken.
 Med et oscilloskop måles spændingsfaldet over motoren, mens loddet lades falde til gulvet.
-Når loddet har ramt gulvet, og spændingsfaldet er 0 V, stoppes målingen, og forsøget gentages.
+Når loddet har ramt gulvet, og spændingsfaldet er 0 [V], stoppes målingen, og forsøget gentages.
 \subsubsection{Måleresultater}
 Diksen har en masse på 21,2 [g], en ydre radius på 1,25 [cm] og en indre radius på 5 [mm].
 Loddets masse er 851,7 [g].
@@ -562,8 +571,8 @@ Friktionskraftmomentet er bestemt til \(\left| { T }_{ f } \right| =0,0571\) \( 
 
 \subsection{Opsummering af motorparametre}
 \label{opsummering_af_motorparameter}
-Nedenstående motorparametre (tabel \ref{tb:motorparametre})
-er fundet i Eksperiment 1-4 og disse værdier bruges til modellering af DC motorerne.
+Nedenstående tabel \ref{tb:motorparametre} viser motorparametrene
+ fundet i Eksperiment 1-4 og disse værdier bruges til modellering af DC motorerne.
 \begin{figure}[th!]
 	\centering
 	\input{content/tb_motorparametre.tex}

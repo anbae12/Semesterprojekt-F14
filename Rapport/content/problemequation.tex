@@ -7,9 +7,10 @@ Lerduen skal flyve 50 [m] - 52 [m]. "High house" er placeret 20,11 [m] fra TCS, 
 højde af 3,05 [m]. 
 
 \subsection{Parabel i 2 dimensioner}
-For at simplificere udregningerne, bestemmes parablen først i 2D. Når denne er fundet kan den tredje dimension tilføjes.\\
+For at simplificere udregningerne, bestemmes parablen først i 2D. Når denne er fundet kan den tredje dimension tilføjes.
 
-Da luftmodstanden er negligerbar kan parablen (2. grads polynomium) findes ved at indsætte de kendte punkter. Kasteparablen er givet ved vektorfunktionen i ligning \ref{eq:pf:vektorparabel}.
+Da luftmodstanden er negligerbar kan parablen %(2. grads polynomium) 
+findes ved at indsætte de kendte punkter. Kasteparablen er givet ved vektorfunktionen i ligning \ref{eq:pf:vektorparabel}.
 
 \begin{equation}
 	Pos(t) = \left( \begin{array}{c}
@@ -91,11 +92,12 @@ Ovenstående ligning \ref{eq:pf:y(x)3} og ligning \ref{eq:pf:vektorparabel3d} br
 
 \subsection{Parabel i 3 dimensioner}
 \label{subsubsec:para}
-Nu omskrives parablen fundet i ligning \ref{eq:pf:vektorparabel2} til x,y,z koordinater. 
+Parablen givet i ligning \ref{eq:pf:vektorparabel2} omskrives mht. xyz-koordinater.
+%Nu omskrives parablen fundet i ligning \ref{eq:pf:vektorparabel2} til x,y,z koordinater. 
 Grundplanet er xy og højden er givet ved z. Dvs. at \(z(t) = y_{2D}(t)\) og at \(x(t)\) samt \(y(t)\) afhænger af \(x_{2D}(t)\) samt vinklen \(\alpha\). 
-\(\alpha\) er givet ved vinklen mellem parablen projekteret ned på xy-planet (som vist på figur \ref{fig:para_in_xy_plane}) og y-planet.
+\(\alpha\) er givet ved vinklen mellem den projekteret parabel, projekteret på xy-planet, og y-planet som vist på figur \ref{fig:para_in_xy_plane}.
 %\todo[inline, author=Michael, color=blue! 50]{Kan også skrives som vinklen mellem parablen og x,z planet?}
-Stedvektoren for lerduens position i 3D er givet i nedenstående ligning, hvor \(\alpha = 15,872\degree\).
+Stedvektoren for lerduens position i 3D er givet i ligning \ref{eq:pf:vektorparabel3d}, hvor \(\alpha = 15,872\degree\).
 \begin{align}
 \begin{split}
 Pos\left( t \right) = 
