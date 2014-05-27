@@ -3,11 +3,11 @@
 Kommunikationen mellem mikrocontolleren og FPGA’en foregår med Serial Peripheral Interface (SPI). 
 SPI understøtter full-duplex kommunikation mellem en master og en eller flere slaver.
 
-Der er fire kanaler mellem masteren og slaven: Slave Select (SS), Serial Clock (SCLK), Master Output Slave Input.(MOSI) og Master Input Slave Output (MISO). SS bruges til at vælge hvilken slave der skal overføres data til/fra. Den kan også sammenlignes med en chip select. SCLK generes af masteren; SS, MOSI og MISO kører synkront med dette signal.
+Der er fire kanaler mellem masteren og slaven: Slave Select (SS), Serial Clock (SCLK), Master Output Slave Input (MOSI) og Master Input Slave Output (MISO). SS bruges til at vælge hvilken slave der skal overføres data til/fra. Den kan også sammenlignes med en chip select. SCLK generes af masteren; SS, MOSI og MISO kører synkront med dette signal.
 
 Opstillingen med en master og en slave kan ses på figur \ref{fig:SPImasterslave}. 
-Her kan være SS overflødig, da der kun er en slave at vælge, tilgengædt kan SS bruges til at initialisere overførelsen. 
-Når SS er sat højt, begynder overførelsen mellem master og slaven. Da overførelsen er fuld-duplex sender begge til hinanden 
+Her kan SS være overflødig, da der kun er en slave at vælge. Til gengæld kan SS bruges til at initialisere overførelsen. 
+Når SS er sat højt, begynder overførslen mellem master og slave. Da overførslen er full-duplex sender begge til hinanden samtidig. 
 \begin{figure}[!th]
 \centering
 \begin{tikzpicture}[scale=0.8]
@@ -19,13 +19,11 @@ Når SS er sat højt, begynder overførelsen mellem master og slaven. Da overfø
 
 Når der er flere slaver, bestemmer SS hvilken slave der overføres til.
 Alle slave har deres egen SS, men de deler alle MISO og MOSI. 
-Før overførelsen begynder sætter masteren SS høj til den ønskede slave,
-derefter overføres dataene med slaven.
-Men overførelsen tager sted ignorerer de urelevante slaver dataene på MOSI.  
-
+Før overførslen begynder sætter masteren SS høj til den ønskede slave,
+derefter overføres dataene til slaven.
+Mens overførslen finder sted ignorerer de ikke-valgte slaver dataene på MOSI.  
 %Det er en standard hvor der bliver overført data mellem en master og en eller flere slaver. 
 %Overførelsen sker med full duplex, så der bliver sendt data både fra masteren og slaven på samme tid. 
-
 
 \begin{figure}[!th]
 \centering
@@ -36,11 +34,8 @@ Men overførelsen tager sted ignorerer de urelevante slaver dataene på MOSI.
 \label{fig:SPIfigur}
 \end{figure}
 
-Et eksempel på en overførelse mellem en master og en slave kan ses på figur \ref{fig:SPIfigur}. 
+Et eksempel på en overførsel mellem en master og en slave kan ses på figur \ref{fig:SPIfigur}. 
 Eksemplet tager udgangpunkt i TI Synchronous Serial Frame Format Single Transfer \cite[s. 476]{lm3s6965} fra microcontrolleren.
 I denne form er SSIClk, SSIFss, SSITx, SSIRx pins'ne. SSIClk er clock signalet, SSIFss er slave select og SSITx og SSITx er henholdsvis MOSI og MISO.
-SCLK har en mere puls, end der er bit i hver data-frame. Det er fordi at SS går høj i den første pulse, hvorefter dataene bliver sendt. 
+SCLK har en puls mere, end der er bit i hver data-frame. Det er fordi at SS går høj i den første puls, hvorefter dataene bliver sendt. 
 Det gør at SS kan bruges som en indikater for at data vil blive overført.
-   
-
-
