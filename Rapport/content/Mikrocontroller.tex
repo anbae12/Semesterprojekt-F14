@@ -246,7 +246,7 @@ Opbygningen af de to datawords kan ses på figur \ref{fig:protokol1}.
 Figur \ref{fig:spi_to_fpga} viser indholdet af datawords der bliver sendt fra mikrocontrolleren. 
 Motorbit vælger aktuel motor, retningsbit vælger hvilken retning
 denne skal dreje og PWM-duty cycle indeholder den ønskede PWM-duty cycle. 
-Hvis setPWM-bit ikke er sat ignoreres den modtagne besked,
+Hvis setPWM bit ikke er sat ignoreres den modtagne besked,
 mens den aktuelle motorposition stadig returneres som vist på figur \ref{fig:spi_from_fpga}. 
 
 %Da SPI er full duplex sendes data fra  Mikrocontrolleren og FPGA’en synkront - FPGA’en sender et dataword samtidig med mikrocontrolleren
@@ -256,92 +256,14 @@ mens den aktuelle motorposition stadig returneres som vist på figur \ref{fig:sp
 %På figur \ref{fig:spi_from_fpga} ses dataword'et som FPGA'en sender. FPGA'en sender positionen på den bestemte motor. 
 
 \subsection{Test} 
-% Test af SPI overførsel
-% Test af realtidsafvikling af reguleringssløjferne, 
-% lever vi op til kravene?
-%
-%Deadband er testet ved at øge PWM med 6 [Hz] til en motor hvor der blev målt position med 600 [Hz].
-%Ved at se hvornår der sker den første bevægelse er er målt at deadband målt til 141 for tilt og 221 for pan motoren.
-%Dette er indsat i en langsom regulator som bliver brugt til at sætte en enkelt position. Her kan error signalet være %størst og der er ikke de samme tidskrav til systemet. 
-%
-%Den matematiske model er sammenlignet med plotdata fra open loop sløjfen på tilt systemet.
-%Pan systemet kan ikke bevæge sig hele vejen rundt, så der er ikke foretaget en open loop test af denne motor.
-%Testen består i at gå fra 0 til 2047 PWM i trin af 1. PWM bliver forøget med 60[Hz] og der bliver målt position med 600[Hz].
-%Sammenligningen er plottet i appendix XXX og den største fejlmargen var XXX.
-%
-%
-%Realtidsafviklingen af systemet er målt ved at sætte en pin på mikrocontroller boardet og måle resultatet med et oscilloscop.
-%Afviklingen af en enkelt control loop i tracking stadiet er målt til XXX \(\micro\) sekunder
-%Det kan også aflæses at der er en fast afstand på 1666.667 \(\micro\) sekunder fra start til start, så freeRTOS kan godt følge med til at skedulere med 600 [Hz].
-%I appendix XXX kan der ses en måling hvor der både bliver målt længden af en task og SPI kommunikationen.
-%
-%
-SPI funktionens afviklingstid blev testet ved at skifte en digital pin før og efter SPI-funktion blev kaldt.
-Et oscilloskop af typen \textit{Agilent DSO-X 2024A} blev brugt til målingerne. 
+Det testes hvorvidt SPI-overførslen og Control-task'en overholder timingkravene. 
+Testen udføres ved at sætte en digital udgang høj mens task'en afvikles, og samtidig måle denne udgang med et oscilloskop. 
+Appendix \ref{sec:uctestappendix} forklarer fremgangsmåden og diskuterer måleresultaterne. 
 
-SPI funktionens afviklingstid blev på oscilloskopet målt til 40,54 [\micro s].
-I løbet af 10 parabelbevægelser blev observeret en afvigelse på \(\pm2\) [ns], hvilket svarer til måleusikkerheden. 
-Altså overholder implementeringen kravet på afvikling indenfor 83,3 [\micro s], som opstillet i ligning \ref{eq:uc:spi-krav}.
 
-%\begin{table}[h!]
-%\centering
-%%\begin{tabular}{|c|c|c|c|}\hline 
-%%Max:  & Min: & Median: & Gennemsnit: \\\hline 
-%%41,12 [\micro s] & 40,16 \micro s & 40,56 \micro s & 40,59 \micro s \\\hline 
-%%\end{tabular} 
-%\begin{tabu}{c|c|c|c}%{c|[1.25pt]c|c|c}
-%Max:  & Min: & Median: & Gennemsnit: \\\hline % \tabucline[1.25pt]{-}
-%41,12 [\micro s] & 40,16 \micro s & 40,56 \micro s & 40,59 \micro s 
-%\end{tabu} 
-%\caption{Data fra tests af SPI.}
-%\label{tb:spi-tests}
-%\end{table}
+Det blev fundet at SPI-overførslen af 2 datawords blev udført 40,54 [\micro s], hvilket opfylder kravet på 83,3 [\micro s]. 
+Control-task'en blev afviklet periodisk med en afvigelse på under 1\%. 
 
-Samme fremgangsmåde blev brugt til at undersøge timingen for Control-task'en,
-som indeholder reguleringssløjferne. Oscilloskopet blev indstillet til \(500.000\) [Samples/s].
-Kravet til afviklingen var: Reguleringsløjferne kører med 600 [Hz], samt at task'en afvikles inden næste periode. 
-Dvs. en maks afviklingstid på \(\frac{1}{600}\) [s], da kravet på 600 [Hz] ellers ikke kunne opfyldes. 
-Intervallet mellem hver afvikling af task'en blev målt for 60 afviklinger,
-og resultaterne er vist i tabel \ref{tb:ctrltasktimingtest}.
-\begin{table}[h!]
-% Prøv multicolummn
-\centering
-\begin{tabu}{l|[1.25pt]r|r|r|r}
- & Max:  & Min: & Median: & Gennemsnit:  \\ \tabucline[1.25pt]{-}
-Målt interval: & 1,672 [ms] & 1,662 [ms] & 1,667 [ms] & 1,667 [ms] \\ 
-\hline 
-Afvigelse: & 5,33 [\micro s] & 4,66 [\micro s] & 0,66 [\micro s] & 0,13 [\micro s] \\
-\end{tabu} 
-\caption[Interval mellem afvikling af Control task]{Interval mellem hver afvikling af Control-task. Måleusikkerheden er $\pm4$ [\micro s].}
-\label{tb:ctrltasktimingtest}
-\end{table}
-%\todo[inline,author=Nikolaj, color=green]{Din afvigelse siger at du mangler et decimal...}
-
-Afvigelserne for medianen og gennemsnittet ligger indenfor måleusikkerheden på $\pm4$  [\micro s].
-For max. og min. værdierne er afvigelsen på max. 133\% af måleusikkerheden,
-og det vurderes at denne kan negligeres. 
-
-Samme datasæt blev brugt til at beregne afviklingstiden for task'en, koordinattransformationen og selve reguleringssløjfen. 
-Disse data er vist i tabel \ref{tb:ctrl task runtime test}. %Bemærk usikkerheden på $4  [\micro s]$.
-
-%500KSa/s
-\begin{table}[h!]
-\centering
-\begin{tabu}{l|[1.25pt]r|r|r|r}
-Afviklingstid & Max  &  Min & Median & Gennemsnit  \\ \tabucline[1.25pt]{-}
-Ctrl task & 360 [\micro s] & 326 [\micro s] & 332 [\micro s] & 338 [\micro s] \\ \hline 
-Koordinat transformation & 228 [\micro s] & 202 [\micro s] & 206 [\micro s] & 212 [\micro s] \\
-\hline 
-PID-regulering & 40 [\micro s] & 30 [\micro s] & 32 [\micro s] & 34 [\micro s]\\
-\end{tabu} 
-\captionsetup{width=0.8\textwidth}
-\caption[Afviklingstiden for Control task]{Afviklingstiden for Control task, Koordinattransformation og PID-regulering. Måleusikkerheden er $\pm4$ [\micro s].}
-\label{tb:ctrl task runtime test}
-\end{table}
-
-Dataene viser at Control task'en blev afviklet før sin deadline - med en margin på min. 1,294 [ms].
-%\todo[inline,author=Nikolaj, color=green]{Skal man ikke tænke mindste målte interval - måleusikkerheden - længste afviklingstid? - Indregn worst case}
-Variationen i afviklingstiden skyldes koordinattransformationen og PID-reguleringen. Den maksimale variation af afviklingstiden udgør $ \frac{360 - 326}{1667} = 2,04\% $ af periodetiden, hvilket kan tolereres. 
 
 \subsection{Delkonklusion}
 Det blev valgt at benytte den udleverede LM3S6965 mikrocontroller.
