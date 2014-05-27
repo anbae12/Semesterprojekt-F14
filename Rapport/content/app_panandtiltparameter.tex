@@ -19,7 +19,7 @@ Den teoritiske beregning er foretaget ud fra følgende antagelser og simplificer
 \begin{itemize}
 \item Aluminimumsprofilen, 40x40L, har en massefylde på \(\rho=1,5\) [kg/m], \citep[Kap. 2 Side. 4]{alu_profil_desitet}.
 \item Rammerne simplificeres som bestående af tynde stænger, således at hver ramme har to stænger, hvis bidrag
-til inertimomentet kan beregnes som var de punktmasser forskudt i forhold til rotationsaksen\citep[Side. 254, ligning 10-36]{fund_of_physics},
+til inertimomentet kan beregnes som var de punktmasser forskudt i forhold til rotationsaksen \citep[Side. 254, ligning 10.36]{fund_of_physics},
 vha. ligning \ref{eq:punktmasse_para}.
 \begin{equation}
 J={ J }_{ com }+M\cdot { h }^{ 2 }
@@ -57,28 +57,32 @@ Man kan argumentere for, at denne konstant bør være gennemsnittet af bidragene
 Denne ville kunne tilnærmes ud fra den ideelle responskurve for tilt-systemet, der kan beregnes ud fra den faste parabel, som gives som input.
 Værdien ville således være baseret på ét specifikt parabelinput. En anden tilgang kunne være at vælge minimum-bidraget, og dermed
 have en værdi der er nøjagtig for de tilt-vinkler, der er tæt på lodret, og mere og mere unøjagtig jo mere vandret tilit-vinklen er.
-Sidstnævnte tilgang vælges, fordi tilt-vinklen i lerdueskydningen er tilnærmelsesvis lodret. Tilt-rammen roterer i vinkelintervallet \([-0.589^{\circ} \leq \phi \leq 12,3^{\circ}]\) jf. lerduens toppunktstid samt nedslagstid på hhv. 0,557 [s] og 1,52 [s], indsat i ligning \ref{eq:sv_koordi}. Antagelsen om konstant bidrag til inertimoment er derfor nøjagtig.
+Sidstnævnte tilgang vælges, fordi tilt-vinklen i lerdueskydningen er tilnærmelsesvis lodret. Tilt-rammen roterer i vinkelintervallet \([4,03\degree \leq \phi \leq 12,3\degree]\) jf. lerduens toppunktstid samt nedslagstid på hhv. 0,557 [s] og 1,18 [s], indsat i ligning \ref{eq:sv_koordi}. Antagelsen om konstant bidrag til inertimoment er derfor nøjagtig.
 
 Tilt-rammens bidrag til inertimomentet for pan bestemmes derfor ud fra, at to af tilt-rammens "stænger" er parallele med
 rotationsaksen, og at de to stænger med længden \({L_{2}}\) er vinkelret på den, samt at de roterer om den.
 Med ligningerne \ref{eq:punktmasse_para} og \ref{eq:stang}
 kan tilt-rammens bidrag til pan-inertimomentet altså beregnes vha ligning \ref{eq:tiltOnPan}.
 \begin{align}
+\begin{split}
 J_{pan,tilt_{min}}&=2\cdot{}\left(\frac{1}{12}\cdot{}\rho\cdot{}L_{2}^3
 +\rho\cdot{}\left(L_1-2\cdot{}L_{pro}\right)\left(\frac{L_2-L_{pro}}{2}\right)^2\right)
 \\
 &=0,0146464 \text{ [kg m$^2$]}
+\end{split}
 \label{eq:tiltOnPan} 
 \end{align}
 Inertimomentet på pan-aksen er derfor givet ved summationen af pan-rammens inertimoment og tilt-rammens inertimoment,
 som angivet i ligning \ref{eq:pan_inerti}.
 \begin{align}
+\begin{split}
 { J }_{ pan,1.1 } &= J_{ pan,1 }+J_ { pan,tilt_{ min} }
-\\&=0,0462172 \text{ [kg m$^2$]}
+\\
+&=0,0462172 \text{ [kg m$^2$]}
+\end{split}
 \label{eq:pan_inerti} 
 \end{align}
-
-Inertimomentet for tilt er beregnet i ligning \ref{eq:inerti_tilt_pan}, mens inertimomentet for pan er beregnet i ligning \ref{eq:pan_inerti}.
+Inertimomentet for tilt og pan er beregnet i ligning \ref{eq:inerti_tilt_pan}, mens det endelige inertimomentet for pan er beregnet i ligning \ref{eq:pan_inerti}.
 Systemets gearing gør dog at inertimomenterne som motorerne belastes med, er mindre.
 Gearingen i EMG30-motoren er i forholdet 30:1, mens gearingen til rammerne er i forholdet 1:3.
 Ligning \ref{eq:gearing0} giver forholdet mellem det reflekterede inertimoment \(J_r\) (som motoren belastes med)
@@ -88,7 +92,7 @@ J_r=\frac{J}{N^2}
 \label{eq:gearing0}
 \end{equation}
 \(N\) kan altså bestemmes som multiplikationen af de to gearingsforhold, og er således lig med 10.
-I ligningerne \ref{eq:inerti_tilt_pan_fak} er de reflekterede inertimomenter beregnet.
+I ligning \ref{eq:inerti_tilt_pan_fak} er de reflekterede inertimomenter beregnet.
 \begin{align}
 \label{eq:inerti_tilt_pan_fak}
 \begin{split}
