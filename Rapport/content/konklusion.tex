@@ -2,17 +2,17 @@
 \label{sec:konklusion}
 Et Pan \& Tilt-system er blevet opbygget til nedskydning af en lerdue i English Skeet.
 Med udgangspunkt i en matematisk model af systemet er to digitale regulatorer
-blevet designet: En PID-regulator til Pan-systemet og en PI-regulator til Tilt-systemet.
+blevet designet: En PID-regulator til pan-systemet og en PI-regulator til tilt-systemet.
 
 Regulatorerne er implementeret på en mikrocontroller, og modtager positionsfeedback
 fra en FPGA gennem SPI.
 Reguleringssløjfernes realtidskrav imødekommes ved brug af operativsystemet FreeRTOS.
 
-Efter manuel justering af PID-regulatoren til Pan-systemet er det blevet fundet,
+Efter manuel justering af PID-regulatoren til pan-systemet er det blevet fundet,
 at kravene til systemets performance ikke kan imødekommes i alle tilfælde.
 I nogle af de udførte tracking-forsøg var systemet dog i stand til at følge lerduens bevægelse
 iht. kravspecifikationen.
 
 Det vurderes, at mere avancerede regulatortyper er nødvendige til den nøjagtige tracking af lerduen.
 
-\subsection{Til videre arbejde}
+\section{Til videre arbejde}
