@@ -11,9 +11,13 @@
 \cleardoublepage
 \clearpage
 
+\fancyhead{}
+\fancyfoot{}
 % Disable indentation
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.7\baselineskip}%
+\setcounter{page}{1}
+\fancyfoot[CO,CE]{\thepage}
 \pagenumbering{Roman}
 \include{./content/abstract}
 \include{./content/templates} % Kan bruges til copy paste ind i rapport for forskellige outputs.....
@@ -21,16 +25,12 @@
 \include{./content/indholdsfortegnelse}
 
 
-
-
-
-
-\pagestyle{fancy}
-\fancyfoot{}
+% 
+% \pagestyle{fancy}
+% \fancyfoot{}
 %\fancyfoot[LE,RO]{}
 %\fancyfoot[LO,RE]{}
 %\fancyfoot[LO,RE]{}
-\fancyfoot[LO,RE]{\thepage}
 
 
 
@@ -41,6 +41,11 @@
 
 
 
+\pagestyle{fancy}
+\fancyfoot{}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\fancyfoot[LO,RE]{\thepage}
 \include{./content/intro}
 %%%%%%%%% RAPPORTENS KAPITLER BEGYNDER!!!
 \include{./content/application}
