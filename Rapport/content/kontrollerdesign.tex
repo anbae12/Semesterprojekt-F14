@@ -243,19 +243,27 @@ mens fejlen på fasen er lille ved lave frekvenser og stiger ved høje frekvense
 
 \subsection{Upsampling}
 \label{subsec:upsampling}
-Da reguleringssløjfen, som beskrevet i afsnit \ref{subsec:choosefs}, køres med en frekvens på 600 [Hz],
-som er 5 gange højere end input-samplingfrekvensen, skal der foretages en upsampling.
-%Upsamplingen foretages med Zero Order Hold, hvorved ét sample ved 120 Hz indsættes 
-%som 5 samples ved 600 Hz.
-Upsamplingen indsætter mellem hvert input-sample 4 samples med værdien 0, så hvert input-sample
-kun samples én gang. Dette gør, at input-signalets frekvensspektrum bevares.
-Da input-signalet er samplet ved 120 [Hz] vil det oprindelige spektrum, centreret omkring 0 [Hz],
-spejles ved heltalsmultipla af 120 [Hz]. Disse spejlbilleder af det oprindelige spektrum vil være
-indeholdt i det upsamplede signal, hvis det ikke lavpasfiltreres. 
-Det vælges at filtrere det upsamplede signal med et Zero Order Hold,
-således at de indsatte samples med værdien 0 erstattes med værdien af sidste sample
-med en værdi forskellig fra 0. Dette fjerner ikke de førnævnte spejlbilleder, men forøger
-til gengæld heller ikke forsinkelsen af input-signalet.
+Da reguleringssløjfen afvikles med en 5 gange højere frekvens end der modtages input koordinater, er det nødvendigt at upsample input-signalet. 
+Normalt indsættes fire samples med værdien 0 mellem hvert inputsample, hvorefter signalet lavpasfiltreres for at undgå aliasing. Lavpasfiltret vil dog også forsinke signalet. 
+
+Lavpasfiltret fravælges da det vurderes at alias toleres bedre end en forsinkelse på signalet. Dette skyldes at en forsinkelse ville bidrage til fejlsignalet. 
+Det vælges derfor at bruge ZoH til upsamplingen, da denne reagerer momentant på ændringer i inputsignalet. 
+
+
+%%% GL. Upsampling:
+%Da reguleringssløjfen, som beskrevet i afsnit \ref{subsec:choosefs}, køres med en frekvens på 600 [Hz],
+%som er 5 gange højere end input-samplingfrekvensen, skal der foretages en upsampling.
+%%Upsamplingen foretages med Zero Order Hold, hvorved ét sample ved 120 Hz indsættes 
+%%som 5 samples ved 600 Hz.
+%Upsamplingen indsætter mellem hvert input-sample 4 samples med værdien 0, så hvert input-sample
+%kun samples én gang. Dette gør, at input-signalets frekvensspektrum bevares.
+%Da input-signalet er samplet ved 120 [Hz] vil det oprindelige spektrum, centreret omkring 0 [Hz],
+%spejles ved heltalsmultipla af 120 [Hz]. Disse spejlbilleder af det oprindelige spektrum vil være
+%indeholdt i det upsamplede signal, hvis det ikke lavpasfiltreres. 
+%Det vælges at filtrere det upsamplede signal med et Zero Order Hold,
+%således at de indsatte samples med værdien 0 erstattes med værdien af sidste sample
+%med en værdi forskellig fra 0. Dette fjerner ikke de førnævnte spejlbilleder, men forøger
+%til gengæld heller ikke forsinkelsen af input-signalet.
 
 \subsection{Valg af regulatortype}
 \label{ss:ValgReg}
