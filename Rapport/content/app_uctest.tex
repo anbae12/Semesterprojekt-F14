@@ -1,0 +1,59 @@
+\section{Test af mikrocontrollerens timing}
+\label{sec:uctestappendix}
+Dette appendix beskriver test af mikrocontrollerens timing. 
+Først testes afviklingstiden for SPI funktionerne, dernæst for Control-task'en. 
+
+
+SPI funktionens afviklingstid blev testet ved at skifte en digital pin før og efter SPI-funktion blev kaldt.
+Et oscilloskop af typen \textit{Agilent DSO-X 2024A} blev brugt til målingerne. 
+
+SPI funktionens afviklingstid blev på oscilloskopet målt til 40,54 [\micro s].
+I løbet af 10 parabelbevægelser blev observeret en afvigelse på \(\pm2\) [ns], hvilket svarer til måleusikkerheden. 
+Altså overholder implementeringen kravet på afvikling indenfor 83,3 [\micro s], som opstillet i ligning \ref{eq:uc:spi-krav}.
+
+Samme fremgangsmåde blev brugt til at undersøge timingen for Control-task'en,
+som indeholder reguleringssløjferne. Oscilloskopet blev indstillet til \(500.000\) [Samples/s].
+Kravet til afviklingen var: Reguleringsløjferne kører med 600 [Hz], samt at task'en afvikles inden næste periode. 
+Dvs. en maks afviklingstid på \(\frac{1}{600}\) [s], da kravet på 600 [Hz] ellers ikke kunne opfyldes. 
+Intervallet mellem hver afvikling af task'en blev målt for 60 afviklinger,
+og resultaterne er vist i tabel \ref{tb:ctrltasktimingtest}.
+\begin{table}[h!]
+% Prøv multicolummn
+\centering
+\begin{tabu}{l|[1.25pt]c|c|c|c}
+ & Max  & Min & Median & Gennemsnit  \\ \tabucline[1.25pt]{-}
+Målt interval & 1,672 [ms] & 1,662 [ms] & 1,667 [ms] & 1,667 [ms] \\ 
+\hline 
+Afvigelse & 5,33 [\micro s] & 4,66 [\micro s] & 0,66 [\micro s] & 0,13 [\micro s] \\
+ & 0,41\% & 0,54\% & 0,03\%  & 0,03\% \\
+\end{tabu} 
+\caption[Interval mellem afvikling af Control task]{Interval mellem hver afvikling af Control-task. Måleusikkerheden er $\pm4$ [\micro s].}
+\label{tb:ctrltasktimingtest}
+\end{table}
+%\todo[inline,author=Nikolaj, color=green]{Din afvigelse siger at du mangler et decimal...}
+
+Afvigelserne for medianen og gennemsnittet ligger indenfor måleusikkerheden på $\pm4$  [\micro s].
+For max. og min. værdierne er afvigelsen på max. 133\% af måleusikkerheden,
+og det vurderes at denne kan negligeres. 
+
+Samme datasæt blev brugt til at beregne afviklingstiden for task'en, koordinattransformationen og selve reguleringssløjfen. 
+Disse data er vist i tabel \ref{tb:ctrl task runtime test}. %Bemærk usikkerheden på $4  [\micro s]$.
+
+%500KSa/s
+\begin{table}[h!]
+\centering
+\begin{tabu}{l|[1.25pt]r|r|r|r}
+Afviklingstid & Max  &  Min & Median & Gennemsnit  \\ \tabucline[1.25pt]{-}
+Ctrl task & 360 [\micro s] & 326 [\micro s] & 332 [\micro s] & 338 [\micro s] \\ \hline 
+Koordinat transformation & 228 [\micro s] & 202 [\micro s] & 206 [\micro s] & 212 [\micro s] \\
+\hline 
+PID-regulering & 40 [\micro s] & 30 [\micro s] & 32 [\micro s] & 34 [\micro s]\\
+\end{tabu} 
+\captionsetup{width=0.8\textwidth}
+\caption[Afviklingstiden for Control task]{Afviklingstiden for Control task, Koordinattransformation og PID-regulering. Måleusikkerheden er $\pm4$ [\micro s].}
+\label{tb:ctrl task runtime test}
+\end{table}
+
+Dataene viser at Control task'en blev afviklet før sin deadline - med en margin på min. 1,294 [ms].
+%\todo[inline,author=Nikolaj, color=green]{Skal man ikke tænke mindste målte interval - måleusikkerheden - længste afviklingstid? - Indregn worst case}
+Variationen i afviklingstiden skyldes koordinattransformationen og PID-reguleringen. Den maksimale variation af afviklingstiden udgør $ \frac{360 - 326}{1667} = 2,04\% $ af periodetiden, hvilket kan tolereres. 
