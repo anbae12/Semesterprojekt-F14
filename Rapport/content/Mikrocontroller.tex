@@ -246,7 +246,7 @@ Opbygningen af de to datawords kan ses på figur \ref{fig:protokol1}.
 Figur \ref{fig:spi_to_fpga} viser indholdet af datawords der bliver sendt fra mikrocontrolleren. 
 Motorbit vælger aktuel motor, retningsbit vælger hvilken retning
 denne skal dreje og PWM-duty cycle indeholder den ønskede PWM-duty cycle. 
-Hvis setPWM-bit ikke er sat ignoreres den modtagne besked,
+Hvis setPWM bit ikke er sat ignoreres den modtagne besked,
 mens den aktuelle motorposition stadig returneres som vist på figur \ref{fig:spi_from_fpga}. 
 
 %Da SPI er full duplex sendes data fra  Mikrocontrolleren og FPGA’en synkront - FPGA’en sender et dataword samtidig med mikrocontrolleren
@@ -260,8 +260,10 @@ Det testes hvorvidt SPI-overførslen og Control-task'en overholder timingkravene
 Testen udføres ved at sætte en digital udgang høj mens task'en afvikles, og samtidig måle denne udgang med et oscilloskop. 
 Appendix \ref{sec:uctestappendix} forklarer fremgangsmåden og diskuterer måleresultaterne. 
 
+
 Det blev fundet at SPI-overførslen af 2 datawords blev udført 40,54 [\micro s], hvilket opfylder kravet på 83,3 [\micro s]. 
 Control-task'en blev afviklet periodisk med en afvigelse på under 1\%. 
+
 
 \subsection{Delkonklusion}
 Det blev valgt at benytte den udleverede LM3S6965 mikrocontroller.

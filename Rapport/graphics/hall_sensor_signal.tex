@@ -7,9 +7,9 @@
 \node[](punkt4)[yshift = -0.5 cm, below of= punkt3]{};
 \node[](punkt5)[xshift = 3 cm, right of= punkt4]{};
 
-\path[,red!50](start.center) edge [bend left= 0] (punkt1.center);
-\path[,red!50](punkt1.center) edge [bend left= 0] (punkt2.center);
-\path[,red!50](punkt2.center) edge [bend left= 0] (punkt3.center);
+\path[red!50](start.center) edge [bend left= 0] (punkt1.center);
+\path[red!50](punkt1.center) edge [bend left= 0] (punkt2.center);
+\path[red!50](punkt2.center) edge [bend left= 0] (punkt3.center);
 \path[](punkt3.center) edge [bend left= 0] (punkt4.center);
 \path[-> ,>= stealth,red!80](punkt3.center) edge [bend left= 0] (punkt4);
 \path[->,>= stealth,blue!80](punkt4.center) edge [bend left= 0] (punkt3);

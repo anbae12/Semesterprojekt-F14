@@ -39,7 +39,7 @@ Hvis PTS roterer i én retning sættes reset signalet højt på opadgående
 flanke på Hall sensor outputtet, mens reset signalet sættes højt på nedadgående 
 flanke i den anden retning. Reset signalet udsendes derved på samme sted, som vist på figur \ref{fig:hall_sensor_signal}.
 Hermed fås det smallest mulige område, hvor reset signalet er højt.
-Præcisionen på denne kalibrering er $\pm$ 1 tick.
+Præcisionen på denne kalibrering er \(\pm1\) tick.
 
 \textbf{Display}\\
 \textbf{Input:} Motorposition fra tic counter. Skaleret clock signal fra clock 
@@ -59,17 +59,17 @@ Skalerer clock signalet.
 
 \textbf{Input decoder}\\
 \textbf{Input:} 16 bit data fra SPI.\\
-\textbf{Output:} PWM kanal og tilhørende PWM duty cycle (11 bit).
+\textbf{Output:} PWM-kanal og tilhørende PWM-duty cycle (11 bit).
 
-Hvis PWM set bittet er højt skal opdateres PWM kanal og tilhørende PWM duty cycle.
-Opdateringen sker ved at tage 2 MSB og lave dem til et PWM kanal output. De 11 
-LSB sendes som PWM duty cycle output.
+Hvis setPWM bit er højt skal PWM-kanal og tilhørende PWM-duty cycle opdateres.
+Opdateringen sker ved at tage 2 MSB og lave dem til et PWM-kanal output. De 11 
+LSB sendes som PWM-duty cycle output.
 
 \textbf{PWM}\\
-\textbf{Input:} PWM kanal og tilhørende PWM duty cycle (11 bit).\\
+\textbf{Input:} PWM-kanal og tilhørende PWM-duty cycle (11 bit).\\
 \textbf{Output:} PWM til PTS.
 
-Sørger for at levere PWM til PTS ud fra PWM kanal og duty cycle.
+Sørger for at generere PWM til PTS ud fra PWM-kanal og PWM-duty cycle.
 
 %\subsection*{Output decoder}
 \textbf{Output decoder}\\

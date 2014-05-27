@@ -9,7 +9,7 @@ er det valgt at simulere systemet i Simulink.
 I Simulink er den diskretiserede overføringsfunktion indsat sammen med en model for dødzonen,
 målt eksperimentelt, samt PI-regulatoren. Det simulerede systems blokdiagram er illustreret i figur \ref{fig:simulink1}.
 Da modellen indeholder ulineariteter er det valgt at starte med et simpelt gain \(K_P\) på 1,
-og med Trial-\&-Error metoden prøve sig frem til koefficienterne.
+og vha. "trial and error" prøve sig frem til koefficienterne.
 
 \todo[inline, color=red!20]{Hvad menes der med dette?}
 
@@ -65,7 +65,8 @@ Figur \ref{fig:pidPhys1} viser pan og tilt-fejlsignalet i forhold til den kontin
 \captionsetup{width=0.6\textwidth}
 \caption[Fejlsignaler m. startkoefficienter]{Fejlsignaler m. startkoefficienterne fra tabel \ref{tb:pidSimulink}.
 	De sorte lodrette streger angiver \(t_s=0,557 \text{ [s]}\).
-	Pan-fejlsignalet er markeret med krydser, og tilt-fejlsignalet er markeret med prikker.} 
+	Pan-fejlsignalet er markeret med rødt, og tilt-fejlsignalet er markeret med blåt.
+	Grafen indeholder målinger fra flere forsøg.} 
 \label{fig:pidPhys1}
 \end{figure}
 \todo[inline, color=red!20]{En farve til tilt, en farve til pan. ingen kan se krydser eller prikker fra denne afstand.
@@ -138,9 +139,10 @@ Pan   & 100 & 110 & 3,8
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1\textwidth]{./graphics/pidPhys2.eps}
-\caption[Endelig performance]{Endelig performance. Fejlsignaler for Pan (krydser) og Tilt (prikker) øverst, trackingfejl nederst.
+\caption[Endelig performance]{Endelig performance. Fejlsignaler for pan (rød) og tilt (blå) øverst, trackingfejl nederst.
 Testen er foretaget med koefficienterne fra tabel \ref{tb:PID_final}.
-De sorte streger angiver kravene om Settling Time på under 0,557 [s] og trackingfejl på under 1,02\degree{}.} 
+De sorte streger angiver kravene om Settling Time på under 0,557 [s] og trackingfejl på under 1,02\degree{}.
+Grafen indeholder målinger fra flere forsøg.} 
 \label{fig:PID_final}
 \end{figure}
 
@@ -166,13 +168,13 @@ De sorte streger angiver kravene om Settling Time på under 0,557 [s] og trackin
 %\label{fig:PID_final}
 %\end{figure}
 
-Det viste sig under justeringen at systemet er meget følsomt overfor slid i drivremmene mellem motorerne og Pan- og Tilt-rammerne.
+Det viste sig under justeringen at systemet er meget følsomt overfor slid i drivremmene mellem motorerne og pan- og tilt-rammerne.
 Systemet kræver derfor kalibrering for at kunne fungere i praksis.
 
 \section{Delkonlusion}
-Ved Trial-\&-Error-metoden blev regulatorkoefficienterne i Simulink justeret til at give den ønskede 
+Ved "trial and error" blev regulatorkoefficienterne i Simulink justeret til at give den ønskede 
 tracking performance ift. et parabelinput. Pan-koefficienterne giver dårlig performance i praksis.
-Ved manuel justering blev et sæt PID-regulatorkoefficienter fundet til Pan, som gav bedre performance.
+Ved manuel justering blev et sæt PID-regulatorkoefficienter fundet til pan, som gav bedre performance.
 Det vurderedes nødvendigt at implementere et lavpasfilter til D-leddet.
 Med det implementerede filter gav de justerede regulatorkoefficienter en performance,
 der ikke ved alle forsøg levede op til kravspecifikationen. Ved nogle af forsøgene viste
