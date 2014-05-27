@@ -50,7 +50,7 @@ så er diskretiseringen allerede foretaget inden designet af regulatoren.
 Dvs. man finder en diskretiseret model af det fysiske system inden designet af regulatoren.
 Kravet til diskretiseringen af åbensløjfeoverføringsfunktionerne er, at den diskrete repræsentation
 skal være tilfredsstillende tæt på de kontinuerte overføringsfunktioner.
-Hvis den diskrete overføringsfunktion eksempelvis afviger 20 \% fra den kontinuerte, ville man
+Hvis den diskrete overføringsfunktion eksempelvis afviger 20\% fra den kontinuerte, ville man
 sandsynligvis overveje at benytte en højere samplingfrekvens til diskretiseringen.
 Sammenligningen af den diskrete overførselsfunktion og den kontinuerte overføringsfunktion
 kan være både i tidsdomænet (fx steprespons) og i frekvensdomænet (frekvensrespons, fx. Bode-plots).
@@ -129,15 +129,15 @@ Det vurderes, at Rise Time og Settling Time maks. må ændre sig med 5\% i forho
 til den kontinuerte respons, mens at Overshoot maks. må ændre sig med 25\% i forhold til
 den kontinuerte respons.
 
-\begin{figure}
+\begin{table}
  \centering
 \begin{tabular}{lr}
  Overshoot & 25\%\\
  Rise Time & 5\%\\
  Settling Time & 5\%\\
 \end{tabular}
-\caption{fejl}
-\end{figure}
+\caption[MANGLER]{MANGLER}
+\end{table}
 \todo[inline, color=red!20]{skal rettes til}
 
 Hvis diskretiseringen kræver at reguleringssløjfen kører ved en frekvens \(f_s\),
@@ -216,9 +216,9 @@ I ligningerne \ref{eq:transpantilt1} findes de diskretiserede overføringsfunkti
  
 Den i afsnit \ref{subsec:choosefs} udførte sammenligning af det diskretiserede systems performance
 med det kontinuerte systems performance viser,
-at Rise Time stiger med 3,3 \% for pan og 0,10 \% for tilt,
-Settling Time stiger med 0,48 \% for pan og 1,6 \% for tilt,
-samt at Overshoot stiger med 11 \% for pan og 23 \% for tilt
+at Rise Time stiger med 3,3\% for pan og 0,10\% for tilt,
+Settling Time stiger med 0,48\% for pan og 1,6\% for tilt,
+samt at Overshoot stiger med 11\% for pan og 23\% for tilt
 ved lukketsløjfesystemet med en forstærkning på 1.
 Diskretiseringen sammenlignes i frekvensdomænet med det kontinuerte system
 i figur \ref{fig:diskretBode}, der viser Bode-plot for \(G_{pan}\) og \(G_{tilt}\) samt
