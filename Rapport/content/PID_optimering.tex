@@ -139,7 +139,7 @@ Pan   & 100 & 110 & 3,8
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1\textwidth]{./graphics/pidPhys2.eps}
-\caption[Endelig performance]{Endelig performance. Fejlsignaler for Pan (rød) og Tilt (blå) øverst, trackingfejl nederst.
+\caption[Endelig performance]{Endelig performance. Fejlsignaler for pan (rød) og tilt (blå) øverst, trackingfejl nederst.
 Testen er foretaget med koefficienterne fra tabel \ref{tb:PID_final}.
 De sorte streger angiver kravene om Settling Time på under 0,557 [s] og trackingfejl på under 1,02\degree{}.
 Grafen indeholder målinger fra flere forsøg.} 
@@ -168,13 +168,13 @@ Grafen indeholder målinger fra flere forsøg.}
 %\label{fig:PID_final}
 %\end{figure}
 
-Det viste sig under justeringen at systemet er meget følsomt overfor slid i drivremmene mellem motorerne og Pan- og Tilt-rammerne.
+Det viste sig under justeringen at systemet er meget følsomt overfor slid i drivremmene mellem motorerne og pan- og tilt-rammerne.
 Systemet kræver derfor kalibrering for at kunne fungere i praksis.
 
 \section{Delkonlusion}
 Ved "trial and error" blev regulatorkoefficienterne i Simulink justeret til at give den ønskede 
 tracking performance ift. et parabelinput. Pan-koefficienterne giver dårlig performance i praksis.
-Ved manuel justering blev et sæt PID-regulatorkoefficienter fundet til Pan, som gav bedre performance.
+Ved manuel justering blev et sæt PID-regulatorkoefficienter fundet til pan, som gav bedre performance.
 Det vurderedes nødvendigt at implementere et lavpasfilter til D-leddet.
 Med det implementerede filter gav de justerede regulatorkoefficienter en performance,
 der ikke ved alle forsøg levede op til kravspecifikationen. Ved nogle af forsøgene viste
