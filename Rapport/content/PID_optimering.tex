@@ -34,7 +34,7 @@ efter deres evne til at følge parablen. Dvs. det er forsøgt at minimere tracki
 Med ovenstående metode blev koefficienterne i tabel \ref{tb:pidSimulink} fundet tilfredsstillende.
 % Koefficienterne i tabel \ref{tb:pidSimulink} benævnes startkoefficienterne, da regulatorjusteringen
 % ift. det fysiske system starter med disse værdier.
-Trackingfejlen er afbildet i figur \ref{fig:pidSim1}, og som det ses af grafen, når den maks. 0,5\degree{} i simuleringen.
+Trackingfejlen når maks. 0,5\degree{} i simuleringen.
 
 \begin{figure}[h!]
 \centering
@@ -47,15 +47,15 @@ Pan   & 240 &  100 & -
 \caption[Regulatorkoefficienter]{Koefficienter fundet vha. simulering.}
 \label{tb:pidSimulink} 
 \end{figure}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.7\textwidth]{./graphics/pidSim1.eps}
-\captionsetup{width=0.6\textwidth}
-\caption[Trackingfejl ved simulering]{Trackingfejl ved simulering af PTS med regulatorkoefficienterne fra tabel \ref{tb:pidSimulink}.} 
-\label{fig:pidSim1}
-\end{figure}
-\todo[inline, color=red!20]{Denne test skal svare til en test vi laver på det rigtige system. Ellers er det ubrugeligt at se på en fejl og sammenligne den med en anden fejl i en anden situation}
+%
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[width=0.7\textwidth]{./graphics/pidSim1.eps}
+%\captionsetup{width=0.6\textwidth}
+%\caption[Trackingfejl ved simulering]{Trackingfejl ved simulering af PTS med regulatorkoefficienterne fra tabel \ref{tb:pidSimulink}.} 
+%\label{fig:pidSim1}
+%\end{figure}
+%\todo[inline, color=red!20]{Denne test skal svare til en test vi laver på det rigtige system. Ellers er det ubrugeligt at se på en fejl og sammenligne den med en anden fejl i en anden situation}
 De to regulatorer er med koefficienterne i tabel \ref{tb:pidSimulink} blevet afprøvet i praksis.
 Figur \ref{fig:pidPhys1} viser pan og tilt-fejlsignalet i forhold til den kontinuerte lerdueparabel fra applikationen.
 
@@ -69,12 +69,9 @@ Figur \ref{fig:pidPhys1} viser pan og tilt-fejlsignalet i forhold til den kontin
 	Grafen indeholder målinger fra flere forsøg.} 
 \label{fig:pidPhys1}
 \end{figure}
-\todo[inline, color=red!20]{En farve til tilt, en farve til pan. ingen kan se krydser eller prikker fra denne afstand.
-Der er en enkel måling som ødelægger vores forsøg. Vi kan ikke vurdere at en tilt fejl på 0,9 er godt nok}
-
 
 Som det ses på figur \ref{fig:pidPhys1} giver regulatoren til tilt et fejlsignal,
-der maks. afviger 0,9\degree{} efter \(t_s\).
+der maks. afviger 0,9\degree{} efter \(t_s\).\todo[inline,author=Mikael]{Det er ikke 0,9 grader, og Mikael skal nok få det rettet jf. MATLAB scriptet.}
 Pan-fejlen afviger derimod op til 1,8\degree{} efter \(t_s\).
 Trackingfejlen er altså langt større end kravet på maksimalt 1,02\degree.
 Det vurderes en yderligere manuel justering af koefficienterne på pan-regulatoren nødvendig.
@@ -123,6 +120,7 @@ Efter adskillige test og finjustering af regulatoren, vurderes det at
 koefficienterne i tabel \ref{tb:PID_final} giver den bedst mulige performance 
 for PTS. Denne performance ses i \ref{fig:PID_final}. Det ses at trackingfejlen 
 holder sig inden for de 1,02$\degree$  pånær ved et par enkelte samples.
+\todo[inline,author=Mikael]{Der mangler en del om at vores data faktisk godt kan bruges til noget. Hvis man skyder på det rigtige tidspunkt? etc.}
 
 \begin{figure}[h!]
 \centering

@@ -40,6 +40,7 @@ Men som illustreret på figur \ref{fig:digitalkontroller1}, så skal regulerings
 "køres" (sample) med en frekvens \(f_s=\frac{1}{T_s}\), der ikke nødvendigvis er 120 [Hz].
 Dvs. D/D- D/A- og A/D-konverteringerne (på nær input-samplingen) skal foregå med frekvensen \(f_s\).
 
+\todo[inline,author=Mikael]{Nedenstående ang. diskretiseringsmetoder skal være kortere, og der skal være KILDE!}
 Der er overordnet to strategier til valg af samplingfrekvensen \(f_s\) hvormed
 reguleringssløjfen skal køre:
 1) Hvis man designer en kontinuert regulator til det kontinuerte domæne, så
@@ -111,7 +112,7 @@ ud fra systemets dynamik,
 fra inputparablens egenskaber samt 
 mikrocontrollerens begrænsninger. 
 Inputparablen er samplet ved 120 [Hz], 
-\(f_s\) skal derfor være større end 120 [Hz] for at bevare inputsignalets integritet \citep[Kap. 2.1]{dsp}. 
+\(f_s\) skal derfor være større end 120 [Hz] for at bevare inputsignalets integritet \citep[s. 17]{dsp}. 
 Diskretiseringen af åbensløjfeoverføringsfunktionerne stiller også krav til samplingfrekvensen.
 %Diskretiseringen skal altså sammenlignes med den kontinuerte overføringsfunktion.
 Det vælges at sammenligne diskretiseringen af det fysiske system med det kontinuerte system i tidsdomænet.
@@ -143,7 +144,7 @@ Hvis diskretiseringen kræver at reguleringssløjfen kører ved en frekvens \(f_
 der er højere end A/D-konverteringens 120 [Hz], skal det A/D-konverterede
 signal "upsamples" til \(f_s\).
 Upsamplingen er simplest at implementere
-hvis \(f_s\) er et heltalsmultiplum af (120 [Hz]) \citep[Side. 562]{dsp}.
+hvis \(f_s\) er et heltalsmultiplum af (120 [Hz]) \citep[s. 562]{dsp}.
 Det vælges derfor at sample ved et heltalsmultiplum \(f_s\) af 120 [Hz].
 
 På figur \ref{fig:diskretTiltStep} er stepresponsen for lukketsløjfesystemet (med forstærkning 1)
@@ -243,12 +244,15 @@ mens fejlen på fasen er lille ved lave frekvenser og stiger ved høje frekvense
 
 \subsection{Upsampling}
 \label{subsec:upsampling}
-Da reguleringssløjfen afvikles med en 5 gange højere frekvens end der modtages input koordinater, er det nødvendigt at upsample input-signalet. 
-Normalt indsættes fire samples med værdien 0 mellem hvert inputsample, hvorefter signalet lavpasfiltreres for at undgå aliasing. Lavpasfiltret vil dog også forsinke signalet. 
 
-Lavpasfiltret fravælges da det vurderes at alias toleres bedre end en forsinkelse på signalet. Dette skyldes at en forsinkelse ville bidrage til fejlsignalet. 
+Da reguleringssløjfen afvikles med en frekvens der er 5 gange højere end der modtages inputkoordinater, er det nødvendigt at upsample inputsignalet. 
+Normalt indsættes fire samples med værdien 0 mellem hvert inputsample, hvorefter signalet lavpasfiltreres for at undgå aliasing. \citep[s. 562]{dsp}. 
+Lavpasfiltret vil dog også forsinke signalet. 
+
+
+
+Lavpasfiltret fravælges da det vurderes at alias tolereres bedre end en forsinkelse på signalet. Dette skyldes at en forsinkelse ville bidrage til fejlsignalet. 
 Det vælges derfor at bruge ZoH til upsamplingen, da denne reagerer momentant på ændringer i inputsignalet. 
-
 
 %%% GL. Upsampling:
 %Da reguleringssløjfen, som beskrevet i afsnit \ref{subsec:choosefs}, køres med en frekvens på 600 [Hz],
