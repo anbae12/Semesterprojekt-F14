@@ -62,18 +62,19 @@ yderligere forklaring af komponenterne henvises til appendix
 \caption[Diagram over FPGA komponenter]{Simplificeret diagram over komponenterne på FPGA'en.}
 \label{fig:FPGA_blok}
 \end{figure}
-\subsection[Kommunikation]{Kommunikation med mikrocontrolleren vha. SPI}
+
+\subsubsection[Kommunikation]{Kommunikation med mikrocontrolleren vha. SPI}
 På FPGA'en er implementeret en SPI slave der modtager data fra 
 mikrocontrolleren. Data føres, i komponenten SPI, fra MISO ind i FPGA'en og fra FPGA'en ud på 
 MOSI. Til mikrocontrolleren sendes skiftevis motorposition fra pan og tilt.
 
-\subsection{Generering af PWM-signal}
+\subsubsection{Generering af PWM-signal}
 I PWM-komponenten genereres PWM-signalerne på baggrund af duty cycle-værdier modtaget via SPI. 
 PWM-signalet bliver genereret ved at tælle en tæller op fra 0 til 2047 med 50 [MHz].
 PWM-udgangen sættes høj indtil tælleren når duty cycle-værdien og sættes lav 
 ellers. Hermed er der genereret et PWM-signal med en frekvens på 24,4 [kHz].
 
-\subsection{Optælling af motorernes rotationer vha. encoders på PTS}
+\subsubsection{Optælling af motorernes rotationer vha. encoders på PTS}
 Da encoderne på motorerne er quadrature,
 er det muligt at bestemme både retning og tælle rotationer på motoren. 
 Dette sker i komponenten tick counter der afhængigt af inputtet fra encoderne tæller positionen op eller 
