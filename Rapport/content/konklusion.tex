@@ -14,8 +14,8 @@ I nogle af de udførte tracking-forsøg var systemet dog i stand til at følge l
 iht. kravspecifikationen,
 og i alle forsøgene fulgtes bevægelsen nøjagtigt i min. 0,42 [s] efter lerduen havde nået sit toppunkt.
 
-\section{Perspektivering}
-Til mere nøjagtig tracking af lerduen ville en højere opløsning på vinklen kunne have forbedret performance.
+\section{Videreudvikling}
+En højere opløsning på vinklen kunne have forbedret performance og givet mere nøjagtig tracking af lerduen.
 Dette kan opnås ved flere Hall sensorer monteret på motorerne, eller ved en anden gearing på PTS.
 Hvis fx gearingen ændredes fra 1:3 til 1:6 ville opløsningen blive fordoblet. Samtidig ville responsens tophastighed
 blive sænket. Videre arbejde kunne altså undersøge mulighederne for mere nøjagtig tracking af lerduen og deres
@@ -28,9 +28,7 @@ enten ved at erstatte drivremmene med mere slidstærke varianter, eller ved løb
 af regulatoren til parametervariationen i PTS's overføringsfunktioner.
 En undersøgelse af andre filtreringsmuligheder for D-leddets filter i PID-regulatoren ville kunne kaste
 lys over, om det implementerede D-filter er optimalt til applikationen.
-En forudsigelse af lerduens bevægelse ville også kunne forbedre reguleringen,
-da setpoints ville kunne beregnes løbende, på baggrund af interpolation af de målte setpoints.
+Reguleringen ville kunne forbedres ved forudsigelse af lerduens bevægelse med interpolation
+af de samplede koordinater for lerduen.
 Videre arbejde med systemet til samme applikation burde udnytte,
 at lerduens bevægelse tilnærmelsesvis er parabelformet og dermed forudsigelig.
-
-\todo[inline,author=Mikael]{Hvad kan man bruge skidtet til i fremtiden?}
