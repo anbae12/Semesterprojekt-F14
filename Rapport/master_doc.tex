@@ -5,18 +5,15 @@
 \lstset{aboveskip=0pt,belowskip=-10pt} %is this too agressive?
 \begin{document}
 
-\include{./content/forside}
-%\cleardoublepage
-\clearpage
-\cleardoublepage
-\clearpage
-
-\fancyhead{}
-\fancyfoot{}
 % Disable indentation
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.7\baselineskip}%
-\setcounter{page}{1}
+
+\pagenumbering{gobble}
+\thispagestyle{empty}
+\include{./content/forside}
+\clearpage
+\fancyfoot{}
 \fancyfoot[CO,CE]{\thepage}
 \pagenumbering{Roman}
 \include{./content/abstract}

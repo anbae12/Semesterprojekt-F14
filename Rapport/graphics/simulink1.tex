@@ -5,7 +5,7 @@
 \node [block, right of=Dz] (deadz) {Dødzone};
 \node [block, right of=deadz] (Hzoh) {$G_{zoh}\left(z\right)$};
 \node [output, right of= Hzoh] (output){};
-\node [block,below of=Dz,yshift=0.5cm] (quant){};
+\node [block,below of=deadz,yshift=1cm] (quant){};
 
 \draw [draw,->] (input) -- node[above] { $\frac{1}{2}\cdot{}t^2$} (AD);
 \draw [draw,->] (AD) -- node[pos=0.8,above] {+} (sum1);

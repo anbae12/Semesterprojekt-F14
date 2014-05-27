@@ -20,7 +20,7 @@ og resultaterne er vist i tabel \ref{tb:ctrltasktimingtest}.
 \begin{table}[h!]
 % Prøv multicolummn
 \centering
-\begin{tabu}{l|[1.25pt]c|c|c|c}
+\begin{tabu}{l|[1.25pt]r|r|r|r}
  & Max  & Min & Median & Gennemsnit  \\ \tabucline[1.25pt]{-}
 Målt interval & 1,672 [ms] & 1,662 [ms] & 1,667 [ms] & 1,667 [ms] \\ 
 \hline 
@@ -43,11 +43,11 @@ Disse data er vist i tabel \ref{tb:ctrl task runtime test}. %Bemærk usikkerhede
 \begin{table}[h!]
 \centering
 \begin{tabu}{l|[1.25pt]r|r|r|r}
-Afviklingstid & Max  &  Min & Median & Gennemsnit  \\ \tabucline[1.25pt]{-}
-Ctrl task & 360 [\micro s] & 326 [\micro s] & 332 [\micro s] & 338 [\micro s] \\ \hline 
-Koordinat transformation & 228 [\micro s] & 202 [\micro s] & 206 [\micro s] & 212 [\micro s] \\
+Afviklingstid [\micro s] & Max  &  Min & Median & Gennemsnit  \\ \tabucline[1.25pt]{-}
+Ctrl task & 360  & 326  & 332  & 338  \\ \hline 
+Koordinat transformation & 228  & 202  & 206  & 212  \\
 \hline 
-PID-regulering & 40 [\micro s] & 30 [\micro s] & 32 [\micro s] & 34 [\micro s]\\
+PID-regulering & 40  & 30  & 32  & 34 \\
 \end{tabu} 
 \captionsetup{width=0.8\textwidth}
 \caption[Afviklingstiden for Control task]{Afviklingstiden for Control task, Koordinattransformation og PID-regulering. Måleusikkerheden er $\pm4$ [\micro s].}
