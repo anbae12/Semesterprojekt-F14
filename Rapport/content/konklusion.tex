@@ -15,8 +15,22 @@ iht. kravspecifikationen,
 og i alle forsøgene fulgtes bevægelsen nøjagtigt i min. 0,42 [s] efter lerduen havde nået sit toppunkt.
 
 \section{Perspektivering}
-Det vurderes, at mere avancerede regulatortyper er nødvendige til den nøjagtige tracking af lerduen.
-\todo[inline,author=Mikael,color=red]{Flere encoderticks!!! Mega fedt!}
-\todo[inline,author=Mikael,color=red]{Mere slidstærke drivremme ELLER generelt slidstærk drivmekanisme}
-\todo[inline,author=Mikael]{Uddyb det med avancerede regulatortyper! F.eks. adaptive!}
-\todo[inline,author=Mikael]{Hvad kan man bruge skidtet til i fremtiden!?\\Snak om mere avancerede regulatortyper.\\Bedre udstyr?\\2. ordens interpolation af parabelpunkter så lerduebevægelsen kunne forudsiges.}
+Til mere nøjagtig tracking af lerduen ville en højere opløsning på vinklen kunne have forbedret performance.
+Dette kan opnås ved flere Hall sensorer monteret på motorerne, eller ved en anden gearing på PTS.
+Hvis fx gearingen ændredes fra 1:3 til 1:6 ville opløsningen blive fordoblet. Samtidig ville responsens tophastighed
+blive sænket. Videre arbejde kunne altså undersøge mulighederne for mere nøjagtig tracking af lerduen og deres
+indflydelse på performance i tidsdomænet.
+
+Til hurtigere respons på trackingen ville en mere avanceret regulator muligvis kunne anvendes.
+Fx. kunne videre arbejde omfatte design af en regulator til det koblede system.
+Samtidig ville det være af høj relevans at minimere følsomheden overfor slid i drivremmene,
+enten ved at erstatte drivremmene med mere slidstærke varianter, eller ved løbende tilpasning
+af regulatoren til parametervariationen i PTS's overføringsfunktioner.
+En undersøgelse af andre filtreringsmuligheder for D-leddets filter i PID-regulatoren ville kunne kaste
+lys over, om det implementerede D-filter er optimalt til applikationen.
+En forudsigelse af lerduens bevægelse ville også kunne forbedre reguleringen,
+da setpoints ville kunne beregnes løbende, på baggrund af interpolation af de målte setpoints.
+Videre arbejde med systemet til samme applikation burde udnytte,
+at lerduens bevægelse tilnærmelsesvis er parabelformet og dermed forudsigelig.
+
+\todo[inline,author=Mikael]{Hvad kan man bruge skidtet til i fremtiden?}
