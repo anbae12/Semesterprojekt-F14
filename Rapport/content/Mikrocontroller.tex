@@ -21,7 +21,7 @@ Kommunikationen skal være tilpas hurtig, så regulatorerne ikke regner på for�
 Forsinkelsen for overførsel af data for begge motorer vurderes til ikke at måtte overstige 5\% af samplingperioden.
 Ved $T_s = \frac{1}{600}$ er det: 
 \begin{equation}
-	T_{\text{SPI delay}} = \frac{1}{600} \cdot 5 \% = 83,3~[\micro s]
+	T_{\text{SPI delay}} = \frac{1}{600} \cdot 5\% = 83,3~[\micro s]
 	\label{eq:uc:spi-krav}
 \end{equation}
 
@@ -246,7 +246,7 @@ Opbygningen af de to datawords kan ses på figur \ref{fig:protokol1}.
 Figur \ref{fig:spi_to_fpga} viser indholdet af datawords der bliver sendt fra mikrocontrolleren. 
 Motorbit vælger aktuel motor, retningsbit vælger hvilken retning
 denne skal dreje og PWM-duty cycle indeholder den ønskede PWM-duty cycle. 
-Hvis setPWM-bit ikke er sat ignoreres den modtagne besked,
+Hvis setPWM bit ikke er sat ignoreres den modtagne besked,
 mens den aktuelle motorposition stadig returneres som vist på figur \ref{fig:spi_from_fpga}. 
 
 %Da SPI er full duplex sendes data fra  Mikrocontrolleren og FPGA’en synkront - FPGA’en sender et dataword samtidig med mikrocontrolleren
@@ -298,7 +298,7 @@ Altså overholder implementeringen kravet på afvikling indenfor 83,3 [\micro s]
 %\end{table}
 
 Samme fremgangsmåde blev brugt til at undersøge timingen for Control-task'en,
-som indeholder reguleringssløjferne. Oscilloskopet blev indstillet til \(500.000\) [Samples/s].
+som indeholder reguleringssløjferne. Oscilloskopet blev indstillet til \(500.000\) [samples/s].
 Kravet til afviklingen var: Reguleringsløjferne kører med 600 [Hz], samt at task'en afvikles inden næste periode. 
 Dvs. en maks afviklingstid på \(\frac{1}{600}\) [s], da kravet på 600 [Hz] ellers ikke kunne opfyldes. 
 Intervallet mellem hver afvikling af task'en blev målt for 60 afviklinger,

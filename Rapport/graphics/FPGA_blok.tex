@@ -7,8 +7,14 @@
 
 %Mikkel
 \node[task_description](Tic_reset)[yshift=2.5cm,,below of= Tic_counter] {Tick reset};
-\node[task_title](Hall_sensor) [left of= Tic_reset] {Hall sensor};
-\path[->] (Hall_sensor) edge[bend left=0] (Tic_reset);
+
+\node[task_title](Hall_sensor1) [yshift=0.5cm,left of= Tic_reset] {Hall sensor1};
+\node[task_title](Hall_sensor2) [yshift=-0.5cm,left of= Tic_reset] {Hall sensor2};
+
+\path[->] (Hall_sensor1) edge[bend left=10] (Tic_reset);
+\path[->] (Hall_sensor2) edge[bend left=-10] (Tic_reset);
+
+
 \path[<->] (Tic_reset) edge[bend left=0] (Tic_counter);
 %Mikkel
 
@@ -48,4 +54,3 @@
 \path[dashed] (seperator1) edge (seperator2);
 
 \node[xshift=2cm,yshift=2cm] at (Display_Debug) (header_point) {\huge \textbf{FPGA}};
-

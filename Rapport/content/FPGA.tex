@@ -59,7 +59,7 @@ yderligere forklaring af komponenterne henvises til appendix
 
 \begin{figure}[!th]
 \centering
-\begin{tikzpicture}[node distance = 5 cm,scale=1]
+\begin{tikzpicture}[node distance = 5 cm,scale=0.5]
 \include*{./graphics/FPGA_blok}
 \end{tikzpicture}
 \caption[Diagram over FPGA komponenter]{Simplificeret diagram over komponenterne på FPGA'en.}
@@ -72,9 +72,9 @@ mikrocontrolleren. Data føres, i komponenten SPI, fra MISO ind i FPGA'en og fra
 MOSI. Til mikrocontrolleren sendes skiftevis motorposition fra pan og tilt.
 
 \subsection{Generering af PWM-signal}
-I PWM komponenten genereres PWM-signalerne på baggrund af duty cycle-værdier modtaget via SPI. 
+I PWM-komponenten genereres PWM-signalerne på baggrund af duty cycle-værdier modtaget via SPI. 
 PWM-signalet bliver genereret ved at tælle en tæller op fra 0 til 2047 med 50 [MHz].
-PWM udgangen sættes høj indtil tælleren når duty cycle-værdien og sættes lav 
+PWM-udgangen sættes høj indtil tælleren når duty cycle-værdien og sættes lav 
 ellers. Hermed er der genereret et PWM-signal med en frekvens på 24,4 [kHz].
 
 \subsection{Optælling af motorernes rotationer vha. encoders på PTS}

@@ -28,7 +28,7 @@ for dette fysiske system, samt at tilt-rammens inertimoment er tilnærmelsesvis 
 Afkoblingen af de to systemer, og opdelingen i hhv. pan og tilt gør, at der kan udvikles en separat regulator
 til hvert system, og at der skal findes en overføringsfunktion for hvert system.
 De følgende beregninger tager altså udgangspunkt i det simplificerede afkoblede system.
-Det er dog stadig vigtigt iht. kravspecifikationen at betragte tracking fejlen som en størrelse der samlet
+Det er dog stadig vigtigt iht. kravspecifikationen at betragte trackingfejlen som en størrelse der samlet
 ikke må overstige 1,02\degree. I denne sammenhæng skal systemet altså stadig betragtes som en helhed.
 
 \subsection{DC-Motor}
@@ -119,7 +119,7 @@ at denne står tilnærmelsesvis lodret under hele bevægelsen.
 FPGA'en læser motorakslens rotation inden reduktionsgearingen.
 Da encoderopløsningen er 360 ticks pr. rotation \citep{emgmotor},
 vil gearingen 1:3 gøre, at opløsningen for én rotation af rammerne er 1080 ticks.
-Når der refereres til ticks, kan der altså konverteres til grader i det \(3\) ticks \( = 1 \degree\).
+Når der refereres til ticks, kan der altså konverteres til grader i det \(3\) ticks \( = 1\degree\).
 
 På FPGA'en genereres to PWM-signaler til den dobbelte H-bro ud fra to
 duty cycles.
@@ -187,7 +187,7 @@ mens pan blokeres af en stopklods.
 Sammenligningen er nødvendig for at verificere modellen, og for evt. at kunne justere modellen,
 så udgangspunktet for analysen der hører til designet af reguleringssløjferne er så godt som muligt.
 
-Der blev som input givet et rampesignal, der gik fra 0 \% duty cycle til næsten 100 \% duty cycle
+Der blev som input givet et rampesignal, der gik fra 0\% duty cycle til næsten 100\% duty cycle
 i løbet af ca. 12 sekunder. Tilt-vinklen blev målt med FPGA'en.
 Forsøget blev udført syv gange.
 
