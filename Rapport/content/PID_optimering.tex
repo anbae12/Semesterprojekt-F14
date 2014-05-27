@@ -9,7 +9,7 @@ er det valgt at simulere systemet i Simulink.
 I Simulink er den diskretiserede overføringsfunktion indsat sammen med en model for dødzonen,
 målt eksperimentelt, samt PI-regulatoren. Det simulerede systems blokdiagram er illustreret i figur \ref{fig:simulink1}.
 Da modellen indeholder ulineariteter er det valgt at starte med et simpelt gain \(K_P\) på 1,
-og med Trial-\&-Error metoden prøve sig frem til koefficienterne.
+og vha. "trial and error" prøve sig frem til koefficienterne.
 
 \todo[inline, color=red!20]{Hvad menes der med dette?}
 
@@ -172,7 +172,7 @@ Det viste sig under justeringen at systemet er meget følsomt overfor slid i dri
 Systemet kræver derfor kalibrering for at kunne fungere i praksis.
 
 \section{Delkonlusion}
-Ved Trial-\&-Error-metoden blev regulatorkoefficienterne i Simulink justeret til at give den ønskede 
+Ved "trial and error" blev regulatorkoefficienterne i Simulink justeret til at give den ønskede 
 tracking performance ift. et parabelinput. Pan-koefficienterne giver dårlig performance i praksis.
 Ved manuel justering blev et sæt PID-regulatorkoefficienter fundet til Pan, som gav bedre performance.
 Det vurderedes nødvendigt at implementere et lavpasfilter til D-leddet.
