@@ -9,7 +9,7 @@
 % \label{fig:designproces}
 % \end{figure}
 
-Formålet med reguleringen er som beskrevet i afsnit \ref{sec:problemformulering},
+Formålet med reguleringen er, som beskrevet i afsnit \ref{sec:problemformulering},
 at kontrollere PTS's position.
 I afsnit \ref{sec:kravspecifikation} opstilles kravene til systemets respons.
 Disse er opsummeret nedenfor.
@@ -20,7 +20,7 @@ Disse er opsummeret nedenfor.
 \end{itemize}
 
 Systemets konfiguration består af en koordinattransformation,
-en regulering, en aktuering og en positionsmåling, som illustreret
+en regulator, en aktuator og en positionsmåler, som illustreret
 i figur \ref{fig:digitalkontroller1}.
 \begin{figure}[!th]
 \centering
@@ -44,9 +44,7 @@ Der er overordnet to strategier til valg af samplingfrekvensen \(f_s\) hvormed
 reguleringssløjfen skal køre \citep[s. 553]{elehandbook}:
 Den ene er at designe en kontinuert regulator til det kontinuerte domæne, og diskretisere
 den med en samplingfrekvens, der er så høj som mulig.
-Den anden metode er at designe en diskret regulator til det diskrete domæne,
-og starte med at diskretisere den kontinuerte del af systemet, så man har en
-diskretiseret model af det fysiske system inden designet af regulatoren.
+Alternativet er at diskretisere systemet og derefter designe en diskret reulator til det diskrete system.
 Kravet til diskretiseringen af åbensløjfeoverføringsfunktionerne er, at den diskrete repræsentation
 skal være tilfredsstillende tæt på de kontinuerte overføringsfunktioner.
 Sammenligningen af den diskrete overførselsfunktion og den kontinuerte overføringsfunktion
@@ -164,13 +162,13 @@ De sammenlignede størrelser er Rise Time, Settling Time og Overshoot.
 Graferne viser ændringen af de tre størrelser i procent i forhold til det kontinuerte systems respons.
 \begin{figure}[!th]
 \centering
-	\includegraphics[width=1\textwidth]{./graphics/diskretStepFreq.eps}
+	\includegraphics[width=0.75\textwidth]{./graphics/diskretStepFreq.eps}
 %\caption[Sammenligning af steprespons-performance for kontinuert system med diskretiseret system (\(G_{zoh}\))]
 %{Sammenligning af steprespons-performance for kontinuert system med diskretiseret system.
 %Den blå kurve angiver fejlen i forhold til lukketsløjferesponsen af \(G_{tilt}\),
 %mens den grønne kurve angiver fejlen i forhold til lukketsløjferesponsen af \(G_{pan}\).
 %}
-\captionsetup{width=0.9\textwidth}
+\captionsetup{width=0.75\textwidth}
 \caption[Sammenligning af performance mellem kontinuert og diskretiseret system]
 {Sammenligning af steprespons-performance for kontinuert system med diskretiseret system \(G_{zoh}\).
 Den blå kurve angiver fejlen i forhold til lukketsløjferesponsen af $G_{tilt}$,
@@ -242,11 +240,11 @@ mens fejlen på fasen er lille ved lave frekvenser og stiger ved høje frekvense
 
 Da reguleringssløjfen afvikles med en frekvens der er 5 gange højere end der modtages inputkoordinater, er det nødvendigt at upsample inputsignalet. 
 Normalt indsættes fire samples med værdien 0 mellem hvert inputsample, hvorefter signalet lavpasfiltreres for at undgå aliasing. \citep[s. 562]{dsp}. 
-Lavpasfiltret vil dog også forsinke signalet. 
+Lavpasfilteret vil dog også forsinke signalet. 
 
 
 
-Lavpasfiltret fravælges da det vurderes at alias tolereres bedre end en forsinkelse på signalet. Dette skyldes at en forsinkelse ville bidrage til fejlsignalet. 
+Lavpasfilteret fravælges da det vurderes at alias tolereres bedre end en forsinkelse på signalet. Dette skyldes at en forsinkelse ville bidrage til fejlsignalet. 
 Det vælges derfor at bruge ZoH til upsamplingen, da denne reagerer momentant på ændringer i inputsignalet. 
 
 %%% GL. Upsampling:
@@ -282,18 +280,17 @@ Det er valgt at implementere "bias", der tager højde for dødzonerne.
 Bias er implementeret symmetrisk med en nedre duty cycle grænse på 0,98\% for pan og tilt.
 Deres respektive øvre grænser er hhv. 11,72\% og 14,65\%.
 Disse værdier er fundet eksperimentelt.
-Hvis regulatoren returnerer en duty cycle mellem den nedre og øvre grænse, sættes duty cycle til dens øvre grænse.
+Hvis regulatoren returnerer en duty cycle mellem den nedre og øvre grænse, sættes duty cycle til den øvre grænse.
 Dette medfører at motoreren kan justere sig ind, selvom fejlen er marginal.
 
 \subsubsection{Integratormætning}
-Mætningen på PWM-duty cyclen gør, at systemet ikke er lineær i dette område. Med integratormætning 
+Mætningen på PWM-duty cyclen gør, at systemet ikke er lineært i dette område. Med integratormætning 
 tages der delvist højde for denne ulinearitet. Uden integratormætning kan det numeriske integrale blive enormt når 
 PWM-mætningen nås. Dette vil føre til stort overshoot og derved dårlig 
 performance. 
 En for lille integratormætning vil mindske effekten af integratorleddet i PID, 
 hvilket i værste tilfælde vil sætte integratorleddet ud af funktion.
-En for høj værdi vil føre til at tilføjelse af integratormætningen ikke vil ændre 
-performance.
+En for høj værdi vil føre til at integratormætningen ikke ændrer performance.
 
 %Et passende valg af integratormætning vurderes til at være når ligning \ref{eq:integratorsaturation} 
 %overholdes.

@@ -50,8 +50,8 @@ Figur \ref{fig:pidPhys1} viser pan og tilt-fejlsignalet i forhold til den kontin
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.7\textwidth]{./graphics/pidPhys1.eps}
-\captionsetup{width=0.6\textwidth}
+\includegraphics[width=0.8\textwidth]{./graphics/pidPhys1.eps}
+\captionsetup{width=0.8\textwidth}
 \caption[Fejlsignaler m. startkoefficienter]{Fejlsignaler m. startkoefficienterne fra tabel \ref{tb:pidSimulink}.
 	De sorte lodrette streger angiver \(t_s=0,557 \text{ [s]}\).
 	Pan-fejlsignalet er markeret med rødt, og tilt-fejlsignalet er markeret med blåt.
@@ -63,7 +63,7 @@ Som det ses på figur \ref{fig:pidPhys1} giver regulatoren til tilt et fejlsigna
 der maks. afviger 0,66\degree{} efter \(t_s\).
 Pan-fejlen afviger derimod op til 1,8\degree{} efter \(t_s\).
 Trackingfejlen er altså langt større end kravet på maksimalt 1,02\degree.
-Det vurderes at en yderligere manuel justering af koefficienterne på pan-regulatoren nødvendig.
+Det vurderes at en yderligere manuel justering af koefficienterne på pan-regulatoren er nødvendig.
 Det vurderes på baggrund af det lave fejlsignal ved tilt, at den fundne
 PI-regulator for tilt er anvendelig i praksis.
 
@@ -88,10 +88,10 @@ Undervejs i den manuelle justering af PID-regulatoren til pan blev det fundet, a
 og at kravene ikke kunne overholdes med PID-regulatoren som den var.
 Det valgtes derfor at tilføje et filter til D-leddet. 
 Det betyder at D-leddet nu vægter tidligere ændringer i fejlsignalet. 
-Filtret reducerer peaks i det differrentierede fejlsignal, der skyldes Zero Order Hold i upsamplingen (se afsnit \ref{subsec:upsampling}).
+Filteret reducerer peaks i det differrentierede fejlsignal, der skyldes Zero Order Hold i upsamplingen (se afsnit \ref{subsec:upsampling}).
 
-Der implementeres et 4. ordens FIR filter. Filtret er designet i MATLAB's grafiske fdatool og gør brug af at Kaiser vindue.
-Filtrets step- og frekvensrespons kan ses på figur \ref{fig:d_filter_step} hhv. \ref{fig:d_filter_bode}. 
+Der implementeres et 4. ordens FIR filter. Filteret er designet i MATLAB's grafiske fdatool og gør brug af at Kaiser vindue.
+Filterets step- og frekvensrespons kan ses på figur \ref{fig:d_filter_step} hhv. \ref{fig:d_filter_bode}. 
 
 \begin{figure}[h!]
 \centering
@@ -134,6 +134,7 @@ Pan   & 100 & 110 & 3,8
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1\textwidth]{./graphics/pidPhys2.eps}
+\captionsetup{width=1\textwidth}
 \caption[Endelig performance]{Endelig performance. Fejlsignaler for pan (rød) og tilt (blå) øverst, trackingfejl nederst.
 Testen er foretaget med koefficienterne fra tabel \ref{tb:PID_final}.
 De sorte streger angiver kravene om Settling Time på under 0,557 [s] og trackingfejl på under 1,02\degree{}. 
@@ -146,13 +147,13 @@ Grafen indeholder målinger fra 19 forsøg.}
 Det viste sig under justeringen at systemet er meget følsomt overfor slid i drivremmene mellem motorerne og pan- og tilt-rammerne.
 Systemet kræver derfor kalibrering for at kunne fungere i praksis.
 
-\section{Delkonlusion}
+\section{Delkonklusion}
 Ved "trial and error" blev regulatorkoefficienterne i Simulink justeret til at give den ønskede 
 trackingperformance ift. et parabelinput. Pan-koefficienterne giver dårlig performance i praksis.
 Ved manuel justering blev et sæt PID-regulatorkoefficienter fundet til pan, som gav bedre performance.
 Det vurderedes nødvendigt at implementere et lavpasfilter til D-leddet.
 Med det implementerede filter gav de justerede regulatorkoefficienter en performance,
 der ikke ved alle forsøg levede op til kravspecifikationen. Ved nogle af forsøgene viste
-systemet sig at leve op til kravene om en trackingfejl på under 1,02\degree efter 0,557 [s].
+systemet sig at leve op til kravene om en trackingfejl på under 1,02\degree{} efter 0,557 [s].
 Ved alle forsøg rammes lerduen, hvis der skydes mellem \(t_s\) og 0,98 [s].
 Systemet er følsomt overfor slid i drivremmene.

@@ -3,11 +3,11 @@
 Den matematiske model for PTS fundet på baggrund af
 målinger af motorparametre og beregning af inertimomenter
 er til en vis grad blevet verificeret vha. en test af åbensløjferesponsen.
-Den største mangel ved den matematiske model er, at den ikke indeholder en dødzone
+Den største mangel ved de fundne overføringsfunktioner er, at de ikke indeholder dødzoner
 af PWM-duty cycles, der ikke kan accelerere systemet. Det vurderes
-at simuleringen af systemet er nøjagtig, når der tages højde for dødzonen.
+at simuleringen af systemet er nøjagtig, når der tages højde for dødzonerne.
 
-Reguleringssystemet er blevet simuleret i MATLAB Simulink, og på baggrund af denne simulering
+Reguleringssystemet er blevet simuleret i Simulink, og på baggrund af denne simulering
 er to sæt af regulatorparametre \(K_p\) og \(K_i\) til to PI-regulatorer blevet fundet.
 Disse parametre vurderes til at skulle justeres
 i forhold til eksperimentelle målinger på det fysiske system, da simuleringen kun er en tilnærmelse.
