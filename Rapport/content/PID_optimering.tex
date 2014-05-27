@@ -75,8 +75,8 @@ hen mod det ønskede.
 På pan er der behov for en hurtigere og mere dæmpet reaktion,
 og det vurderes derfor, at der på pan er brug for en PID-regulator.
 \\
-På tilt er det forsøgt at forbedre performance ved justerering af koefficienterne $K_p,K_i$ 
-og ved tilføjelse af $K_d$, men dette lykkedes ikke. Derfor beholdes 
+På tilt er det forsøgt at forbedre performance ved justerering af koefficienterne \(K_P\) og \(K_I\)
+og ved tilføjelse af \(K_D\), men det lykkedes ikke. Derfor beholdes 
 PI-regulatoren med koefficienter som i tabel \ref{tb:pidSimulink} til tilt.
 
 \subsection{Valg af integratormætning}
@@ -112,11 +112,12 @@ Filtrets step- og frekvensrespons kan ses på figur \ref{fig:d_filter_step} hhv.
 Efter adskillige test og finjustering af regulatoren, vurderes det at 
 koefficienterne i tabel \ref{tb:PID_final} giver den bedst mulige performance 
 for PTS. Denne performance ses i figur \ref{fig:PID_final}. Det ses at trackingfejlen 
-holder sig inden for de 1,02$\degree$  pånær ved et par enkelte samples.
-Det ses at trackingfejlskravet overholdes fra $t_s$ til 0.98 [s] ved samtlige af de 19 forsøg.
-Lerduens rammes altså, hvis der skydes mellem $t_s$ og 0.98 [s].
-Dette giver et tidsrum på 0.42 [s], efter $t_s$, hvor lerduen bliver ramt 
+holder sig inden for de 1,02\degree{}  pånær ved et par enkelte samples efter 0,98 [s].
+Det ses at kravet til trackingfejlen overholdes fra \(t_s\) til 0,98 [s] ved alle de 19 udførte forsøg.
+Lerduen rammes altså, hvis der skydes mellem \(t_s\) og 0,98 [s].
+Dette giver et tidsrum på 0,42 [s] efter \(t_s\), hvor lerduen bliver ramt 
 ved affyring af skud.
+Efter dette tidsrum kan en nedskydning af lerduen ikke garanteres.
 
 \begin{figure}[h!]
 \centering
@@ -153,5 +154,5 @@ Det vurderedes nødvendigt at implementere et lavpasfilter til D-leddet.
 Med det implementerede filter gav de justerede regulatorkoefficienter en performance,
 der ikke ved alle forsøg levede op til kravspecifikationen. Ved nogle af forsøgene viste
 systemet sig at leve op til kravene om en trackingfejl på under 1,02\degree efter 0,557 [s].
-Ved alle forsøg rammes lerduen, hvis der skydes mellem $t_s$ og 0.98 [s].
+Ved alle forsøg rammes lerduen, hvis der skydes mellem \(t_s\) og 0,98 [s].
 Systemet er følsomt overfor slid i drivremmene.
