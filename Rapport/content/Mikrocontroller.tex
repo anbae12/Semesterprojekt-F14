@@ -71,7 +71,7 @@ Taskdiagrammet er vist på figur \ref{fig:task_diagram}.
 
 \subsubsection{Beskrivelse af de enkelte tasks}
 	\textbf{UART send og -receive}\\ 
-	Da UART hardwarebufferen kun indeholder 16 pladser \citep[Side. 430]{lm3s6965},
+	Da UART hardwarebufferen kun indeholder 16 pladser \citep[s. 430]{lm3s6965},
 	sørger en Send og en Recieve task for at sende data videre til og fra resten af programmet.
 	De to ekstra semaforer som Interface tilgår er til at reservere de to buffere så indtastede og
 	printede tekststrenge ikke kan afbrydes (kun én task kan skrive til eller læse fra UART ad gangen).\\
