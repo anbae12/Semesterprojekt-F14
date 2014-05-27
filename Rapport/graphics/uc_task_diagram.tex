@@ -1,17 +1,17 @@
 %nodes
  \node[task_title] (pc)                                               {PC};
- \node[task] (uart_rx) [right of=pc,yshift=-1.6cm,xshift=-1cm]                                               {UART receive};
- \node[buffer_sem] (uart_rx_buff)  [right of=uart_rx]                      {uart in buffer};
- \node[task] (uart_tx)       [above of=uart_rx]                      {UART send};
- \node[buffer_sem] (uart_tx_buff)  [right of=uart_tx]                           {uart out buffer};
- \node[task] (interface)     [right of=uart_rx_buff,yshift=1.6cm]            {Interface};
+ \node[task] (uart_rx) [right of=pc,yshift=-1.2cm,xshift=-1cm]                                               {UART receive};
+ \node[buffer_sem] (uart_rx_buff)  [right of=uart_rx,xshift=-0.5cm]                      {uart in buffer};
+ \node[task] (uart_tx)       [above of=uart_rx,yshift=-0.7cm]                      {UART send};
+ \node[buffer_sem] (uart_tx_buff)  [right of=uart_tx,xshift=-0.5cm]                           {uart out buffer};
+ \node[task] (interface)     [right of=uart_rx_buff,yshift=1.2cm]            {Interface};
  
- \node[buffer_sem] (ctrl_bit)     [right of=interface]            {control message};
- \node[task] (ctrl)     [right of=ctrl_bit]            {Control};
+ \node[buffer_sem] (ctrl_bit)     [right of=interface,xshift=-0.5cm]            {control message};
+ \node[task] (ctrl)     [right of=ctrl_bit,xshift=-0.5cm]            {Control};
  
  \node[memory_sem] (log_file)     [below of=interface]            {log file};
- \node[task] (log)     [right of=log_file]            {Logger};
- \node[buffer_sem] (status)     [right of=log]            {status};
+ \node[task] (log)     [right of=log_file,xshift=-0.5cm]            {Logger};
+ \node[buffer_sem] (status)     [right of=log,xshift=-0.5cm]            {status};
  \path[->] (log_file)        edge (interface);
  \path[->] (log)        edge (log_file);
  \path[->] (status)        edge (log);
@@ -32,7 +32,7 @@
 % % % % 
 
 % % % % Hvis vi vil lave figuren mindre og have FPGA tegnet på... 
- \node[task_title] (fpga) [above of=ctrl] {FPGA};
+ \node[task_title] (fpga) [above of=ctrl,yshift=-0.5cm] {FPGA};
  \path[->] (ctrl) edge (fpga);
  
  %Linjer
@@ -43,8 +43,8 @@
  \path[<-] (uart_tx)        edge (uart_tx_buff);
  \path[->] (uart_rx)        edge (uart_rx_buff);
  
- \path[<-] (uart_tx_buff)        edge[bend left= 30] (interface);
- \path[->] (uart_rx_buff)        edge[bend left=-30] (interface);
+ \path[<-] (uart_tx_buff)        edge[bend left= 25] (interface);
+ \path[->] (uart_rx_buff)        edge[bend left=-25] (interface);
  
  
  \path[->] (interface)       edge (ctrl_bit);
