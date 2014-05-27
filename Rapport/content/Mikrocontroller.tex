@@ -15,7 +15,7 @@ Mikrocontrolleren har følgende opgaver:
 Regulatorerne skal afvikles i hård realtid\footnote{Dvs. at task'en skal afvikles, inden dens deadline - inden for en samplingperiode \citep{operating_systems_concepts_ed8}.},
 da de er designet under antagelsen om periodisk afvikling.
 
-SPI\footnote{Serial Peripheral Interface, også kaldet SSI. Se appendix \ref{app:spi}.} bruges til at overføre PTS's position fra FPGA til mikrocontroller.
+SPI\footnote{Serial Peripheral Interface, også kaldet SSI. Se appendiks \ref{app:spi}.} bruges til at overføre PTS's position fra FPGA til mikrocontroller.
 Desuden overføres beregnet duty cycle fra mikrocontroller til FPGA.
 Kommunikationen skal være tilpas hurtig, så regulatorerne ikke regner på forældet data.
 Forsinkelsen for overførsel af data for begge motorer vurderes til ikke at måtte overstige 5\% af samplingperioden.
@@ -149,7 +149,7 @@ højere baudrate ville overholde kravet, men gør signalet mere følsomt overfor
 \subsection{Test} 
 Det testes hvorvidt SPI-overførslen og Control-task'en overholder timingkravene. 
 Testen udføres ved at sætte en digital udgang høj mens task'en afvikles, og samtidig måle denne udgang med et oscilloskop. 
-Appendix \ref{sec:uctestappendix} forklarer fremgangsmåden og diskuterer måleresultaterne. 
+Appendiks \ref{sec:uctestappendix} forklarer fremgangsmåden og diskuterer måleresultaterne. 
 
 
 Det blev fundet at SPI-overførslen af 2 datawords blev udført 40,54 [\micro s], hvilket opfylder kravet på 83,3 [\micro s]. 
