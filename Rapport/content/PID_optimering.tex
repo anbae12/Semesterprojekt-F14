@@ -8,10 +8,8 @@ For at medtage den væsentligste ulinearitet, dødzonen, i regulatordesignet,
 er det valgt at simulere systemet i Simulink.
 I Simulink er den diskretiserede overføringsfunktion indsat sammen med en model for dødzonen,
 målt eksperimentelt, samt PI-regulatoren. Det simulerede systems blokdiagram er illustreret i figur \ref{fig:simulink1}.
-Da modellen indeholder ulineariteter er det valgt at starte med et simpelt gain \(K_P\) på 1,
-og vha. "trial and error" prøve sig frem til koefficienterne.
-
-\todo[inline, color=red!20]{Hvad menes der med dette?}
+Det er valgt at starte med et simpelt gain \(K_P\) på 1,
+og vha. "trial and error" finde frem til koefficienterne.
 
 Begge regulatorer gives et parabelinput, og deres performance vurderes
 efter deres evne til at følge parablen. Dvs. det er forsøgt at minimere trackingfejlen.
@@ -28,8 +26,6 @@ efter deres evne til at følge parablen. Dvs. det er forsøgt at minimere tracki
 		\(D\left(z\right)\) er PI-regulatoren.}
 \label{fig:simulink1}
 \end{figure}
-\todo[inline, color=red!20]{Vi skal snakke om figuren}
-
 
 Med ovenstående metode blev koefficienterne i tabel \ref{tb:pidSimulink} fundet tilfredsstillende.
 % Koefficienterne i tabel \ref{tb:pidSimulink} benævnes startkoefficienterne, da regulatorjusteringen
@@ -47,15 +43,8 @@ Pan   & 240 &  100 & -
 \caption[Regulatorkoefficienter]{Koefficienter fundet vha. simulering.}
 \label{tb:pidSimulink} 
 \end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\includegraphics[width=0.7\textwidth]{./graphics/pidSim1.eps}
-%\captionsetup{width=0.6\textwidth}
-%\caption[Trackingfejl ved simulering]{Trackingfejl ved simulering af PTS med regulatorkoefficienterne fra tabel \ref{tb:pidSimulink}.} 
-%\label{fig:pidSim1}
-%\end{figure}
-%\todo[inline, color=red!20]{Denne test skal svare til en test vi laver på det rigtige system. Ellers er det ubrugeligt at se på en fejl og sammenligne den med en anden fejl i en anden situation}
+
+\subsubsection{Regulatorperformance på PTS}
 De to regulatorer er med koefficienterne i tabel \ref{tb:pidSimulink} blevet afprøvet i praksis.
 Figur \ref{fig:pidPhys1} viser pan og tilt-fejlsignalet i forhold til den kontinuerte lerdueparabel fra applikationen.
 
@@ -66,7 +55,7 @@ Figur \ref{fig:pidPhys1} viser pan og tilt-fejlsignalet i forhold til den kontin
 \caption[Fejlsignaler m. startkoefficienter]{Fejlsignaler m. startkoefficienterne fra tabel \ref{tb:pidSimulink}.
 	De sorte lodrette streger angiver \(t_s=0,557 \text{ [s]}\).
 	Pan-fejlsignalet er markeret med rødt, og tilt-fejlsignalet er markeret med blåt.
-	Grafen indeholder målinger fra flere forsøg.} 
+	Grafen indeholder målinger fra seks forsøg.} 
 \label{fig:pidPhys1}
 \end{figure}
 
@@ -75,7 +64,7 @@ der maks. afviger 0,66\degree{} efter \(t_s\).
 Pan-fejlen afviger derimod op til 1,8\degree{} efter \(t_s\).
 Trackingfejlen er altså langt større end kravet på maksimalt 1,02\degree.
 Det vurderes at en yderligere manuel justering af koefficienterne på pan-regulatoren nødvendig.
-Det vurderes på baggrund af det lave fejlsignal ved tilt at den fundne
+Det vurderes på baggrund af det lave fejlsignal ved tilt, at den fundne
 PI-regulator for tilt er anvendelig i praksis.
 
 
@@ -85,6 +74,10 @@ hen mod det ønskede.
 
 På pan er der behov for en hurtigere og mere dæmpet reaktion,
 og det vurderes derfor, at der på pan er brug for en PID-regulator.
+\\
+På tilt er det forsøgt at forbedre performance ved justerering af koefficienterne $K_p,K_i$ 
+og ved tilføjelse af $K_d$, men dette lykkedes ikke. Derfor beholdes 
+PI-regulatoren med koefficienter som i tabel \ref{tb:pidSimulink} til tilt.
 
 \subsection{Valg af integratormætning}
 Det vælges at sætte integratormætningen til 100 for begge regulatorer, da det vurderes, at der drages
@@ -113,14 +106,17 @@ Filtrets step- og frekvensrespons kan ses på figur \ref{fig:d_filter_step} hhv.
 \label{fig:d_filter}
 \end{figure}
 
-\todo[inline, color=red!20]{større tidsakse så første og sidste spike kan ses}
+\todo[inline, color=red!20]{større tidsakse så første og sidste spike kan ses. Michael har den på sin todo!}
 
 \section{Endelig performance}
 Efter adskillige test og finjustering af regulatoren, vurderes det at 
 koefficienterne i tabel \ref{tb:PID_final} giver den bedst mulige performance 
-for PTS. Denne performance ses i \ref{fig:PID_final}. Det ses at trackingfejlen 
+for PTS. Denne performance ses i figur \ref{fig:PID_final}. Det ses at trackingfejlen 
 holder sig inden for de 1,02$\degree$  pånær ved et par enkelte samples.
-\todo[inline,author=Mikael]{Der mangler en del om at vores data faktisk godt kan bruges til noget. Hvis man skyder på det rigtige tidspunkt? etc.}
+Det ses at trackingfejlskravet overholdes fra $t_s$ til 0.98 [s] ved samtlige af de 19 forsøg.
+Lerduens rammes altså, hvis der skydes mellem $t_s$ og 0.98 [s].
+Dette giver et tidsrum på 0.42 [s], efter $t_s$, hvor lerduen bliver ramt 
+ved affyring af skud.
 
 \begin{figure}[h!]
 \centering
@@ -139,42 +135,23 @@ Pan   & 100 & 110 & 3,8
 \includegraphics[width=1\textwidth]{./graphics/pidPhys2.eps}
 \caption[Endelig performance]{Endelig performance. Fejlsignaler for pan (rød) og tilt (blå) øverst, trackingfejl nederst.
 Testen er foretaget med koefficienterne fra tabel \ref{tb:PID_final}.
-De sorte streger angiver kravene om Settling Time på under 0,557 [s] og trackingfejl på under 1,02\degree{}.
-Grafen indeholder målinger fra flere forsøg.} 
+De sorte streger angiver kravene om Settling Time på under 0,557 [s] og trackingfejl på under 1,02\degree{}. 
+Den røde stiplede linje afgrænser mod venstre området, hvor alle trackingfejl er 
+indefor kravet.
+Grafen indeholder målinger fra 19 forsøg.} 
 \label{fig:PID_final}
 \end{figure}
-
-\todo[inline, color=red!20]{vi skal kigge på hvor meget vi er uden for og beskrive dette}
-
-%
-%\begin{figure}[h!]
-%\centering
-%\begin{tabu}{l|[1.25pt]c|c|c}
-%      & \(K_P\) & \(K_I\) & \(K_D\)\\\tabucline[1.25pt]{-}
-%Tilt  & 49 & 32,5 & 0\\\hline
-%Pan   & 80 & 160 & 3,55
-%\end{tabu}
-%\captionsetup{type=table}
-%\caption[Endelige regulatorkoefficienter]{De endelige regulatorkoefficienter.}
-%\label{tb:PID_final} 
-%\end{figure}
-%
-%\begin{figure}[h!]
-%\centering
-%\includegraphics[width=1\textwidth]{./graphics/error_slut.eps}
-%\caption[Endelig regulator koefficienter]{Trackingfejl målt i grader for hhv. pan og tilt samt den samlet trackingfejl. Testen tager udgangspunkt i koefficienterne fra  tabel \ref{tb:PID_final} og det ses at den samlet trackingfejl opfylder kravet til PTS.} 
-%\label{fig:PID_final}
-%\end{figure}
 
 Det viste sig under justeringen at systemet er meget følsomt overfor slid i drivremmene mellem motorerne og pan- og tilt-rammerne.
 Systemet kræver derfor kalibrering for at kunne fungere i praksis.
 
 \section{Delkonlusion}
 Ved "trial and error" blev regulatorkoefficienterne i Simulink justeret til at give den ønskede 
-tracking performance ift. et parabelinput. Pan-koefficienterne giver dårlig performance i praksis.
+trackingperformance ift. et parabelinput. Pan-koefficienterne giver dårlig performance i praksis.
 Ved manuel justering blev et sæt PID-regulatorkoefficienter fundet til pan, som gav bedre performance.
 Det vurderedes nødvendigt at implementere et lavpasfilter til D-leddet.
 Med det implementerede filter gav de justerede regulatorkoefficienter en performance,
 der ikke ved alle forsøg levede op til kravspecifikationen. Ved nogle af forsøgene viste
 systemet sig at leve op til kravene om en trackingfejl på under 1,02\degree efter 0,557 [s].
+Ved alle forsøg rammes lerduen, hvis der skydes mellem $t_s$ og 0.98 [s].
 Systemet er følsomt overfor slid i drivremmene.
