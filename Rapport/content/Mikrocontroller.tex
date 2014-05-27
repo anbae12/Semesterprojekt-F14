@@ -21,7 +21,7 @@ Kommunikationen skal være tilpas hurtig, så regulatorerne ikke regner på for�
 Forsinkelsen for overførsel af data for begge motorer vurderes til ikke at måtte overstige 5\% af samplingperioden.
 Ved $T_s = \frac{1}{600}$ er det: 
 \begin{equation}
-	T_{\text{SPI delay}} = \frac{1}{600} \cdot 5\% = 83,3~[\micro s]
+	T_{\text{SPI delay}} \leq \frac{1}{600} \cdot 5\% = 83,3~[\micro s]
 	\label{eq:uc:spi-krav}
 \end{equation}
 
@@ -30,12 +30,6 @@ Brugerinterfacet er ikke tidskritisk.
 Der skal være mulighed for at udlæse væsentlige systemparametre såsom:
 PTS's position, ønsket position, aktuel PWM-duty cycle osv.
 
-%\begin{itemize}
-%\itemsep1pt
-%	\item PTS' position. 
-%	\item Ønsket position. 
-%	\item Afvigelse fra ønsket position. 
-%\end{itemize}
 Desuden skal systemet gemme disse informationer i en logfil,
 som udskrives løbende.
 
@@ -61,44 +55,7 @@ Modulet indeholder seperate FIFO-buffere til afsendelse og modtagelse af data, h
 Det er valgt at bruge FreeRTOS, da dette styresystem gør brug af tvungen schedulering med prioritering (preemptive priority), hvilket sikrer hård realtid.
 Desuden har gruppen erfaring med styresystemet.
 
-%Der er undersøgt fire forskellige muligheder for schedulering.
-%CooCox CoOS\footnote{\citep{www.coocox.com/CoOS.htm}} og FreeRTOS\footnote{\citep{freertos.org}}
-%er komplette realtids-operativsystemer. 
-%Run-To-Complete-Scheduler (RTCS) er en simpel scheduler med frivillig (non-preemtive) schedulering.
-%Ved Super loop metoden afvikles al koden i main-loopet vha. ticks.
-%De fire scheduleringsmuligheder er beskrevet i tabel \ref{tb:os_comparison}.
-
-%Til valget er der lagt vægt på om scheduleringen opfylder kravet til realtidsafvikling af regulatorerne.
-%\begin{figure}[th!]
-%\centering
-
-%\begin{tabu}{l|[1.25pt]l|l|l|l}
-% & CoOS & FreeRTOS & RTCS & Super loop \\ \tabucline[1.25pt]{-}
-%Schedulering & Preemptive priority  & Preemptive priority  & Non- & Non-  \\ 
-%Køer & Ja & Ja & Nej & Nej \\ \hline 
-%Semaforer & Tællende og Binære  & Tællende og Binære & Binære  & Nej  \\
-%\end{tabu}
-%\captionsetup{type=table}
-%\caption{Specifikationer for de undersøgte systemer.}
-%\label{tb:os_comparison}
-%\end{figure}
-
-%De fire muligheder tilbyder alle den nødvendige funktionalitet til hård realtid. 
-%FreeRTOS og CoOS giver begge mulighed for at tasks uden realtidskrav kan afbrydes midlertidigt.
-%Dette gør at disse tasks er lettere at programmere, da der ikke behøves at tage højde for 
-%Dette letter programmeringsarbejdet, da kun timingen af task med realtidskrav skal overholdes.
-
-%
 \subsection{Implementering}
-%disp: 
-% task diagram
-% beskrivelse af tasks
-% implementering af enkelt task (CONTROL TASK). 
-%   - hvordan sikres at denne kører realtid.
-% 
-% beskrivelse af interfacet
-% 
-%\todo[inline, author=Michael]{Venter på at kodens struktur er helt færdig - inden da giver det ikke mening at skrive dette afsnit færdigt. }
 Systemet er opdelt i separate tasks.
 Taskdiagrammet er vist på figur \ref{fig:task_diagram}. 
 
@@ -133,61 +90,13 @@ Control task'en henter en koordinat, transformerer koordinaten,
 udregner en PWM-duty cycle for hver regulator og opdaterer loggen.
 Hver gang control task'en bliver kørt bliver der hentet to positioner
 ind via SPI mens de to nye PWM-duty cycles sendes.
-Ved tracking skriver Control task'en positioner og PWM-duty cycles i loggen,
-
-% \subsubsection{Interface task}
-% \label{sec:interface}
-% Brugerinterfacet gør det overskueligt at styre og skifte mellem de forskellige tilstande som systemet kan køres i.
-% Der er lavet funktioner som bruges til test af specifikke funktioner (fx at sætte en bestemt PWM duty cycle)
-% og funktioner som starter en større test (fx tracking af lerdueparablen).
-% Formålet er at simplificere arbjedet med udviklingen og justeringen af regulatoren -
-% det er altså ikke tænkt til en kunde som ikke ved noget om systemet.
-% De primære funktioner er at sætte en position eller starte tracking af lerduen.
-% Hvis det indtastede ikke bliver genkendt bliver en liste over gyldige funktioner udskrevet.
-% 
-% \begin{figure}[th!]
-% \centering
-% \begin{tabu}{l|[1.25pt]l|l}
-% Kommando: & Funktion: & Parametre: \\\tabucline[1.25pt]{-}
-% start & Start tracking af lerdue &   \\\hline 
-% stop & Stop systemet &   \\\hline 
-% open & Start åben sløjfe test &  \\\hline  
-% reset & Gå til udgangsposition &   \\\hline 
-% C fxx.fyy.fzz & Gå til  kartesisk koord. (x,y,z) & x,y,z = Koordinaterne i meter, \\         
-%             & &  f = fortegn ($+$ ell. $-$)\\\hline 
-% A aaaa.bbbb & Gå til sfærisk koord.  & a = Tilt, b = Pan, begge i ticks. \\\hline  
-% Pmfxx & Sæt dutycycle for motor m & m = Motor ("A" ell. "B"), \\ 
-% & & f = fortegn ($+$ ell. $-$),  \\
-% & & xx = PWM dutycycle i \%
-% \end{tabu} 
-
-%\begin{tabu}{|l|[1.25pt]l|l|}\hline
-%Kommando: & Funktion: & Parametre: \\\tabucline[1.25pt]{-}
-%read & Slå log til eller fra.  &   \\\hline 
-%start & Start tracking af lerdue &   \\\hline 
-%stop & Stop systemet &   \\\hline 
-%open & Start åben sløjfe test &  \\\hline  
-%reset & Gå til udgangsposition &   \\\hline 
-%C xxx.yyy.zzz & Gå til  kartesisk koord. (x,y,z) & x,y,z = Koordinaterne i meter \\\hline 
-%A aaaa.bbbb & Gå til sfærisk koord.  & a = Tilt, b = Pan, begge i ticks. \\\hline  
-%Pmfxx & Sæt dutycycle for motor m & m = Motor ("A" ell. "B"), \\ 
-%& & f = fortegn ($+$ ell. $-$),  \\
-%& & xx = PWM dutycycle i \%\\\hline
-%\end{tabu} 
-% \captionsetup{type=table}
-% \caption{Brugerinterfacets kommandoer.}
-% \label{tb:uart_interface}
-% \end{figure}
+Ved tracking skriver Control task'en positioner og PWM-duty cycles i loggen.
 
 \subsubsection{SPI}
 \label{sec:spi-implementering}
 Mikrocontrolleren agerer master, da den står for systemets timing. FPGA'en er derfor programmeret som SPI slave.
 
 Mikrocontrollerens SPI-modul har indbygget tre forskellige standarder: TI Synchronous Serial Frame Format (SSFT), Freescale og Microwire. 
-%Til at overfører data mellem Mikrocontrolleren og FPGA’en skal der bruges en enkel protokol med full duplex. \todo[author=Anders]{Hovedgrundene til valget af SPI protokol.}
-%Hovedgrundene for at protokollen skal være enkel, er at der ikke sendes meget data, dataene er enkel, og afstanden, den sendes, er kort. 
-%Microwire er ikke full duplex. Så det er enten SSFt eller Freescale, der skulle bruges. Da SSFT havde færre opsætningsmuligheder, blev den valgt som protokol. 
-%I SSFT ligger svaret på nogle af overvejelserne. Overvejelserne har været om MOSI skal trigger på rising eller falling edge, og hvordan Slave Select skulle opføre sig.
 Microwire blev udelukket da den ikke er full-duplex og dermed ikke en SPI standard. 
 Freescale formatet blev udelukket da opsætningen af denne vurderedes mere kompliceret end for SSFT,
 uden at tilføje ekstra muligheder.
@@ -214,47 +123,27 @@ Opbygningen af de to datawords kan ses på figur \ref{fig:protokol1}.
 \caption[Indholdet af SPI datawords]{Viser indholdet af SPI datawords. }
 \label{fig:protokol1}
 \end{figure}
-%\todo[inline, author=Michael]{flot figur, i like :)}
 
-%\begin{figure}[h!]
-%\centering
-%\subfloat[Mikrocontroller til FPGA.\label{fig:spi_to_fpga}]{%
-%\begin{tabular}{|p{4cm}|}   \hline
- %   Motor (1 bit) \\   \hline
- %   Retning (1 bit) \\   \hline
-%    Ignore PWM (1 bit) \\    \hline
-%    N/A (2 bit) \\
- %    \\\hline
- %    \\ \\ \\ \\
- %   PWM duty cycle \\
- %   (11 bits) \\ \\ \\ \\ \\   \hline
-%  \end{tabular}}
-%\qquad
-%\subfloat[FPGA til Mikrocontroller. Der skiftes mellem at sende position for pan og tilt hver gang.
-%\label{fig:spi_from_fpga}]{%
-%\begin{tabular}{|p{4cm}|} \hline
-  %  Motor (1 bit) \\    \hline \\
-%    N/A (4 bit) \\
-%     \\ \\    \hline
-%     \\ \\ \\ \\
-%    Position (ticks) \\
-%    (11 bits) \\ \\ \\ \\ \\    \hline
-%  \end{tabular}}
-%\caption[Indholdet af SPI datawords]{Viser indholdet af SPI datawords. }
-%\label{fig:protokol1}
-%\end{figure}
 Figur \ref{fig:spi_to_fpga} viser indholdet af datawords der bliver sendt fra mikrocontrolleren. 
 Motorbit vælger aktuel motor, retningsbit vælger hvilken retning
 denne skal dreje og PWM-duty cycle indeholder den ønskede PWM-duty cycle. 
 Hvis setPWM bit ikke er sat ignoreres den modtagne besked,
 mens den aktuelle motorposition stadig returneres som vist på figur \ref{fig:spi_from_fpga}. 
 
-%Da SPI er full duplex sendes data fra  Mikrocontrolleren og FPGA’en synkront - FPGA’en sender et dataword samtidig med mikrocontrolleren
- %Mikrocontrolleren sender den  PWM, der skal sættes på den bestemte motor i den bestemte retning. Det er det motor- og retningsbittene bestemmer.
-%På Mikrocontrolleren ville man gerne kunne få en position uden, at den sætter en ny PWM. 
-%Derfor skal der bruges en bit, hvor FGPA’en kan se om den skal sætte PWM’en, eller om den kun skal sende information tilbage. Der er det PWMset bruges til.
-%På figur \ref{fig:spi_from_fpga} ses dataword'et som FPGA'en sender. FPGA'en sender positionen på den bestemte motor. 
+Baudrate skal vælges efter kravet om, at to overførsler maks. må tage 83,3 [\micro s], jævnfør 
+ligning \ref{eq:uc:spi-krav}. To overførsler svarer til 34 clockcycles ved 
+single transfer ved den valgte SPI opsætning. Derfor kan den maksimale værdi for 
+clockperioden  $T_C$ ses i ligning \ref{eq:uc:clock-krav}.
 
+\begin{equation}
+	T_{\text{C}} \leq \frac{83,3~[\micro s]}{34} = 2.45~[\micro s]
+	\label{eq:uc:clock-krav}
+\end{equation}
+
+Baudrate vælges til 1 [MHz], så ligning \ref{eq:uc:clock-krav} opfyldes. En 
+højere baudrate ville overholde kravet, men gør signalet mere følsom overfor støj.
+
+\todo[inline,author=Mikkel,color=pink]{Er sektionen om baudrate okay?}
 \subsection{Test} 
 Det testes hvorvidt SPI-overførslen og Control-task'en overholder timingkravene. 
 Testen udføres ved at sætte en digital udgang høj mens task'en afvikles, og samtidig måle denne udgang med et oscilloskop. 
@@ -268,6 +157,8 @@ Control-task'en blev afviklet periodisk med en afvigelse på under 1\%.
 \subsection{Delkonklusion}
 Det blev valgt at benytte den udleverede LM3S6965 mikrocontroller.
 Denne understøtter SPI og UART som hardwaremoduler. 
+SPI blev implementeret som TI Synchronous Serial Frame Format med en baudrate på 
+1 [MHz].
 
 Det blev valgt at bruge FreeRTOS til scheduleringen,
 da tvungen schedulering med prioritet sikrer hård realtid. 
