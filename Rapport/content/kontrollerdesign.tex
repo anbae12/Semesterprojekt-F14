@@ -40,23 +40,17 @@ Men som illustreret på figur \ref{fig:digitalkontroller1}, så skal regulerings
 "køres" (sample) med en frekvens \(f_s=\frac{1}{T_s}\), der ikke nødvendigvis er 120 [Hz].
 Dvs. D/D- D/A- og A/D-konverteringerne (på nær input-samplingen) skal foregå med frekvensen \(f_s\).
 
-\todo[inline,author=Mikael]{Nedenstående ang. diskretiseringsmetoder skal være kortere, og der skal være KILDE!}
 Der er overordnet to strategier til valg af samplingfrekvensen \(f_s\) hvormed
 reguleringssløjfen skal køre \citep[s. 553]{elehandbook}:
-1) Hvis man designer en kontinuert regulator til det kontinuerte domæne, så
-skal diskretiseringen af controlleren være så tæt på den kontinuerte regulator som muligt.
-Det vil sige, samplingfrekvensen skal vælges så høj som mulig.
-2) Hvis man derimod designer en diskret regulator til det diskrete domæne,
-så er diskretiseringen allerede foretaget inden designet af regulatoren.
-Dvs. man finder en diskretiseret model af det fysiske system inden designet af regulatoren.
+Den ene er at designe en kontinuert regulator til det kontinuerte domæne, og diskretisere
+den med en samplingfrekvens, der er så høj som mulig.
+Den anden metode er at designe en diskret regulator til det diskrete domæne,
+og starte med at diskretisere den kontinuerte del af systemet, så man har en
+diskretiseret model af det fysiske system inden designet af regulatoren.
 Kravet til diskretiseringen af åbensløjfeoverføringsfunktionerne er, at den diskrete repræsentation
 skal være tilfredsstillende tæt på de kontinuerte overføringsfunktioner.
-Hvis den diskrete overføringsfunktion eksempelvis afviger 20\% fra den kontinuerte, ville man
-sandsynligvis overveje at benytte en højere samplingfrekvens til diskretiseringen.
 Sammenligningen af den diskrete overførselsfunktion og den kontinuerte overføringsfunktion
-kan være både i tidsdomænet (fx steprespons) og i frekvensdomænet (frekvensrespons, fx. Bode-plots).
-Når man har den diskretiserede model af systemet, kan man i det diskrete domæne (z-domænet)
-udvikle en regulator - denne er altså diskret fra starten.
+kan være både i tidsdomænet og i frekvensdomænet.
 
 Da reguleringen foregår i en task på mikrocontrolleren, vælges det
 at udvikle en diskret regulator efter en diskretiseret model af systemet.
