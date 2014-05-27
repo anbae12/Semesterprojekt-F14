@@ -118,7 +118,7 @@ at denne står tilnærmelsesvis lodret under hele bevægelsen.
 \label{subsec:matFPGA}
 FPGA'en læser motorakslens rotation inden reduktionsgearingen.
 Da encoderopløsningen er 360 ticks pr. rotation \citep{emgmotor},
-vil gearingen 1:3 gøre, at opløsningen for én rotation af rammerne er 1080 ticks.
+vil gearingen 1:3 på PTS gøre, at opløsningen for én rotation af rammerne er 1080 ticks.
 Når der refereres til ticks, kan der altså konverteres til grader i det \(3\) ticks \( = 1\degree\).
 
 På FPGA'en genereres to PWM-signaler til den dobbelte H-bro ud fra to
@@ -129,7 +129,7 @@ Overføringsfunktionen for PWM-generatoren %- motorspændingsfald konvertering �
 modelleres som en forstærkning. 
 Duty cycle mellem -100\% og +100\% forstærkes
 til en DC-spænding mellem -12 [V] og +12 [V]. Med denne simple model ændres systemets orden ikke,
-og det vurderes, at tidsforsinkelsen fra input duty cycle til motorbevægelse er negligerbar.
+og det vurderes, at tidsforsinkelsen fra input duty cycle til motorbevægelse er negligerbar. 
 Overføringsfunktionen fra duty cycle til DC-spænding står i ligning \ref{eq:transPWM}.
 \begin{equation}
 	\text{PWM}\left(s\right)=\text{PWM}=12
@@ -140,7 +140,7 @@ Overføringsfunktionen fra duty cycle til DC-spænding står i ligning \ref{eq:t
 
 %\subsection{Pan- og tilt-systemernes åbensløjfeoverføringsfunktioner}
 \subsection{PTS's åbensløjfeoverføringsfunktioner}
-Hvert SISO-undersystem består af én PWM-blok på FPGA'en og en DC-motor med belastning.
+Hvert SISO-undersystem består af en PWM-blok på FPGA'en og en DC-motor med belastning.
 To overføringsfunktioner \(G_{pan}\) og \(G_{tilt}\) for PTS kan opskrives
 som produktet af ligning \ref{eq:transPWM} og \ref{eq:transTheta}. De to overføringsfunktioner
 står i ligningerne \ref{eq:transpantilt0}, og de er illustreret i figur \ref{fig:openloop1}.
@@ -174,7 +174,7 @@ står i ligningerne \ref{eq:transpantilt0}, og de er illustreret i figur \ref{fi
 \end{figure}
 
 Åbensløjfeoverføringsfunktionerne \(G_{pan}\) og \(G_{tilt}\) danner udgangspunktet
-for analysen der hører til designet af reguleringssløjferne.
+for analysen der hører til valget af regulatortype.
 % I afsnit \ref{subsec:verifikation} nedenfor diskuteres overføringsfunktionernes nøjagtighed,
 % og der gives forslag til forbedring af modellen ift. det fysiske system som det fungerer
 % i praksis.
@@ -219,7 +219,7 @@ at den målte vinkelacceleration (hældningen af grafen) er marginalt mindre end
 Ønskes en mere nøjagtig matematisk model af PTS
 er det altså en mulighed at indsætte dødzonen og evt. den ekstra dæmpning i modellen.
 Det vælges dog at benytte de lineære åbensløjfeoverføringsfunktioner \(G_{pan}\) og \(G_{tilt}\)
-som udgangspunkt for analysen der hører til regulatordesignet,
+som udgangspunkt for analysen der hører til valget af regulatortype,
 og i simuleringer af systemet at indsætte de tilnærmede værdier for dødzonen.
 
 \subsection{Koordinattransformation}
@@ -228,8 +228,8 @@ De kartesiske koordinater \(P_c=\left[x, y, z\right]\) skal transformeres til sf
 \(P_s=\left[\rho \text{ ; } \phi \text{ ; } \theta\right]\), hvor \(\phi\) og \(\theta\) er vinklerne for hhv. tilt og pan, og \(\rho\) er afstanden fra PTS til lerduen.
 Til trackingen er kun \(\phi\) og \(\theta\) nødvendige.
 Positionbestemmelsen som funktion af tiden for det kartesiske koordinatsæt beskrives i appendix \ref{subsubsec:para}.
-Idet vinklerne skal bestemmes i forhold til PTS's rotationscenter og ikke koordinatsystemets origo,
-skal PTS's rotationscenter PTS trækkes fra:
+Idet vinklerne skal bestemmes i forhold til PTS's rotationscenter og ikke koordinatsystemets oprindelige origo,
+flyttes origo til PTS's rotationscenter:
 \(PTS=[\text{19,2 ; 0 ; 0,45}]\). 
 
 \textbf{Flytning af origo}\\

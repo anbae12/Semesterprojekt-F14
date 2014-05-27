@@ -15,7 +15,7 @@ Mikrocontrolleren har følgende opgaver:
 Regulatorerne skal afvikles i hård realtid\footnote{Dvs. at task'en skal afvikles, inden dens deadline - inden for en samplingperiode \citep{operating_systems_concepts_ed8}.},
 da de er designet under antagelsen om periodisk afvikling.
 
-SPI\footnote{Serial Peripheral Interface, også kaldet SSI.} bruges til at overføre PTS's position fra FPGA til mikrocontroller.
+SPI\footnote{Serial Peripheral Interface, også kaldet SSI. Se appendix \ref{app:spi}.} bruges til at overføre PTS's position fra FPGA til mikrocontroller.
 Desuden overføres beregnet duty cycle fra mikrocontroller til FPGA.
 Kommunikationen skal være tilpas hurtig, så regulatorerne ikke regner på forældet data.
 Forsinkelsen for overførsel af data for begge motorer vurderes til ikke at måtte overstige 5\% af samplingperioden.
@@ -37,7 +37,7 @@ som udskrives løbende.
 \subsection{Beskrivelse af mikrocontroller}
 Den udleverede mikrocontroller er en 32-bits Stellaris LM3S6965, 
 baseret på en ARM Cortex M3-kerne. 
-Den opererer ved 50 [MHz] og bruger Thump 2 instruktionssættet. 
+Den opererer ved 50 [MHz] og bruger Thump 2-instruktionssættet. 
 Den indeholder 256 [kB] flash hukommelse samt 64 [kB] SRAM \citep{lm3s6965}.
 
 SPI er indbygget som et hardwaremodul, 
@@ -65,7 +65,10 @@ Taskdiagrammet er vist på figur \ref{fig:task_diagram}.
 \begin{tikzpicture}[node distance = 3.2cm]
 	\include*{./graphics/uc_task_diagram}
 \end{tikzpicture}
-\caption[Taskdiagram]{Taskdiagrammet viser programmets opdeling i tasks.}
+\caption[Taskdiagram]{Taskdiagrammet viser programmets opdeling i tasks.
+	Tasks: UART send, UART receive, Interface, Logger og Control.
+	Køer: uart out buffer, uart in buffer, control message og status.
+	State variabel: log file.}
 \label{fig:task_diagram}
 \end{figure}
 
@@ -94,7 +97,7 @@ Ved tracking skriver Control task'en positioner og PWM-duty cycles i loggen.
 
 \subsubsection{SPI}
 \label{sec:spi-implementering}
-Mikrocontrolleren agerer master, da den står for systemets timing. FPGA'en er derfor programmeret som SPI slave.
+Mikrocontrolleren fungerer som master, da den står for systemets timing. FPGA'en er derfor programmeret som SPI slave.
 
 Mikrocontrollerens SPI-modul har indbygget tre forskellige standarder: TI Synchronous Serial Frame Format (SSFT), Freescale og Microwire. 
 Microwire blev udelukket da den ikke er full-duplex og dermed ikke en SPI standard. 
@@ -102,7 +105,7 @@ Freescale formatet blev udelukket da opsætningen af denne vurderedes mere kompl
 uden at tilføje ekstra muligheder.
 Valget faldt derfor på SSFT.
 
-Størrelse af data framen blev valgt til 16 bit, hvilket giver mulighed for at sende
+Størrelse af dataframen blev valgt til 16 bit, hvilket giver mulighed for at sende
 motorens PWM-duty cycle og deres position (begge 11 bit) samt kontroldata.
 Opbygningen af de to datawords kan ses på figur \ref{fig:protokol1}.
 
@@ -136,12 +139,12 @@ single transfer ved den valgte SPI opsætning. Derfor kan den maksimale værdi f
 clockperioden  $T_C$ ses i ligning \ref{eq:uc:clock-krav}.
 
 \begin{equation}
-	T_{\text{C}} \leq \frac{83,3~[\micro s]}{34} = 2.45~[\micro s]
+	T_{\text{C}} \leq \frac{83,3~[\micro s]}{34} = 2,45~[\micro s]
 	\label{eq:uc:clock-krav}
 \end{equation}
 
 Baudrate vælges til 1 [MHz], så ligning \ref{eq:uc:clock-krav} opfyldes. En 
-højere baudrate ville overholde kravet, men gør signalet mere følsom overfor støj.
+højere baudrate ville overholde kravet, men gør signalet mere følsomt overfor støj.
 
 \subsection{Test} 
 Det testes hvorvidt SPI-overførslen og Control-task'en overholder timingkravene. 
@@ -160,12 +163,11 @@ SPI blev implementeret som TI Synchronous Serial Frame Format med en baudrate p�
 1 [MHz].
 
 Det blev valgt at bruge FreeRTOS til scheduleringen,
-da tvungen schedulering med prioritet sikrer hård realtid. 
+da tvungen schedulering med prioritering sikrer hård realtid. 
 
-Programmet blev delt op i fem task's; UART send, UART receive, Interface, Logger og Control. 
+Programmet blev delt op i fem task's: UART send, UART receive, Interface, Logger og Control. 
 % Al realtidsfunktionalitet blev implementeret i Control-task'en. 
-
-Det var påkrævet at Control-task'en kunne afvikles med en frekvens på 600 [Hz]. 
+Det var påkrævet at Control-task'en kunne afvikles med en frekvens på 600 [Hz], og den blev derfor tildelt højeste prioritet. 
 Task'ens afviklingstid blev målt til max. 360 [\(\micro\)s], hvilket var væsentlig lavere end den max. tilladte tid på \(\frac{1}{600}\) [s]. 
 SPI-kommunikationen kunne afvikles på 40,54 [\(\micro\)s], hvilket opfyldte kravet på max. 5\% af Control-task'ens periodetid. 
 
