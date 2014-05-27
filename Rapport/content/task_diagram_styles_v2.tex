@@ -16,7 +16,7 @@
     }
   }
 }
-\tikzset{buffer_sem/.style={ %add lines
+\tikzset{buffer_sem/.style={
     fill=blue!10, text=black, text width = 4.5em, minimum height =3em, text centered,
     append after command={
       [shorten >=0.2bp, shorten <=0.2bp]
@@ -27,10 +27,42 @@
       (\tikzlastnode.south west)edge[very thick](\tikzlastnode.south east)
     },
     append after command={
+      
+      (\tikzlastnode.20)edge[color=black!50](\tikzlastnode.340)
+    },
+    append after command={
+      (\tikzlastnode.30)edge[color=black!50](\tikzlastnode.330)
+    },
+    append after command={
+      (\tikzlastnode.40)edge[color=black!50](\tikzlastnode.320)
+    },
+    append after command={
+      (\tikzlastnode.50)edge[color=black!50](\tikzlastnode.310)
+    },
+    append after command={
+      (\tikzlastnode.65)edge[color=black!50](\tikzlastnode.295)
+    },
+    append after command={
+      (\tikzlastnode.80)edge[color=black!50](\tikzlastnode.280)
+    },
+    append after command={
+      (\tikzlastnode.100)edge[color=black!50](\tikzlastnode.260)
+    },
+    append after command={
+      (\tikzlastnode.115)edge[color=black!50](\tikzlastnode.245)
+    },
+    append after command={
+      (\tikzlastnode.130)edge[color=black!50](\tikzlastnode.230)
+    },
+    append after command={
+      (\tikzlastnode.140)edge[color=black!50](\tikzlastnode.220)
+    },
+    append after command={
       node[semaphore] at (\tikzlastnode.north east) {}
     }
   }
 }
+
 \tikzset{memory_sem/.style= {
     rectangle, draw, very thick, fill=blue!10, text width = 4.5em, minimum height =3em, text centered,
     append after command={
