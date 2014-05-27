@@ -90,7 +90,8 @@ Det valgtes derfor at tilføje et filter til D-leddet.
 Det betyder at D-leddet nu vægter tidligere ændringer i fejlsignalet. 
 Filteret reducerer peaks i det differrentierede fejlsignal, der skyldes Zero Order Hold i upsamplingen (se afsnit \ref{subsec:upsampling}).
 
-Der implementeres et 4. ordens FIR filter. Filteret er designet i MATLAB's grafiske fdatool og gør brug af at Kaiser vindue.
+Der implementeres et 4. ordens FIR filter. På denne måde vægtes de seneste 5 samples, hvilket sikrer at skiftene i target-position altid indgår i filtreringen.
+Filteret er designet i MATLAB's grafiske fdatool og gør brug af at Kaiser-vindue.
 Filterets step- og frekvensrespons kan ses på figur \ref{fig:d_filter_step} hhv. \ref{fig:d_filter_bode}. 
 
 \begin{figure}[h!]
