@@ -118,21 +118,23 @@ og step-responsens karakteristik for den diskrete og kontinuere overføringsfunk
 % Diskretiseringen opfører sig med bedste tilnærmelse som det kontinuerte system
 % når Rise Time, Settling Time og Overshoot efter diskretiseringen
 % ændrer sig så lidt som muligt i forhold til responsen af det kontinuerte system.
+
 Diskretiseringen vurderes at være tæt nok på den kontinuere model, hvis følgende krav opfyldes:
-Det vurderes, at Rise Time og Settling Time maks. må ændre sig med 5\% i forhold
+Rise Time og Settling Time maks. må ændre sig med 5\% i forhold
 til den kontinuerte respons, mens at Overshoot maks. må ændre sig med 25\% i forhold til
 den kontinuerte respons.
 
-\begin{table}
- \centering
-\begin{tabular}{lr}
- Overshoot & 25\%\\
- Rise Time & 5\%\\
- Settling Time & 5\%\\
-\end{tabular}
-\caption[MANGLER]{MANGLER}
-\end{table}
-\todo[inline, color=red!20]{skal rettes til}
+%\begin{table}
+% \centering
+%\begin{tabular}{lr}
+% Overshoot & 25\%\\
+% Rise Time & 5\%\\
+% Settling Time & 5\%\\
+%\end{tabular}
+%\caption[Kravene til diskretiseringen]{Kravene for diskretiseringen}
+%\label{tb:kravtildis}
+%\end{table}
+%\todo[inline, color=red!20]{skal rettes til}
 
 Hvis diskretiseringen kræver at reguleringssløjfen kører ved en frekvens \(f_s\),
 der er højere end A/D-konverteringens 120 [Hz], skal det A/D-konverterede
